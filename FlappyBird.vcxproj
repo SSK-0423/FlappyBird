@@ -17,7 +17,6 @@
       <Configuration>Release</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -53,27 +52,27 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
-
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Label="Shared" >
+  <ImportGroup Label="Shared">
   </ImportGroup>
-    <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    </ImportGroup>
-    <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-      <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    </ImportGroup>
-    <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    </ImportGroup>
-    <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    </ImportGroup>
-
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -108,10 +107,18 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\;$(ProjectDir)DirectXTex\;$(ProjectDir)DirectXTK\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>DirectXTex\Bin\Desktop_2022\x64\Debug;DirectXTK\Bin\Desktop_2019_Win10\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>DirectXTK12.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -122,16 +129,127 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\;$(ProjectDir)DirectXTex\;$(ProjectDir)DirectXTK\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
+      <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>DirectXTex\Bin\Desktop_2022\x64\Release;DirectXTK\Bin\Desktop_2022_Win10\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>DirectXTK12.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-
-  <ItemGroup></ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\DX12Wrapper\ConstantBuffer.cpp" />
+    <ClCompile Include="src\DX12Wrapper\CubeRenderTarget.cpp" />
+    <ClCompile Include="src\DX12Wrapper\DepthStencilBuffer.cpp" />
+    <ClCompile Include="src\DX12Wrapper\DescriptorHeapCBV_SRV_UAV.cpp" />
+    <ClCompile Include="src\DX12Wrapper\DescriptorHeapDSV.cpp" />
+    <ClCompile Include="src\DX12Wrapper\DescriptorHeapRTV.cpp" />
+    <ClCompile Include="src\DX12Wrapper\Dx12GraphicsEngine.cpp" />
+    <ClCompile Include="src\DX12Wrapper\FontRenderer.cpp" />
+    <ClCompile Include="src\DX12Wrapper\GraphicsPipelineState.cpp" />
+    <ClCompile Include="src\DX12Wrapper\IndexBuffer.cpp" />
+    <ClCompile Include="src\DX12Wrapper\RenderingContext.cpp" />
+    <ClCompile Include="src\DX12Wrapper\RenderTarget.cpp" />
+    <ClCompile Include="src\DX12Wrapper\RenderTargetBuffer.cpp" />
+    <ClCompile Include="src\DX12Wrapper\RootSignature.cpp" />
+    <ClCompile Include="src\DX12Wrapper\Shader.cpp" />
+    <ClCompile Include="src\DX12Wrapper\ShaderResourceViewDesc.cpp" />
+    <ClCompile Include="src\DX12Wrapper\Texture.cpp" />
+    <ClCompile Include="src\DX12Wrapper\VertexBuffer.cpp" />
+    <ClCompile Include="src\Framework\Button.cpp" />
+    <ClCompile Include="src\Framework\ButtonRenderer.cpp" />
+    <ClCompile Include="src\Framework\Camera.cpp" />
+    <ClCompile Include="src\Framework\Canvas.cpp" />
+    <ClCompile Include="src\Framework\Game.cpp" />
+    <ClCompile Include="src\Framework\InputSystem.cpp" />
+    <ClCompile Include="src\Framework\IRenderer.cpp" />
+    <ClCompile Include="src\Framework\Object.cpp" />
+    <ClCompile Include="src\Framework\Scene.cpp" />
+    <ClCompile Include="src\Framework\SceneManager.cpp" />
+    <ClCompile Include="src\Framework\ShaderLibrary.cpp" />
+    <ClCompile Include="src\Framework\SoundClip.cpp" />
+    <ClCompile Include="src\Framework\SoundManager.cpp" />
+    <ClCompile Include="src\Framework\Sprite.cpp" />
+    <ClCompile Include="src\Framework\SpriteRenderer.cpp" />
+    <ClCompile Include="src\Framework\Text.cpp" />
+    <ClCompile Include="src\Framework\Transform2D.cpp" />
+    <ClCompile Include="src\Framework\Window.cpp" />
+    <ClCompile Include="src\Game\FlappyBird.cpp" />
+    <ClCompile Include="src\Game\main.cpp" />
+    <ClCompile Include="src\Game\PressEnterText.cpp" />
+    <ClCompile Include="src\Game\Renderer.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\Game\TitleScene.cpp" />
+    <ClCompile Include="src\Game\TitleSceneCanvas.cpp" />
+    <ClCompile Include="src\pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="src\DX12Wrapper\ConstantBuffer.h" />
+    <ClInclude Include="src\DX12Wrapper\CubeRenderTarget.h" />
+    <ClInclude Include="src\DX12Wrapper\DepthStencilBuffer.h" />
+    <ClInclude Include="src\DX12Wrapper\DescriptorHeapCBV_SRV_UAV.h" />
+    <ClInclude Include="src\DX12Wrapper\DescriptorHeapDSV.h" />
+    <ClInclude Include="src\DX12Wrapper\DescriptorHeapRTV.h" />
+    <ClInclude Include="src\DX12Wrapper\Dx12GraphicsEngine.h" />
+    <ClInclude Include="src\DX12Wrapper\FontRenderer.h" />
+    <ClInclude Include="src\DX12Wrapper\GraphicsPipelineState.h" />
+    <ClInclude Include="src\DX12Wrapper\IndexBuffer.h" />
+    <ClInclude Include="src\DX12Wrapper\InputLayout.h" />
+    <ClInclude Include="src\DX12Wrapper\RenderingContext.h" />
+    <ClInclude Include="src\DX12Wrapper\RenderTarget.h" />
+    <ClInclude Include="src\DX12Wrapper\RenderTargetBuffer.h" />
+    <ClInclude Include="src\DX12Wrapper\RootSignature.h" />
+    <ClInclude Include="src\DX12Wrapper\Shader.h" />
+    <ClInclude Include="src\DX12Wrapper\ShaderResourceViewDesc.h" />
+    <ClInclude Include="src\DX12Wrapper\Texture.h" />
+    <ClInclude Include="src\DX12Wrapper\VertexBuffer.h" />
+    <ClInclude Include="src\Framework\Button.h" />
+    <ClInclude Include="src\Framework\ButtonRenderer.h" />
+    <ClInclude Include="src\Framework\Camera.h" />
+    <ClInclude Include="src\Framework\Canvas.h" />
+    <ClInclude Include="src\Framework\Game.h" />
+    <ClInclude Include="src\Framework\GameImpl.h" />
+    <ClInclude Include="src\Framework\IComponent.h" />
+    <ClInclude Include="src\Framework\InputSystem.h" />
+    <ClInclude Include="src\Framework\IRenderer.h" />
+    <ClInclude Include="src\Framework\Object.h" />
+    <ClInclude Include="src\Framework\Scene.h" />
+    <ClInclude Include="src\Framework\SceneManager.h" />
+    <ClInclude Include="src\Framework\ShaderLibrary.h" />
+    <ClInclude Include="src\Framework\SoundClip.h" />
+    <ClInclude Include="src\Framework\SoundManager.h" />
+    <ClInclude Include="src\Framework\Sprite.h" />
+    <ClInclude Include="src\Framework\SpriteRenderer.h" />
+    <ClInclude Include="src\Framework\Text.h" />
+    <ClInclude Include="src\Framework\Transform2D.h" />
+    <ClInclude Include="src\Framework\Window.h" />
+    <ClInclude Include="src\Game\FlappyBird.h" />
+    <ClInclude Include="src\Game\PressEnterText.h" />
+    <ClInclude Include="src\Game\Renderer.h" />
+    <ClInclude Include="src\Game\TitleScene.h" />
+    <ClInclude Include="src\Game\TitleSceneCanvas.h" />
+    <ClInclude Include="src\pch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="FlappyBird.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\2048_DirectX.ico" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -13,5 +13,304 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="ソース ファイル\DX12Wrapper">
+      <UniqueIdentifier>{9884fcfb-c977-4d6b-ab8b-c3c556ae2e2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Framework">
+      <UniqueIdentifier>{5729766c-4317-4726-b35d-ee41179fcb2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Utility">
+      <UniqueIdentifier>{cb79d89c-5828-41c3-827d-688d6fd338e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game">
+      <UniqueIdentifier>{f84ae2c9-81b5-4463-8c3b-93ad06b0eb24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Graphics">
+      <UniqueIdentifier>{deb8360e-7475-4faa-8e12-4aacf7d7cdeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\TitleScene">
+      <UniqueIdentifier>{385e4cf0-ee27-4f97-89d5-d14fdb184a26}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Game\main.cpp">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pch.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DX12Wrapper\ConstantBuffer.cpp">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DX12Wrapper\CubeRenderTarget.cpp">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DX12Wrapper\DepthStencilBuffer.cpp">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DX12Wrapper\DescriptorHeapCBV_SRV_UAV.cpp">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DX12Wrapper\DescriptorHeapDSV.cpp">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DX12Wrapper\DescriptorHeapRTV.cpp">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DX12Wrapper\Dx12GraphicsEngine.cpp">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DX12Wrapper\FontRenderer.cpp">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DX12Wrapper\GraphicsPipelineState.cpp">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DX12Wrapper\IndexBuffer.cpp">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DX12Wrapper\RenderingContext.cpp">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DX12Wrapper\RenderTarget.cpp">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DX12Wrapper\RenderTargetBuffer.cpp">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DX12Wrapper\RootSignature.cpp">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DX12Wrapper\Shader.cpp">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DX12Wrapper\ShaderResourceViewDesc.cpp">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DX12Wrapper\Texture.cpp">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DX12Wrapper\VertexBuffer.cpp">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Button.cpp">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\ButtonRenderer.cpp">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Camera.cpp">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Canvas.cpp">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Game.cpp">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\InputSystem.cpp">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\IRenderer.cpp">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Object.cpp">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Scene.cpp">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\SceneManager.cpp">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\ShaderLibrary.cpp">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\SoundClip.cpp">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\SoundManager.cpp">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Sprite.cpp">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\SpriteRenderer.cpp">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Text.cpp">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Transform2D.cpp">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Window.cpp">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Renderer.cpp">
+      <Filter>ソース ファイル\Game\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\FlappyBird.cpp">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\PressEnterText.cpp">
+      <Filter>ソース ファイル\Game\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\TitleScene.cpp">
+      <Filter>ソース ファイル\Game\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\TitleSceneCanvas.cpp">
+      <Filter>ソース ファイル\Game\TitleScene</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\pch.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DX12Wrapper\ConstantBuffer.h">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DX12Wrapper\CubeRenderTarget.h">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DX12Wrapper\DepthStencilBuffer.h">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DX12Wrapper\DescriptorHeapCBV_SRV_UAV.h">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DX12Wrapper\DescriptorHeapDSV.h">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DX12Wrapper\DescriptorHeapRTV.h">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DX12Wrapper\Dx12GraphicsEngine.h">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DX12Wrapper\FontRenderer.h">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DX12Wrapper\GraphicsPipelineState.h">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DX12Wrapper\IndexBuffer.h">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DX12Wrapper\InputLayout.h">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DX12Wrapper\RenderingContext.h">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DX12Wrapper\RenderTarget.h">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DX12Wrapper\RenderTargetBuffer.h">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DX12Wrapper\RootSignature.h">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DX12Wrapper\Shader.h">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DX12Wrapper\ShaderResourceViewDesc.h">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DX12Wrapper\Texture.h">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DX12Wrapper\VertexBuffer.h">
+      <Filter>ソース ファイル\DX12Wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Button.h">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\ButtonRenderer.h">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Camera.h">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Canvas.h">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Game.h">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\GameImpl.h">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\IComponent.h">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\InputSystem.h">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\IRenderer.h">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Object.h">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Scene.h">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\SceneManager.h">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\ShaderLibrary.h">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\SoundClip.h">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\SoundManager.h">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Sprite.h">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\SpriteRenderer.h">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Text.h">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Transform2D.h">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Window.h">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Renderer.h">
+      <Filter>ソース ファイル\Game\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\FlappyBird.h">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\PressEnterText.h">
+      <Filter>ソース ファイル\Game\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\TitleScene.h">
+      <Filter>ソース ファイル\Game\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\TitleSceneCanvas.h">
+      <Filter>ソース ファイル\Game\TitleScene</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="FlappyBird.rc">
+      <Filter>リソース ファイル</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\2048_DirectX.ico">
+      <Filter>リソース ファイル</Filter>
+    </Image>
   </ItemGroup>
 </Project>
