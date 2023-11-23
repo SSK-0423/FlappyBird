@@ -1,10 +1,13 @@
 #include "Window.h"
 #include "../resource.h"
 
-HWND Framework::Window::m_hwnd;
 
 namespace Framework
 {
+	// Ã“Iƒƒ“ƒo•Ï”‚ÌÀ‘Ì‰»
+	HWND Window::m_hwnd;
+	WNDCLASSEX Window::m_wndClassEx;
+	
 	LRESULT WindowProcedure(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 	{
 		switch (msg)

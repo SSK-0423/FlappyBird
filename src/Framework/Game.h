@@ -13,7 +13,7 @@ namespace Framework
 	{
 	public:
 		Game(GameImpl& gameImpl, IRenderer& renderer)
-			: m_gameImpl(gameImpl), m_renderer(renderer), m_window(Window()) {};
+			: m_gameImpl(gameImpl), m_renderer(renderer) {};
 		~Game() = default;
 
 	public:
@@ -25,7 +25,6 @@ namespace Framework
 		void Final();
 
 	private:
-		Window m_window;
 		std::chrono::system_clock::time_point m_prevFrameTime;
 		GameImpl& m_gameImpl;
 		IRenderer& m_renderer;

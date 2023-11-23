@@ -18,15 +18,15 @@ namespace Framework
 {
 	void Game::Init()
 	{
-		m_window.Create(NAME, WIDTH, HEIGHT);
-		auto& hwnd = m_window.GetHwnd();
+		Window::Create(NAME, WIDTH, HEIGHT);
+		auto& hwnd = Window::GetHwnd();
 
-		RESULT result = InputSystem::Init(m_window.GetHwnd());
+		RESULT result = InputSystem::Init(hwnd);
 		if (result == RESULT::FAILED)
 		{
 			MessageBoxA(hwnd, "InputSystemの初期化に失敗", "エラー", MB_OK);
 		}
-		result = DX12Wrapper::Dx12GraphicsEngine::Instance().Init(m_window.GetHwnd(), WIDTH, HEIGHT);
+		result = DX12Wrapper::Dx12GraphicsEngine::Instance().Init(hwnd, WIDTH, HEIGHT);
 		if (result == RESULT::FAILED)
 		{
 			MessageBoxA(hwnd, "Dx12GraphicsEngineの初期化に失敗", "エラー", MB_OK);
@@ -52,7 +52,7 @@ namespace Framework
 		// 1フレーム目でのデルタタイムを0秒とする
 		m_prevFrameTime = std::chrono::system_clock::now();
 
-		while (bool isPlaying = m_window.DispatchWindowMessage())
+		while (bool isPlaying = Window::DispatchWindowMessage())
 		{
 			auto currentFrameTime = std::chrono::system_clock::now();
 			float deltaTime
