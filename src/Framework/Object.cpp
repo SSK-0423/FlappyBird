@@ -4,7 +4,7 @@
 
 namespace Framework
 {
-	Object::Object() : m_parent(nullptr), m_children()
+	Object::Object()
 	{
 		m_components.push_back(std::make_unique<Transform2D>(this));
 	}
@@ -14,38 +14,16 @@ namespace Framework
 		{
 			component->Update(deltaTime);
 		}
-
-		for (auto& child : m_children)
-		{
-			child->Update(deltaTime);
-		}
 	}
 	void Object::Draw()
 	{
 		// 子オブジェクトが存在する場合、
 		// 親オブジェクトはステージなどの背景オブジェクトの可能性があるため、
 		// 子オブジェクトを先に描画する
-		for (auto& child : m_children)
-		{
-			child->Draw();
-		}
-
 		for (auto& component : m_components)
 		{
 			component->Draw();
 		}
-	}
-	Object* Object::Parent()
-	{
-		return m_parent;
-	}
-	void Object::SetParent(Object* parent)
-	{
-		m_parent = parent;
-	}
-	void Object::AddChild(std::unique_ptr<Object>& child)
-	{
-		m_children.push_back(std::move(child));
 	}
 	void Object::SetActive(bool isActive)
 	{
@@ -54,5 +32,13 @@ namespace Framework
 	bool Object::GetActive()
 	{
 		return m_isActive;
+	}
+	void Object::SetName(std::string name)
+	{
+		m_name = name;
+	}
+	std::string Object::GetName()
+	{
+		return m_name;
 	}
 }

@@ -16,26 +16,26 @@ namespace DX12Wrapper
 			&resDesc,
 			D3D12_RESOURCE_STATE_GENERIC_READ,
 			nullptr,
-			IID_PPV_ARGS(_indexBuffer.ReleaseAndGetAddressOf()));
+			IID_PPV_ARGS(m_indexBuffer.ReleaseAndGetAddressOf()));
 
 		if (FAILED(result)) { return result; }
 
 		// ビュー生成
-		_indexBufferView.BufferLocation = _indexBuffer->GetGPUVirtualAddress();
-		_indexBufferView.SizeInBytes = bufferSize;
-		_indexBufferView.Format = DXGI_FORMAT_R32_UINT;
+		m_indexBufferView.BufferLocation = m_indexBuffer->GetGPUVirtualAddress();
+		m_indexBufferView.SizeInBytes = bufferSize;
+		m_indexBufferView.Format = DXGI_FORMAT_R32_UINT;
 
 		return result;
 	}
 
 	HRESULT IndexBuffer::MapIndexBuffer(const std::vector<UINT>& index)
 	{
-		HRESULT result = _indexBuffer->Map(0, nullptr, (void**)&_indexMap);
+		HRESULT result = m_indexBuffer->Map(0, nullptr, (void**)&m_indexMap);
 		if (FAILED(result)) { return result; }
 
-		std::copy(std::begin(index), std::end(index), _indexMap);
+		std::copy(std::begin(index), std::end(index), m_indexMap);
 
-		_indexBuffer->Unmap(0, nullptr);
+		m_indexBuffer->Unmap(0, nullptr);
 
 		return result;
 	}
@@ -43,7 +43,7 @@ namespace DX12Wrapper
 	RESULT IndexBuffer::Create(ID3D12Device& device, const std::vector<UINT>& index)
 	{
 		// インデックス数記録
-		_indexNum = static_cast<UINT>(index.size());
+		m_indexNum = static_cast<UINT>(index.size());
 
 		// インデックスバッファーとビュー生成
 		if (FAILED(CreateIndexBufferAndView(device, index))) { return RESULT::FAILED; }

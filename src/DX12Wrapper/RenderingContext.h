@@ -22,7 +22,7 @@ namespace DX12Wrapper
 		~RenderingContext();
 
 	private:
-		ID3D12GraphicsCommandList* _cmdList = nullptr;
+		ID3D12GraphicsCommandList* m_cmdList = nullptr;
 
 	public:
 		/// <summary>

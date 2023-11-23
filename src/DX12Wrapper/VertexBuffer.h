@@ -19,9 +19,9 @@ namespace DX12Wrapper
 		~VertexBuffer() = default;
 
 	private:
-		Microsoft::WRL::ComPtr<ID3D12Resource> _vertexBuffer = nullptr;	// 頂点バッファー
-		D3D12_VERTEX_BUFFER_VIEW _vertexBufferView;	                    // 頂点バッファービュー
-		UINT _vertexNum = 0;											// 頂点数
+		Microsoft::WRL::ComPtr<ID3D12Resource> m_vertexBuffer = nullptr;	// 頂点バッファー
+		D3D12_VERTEX_BUFFER_VIEW m_vertexBufferView;	                    // 頂点バッファービュー
+		UINT m_vertexNum = 0;											// 頂点数
 
 		/// <summary>
 		/// 頂点バッファーとビュー生成
@@ -55,7 +55,7 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns>頂点バッファービュー</returns>
 		const D3D12_VERTEX_BUFFER_VIEW& GetView() const {
-			return _vertexBufferView;
+			return m_vertexBufferView;
 		}
 
 		/// <summary>
@@ -63,7 +63,7 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns>頂点数</returns>
 		UINT GetVertexNum() const {
-			return _vertexNum;
+			return m_vertexNum;
 		}
 	};
 }

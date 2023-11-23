@@ -19,7 +19,7 @@ namespace DX12Wrapper
 			&resDesc,
 			D3D12_RESOURCE_STATE_GENERIC_READ,
 			nullptr,
-			IID_PPV_ARGS(_constantBuffer.ReleaseAndGetAddressOf()));
+			IID_PPV_ARGS(m_constantBuffer.ReleaseAndGetAddressOf()));
 		if (FAILED(result)) { return result; }
 
 		return result;
@@ -27,11 +27,11 @@ namespace DX12Wrapper
 
 	HRESULT ConstantBuffer::MapConstantBuffer(void* data, const UINT& bufferSize)
 	{
-		HRESULT result = _constantBuffer->Map(0, nullptr, (void**)&_mappedData);
+		HRESULT result = m_constantBuffer->Map(0, nullptr, (void**)&m_mappedData);
 		if (FAILED(result)) { return result; }
 
 		if (data != nullptr)
-			std::memcpy((void*)_mappedData, data, static_cast<size_t>(bufferSize));
+			std::memcpy((void*)m_mappedData, data, static_cast<size_t>(bufferSize));
 
 		return result;
 	}
@@ -39,7 +39,7 @@ namespace DX12Wrapper
 	RESULT ConstantBuffer::Create(ID3D12Device& device, void* data, const UINT& bufferSize)
 	{
 		// バッファーサイズ取得
-		_bufferSize = AlignmentedSize(bufferSize, D3D12_TEXTURE_DATA_PITCH_ALIGNMENT);
+		m_bufferSize = AlignmentedSize(bufferSize, D3D12_TEXTURE_DATA_PITCH_ALIGNMENT);
 
 		// バッファー生成
 		if (FAILED(CreateConstantBuffer(device, bufferSize))) { return RESULT::FAILED; }

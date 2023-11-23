@@ -59,8 +59,8 @@ namespace DX12Wrapper
 	/// </summary>
 	struct RootSignatureData
 	{
-		SamplerData _samplerData;				// サンプラーの設定
-		DescriptorRangeData _descRangeData;		// ディスクリプタレンジの設定
+		SamplerData m_samplerData;				// サンプラーの設定
+		DescriptorRangeData m_descRangeData;		// ディスクリプタレンジの設定
 
 		/// <summary>
 		/// コンストラクタ
@@ -93,7 +93,7 @@ namespace DX12Wrapper
 		~RootSignature() = default;
 
 	private:
-		Microsoft::WRL::ComPtr<ID3D12RootSignature> _rootSignature = nullptr;	// ルートシグネチャ
+		Microsoft::WRL::ComPtr<ID3D12RootSignature> m_rootSignature = nullptr;	// ルートシグネチャ
 
 		/// <summary>
 		/// ルートシグネチャ生成
@@ -134,7 +134,7 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns>ルートシグネチャ</returns>
 		ID3D12RootSignature& GetRootSignature() const {
-			return *_rootSignature.Get();
+			return *m_rootSignature.Get();
 		}
 
 	};

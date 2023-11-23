@@ -40,7 +40,7 @@ namespace DX12Wrapper
 		~RenderTargetBuffer() = default;
 
 	private:
-		Microsoft::WRL::ComPtr<ID3D12Resource> _rtvBuffer = nullptr;
+		Microsoft::WRL::ComPtr<ID3D12Resource> m_rtvBuffer = nullptr;
 
 	public:
 		/// <summary>
@@ -65,7 +65,7 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns></returns>
 		ID3D12Resource& GetBuffer() {
-			return *_rtvBuffer.Get();
+			return *m_rtvBuffer.Get();
 		}
 	};
 }

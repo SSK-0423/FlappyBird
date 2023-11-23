@@ -24,15 +24,15 @@ namespace DX12Wrapper
 
 		Texture& operator=(const Texture& inst);
 	private:
-		Microsoft::WRL::ComPtr<ID3D12Resource> _uploadBuffer = nullptr;		// 中間バッファー(アップロード元)
-		Microsoft::WRL::ComPtr<ID3D12Resource> _textureBuffer = nullptr;	// テクスチャバッファー(アップロード先)
+		Microsoft::WRL::ComPtr<ID3D12Resource> m_uploadBuffer = nullptr;		// 中間バッファー(アップロード元)
+		Microsoft::WRL::ComPtr<ID3D12Resource> m_textureBuffer = nullptr;	// テクスチャバッファー(アップロード先)
 
-		std::vector<D3D12_SUBRESOURCE_DATA> _subresources; // キューブテクスチャ用サブリソース
+		std::vector<D3D12_SUBRESOURCE_DATA> m_subresources; // キューブテクスチャ用サブリソース
 
 		// ScratchImage::GetImageの戻り値にconstがついているため
-		const DirectX::Image* _image = nullptr;	// テクスチャの生データ
-		DirectX::TexMetadata _metaData;	        // テクスチャのメタ情報
-		DirectX::ScratchImage _scratchImage;    // 
+		const DirectX::Image* m_image = nullptr;	// テクスチャの生データ
+		DirectX::TexMetadata m_metaData;	        // テクスチャのメタ情報
+		DirectX::ScratchImage m_scratchImage;    // 
 
 		/// <summary>
 		/// WIC対応のファイル(bmp,png,jpeg,tiffなど)を読み込む
@@ -129,7 +129,7 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns>テクスチャバッファー</returns>
 		ID3D12Resource& GetBuffer() const {
-			return *_textureBuffer.Get();
+			return *m_textureBuffer.Get();
 		}
 
 		/// <summary>
@@ -137,7 +137,7 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns>テクスチャのメタデータ</returns>
 		DirectX::TexMetadata& GetTexMetadata() {
-			return _metaData;
+			return m_metaData;
 		}
 
 		/// <summary>
@@ -145,7 +145,7 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns>テクスチャの生データ</returns>
 		const DirectX::Image& GetImage() {
-			return *_image;
+			return *m_image;
 		}
 	};
 }

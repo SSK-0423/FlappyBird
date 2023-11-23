@@ -152,8 +152,8 @@ namespace Framework
 	Utility::RESULT SpriteRenderer::CreateRootSignature(ID3D12Device& device)
 	{
 		RootSignatureData rootSigData;
-		rootSigData._descRangeData.cbvDescriptorNum = static_cast<UINT>(CONSTANT_BUFFER_INDEX::BUFFER_COUNT);
-		rootSigData._descRangeData.srvDescriptorNum = 1;
+		rootSigData.m_descRangeData.cbvDescriptorNum = static_cast<UINT>(CONSTANT_BUFFER_INDEX::BUFFER_COUNT);
+		rootSigData.m_descRangeData.srvDescriptorNum = 1;
 
 		return m_rootSignature->Create(device, rootSigData);
 	}

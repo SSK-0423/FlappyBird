@@ -11,8 +11,6 @@ namespace Framework
 		{
 			m_components.clear();
 			m_components.shrink_to_fit();
-			m_children.clear();
-			m_children.shrink_to_fit();
 		}
 
 		template<class T>
@@ -43,16 +41,15 @@ namespace Framework
 		void Update(float deltaTime);
 		void Draw();
 
-		Object* Parent();
-		void SetParent(Object* parent);
-		void AddChild(std::unique_ptr<Object>& child);
 		void SetActive(bool isActive);
 		bool GetActive();
 
+		void SetName(std::string name);
+		std::string GetName();
+
 	protected:
 		std::vector<std::unique_ptr<IComponent>> m_components;
-		Object* m_parent = nullptr;
-		std::vector<std::unique_ptr<Object>> m_children;
+		std::string m_name = "Object";
 		bool m_isActive = true;
 	};
 

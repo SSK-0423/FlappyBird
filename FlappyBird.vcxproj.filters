@@ -114,12 +114,6 @@
     <ClCompile Include="src\DX12Wrapper\VertexBuffer.cpp">
       <Filter>ソース ファイル\DX12Wrapper</Filter>
     </ClCompile>
-    <ClCompile Include="src\Framework\Button.cpp">
-      <Filter>ソース ファイル\Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Framework\Camera.cpp">
-      <Filter>ソース ファイル\Framework</Filter>
-    </ClCompile>
     <ClCompile Include="src\Framework\Canvas.cpp">
       <Filter>ソース ファイル\Framework</Filter>
     </ClCompile>
@@ -182,6 +176,12 @@
     </ClCompile>
     <ClCompile Include="src\Game\GameScene.cpp">
       <Filter>ソース ファイル\Game\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Camera.cpp">
+      <Filter>ソース ファイル\Framework\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Button.cpp">
+      <Filter>ソース ファイル\Framework\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -247,12 +247,6 @@
     </ClInclude>
     <ClInclude Include="src\DX12Wrapper\VertexBuffer.h">
       <Filter>ソース ファイル\DX12Wrapper</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Framework\Button.h">
-      <Filter>ソース ファイル\Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Framework\Camera.h">
-      <Filter>ソース ファイル\Framework</Filter>
     </ClInclude>
     <ClInclude Include="src\Framework\Canvas.h">
       <Filter>ソース ファイル\Framework</Filter>
@@ -322,6 +316,12 @@
     </ClInclude>
     <ClInclude Include="src\Game\GameScene.h">
       <Filter>ソース ファイル\Game\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Camera.h">
+      <Filter>ソース ファイル\Framework\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Button.h">
+      <Filter>ソース ファイル\Framework\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

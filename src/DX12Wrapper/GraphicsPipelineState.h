@@ -18,9 +18,9 @@ namespace DX12Wrapper
 		~GraphicsPipelineState() = default;
 
 	private:
-		Microsoft::WRL::ComPtr<ID3D12PipelineState> _pipelineState = nullptr;	// パイプラインステート
+		Microsoft::WRL::ComPtr<ID3D12PipelineState> m_pipelineState = nullptr;	// パイプラインステート
 
-		D3D12_GRAPHICS_PIPELINE_STATE_DESC _pipelineStateDesc;
+		D3D12_GRAPHICS_PIPELINE_STATE_DESC m_pipelineStateDesc;
 
 		/// <summary>
 		/// パイプラインステート生成
@@ -45,7 +45,7 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns>パイプラインステート</returns>
 		ID3D12PipelineState& GetPipelineState() {
-			return *_pipelineState.Get();
+			return *m_pipelineState.Get();
 		}
 	};
 }

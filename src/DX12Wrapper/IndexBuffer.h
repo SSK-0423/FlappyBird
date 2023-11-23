@@ -15,10 +15,10 @@ namespace DX12Wrapper
 		IndexBuffer() = default;
 		~IndexBuffer() = default;
 	private:
-		Microsoft::WRL::ComPtr<ID3D12Resource> _indexBuffer = nullptr;	// インデックスバッファー
-		D3D12_INDEX_BUFFER_VIEW _indexBufferView;	                    // インデックスバッファービュー
-		UINT* _indexMap = nullptr;	                                    // マップ先
-		UINT _indexNum = 0;	                                            // インデックス数
+		Microsoft::WRL::ComPtr<ID3D12Resource> m_indexBuffer = nullptr;	// インデックスバッファー
+		D3D12_INDEX_BUFFER_VIEW m_indexBufferView;	                    // インデックスバッファービュー
+		UINT* m_indexMap = nullptr;	                                    // マップ先
+		UINT m_indexNum = 0;	                                            // インデックス数
 
 		/// <summary>
 		/// インデックスバッファーとビュー生成
@@ -49,7 +49,7 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns>インデックスバッファービュー</returns>
 		const D3D12_INDEX_BUFFER_VIEW& GetView() const {
-			return _indexBufferView;
+			return m_indexBufferView;
 		}
 
 		/// <summary>
@@ -57,7 +57,7 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns>インデックス数</returns>
 		UINT GetIndexNum() const {
-			return _indexNum;
+			return m_indexNum;
 		}
 	};
 }

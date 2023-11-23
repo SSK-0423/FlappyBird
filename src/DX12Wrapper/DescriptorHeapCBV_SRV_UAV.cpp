@@ -15,11 +15,11 @@ namespace DX12Wrapper
 		D3D12_DESCRIPTOR_HEAP_DESC heapDesc;
 		heapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
 		heapDesc.NodeMask = 0;
-		heapDesc.NumDescriptors = _MAX_CBV_DESCRIPTOR_NUM + _MAX_SRV_DESCRIPTOR_NUM + _MAX_UAV_DESCRIPTOR_NUM;
+		heapDesc.NumDescriptors = m_MAX_CBV_DESCRIPTOR_NUM + m_MAX_SRV_DESCRIPTOR_NUM + m_MAX_UAV_DESCRIPTOR_NUM;
 		heapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
 
 		HRESULT result = device.CreateDescriptorHeap(
-			&heapDesc, IID_PPV_ARGS(_descriptorHeap.ReleaseAndGetAddressOf()));
+			&heapDesc, IID_PPV_ARGS(m_descriptorHeap.ReleaseAndGetAddressOf()));
 		if (FAILED(result)) { return result; }
 
 		return result;
@@ -28,7 +28,7 @@ namespace DX12Wrapper
 	RESULT DescriptorHeapCBV_SRV_UAV::Create(ID3D12Device& device)
 	{
 		// ハンドルのインクリメントサイズ取得
-		_handleIncrimentSize = device.GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+		m_handleIncrimentSize = device.GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
 		// ディスクリプタヒープ生成
 		if (FAILED(CreateDescriptorHeap(device))) { return RESULT::FAILED; }
@@ -40,46 +40,46 @@ namespace DX12Wrapper
 		ID3D12Device& device, Texture& texture,
 		ShaderResourceViewDesc& desc, const int& registerNo)
 	{
-		assert(registerNo < static_cast<int>(_MAX_SRV_DESCRIPTOR_NUM) && registerNo >= NEXT_REGISTER);
+		assert(registerNo < static_cast<int>(m_MAX_SRV_DESCRIPTOR_NUM) && registerNo >= NEXT_REGISTER);
 
-		auto cpuHandle = _descriptorHeap->GetCPUDescriptorHandleForHeapStart();
-		auto gpuHandle = _descriptorHeap->GetGPUDescriptorHandleForHeapStart();
+		auto cpuHandle = m_descriptorHeap->GetCPUDescriptorHandleForHeapStart();
+		auto gpuHandle = m_descriptorHeap->GetGPUDescriptorHandleForHeapStart();
 
 		// GPUDescriptorHandleも一緒にインクリメントする必要ある？？
 
 		if (registerNo == NEXT_REGISTER)	// 登録されているリソース数の次のレジスタ
 		{
-			cpuHandle.ptr += _handleIncrimentSize * (static_cast<SIZE_T>(_registedSRVNum) + _MAX_CBV_DESCRIPTOR_NUM);
-			gpuHandle.ptr += _handleIncrimentSize * (static_cast<SIZE_T>(_registedSRVNum) + _MAX_CBV_DESCRIPTOR_NUM);
+			cpuHandle.ptr += m_handleIncrimentSize * (static_cast<SIZE_T>(m_registedSRVNum) + m_MAX_CBV_DESCRIPTOR_NUM);
+			gpuHandle.ptr += m_handleIncrimentSize * (static_cast<SIZE_T>(m_registedSRVNum) + m_MAX_CBV_DESCRIPTOR_NUM);
 		}
 		else                                // 指定されたレジスタ
 		{
-			cpuHandle.ptr += _handleIncrimentSize * (static_cast<SIZE_T>(registerNo) + _MAX_CBV_DESCRIPTOR_NUM);
-			gpuHandle.ptr += _handleIncrimentSize * (static_cast<SIZE_T>(registerNo) + _MAX_CBV_DESCRIPTOR_NUM);
+			cpuHandle.ptr += m_handleIncrimentSize * (static_cast<SIZE_T>(registerNo) + m_MAX_CBV_DESCRIPTOR_NUM);
+			gpuHandle.ptr += m_handleIncrimentSize * (static_cast<SIZE_T>(registerNo) + m_MAX_CBV_DESCRIPTOR_NUM);
 		}
 
 		device.CreateShaderResourceView(&texture.GetBuffer(), &desc.desc, cpuHandle);
 
-		_registedSRVNum++;
+		m_registedSRVNum++;
 	}
 
 	void DescriptorHeapCBV_SRV_UAV::RegistConstantBuffer(
 		ID3D12Device& device, ConstantBuffer& constantBuffer, const int& registerNo)
 	{
-		assert(registerNo < static_cast<int>(_MAX_CBV_DESCRIPTOR_NUM) && registerNo >= NEXT_REGISTER);
+		assert(registerNo < static_cast<int>(m_MAX_CBV_DESCRIPTOR_NUM) && registerNo >= NEXT_REGISTER);
 
-		auto cpuHandle = _descriptorHeap->GetCPUDescriptorHandleForHeapStart();
-		auto gpuHandle = _descriptorHeap->GetGPUDescriptorHandleForHeapStart();
+		auto cpuHandle = m_descriptorHeap->GetCPUDescriptorHandleForHeapStart();
+		auto gpuHandle = m_descriptorHeap->GetGPUDescriptorHandleForHeapStart();
 
 		if (registerNo == NEXT_REGISTER)	// 登録されているリソース数の次のレジスタ
 		{
-			cpuHandle.ptr += _handleIncrimentSize * _registedCBVNum;
-			gpuHandle.ptr += _handleIncrimentSize * _registedCBVNum;
+			cpuHandle.ptr += m_handleIncrimentSize * m_registedCBVNum;
+			gpuHandle.ptr += m_handleIncrimentSize * m_registedCBVNum;
 		}
 		else                                // 指定されたレジスタ
 		{
-			cpuHandle.ptr += _handleIncrimentSize * registerNo;
-			gpuHandle.ptr += _handleIncrimentSize * registerNo;
+			cpuHandle.ptr += m_handleIncrimentSize * registerNo;
+			gpuHandle.ptr += m_handleIncrimentSize * registerNo;
 		}
 
 		D3D12_CONSTANT_BUFFER_VIEW_DESC cbvDesc = {};
@@ -88,13 +88,13 @@ namespace DX12Wrapper
 
 		device.CreateConstantBufferView(&cbvDesc, cpuHandle);
 
-		_registedCBVNum++;
+		m_registedCBVNum++;
 	}
 
 	void DescriptorHeapCBV_SRV_UAV::RegistUnorderedAccessResource(
 		ID3D12Device& device, UnorderedAccessResource& unorderedAccessResource, const int& registerNo)
 	{
-		assert(registerNo < static_cast<int>(_MAX_CBV_DESCRIPTOR_NUM) && registerNo >= NEXT_REGISTER);
+		assert(registerNo < static_cast<int>(m_MAX_CBV_DESCRIPTOR_NUM) && registerNo >= NEXT_REGISTER);
 		// Todo:必要になったら実装
 	}
 }

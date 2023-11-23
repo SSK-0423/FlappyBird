@@ -42,9 +42,9 @@ namespace DX12Wrapper
 		~DepthStencilBuffer() = default;
 
 	private:
-		Microsoft::WRL::ComPtr<ID3D12Resource> _dsvBuffer = nullptr;
+		Microsoft::WRL::ComPtr<ID3D12Resource> m_dsvBuffer = nullptr;
 
-		DepthStencilBufferData _depthStencilBufferData;
+		DepthStencilBufferData m_depthStencilBufferData;
 
 	public:
 		/// <summary>
@@ -60,7 +60,7 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns></returns>
 		ID3D12Resource& GetBuffer() {
-			return *_dsvBuffer.Get();
+			return *m_dsvBuffer.Get();
 		}
 
 		/// <summary>
@@ -69,7 +69,7 @@ namespace DX12Wrapper
 		/// <returns></returns>
 		DepthStencilBufferData GetDepthStencilBufferData()
 		{
-			return _depthStencilBufferData;
+			return m_depthStencilBufferData;
 		}
 	};
 }

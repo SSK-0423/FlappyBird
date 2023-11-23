@@ -19,9 +19,9 @@ namespace DX12Wrapper
 		~DescriptorHeapDSV() = default;
 
 	private:
-		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> _dsvHeap = nullptr;		// ディスクリプタヒープ
-		SIZE_T _handleIncrimentSize = 0;										// ハンドルのインクリメントサイズ
-		UINT _registedDSVNum = 0;									            // ヒープに登録されたディスクリプタ数
+		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> m_dsvHeap = nullptr;		// ディスクリプタヒープ
+		SIZE_T m_handleIncrimentSize = 0;										// ハンドルのインクリメントサイズ
+		UINT m_registedDSVNum = 0;									            // ヒープに登録されたディスクリプタ数
 
 		/// <summary>
 		/// ディスクリプタヒープ生成
@@ -43,7 +43,7 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns></returns>
 		SIZE_T GetHandleIncrimentSize() {
-			return _handleIncrimentSize;
+			return m_handleIncrimentSize;
 		}
 
 		/// <summary>
@@ -51,7 +51,7 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns></returns>
 		UINT GetRegistedDescriptorNum() {
-			return _registedDSVNum;
+			return m_registedDSVNum;
 		}
 
 		/// <summary>
@@ -66,7 +66,7 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns></returns>
 		D3D12_CPU_DESCRIPTOR_HANDLE GetCPUDescriptorHandleForHeapStart() {
-			return _dsvHeap->GetCPUDescriptorHandleForHeapStart();
+			return m_dsvHeap->GetCPUDescriptorHandleForHeapStart();
 		}
 	};
 }

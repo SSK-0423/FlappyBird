@@ -16,48 +16,48 @@ namespace DX12Wrapper
 {
 	RESULT CubeRenderTarget::Create(ID3D12Device& device, CubeRenderTargetData& renderTargetData)
 	{
-		_renderTargetData = renderTargetData;
+		m_renderTargetData = renderTargetData;
 
 		// レンダーターゲット生成
-		RESULT result = _renderTargetBuffer.Create(device, renderTargetData.renderTargetBufferData);
+		RESULT result = m_renderTargetBuffer.Create(device, renderTargetData.renderTargetBufferData);
 		if (result == RESULT::FAILED) { return result; }
 
 		// レンダーターゲットヒープ生成
-		result = _rtvHeap.Create(device);
+		result = m_rtvHeap.Create(device);
 		if (result == RESULT::FAILED) { return result; }
 
 		// レンダーターゲットビュー生成
-		_rtvHeap.RegistDescriptor(
-			device, _renderTargetBuffer, _renderTargetData.renderTargetBufferData.colorFormat);
+		m_rtvHeap.RegistDescriptor(
+			device, m_renderTargetBuffer, m_renderTargetData.renderTargetBufferData.colorFormat);
 
 		// オフスクリーンテクスチャバッファー生成
-		_renderTargetTexture.CreateTextureFromRenderTarget(_renderTargetBuffer);
+		m_renderTargetTexture.CreateTextureFromRenderTarget(m_renderTargetBuffer);
 
 		// テクスチャ用ヒープ生成
-		result = _textureHeap.Create(device);
+		result = m_textureHeap.Create(device);
 		if (result == RESULT::FAILED) { return result; }
 
 		// テクスチャとして登録
-		ShaderResourceViewDesc renderDesc(_renderTargetTexture);
-		_textureHeap.RegistShaderResource(device, _renderTargetTexture, renderDesc);
+		ShaderResourceViewDesc renderDesc(m_renderTargetTexture);
+		m_textureHeap.RegistShaderResource(device, m_renderTargetTexture, renderDesc);
 
 		// デプスステンシルバッファー生成
-		result = _depthStencilBuffer.Create(device, renderTargetData.depthStencilBufferData);
+		result = m_depthStencilBuffer.Create(device, renderTargetData.depthStencilBufferData);
 		if (result == RESULT::FAILED) { return result; }
 
 		// デプスステンシル用ディスクリプタヒープ生成
-		result = _dsvHeap.Create(device);
+		result = m_dsvHeap.Create(device);
 		if (result == RESULT::FAILED) { return result; }
 
 		// デプスステンシルビュー生成
-		_dsvHeap.RegistDescriptor(device, _depthStencilBuffer);
+		m_dsvHeap.RegistDescriptor(device, m_depthStencilBuffer);
 
 		// デプスステンシルテクスチャバッファー生成
-		_depthStencilTexture.CreateTextureFromDepthStencil(_depthStencilBuffer);
+		m_depthStencilTexture.CreateTextureFromDepthStencil(m_depthStencilBuffer);
 
 		// テクスチャとして登録
-		ShaderResourceViewDesc depthDesc(_depthStencilTexture);
-		_textureHeap.RegistShaderResource(device, _depthStencilTexture, depthDesc);
+		ShaderResourceViewDesc depthDesc(m_depthStencilTexture);
+		m_textureHeap.RegistShaderResource(device, m_depthStencilTexture, depthDesc);
 
 		return RESULT::SUCCESS;
 	}
@@ -66,32 +66,32 @@ namespace DX12Wrapper
 	{
 		// レンダーターゲットに移行
 		renderContext.TransitionResourceState(
-			_renderTargetBuffer.GetBuffer(),
+			m_renderTargetBuffer.GetBuffer(),
 			D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE,
 			D3D12_RESOURCE_STATE_RENDER_TARGET);
 
 		// レンダーターゲットセット
-		auto rtvHandle = _rtvHeap.GetCPUDescriptorHandleForHeapStart();
+		auto rtvHandle = m_rtvHeap.GetCPUDescriptorHandleForHeapStart();
 
-		if (_renderTargetData.useDepth) {
+		if (m_renderTargetData.useDepth) {
 
 			// 深度バッファー
-			auto dsvHandle = _dsvHeap.GetCPUDescriptorHandleForHeapStart();
+			auto dsvHandle = m_dsvHeap.GetCPUDescriptorHandleForHeapStart();
 
 			renderContext.SetRenderTarget(&rtvHandle, &dsvHandle);
 
 			// デプスステンシルバッファーをクリア
 			renderContext.ClearDepthStencilView(
 				dsvHandle, D3D12_CLEAR_FLAG_DEPTH,
-				_renderTargetData.depthStencilBufferData.clearDepth,
-				_renderTargetData.depthStencilBufferData.clearStencil, 0, nullptr);
+				m_renderTargetData.depthStencilBufferData.clearDepth,
+				m_renderTargetData.depthStencilBufferData.clearStencil, 0, nullptr);
 		}
 		else {
 			renderContext.SetRenderTarget(&rtvHandle, nullptr);
 		}
 
 		// 画面を指定色でクリア
-		renderContext.ClearRenderTarget(rtvHandle, _renderTargetData.renderTargetBufferData.clearColor, 0, nullptr);
+		renderContext.ClearRenderTarget(rtvHandle, m_renderTargetData.renderTargetBufferData.clearColor, 0, nullptr);
 
 		// ビューポート、シザー矩形セット
 		renderContext.SetViewport(viewport);
@@ -102,7 +102,7 @@ namespace DX12Wrapper
 	{
 		// ピクセルシェーダーリソースへ移行
 		renderContext.TransitionResourceState(
-			_renderTargetBuffer.GetBuffer(),
+			m_renderTargetBuffer.GetBuffer(),
 			D3D12_RESOURCE_STATE_RENDER_TARGET,
 			D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
 	}
@@ -119,20 +119,20 @@ namespace DX12Wrapper
 		{
 			// レンダーターゲットに移行
 			renderContext.TransitionResourceState(
-				renderTargets[idx]._renderTargetBuffer.GetBuffer(),
+				renderTargets[idx].m_renderTargetBuffer.GetBuffer(),
 				D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE,
 				D3D12_RESOURCE_STATE_RENDER_TARGET);
 
-			rtvHandles[idx] = renderTargets[idx]._rtvHeap.GetCPUDescriptorHandleForHeapStart();
+			rtvHandles[idx] = renderTargets[idx].m_rtvHeap.GetCPUDescriptorHandleForHeapStart();
 
 			// 画面を指定色でクリア
 			renderContext.ClearRenderTarget(
-				rtvHandles[idx], renderTargets[idx]._renderTargetData.renderTargetBufferData.clearColor, 0, nullptr);
+				rtvHandles[idx], renderTargets[idx].m_renderTargetData.renderTargetBufferData.clearColor, 0, nullptr);
 
 			// デプスステンシルは1つしかセットできないので、最初に見つかったものを使用する
-			if (renderTargets[idx]._renderTargetData.useDepth && dsvHandle == nullptr) {
+			if (renderTargets[idx].m_renderTargetData.useDepth && dsvHandle == nullptr) {
 				dsvHandle = new D3D12_CPU_DESCRIPTOR_HANDLE();
-				auto handle = renderTargets[idx]._dsvHeap.GetCPUDescriptorHandleForHeapStart();
+				auto handle = renderTargets[idx].m_dsvHeap.GetCPUDescriptorHandleForHeapStart();
 				// GetCPUDescriptorHandleForHeapStartの戻り値が値渡しなので、
 				// スコープを抜ける際にdsvHandleがnullとなるのを防ぐためにコピーする
 				memcpy_s(
@@ -144,8 +144,8 @@ namespace DX12Wrapper
 				// デプスステンシルバッファーをクリア
 				renderContext.ClearDepthStencilView(
 					*dsvHandle, D3D12_CLEAR_FLAG_DEPTH,
-					renderTargets[idx]._renderTargetData.depthStencilBufferData.clearDepth,
-					renderTargets[idx]._renderTargetData.depthStencilBufferData.clearStencil, 0, nullptr);
+					renderTargets[idx].m_renderTargetData.depthStencilBufferData.clearDepth,
+					renderTargets[idx].m_renderTargetData.depthStencilBufferData.clearStencil, 0, nullptr);
 			}
 		}
 
@@ -163,7 +163,7 @@ namespace DX12Wrapper
 		{
 			// ピクセルシェーダーリソースへ移行
 			renderContext.TransitionResourceState(
-				renderTargets[idx]._renderTargetBuffer.GetBuffer(),
+				renderTargets[idx].m_renderTargetBuffer.GetBuffer(),
 				D3D12_RESOURCE_STATE_RENDER_TARGET,
 				D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
 		}

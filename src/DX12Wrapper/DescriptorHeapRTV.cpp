@@ -14,7 +14,7 @@ namespace DX12Wrapper
 		heapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
 
 		HRESULT result = device.CreateDescriptorHeap(
-			&heapDesc, IID_PPV_ARGS(_rtvHeap.ReleaseAndGetAddressOf()));
+			&heapDesc, IID_PPV_ARGS(m_rtvHeap.ReleaseAndGetAddressOf()));
 		if (FAILED(result)) { return result; }
 
 		return result;
@@ -23,7 +23,7 @@ namespace DX12Wrapper
 	RESULT DescriptorHeapRTV::Create(ID3D12Device& device)
 	{
 		// ハンドルのインクリメントサイズ取得
-		_handleIncrimentSize =
+		m_handleIncrimentSize =
 			static_cast<SIZE_T>(device.GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV));
 
 		// ディスクリプタヒープ生成
@@ -35,14 +35,14 @@ namespace DX12Wrapper
 	D3D12_CPU_DESCRIPTOR_HANDLE DescriptorHeapRTV::GetNextCPUDescriptorHandle()
 	{
 		// 範囲外参照を防ぐ
-		assert(_nextHandleLocation <= _registedRTVNum);
+		assert(m_nextHandleLocation <= m_registedRTVNum);
 
 		// 次のハンドルへ
-		auto handle = _rtvHeap->GetCPUDescriptorHandleForHeapStart();
-		handle.ptr += _nextHandleLocation * _handleIncrimentSize;
+		auto handle = m_rtvHeap->GetCPUDescriptorHandleForHeapStart();
+		handle.ptr += m_nextHandleLocation * m_handleIncrimentSize;
 
 		// 次のハンドル位置を指す
-		_nextHandleLocation++;
+		m_nextHandleLocation++;
 
 		return handle;
 	}
@@ -50,8 +50,8 @@ namespace DX12Wrapper
 	void DescriptorHeapRTV::RegistDescriptor(
 		ID3D12Device& device, RenderTargetBuffer& buffer, DXGI_FORMAT format, bool isCubeMap)
 	{
-		auto handle = _rtvHeap->GetCPUDescriptorHandleForHeapStart();
-		handle.ptr += _registedRTVNum * _handleIncrimentSize;
+		auto handle = m_rtvHeap->GetCPUDescriptorHandleForHeapStart();
+		handle.ptr += m_registedRTVNum * m_handleIncrimentSize;
 
 		if (isCubeMap) {
 			for (size_t index = 0; index < 6; index++) {
@@ -63,7 +63,7 @@ namespace DX12Wrapper
 
 				// ん？？？
 				// 登録済みのディスクリプタ数をインクリメント
-				_registedRTVNum++;
+				m_registedRTVNum++;
 			}
 		}
 		else {
@@ -75,7 +75,7 @@ namespace DX12Wrapper
 			// レンダーターゲットビュー生成
 			device.CreateRenderTargetView(&buffer.GetBuffer(), &rtvDesc, handle);
 			// 登録済みのディスクリプタ数をインクリメント
-			_registedRTVNum++;
+			m_registedRTVNum++;
 		}
 	}
 

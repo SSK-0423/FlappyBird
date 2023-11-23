@@ -14,7 +14,7 @@ namespace DX12Wrapper
 		heapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
 
 		HRESULT result = device.CreateDescriptorHeap(
-			&heapDesc, IID_PPV_ARGS(_dsvHeap.ReleaseAndGetAddressOf()));
+			&heapDesc, IID_PPV_ARGS(m_dsvHeap.ReleaseAndGetAddressOf()));
 		if (FAILED(result)) { return result; }
 
 		return result;
@@ -23,7 +23,7 @@ namespace DX12Wrapper
 	RESULT DescriptorHeapDSV::Create(ID3D12Device& device)
 	{
 		// ハンドルのインクリメントサイズ取得
-		_handleIncrimentSize =
+		m_handleIncrimentSize =
 			static_cast<SIZE_T>(device.GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_DSV));
 
 		// ディスクリプタヒープ生成
@@ -35,8 +35,8 @@ namespace DX12Wrapper
 	void DescriptorHeapDSV::RegistDescriptor(ID3D12Device& device, DepthStencilBuffer& buffer)
 	{
 		// ハンドル取得
-		auto handle = _dsvHeap->GetCPUDescriptorHandleForHeapStart();
-		handle.ptr += _registedDSVNum * _handleIncrimentSize;
+		auto handle = m_dsvHeap->GetCPUDescriptorHandleForHeapStart();
+		handle.ptr += m_registedDSVNum * m_handleIncrimentSize;
 
 		// デプスステンシルビュー設定
 		D3D12_DEPTH_STENCIL_VIEW_DESC dsvDesc = {};
@@ -48,6 +48,6 @@ namespace DX12Wrapper
 		device.CreateDepthStencilView(&buffer.GetBuffer(), &dsvDesc, handle);
 
 		// 登録済みのディスクリプタ数をインクリメント
-		_registedDSVNum++;
+		m_registedDSVNum++;
 	}
 }

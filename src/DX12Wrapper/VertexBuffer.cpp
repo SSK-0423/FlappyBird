@@ -16,14 +16,14 @@ namespace DX12Wrapper
 			&resDesc,
 			D3D12_RESOURCE_STATE_GENERIC_READ,
 			nullptr,
-			IID_PPV_ARGS(_vertexBuffer.ReleaseAndGetAddressOf()));
+			IID_PPV_ARGS(m_vertexBuffer.ReleaseAndGetAddressOf()));
 
 		if (FAILED(result)) { return result; }
 
 		// ビュー生成
-		_vertexBufferView.BufferLocation = _vertexBuffer->GetGPUVirtualAddress();	// バッファのGPU側の仮想アドレス
-		_vertexBufferView.SizeInBytes = sizeInBytes;	                                // 頂点の全サイズ
-		_vertexBufferView.StrideInBytes = stribeInBytes;	                    // 1頂点当たりのサイズ
+		m_vertexBufferView.BufferLocation = m_vertexBuffer->GetGPUVirtualAddress();	// バッファのGPU側の仮想アドレス
+		m_vertexBufferView.SizeInBytes = sizeInBytes;	                                // 頂点の全サイズ
+		m_vertexBufferView.StrideInBytes = stribeInBytes;	                    // 1頂点当たりのサイズ
 
 		return result;
 	}
@@ -31,12 +31,12 @@ namespace DX12Wrapper
 	HRESULT VertexBuffer::MapVertexBuffer(void* vertexData, const UINT& sizeInBytes)
 	{
 		BYTE* mappedData;
-		HRESULT result = _vertexBuffer->Map(0, nullptr, (void**)&mappedData);
+		HRESULT result = m_vertexBuffer->Map(0, nullptr, (void**)&mappedData);
 		if (FAILED(result)) { return result; }
 
 		std::memcpy((void*)mappedData, vertexData, static_cast<size_t>(sizeInBytes));
 
-		_vertexBuffer->Unmap(0, nullptr);
+		m_vertexBuffer->Unmap(0, nullptr);
 
 		return result;
 	}
@@ -45,7 +45,7 @@ namespace DX12Wrapper
 		ID3D12Device& device, void* vertexData, const UINT& sizeInBytes, const UINT& stribeInBytes)
 	{
 		// 頂点数記録
-		_vertexNum = sizeInBytes / stribeInBytes;
+		m_vertexNum = sizeInBytes / stribeInBytes;
 
 		// バッファーとビュー生成
 		if (FAILED(CreateVertexBufferAndView(device, sizeInBytes, stribeInBytes))) { return RESULT::FAILED; }

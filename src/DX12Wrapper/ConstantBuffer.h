@@ -16,9 +16,9 @@ namespace DX12Wrapper
 		~ConstantBuffer() = default;
 
 	private:
-		Microsoft::WRL::ComPtr<ID3D12Resource> _constantBuffer = nullptr;	// バッファー
-		BYTE* _mappedData = nullptr;	                                    // データのマップ先
-		UINT _bufferSize = 0;	                                            // バッファーサイズ
+		Microsoft::WRL::ComPtr<ID3D12Resource> m_constantBuffer = nullptr;	// バッファー
+		BYTE* m_mappedData = nullptr;	                                    // データのマップ先
+		UINT m_bufferSize = 0;	                                            // バッファーサイズ
 
 		/// <summary>
 		/// コンスタントバッファ―生成
@@ -51,7 +51,7 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns>バッファーのGPU上のバーチャルアドレス</returns>
 		D3D12_GPU_VIRTUAL_ADDRESS GetGPUVirtualAddress() {
-			return _constantBuffer->GetGPUVirtualAddress();
+			return m_constantBuffer->GetGPUVirtualAddress();
 		}
 
 		/// <summary>
@@ -59,7 +59,7 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns>バッファ―</returns>
 		ID3D12Resource& GetBuffer() {
-			return *_constantBuffer.Get();
+			return *m_constantBuffer.Get();
 		}
 
 		/// <summary>
@@ -67,7 +67,7 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns>バッファーサイズ</returns>
 		UINT& GetBufferSize() {
-			return _bufferSize;
+			return m_bufferSize;
 		}
 
 		/// <summary>
@@ -75,7 +75,7 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <param name="data">データ</param>
 		void UpdateData(void* data) {
-			std::memcpy((void*)_mappedData, data, static_cast<size_t>(_bufferSize));
+			std::memcpy((void*)m_mappedData, data, static_cast<size_t>(m_bufferSize));
 		}
 	};
 }
