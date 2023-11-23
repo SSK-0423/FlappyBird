@@ -31,7 +31,7 @@ namespace Framework
 		{
 			MessageBoxA(hwnd, "Dx12GraphicsEngineの初期化に失敗", "エラー", MB_OK);
 		}
-		result = DX12Wrapper::FontRenderer::Instance().Init(FONT_PATH);
+		result = DX12Wrapper::FontRenderer::Init(FONT_PATH);
 		if (result == RESULT::FAILED)
 		{
 			MessageBoxA(hwnd, "Dx12GraphicsEngineの初期化に失敗", "エラー", MB_OK);
@@ -72,9 +72,9 @@ namespace Framework
 			// フレーム最後の更新処理
 			SceneManager::LateUpdate(deltaTime);
 
-#ifdef _DEBUG
-			//DebugLog("%f (ms) \n", deltaTime * 1000.f);
-#endif
+			//#ifdef _DEBUG
+			//			DebugLog("%f (ms) \n", deltaTime * 1000.f);
+			//#endif
 		}
 
 		return;

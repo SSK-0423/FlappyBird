@@ -8,7 +8,7 @@ using namespace DX12Wrapper;
 namespace Framework
 {
 	Text::Text(Object* owner)
-		: IComponent(owner), m_fontRenderer(DX12Wrapper::FontRenderer::Instance())
+		: IComponent(owner)
 	{
 	}
 	void Text::Update(float deltaTime)
@@ -17,7 +17,7 @@ namespace Framework
 	void Text::Draw()
 	{
 		auto transform = m_owner->GetComponent<Transform2D>();
-		m_fontRenderer.DrawString(m_text, transform->position, transform->scale.x, m_color);
+		FontRenderer::DrawString(m_text, transform->position, transform->scale.x, m_color);
 	}
 	void Text::SetText(const std::wstring& text)
 	{

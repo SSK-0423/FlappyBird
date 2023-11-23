@@ -24,6 +24,5 @@ namespace Framework
 	private:
 		std::wstring m_text;
 		DirectX::XMVECTORF32 m_color;
-		DX12Wrapper::FontRenderer& m_fontRenderer;
 	};
 }

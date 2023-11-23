@@ -6,9 +6,13 @@
 
 namespace DX12Wrapper
 {
-	FontRenderer::FontRenderer()
-	{
-	}
+	// Ã“Iƒƒ“ƒo•Ï”‚ÌÀ‘Ì‰»
+	Microsoft::WRL::ComPtr<ID3D12Fence> FontRenderer::m_fence = nullptr;
+	UINT64 FontRenderer::m_fenceVal = 0;
+	std::unique_ptr<class DescriptorHeapCBV_SRV_UAV> FontRenderer::m_fontHeap = nullptr;
+	std::unique_ptr<DirectX::SpriteBatch> FontRenderer::m_spriteBatch = nullptr;
+	std::unique_ptr<DirectX::SpriteFont> FontRenderer::m_spriteFont = nullptr;
+
 	Utility::RESULT FontRenderer::Init(const std::wstring& fontPath)
 	{
 		auto& graphicsEngine = DX12Wrapper::Dx12GraphicsEngine::Instance();
@@ -68,11 +72,6 @@ namespace DX12Wrapper
 		m_spriteBatch->SetViewport(graphicsEngine.GetViewport());
 
 		return result;
-	}
-	FontRenderer& FontRenderer::Instance()
-	{
-		static FontRenderer instance;
-		return instance;
 	}
 	void FontRenderer::DrawString(const std::wstring& text, const DirectX::XMFLOAT2& pos, const float& scale, const DirectX::XMVECTORF32& color)
 	{

@@ -13,21 +13,18 @@ namespace DX12Wrapper
 	class FontRenderer
 	{
 	public:
-		FontRenderer();
-		~FontRenderer() = default;
-
-		static FontRenderer& Instance();
-
-		Utility::RESULT Init(const std::wstring& fontPath);
-		void DrawString(
+		static Utility::RESULT Init(const std::wstring& fontPath);
+		static void DrawString(
 			const std::wstring& text, const DirectX::XMFLOAT2& pos,
 			const float& scale, const DirectX::XMVECTORF32& color);
 	private:
-		// ƒtƒFƒ“ƒX
-		Microsoft::WRL::ComPtr<ID3D12Fence> m_fence = nullptr;
-		UINT64 m_fenceVal = 0;
-		std::unique_ptr<class DescriptorHeapCBV_SRV_UAV> m_fontHeap = nullptr;
-		std::unique_ptr<DirectX::SpriteBatch> m_spriteBatch = nullptr;
-		std::unique_ptr<DirectX::SpriteFont> m_spriteFont = nullptr;
+		FontRenderer() = default;
+		~FontRenderer() = default;
+
+		static Microsoft::WRL::ComPtr<ID3D12Fence> m_fence;
+		static UINT64 m_fenceVal;
+		static std::unique_ptr<class DescriptorHeapCBV_SRV_UAV> m_fontHeap;
+		static std::unique_ptr<DirectX::SpriteBatch> m_spriteBatch;
+		static std::unique_ptr<DirectX::SpriteFont> m_spriteFont;
 	};
 }
