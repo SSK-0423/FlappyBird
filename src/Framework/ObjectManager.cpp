@@ -20,7 +20,7 @@ namespace Framework
 		}
 	}
 
-	void ObjectManager::AddObject(std::shared_ptr<Object>& object)
+	void ObjectManager::AddObject(std::shared_ptr<Object> object)
 	{
 		m_objects.push_back(object);
 	}

@@ -195,6 +195,12 @@
     <ClCompile Include="src\Framework\RectCollider.cpp">
       <Filter>ソース ファイル\Framework\System\Collision</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\TestCharacter.cpp">
+      <Filter>ソース ファイル\Game\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\TestObstacle.cpp">
+      <Filter>ソース ファイル\Game\GameScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\pch.h">
@@ -344,11 +350,17 @@
     <ClInclude Include="src\Framework\Collider.h">
       <Filter>ソース ファイル\Framework\Component</Filter>
     </ClInclude>
-    <ClInclude Include="src\Framework\ColliderShapes.h">
-      <Filter>ソース ファイル\Framework\System\Collision</Filter>
-    </ClInclude>
     <ClInclude Include="src\Framework\RectCollider.h">
       <Filter>ソース ファイル\Framework\System\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\TestCharacter.h">
+      <Filter>ソース ファイル\Game\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\GameFramework.h">
+      <Filter>ソース ファイル\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\TestObstacle.h">
+      <Filter>ソース ファイル\Game\GameScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

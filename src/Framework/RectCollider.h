@@ -29,6 +29,8 @@ namespace Framework
 		void Draw() override;
 		void* GetColliderShape() const override;
 
+		void SetRectSize(float width, float height);
+
 	private:
 		Rect m_rect;
 	};

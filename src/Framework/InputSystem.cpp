@@ -144,7 +144,7 @@ namespace Framework
 		m_prevMouse = m_currentMouse;
 		// ÅV‚ÌƒL[‚Ì‰Ÿ‰ºó‘Ô‚ðŽæ“¾‚·‚é
 		HRESULT result = m_mouse->GetDeviceState(sizeof(DIMOUSESTATE), &m_currentMouse);
-		if (FAILED(result)) { 
+		if (FAILED(result)) {
 			m_mouse->Acquire();
 			m_mouse->GetDeviceState(sizeof(DIMOUSESTATE), &m_currentMouse);
 		}
@@ -176,6 +176,10 @@ namespace Framework
 	bool InputSystem::GetKeyDown(KEYCODE keyCode)
 	{
 		return m_keysState[keyCode] == BUTTON_STATE::DOWN;
+	}
+	bool InputSystem::GetKey(KEYCODE keyCode)
+	{
+		return m_keysState[keyCode] == BUTTON_STATE::HOLD;
 	}
 	bool InputSystem::GetMouseButtonDown(MOUSECODE mouseCode)
 	{

@@ -9,7 +9,7 @@ namespace Framework
 	public:
 		static void Update(float deltaTime);
 
-		static void AddObject(std::shared_ptr<Object>& object);
+		static void AddObject(std::shared_ptr<Object> object);
 
 		static std::list<std::shared_ptr<Object>>& GetAllObject();
 

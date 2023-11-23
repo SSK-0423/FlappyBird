@@ -35,6 +35,7 @@ namespace Framework
 		static void Update();
 
 		static bool GetKeyDown(KEYCODE keyCode);
+		static bool GetKey(KEYCODE keyCode);
 		static bool GetMouseButtonDown(MOUSECODE mouseCode);
 		static POINT GetMousePosition();
 		static void ViewMouseCursor();
