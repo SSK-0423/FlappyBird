@@ -180,6 +180,9 @@
     <ClCompile Include="src\Framework\Sprite.cpp">
       <Filter>ソース ファイル\Framework</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\GameScene.cpp">
+      <Filter>ソース ファイル\Game\GameScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\pch.h">
@@ -316,6 +319,9 @@
     </ClInclude>
     <ClInclude Include="src\Framework\Sprite.h">
       <Filter>ソース ファイル\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\GameScene.h">
+      <Filter>ソース ファイル\Game\GameScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -2,17 +2,19 @@
 #include "FlappyBird.h"
 
 #include "Framework/SceneManager.h"
+
 #include "TitleScene.h"
+#include "GameScene.h"
+
+using namespace Framework;
 
 namespace FlappyBird
 {
 	void FlappyBird::Init()
 	{
-		auto& sceneManager = Framework::SceneManager::Instance();
-
-		sceneManager.AddScene<TitleScene>("Title");
-
-		sceneManager.LoadScene("Title");
+		SceneManager::RegistScene<TitleScene>("Title");
+		SceneManager::RegistScene<GameScene>("Game");
+		SceneManager::SetFirstScene("Title");
 	}
 
 	void FlappyBird::Final()

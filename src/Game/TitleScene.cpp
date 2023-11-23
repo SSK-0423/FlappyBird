@@ -14,6 +14,8 @@ namespace FlappyBird
 		std::unique_ptr<TitleSceneCanvas> titleCanvas = std::make_unique<TitleSceneCanvas>();
 		titleCanvas->Init();
 		m_canvases.push_back(std::move(titleCanvas));
+
+		OutputDebugStringA("TitleScene Init\n");
 	}
 	void TitleScene::Final()
 	{

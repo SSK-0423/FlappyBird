@@ -43,12 +43,12 @@ namespace Framework
 		}
 
 		m_gameImpl.Init();
+
+		SceneManager::Init();
 	}
 
 	void Game::Run()
 	{
-		auto& sceneManager = SceneManager::Instance();
-
 		// 1フレーム目でのデルタタイムを0秒とする
 		m_prevFrameTime = std::chrono::system_clock::now();
 
@@ -64,16 +64,16 @@ namespace Framework
 			InputSystem::Instance().Update();
 
 			// 更新
-			sceneManager.ActiveSceneUpdate(deltaTime);
+			SceneManager::Update(deltaTime);
 
 			// 描画
-			sceneManager.ActiveSceneDraw(m_renderer);
+			SceneManager::Draw(m_renderer);
 
 			// フレーム最後の更新処理
-			sceneManager.ActiveSceneLateUpdate(deltaTime);
+			SceneManager::LateUpdate(deltaTime);
 
 #ifdef _DEBUG
-			DebugLog("%f (ms) \n", deltaTime * 1000.f);
+			//DebugLog("%f (ms) \n", deltaTime * 1000.f);
 #endif
 		}
 
@@ -83,7 +83,7 @@ namespace Framework
 	void Game::Final()
 	{
 		// 終了処理
-		SceneManager::Instance().ActiveSceneFinal();
+		SceneManager::Final();
 
 		m_gameImpl.Final();
 	}

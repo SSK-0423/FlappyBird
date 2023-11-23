@@ -8,7 +8,7 @@ namespace Framework
 	{
 	public:
 		IComponent(Object* owner) : m_owner(owner) {};
-		virtual ~IComponent() { OutputDebugStringA("IComponent Destructor"); };
+		virtual ~IComponent() { OutputDebugStringA("IComponent Destructor\n"); };
 
 	protected:
 		Object* m_owner;

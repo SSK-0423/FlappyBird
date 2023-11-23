@@ -6,36 +6,32 @@ namespace Framework
 	class SceneManager
 	{
 	private:
-		SceneManager() : m_activeSceneName("") {};
+		SceneManager() = default;
 		~SceneManager() = default;
 	public:
+		static void Init();
 
-		static SceneManager& Instance()
-		{
-			static SceneManager inst;
-			return inst;
-		}
+		static void Update(float deltaTime);
 
-		void ActiveSceneUpdate(float deltaTime);
+		static void Draw(class IRenderer& renderer);
 
-		void ActiveSceneDraw(class IRenderer& renderer);
+		static void LateUpdate(float deltaTime);
 
-		void ActiveSceneLateUpdate(float deltaTime);
+		static void Final();
 
-		void ActiveSceneFinal();
+		static void SetFirstScene(const char* name);
 
-		void LoadScene(const char* name);
+		static void SetNextScene(const char* name);
 
 		template<class T>
-		void AddScene(const char* name)
+		static void RegistScene(const char* name)
 		{
 			m_scenes.insert(std::make_pair(name, std::make_unique<T>()));
 		}
 
 	private:
-		const char* m_activeSceneName = "";
-		const char* m_oldSceneName = "";
-		bool m_isSceneChanged = false;
-		std::unordered_map<const char*, std::unique_ptr<Scene>> m_scenes;
+		static const char* m_currentSceneName;
+		static const char* m_nextSceneName;
+		static std::unordered_map<const char*, std::unique_ptr<Scene>> m_scenes;
 	};
 }
