@@ -27,51 +27,46 @@ namespace Framework
 		WHEEL,
 	};
 
-	class InputSystem
+	class InputSystem final
 	{
 	public:
+		static Utility::RESULT Init(HWND& hwnd);
+
+		static void Update();
+
+		static bool GetKeyDown(KEYCODE keyCode);
+		static bool GetMouseButtonDown(MOUSECODE mouseCode);
+		static POINT GetMousePosition();
+		static void ViewMouseCursor();
+
+	private:
 		InputSystem();
 		~InputSystem();
 
-		Utility::RESULT Init(HWND& hwnd);
-
-		void Update();
-
-		bool GetKeyDown(KEYCODE keyCode);
-		bool GetMouseButtonDown(MOUSECODE mouseCode);
-		POINT GetMousePosition();
-		void ViewMouseCursor();
-
-		static InputSystem& Instance() {
-			static InputSystem inst;
-			return inst;
-		}
-
-	private:
-		HWND m_hwnd;
+		static HWND m_hwnd;
 
 		// IDirectInput8インターフェース
-		LPDIRECTINPUT8 m_directInputInterface;
+		static LPDIRECTINPUT8 m_directInputInterface;
 		// キーボード用デバイス
-		LPDIRECTINPUTDEVICE8 m_keyboard;
+		static LPDIRECTINPUTDEVICE8 m_keyboard;
 		// マウス用デバイス
-		LPDIRECTINPUTDEVICE8 m_mouse;
+		static LPDIRECTINPUTDEVICE8 m_mouse;
 
-		HRESULT SetupKeyboard(HWND& hwnd);
-		HRESULT SetupMouse(HWND& hwnd);
+		static HRESULT SetupKeyboard(HWND& hwnd);
+		static HRESULT SetupMouse(HWND& hwnd);
 
-		void UpdateKeyStates();
-		void UpdateMouseStates();
+		static void UpdateKeyStates();
+		static void UpdateMouseStates();
 
-		BYTE m_currentKeys[KEY_NUM];
-		BYTE m_prevKeys[KEY_NUM];
-		BUTTON_STATE m_keysState[KEY_NUM];
+		static BYTE m_currentKeys[KEY_NUM];
+		static BYTE m_prevKeys[KEY_NUM];
+		static BUTTON_STATE m_keysState[KEY_NUM];
 
-		DIMOUSESTATE m_currentMouse;
-		DIMOUSESTATE m_prevMouse;
-		BUTTON_STATE m_mouseButtonState[MOUSE_BUTTON_NUM];
-		float m_mouseXMovement;
-		float m_mouseYMovement;
-		float m_mouseWheelMovement;
+		static DIMOUSESTATE m_currentMouse;
+		static DIMOUSESTATE m_prevMouse;
+		static BUTTON_STATE m_mouseButtonState[MOUSE_BUTTON_NUM];
+		static float m_mouseXMovement;
+		static float m_mouseYMovement;
+		static float m_mouseWheelMovement;
 	};
 }

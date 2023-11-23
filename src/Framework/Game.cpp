@@ -21,7 +21,7 @@ namespace Framework
 		m_window.Create(NAME, WIDTH, HEIGHT);
 		auto& hwnd = m_window.GetHwnd();
 
-		RESULT result = InputSystem::Instance().Init(m_window.GetHwnd());
+		RESULT result = InputSystem::Init(m_window.GetHwnd());
 		if (result == RESULT::FAILED)
 		{
 			MessageBoxA(hwnd, "InputSystemの初期化に失敗", "エラー", MB_OK);
@@ -61,7 +61,7 @@ namespace Framework
 			m_prevFrameTime = std::chrono::system_clock::now();
 
 			// キー入力
-			InputSystem::Instance().Update();
+			InputSystem::Update();
 
 			// 更新
 			SceneManager::Update(deltaTime);

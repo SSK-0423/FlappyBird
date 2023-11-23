@@ -42,7 +42,7 @@ namespace FlappyBird
 		}
 
 		// エンターキーが押されたらゲームシーンへ
-		if (InputSystem::Instance().GetKeyDown(DIK_RETURN))
+		if (InputSystem::GetKeyDown(DIK_RETURN))
 		{
 			SceneManager::SetNextScene("Game");
 		}

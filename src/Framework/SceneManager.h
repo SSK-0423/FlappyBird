@@ -3,11 +3,8 @@
 
 namespace Framework
 {
-	class SceneManager
+	class SceneManager final
 	{
-	private:
-		SceneManager() = default;
-		~SceneManager() = default;
 	public:
 		static void Init();
 
@@ -30,6 +27,8 @@ namespace Framework
 		}
 
 	private:
+		SceneManager() = default;
+		~SceneManager() = default;
 		static const char* m_currentSceneName;
 		static const char* m_nextSceneName;
 		static std::unordered_map<const char*, std::unique_ptr<Scene>> m_scenes;
