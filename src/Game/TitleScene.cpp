@@ -3,6 +3,7 @@
 #include "TitleSceneCanvas.h"
 
 #include "Framework/Sprite.h"
+#include "Framework/ObjectManager.h"
 
 using namespace Framework;
 
@@ -19,8 +20,7 @@ namespace FlappyBird
 	}
 	void TitleScene::Final()
 	{
-		m_gameObjects.clear();
-		m_gameObjects.shrink_to_fit();
+		ObjectManager::Reset();
 
 		for (auto& canvas : m_canvases)
 		{

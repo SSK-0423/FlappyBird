@@ -4,6 +4,8 @@
 
 #include "DX12Wrapper/Dx12GraphicsEngine.h"
 
+#include "ObjectManager.h"
+
 using namespace DX12Wrapper;
 
 namespace Framework
@@ -12,7 +14,7 @@ namespace Framework
 	{
 		Dx12GraphicsEngine::BeginDraw();
 		{
-			RenderScene(scene->GetGameObjects());
+			RenderScene(ObjectManager::GetAllObject());
 			RenderUI(scene->GetCanvases());
 		}
 		Dx12GraphicsEngine::EndDraw();

@@ -15,6 +15,7 @@
 #include <memory>
 #include <string>
 #include <functional>
+#include <list>
 
 #include "Utility/EngineUtility.h"
 #include "Utility/ISingleton.h"

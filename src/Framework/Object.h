@@ -10,7 +10,6 @@ namespace Framework
 		virtual ~Object()
 		{
 			m_components.clear();
-			m_components.shrink_to_fit();
 		}
 
 		template<class T>
@@ -32,10 +31,9 @@ namespace Framework
 				if (typeid(*comp.get()) == typeid(T))
 					return nullptr;
 			}
-			auto component = std::make_unique<T>(owner);
-			m_components.push_back(std::move(component));
+			m_components.push_back(std::make_shared<T>(owner));
 
-			return static_cast<T*>(m_components[m_components.size() - 1].get());
+			return static_cast<T*>(m_components.back().get());
 		}
 
 		void Update(float deltaTime);
@@ -48,7 +46,7 @@ namespace Framework
 		std::string GetName();
 
 	protected:
-		std::vector<std::unique_ptr<IComponent>> m_components;
+		std::list<std::shared_ptr<IComponent>> m_components;
 		std::string m_name = "Object";
 		bool m_isActive = true;
 	};

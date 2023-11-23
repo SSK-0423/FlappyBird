@@ -1,6 +1,8 @@
 #include "Scene.h"
 #include "IRenderer.h"
 #include "Transform2D.h"
+#include "ObjectManager.h"
+#include "CollisionSystem.h"
 
 namespace Framework
 {
@@ -17,14 +19,13 @@ namespace Framework
 	}
 	void Scene::Update(float deltaTime)
 	{
-		for (auto& obj : m_gameObjects)
-		{
-			if (obj->GetActive())
-			{
-				obj->Update(deltaTime);
-			}
-		}
+		// オブジェクト全体の更新
+		ObjectManager::Update(deltaTime);
 
+		// コリジョン判定
+		CollisionSystem::Update(deltaTime);
+
+		// UIの更新
 		for (auto& canvas : m_canvases)
 		{
 			canvas->Update(deltaTime);
@@ -32,10 +33,6 @@ namespace Framework
 	}
 	void Scene::LateUpdate(float deltaTime)
 	{
-	}
-	const std::vector<std::unique_ptr<GameObject>>& Scene::GetGameObjects() const
-	{
-		return m_gameObjects;
 	}
 	const std::vector<std::unique_ptr<Canvas>>& Scene::GetCanvases() const
 	{

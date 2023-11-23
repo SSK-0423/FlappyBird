@@ -27,10 +27,10 @@ namespace Framework
 	SpriteRenderer::SpriteRenderer(Framework::Object* owner)
 		: IComponent(owner)
 	{
-		m_sprite = std::make_unique<Sprite>(L"");
-		m_rootSignature = std::make_unique<RootSignature>();
-		m_pipelineState = std::make_unique<GraphicsPipelineState>();
-		m_drawModeBuffer = std::make_unique<ConstantBuffer>();
+		m_sprite = std::make_shared<Sprite>(L"");
+		m_rootSignature = std::make_shared<RootSignature>();
+		m_pipelineState = std::make_shared<GraphicsPipelineState>();
+		m_drawModeBuffer = std::make_shared<ConstantBuffer>();
 
 		ID3D12Device& device = Dx12GraphicsEngine::Device();
 		if (CreateRootSignature(device) == RESULT::FAILED)

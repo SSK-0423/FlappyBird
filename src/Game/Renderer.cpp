@@ -25,7 +25,7 @@ namespace FlappyBird
 	{
 		return RESULT::SUCCESS;
 	}
-	void Renderer::RenderScene(const std::vector<std::unique_ptr<Framework::Object>>& gameObjects)
+	void Renderer::RenderScene(const std::list<std::shared_ptr<Framework::Object>>& gameObjects)
 	{
 		for (auto& obj : gameObjects)
 		{

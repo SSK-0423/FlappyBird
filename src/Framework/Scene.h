@@ -16,12 +16,10 @@ namespace Framework
 		virtual void LateUpdate(float deltaTime);
 		virtual void Final() = 0;
 
-		const std::vector<std::unique_ptr<GameObject>>& GetGameObjects() const;
 		const std::vector<std::unique_ptr<Canvas>>& GetCanvases() const;
 
 		static const Camera& GetCamera();
 	protected:
-		std::vector<std::unique_ptr<GameObject>> m_gameObjects;
 		std::vector<std::unique_ptr<Canvas>> m_canvases;
 		static std::unique_ptr<GameObject> m_cameraObject;
 	};

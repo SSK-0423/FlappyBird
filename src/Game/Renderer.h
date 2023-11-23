@@ -10,9 +10,9 @@ namespace FlappyBird
 	public:
 		Renderer();
 		~Renderer();
-	
+
 	private:
-		void RenderScene(const std::vector<std::unique_ptr<class Framework::Object>>& gameObjects);
+		void RenderScene(const std::list<std::shared_ptr<class Framework::Object>>& gameObjects);
 		void RenderUI(const std::vector<std::unique_ptr<class Framework::Canvas>>& canvases);
 
 	public:

@@ -12,8 +12,8 @@ using namespace DirectX;
 namespace Framework
 {
 	Transform2D::Transform2D(Object* owner)
-		: IComponent(owner), m_transformBuffer(std::make_unique<ConstantBuffer>()),
-		position(0.f, 0.f), scale(100.f, 100.f), angle(0.f)
+		: IComponent(owner), m_transformBuffer(std::make_shared<ConstantBuffer>()),
+		position(0.f, 0.f), scale(100.f, 100.f), angle(0.f), depth(0.f)
 	{
 		RESULT result = m_transformBuffer->Create(Dx12GraphicsEngine::Device(), &m_bufferData, sizeof(m_bufferData));
 		if (result == RESULT::FAILED)

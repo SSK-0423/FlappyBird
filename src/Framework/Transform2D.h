@@ -21,7 +21,7 @@ namespace Framework
 			DirectX::XMMATRIX model;
 		};
 		Transform2DData m_bufferData;
-		std::unique_ptr<DX12Wrapper::ConstantBuffer> m_transformBuffer;
+		std::shared_ptr<DX12Wrapper::ConstantBuffer> m_transformBuffer;
 
 
 	public:

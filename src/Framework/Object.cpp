@@ -6,7 +6,7 @@ namespace Framework
 {
 	Object::Object()
 	{
-		m_components.push_back(std::make_unique<Transform2D>(this));
+		m_components.push_back(std::make_shared<Transform2D>(this));
 	}
 	void Object::Update(float deltaTime)
 	{

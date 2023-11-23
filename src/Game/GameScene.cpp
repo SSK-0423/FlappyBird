@@ -10,9 +10,6 @@ namespace FlappyBird
 	}
 	void GameScene::Final()
 	{
-		m_gameObjects.clear();
-		m_gameObjects.shrink_to_fit();
-
 		for (auto& canvas : m_canvases)
 		{
 			canvas->Final();

@@ -11,6 +11,8 @@
 #include "Framework/Text.h"
 #include "Framework/Transform2D.h"
 
+#include "Framework/ObjectManager.h"
+
 using namespace Framework;
 
 namespace FlappyBird
@@ -27,14 +29,14 @@ namespace FlappyBird
 		auto size = Window::GetWindowSize();
 
 		// 背景
-		std::unique_ptr<GUIObject> background = std::make_unique<GUIObject>();
-		Sprite* backgroundSprite = new Sprite(L"res/TitleBackground.png");
+		std::shared_ptr<Object> background = std::make_shared<Object>();
+		Sprite* backgroundSprite = new Sprite(L"res/Background.jpg");
 		background->AddComponent<SpriteRenderer>(background.get());
 		background->GetComponent<SpriteRenderer>()->SetSprite(backgroundSprite);
 		background->GetComponent<SpriteRenderer>()->SetDrawMode(SPRITE_DRAW_MODE::GUI);
 		background->GetComponent<Transform2D>()->position = { size.cx / 2.f, size.cy / 2.f };
 		background->GetComponent<Transform2D>()->scale = { size.cx * 1.f, size.cy * 1.f };
-		m_guiObjects.push_back(std::move(background));
+		ObjectManager::AddObject(background);
 
 		// タイトルテキストの輪郭線
 		std::unique_ptr<GUIObject> text = std::make_unique<GUIObject>();
