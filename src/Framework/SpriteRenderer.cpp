@@ -32,7 +32,7 @@ namespace Framework
 		m_pipelineState = std::make_unique<GraphicsPipelineState>();
 		m_drawModeBuffer = std::make_unique<ConstantBuffer>();
 
-		ID3D12Device& device = Dx12GraphicsEngine::Instance().Device();
+		ID3D12Device& device = Dx12GraphicsEngine::Device();
 		if (CreateRootSignature(device) == RESULT::FAILED)
 		{
 			MessageBoxA(NULL, "RootSignatureの生成に失敗", "エラー", MB_OK);
@@ -46,10 +46,14 @@ namespace Framework
 			MessageBoxA(NULL, "ContantBufferの生成に失敗", "エラー", MB_OK);
 		}
 	}
+	SpriteRenderer::~SpriteRenderer()
+	{
+		OutputDebugStringA("SpriteRenderer::~SpriteRenderer()\n");
+	}
 	void SpriteRenderer::SetSprite(Sprite* sprite)
 	{
 		m_sprite.reset(sprite);
-		ID3D12Device& device = Dx12GraphicsEngine::Instance().Device();
+		ID3D12Device& device = Dx12GraphicsEngine::Device();
 
 		// モデル行列をセット
 		m_sprite->GetDescriptorHeap().RegistConstantBuffer(
@@ -85,7 +89,7 @@ namespace Framework
 	}
 	void SpriteRenderer::Draw()
 	{
-		RenderingContext renderingContext = Dx12GraphicsEngine::Instance().GetRenderingContext();
+		RenderingContext renderingContext = Dx12GraphicsEngine::GetRenderingContext();
 
 		renderingContext.SetGraphicsRootSignature(*m_rootSignature);
 		renderingContext.SetPipelineState(*m_pipelineState);

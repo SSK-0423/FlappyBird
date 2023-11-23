@@ -10,7 +10,7 @@ namespace Framework
 	{
 	public:
 		Text(Object* owner);
-		~Text() = default;
+		~Text();
 
 		void Update(float deltaTime) override;
 		void Draw() override;

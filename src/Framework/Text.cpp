@@ -11,6 +11,10 @@ namespace Framework
 		: IComponent(owner)
 	{
 	}
+	Text::~Text()
+	{
+		OutputDebugStringA("Text::~Text()\n");
+	}
 	void Text::Update(float deltaTime)
 	{
 	}

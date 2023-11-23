@@ -26,7 +26,7 @@ namespace Framework
 		{
 			MessageBoxA(hwnd, "InputSystemの初期化に失敗", "エラー", MB_OK);
 		}
-		result = DX12Wrapper::Dx12GraphicsEngine::Instance().Init(hwnd, WIDTH, HEIGHT);
+		result = DX12Wrapper::Dx12GraphicsEngine::Init(hwnd, WIDTH, HEIGHT);
 		if (result == RESULT::FAILED)
 		{
 			MessageBoxA(hwnd, "Dx12GraphicsEngineの初期化に失敗", "エラー", MB_OK);

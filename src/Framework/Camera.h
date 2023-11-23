@@ -14,7 +14,7 @@ namespace Framework
 	{
 	public:
 		Camera(Object* owner);
-		~Camera() = default;
+		~Camera();
 
 		void Update(float deltaTime) override;
 		void Draw() override;

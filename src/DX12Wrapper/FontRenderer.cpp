@@ -15,9 +15,8 @@ namespace DX12Wrapper
 
 	Utility::RESULT FontRenderer::Init(const std::wstring& fontPath)
 	{
-		auto& graphicsEngine = DX12Wrapper::Dx12GraphicsEngine::Instance();
-		auto& device = graphicsEngine.Device();
-		auto& cmdQueue = graphicsEngine.CmdQueue();
+		auto& device = Dx12GraphicsEngine::Device();
+		auto& cmdQueue = Dx12GraphicsEngine::CmdQueue();
 
 		// ƒtƒFƒ“ƒX‰Šú‰»
 		HRESULT hresult = device.CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(m_fence.ReleaseAndGetAddressOf()));
@@ -69,16 +68,16 @@ namespace DX12Wrapper
 		}
 		uploadResourcesFinished.wait();
 
-		m_spriteBatch->SetViewport(graphicsEngine.GetViewport());
+		m_spriteBatch->SetViewport(Dx12GraphicsEngine::GetViewport());
 
 		return result;
 	}
 	void FontRenderer::DrawString(const std::wstring& text, const DirectX::XMFLOAT2& pos, const float& scale, const DirectX::XMVECTORF32& color)
 	{
-		auto& renderContext = Dx12GraphicsEngine::Instance().GetRenderingContext();
+		auto& renderContext = Dx12GraphicsEngine::GetRenderingContext();
 
 		renderContext.SetDescriptorHeap(*m_fontHeap.get());
-		m_spriteBatch->Begin(&Dx12GraphicsEngine::Instance().CmdList());
+		m_spriteBatch->Begin(&Dx12GraphicsEngine::CmdList());
 		m_spriteFont->DrawString(
 			m_spriteBatch.get(),			// SpriteBatch
 			text.c_str(),					// •¶Žš—ñ

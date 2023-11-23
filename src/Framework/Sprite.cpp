@@ -38,7 +38,7 @@ namespace Framework
 		m_indexBuffer = std::make_unique<IndexBuffer>();
 		m_descriptorHeap = std::make_unique<DescriptorHeapCBV_SRV_UAV>();
 
-		ID3D12Device& device = Dx12GraphicsEngine::Instance().Device();
+		ID3D12Device& device = Dx12GraphicsEngine::Device();
 		if (m_vertexBuffer->Create(
 			device, &m_vertex[0], SizeofVector<SpriteVertex>(m_vertex), sizeof(SpriteVertex)) == RESULT::FAILED)
 		{
@@ -69,13 +69,13 @@ namespace Framework
 			m_texture = std::make_shared<Texture>();
 		}
 
-		RESULT result = m_texture->CreateTextureFromWIC(Dx12GraphicsEngine::Instance(), path);
+		RESULT result = m_texture->CreateTextureFromWIC(path);
 		if (result == RESULT::FAILED)
 		{
 			MessageBoxA(NULL, "テクスチャ読み込みに失敗しました。", "エラー", MB_OK);
 		}
 
-		ID3D12Device& device = Dx12GraphicsEngine::Instance().Device();
+		ID3D12Device& device = Dx12GraphicsEngine::Device();
 		ShaderResourceViewDesc desc(*m_texture);
 		m_descriptorHeap->RegistShaderResource(device, *m_texture, desc, 0);
 	}
@@ -83,7 +83,7 @@ namespace Framework
 	{
 		m_texture = texture;
 
-		ID3D12Device& device = Dx12GraphicsEngine::Instance().Device();
+		ID3D12Device& device = Dx12GraphicsEngine::Device();
 		ShaderResourceViewDesc desc(*m_texture);
 		m_descriptorHeap->RegistShaderResource(device, *m_texture, desc, 0);
 

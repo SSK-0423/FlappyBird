@@ -165,11 +165,11 @@ namespace DX12Wrapper
 		return result;
 	}
 
-	HRESULT Texture::CopyTexture(ID3D12Device& device, Dx12GraphicsEngine& graphicsEngine)
+	HRESULT Texture::CopyTexture(ID3D12Device& device)
 	{
-		RenderingContext& renderContext = graphicsEngine.GetRenderingContext();
-		ID3D12CommandAllocator& cmdAllocator = graphicsEngine.CmdAllocator();
-		ID3D12CommandQueue& cmdQueue = graphicsEngine.CmdQueue();
+		RenderingContext& renderContext = Dx12GraphicsEngine::GetRenderingContext();
+		ID3D12CommandAllocator& cmdAllocator = Dx12GraphicsEngine::CmdAllocator();
+		ID3D12CommandQueue& cmdQueue = Dx12GraphicsEngine::CmdQueue();
 
 		// コピー元
 		D3D12_TEXTURE_COPY_LOCATION src = {};
@@ -207,7 +207,7 @@ namespace DX12Wrapper
 			renderContext.Close();
 
 			// コマンドリスト実行
-			ID3D12CommandList* cmdLists[] = { &graphicsEngine.CmdList() };
+			ID3D12CommandList* cmdLists[] = { &Dx12GraphicsEngine::CmdList() };
 			cmdQueue.ExecuteCommandLists(_countof(cmdLists), cmdLists);
 			cmdQueue.Signal(fence.Get(), ++fenceVal);
 			if (fence->GetCompletedValue() != fenceVal) {
@@ -230,12 +230,12 @@ namespace DX12Wrapper
 		return result;
 	}
 
-	HRESULT Texture::CopyCubeTexture(Dx12GraphicsEngine& graphicsEngine)
+	HRESULT Texture::CopyCubeTexture()
 	{
-		RenderingContext& renderContext = graphicsEngine.GetRenderingContext();
-		ID3D12GraphicsCommandList& commandList = graphicsEngine.CmdList();
-		ID3D12CommandAllocator& cmdAllocator = graphicsEngine.CmdAllocator();
-		ID3D12CommandQueue& cmdQueue = graphicsEngine.CmdQueue();
+		RenderingContext& renderContext = Dx12GraphicsEngine::GetRenderingContext();
+		ID3D12GraphicsCommandList& commandList = Dx12GraphicsEngine::CmdList();
+		ID3D12CommandAllocator& cmdAllocator = Dx12GraphicsEngine::CmdAllocator();
+		ID3D12CommandQueue& cmdQueue = Dx12GraphicsEngine::CmdQueue();
 
 		UpdateSubresources(
 			&commandList, _textureBuffer.Get(), _uploadBuffer.Get(),
@@ -247,7 +247,7 @@ namespace DX12Wrapper
 		// フェンス生成
 		Microsoft::WRL::ComPtr<ID3D12Fence> fence = nullptr;
 		UINT fenceVal = 0;
-		HRESULT result = graphicsEngine.Device().CreateFence(
+		HRESULT result = Dx12GraphicsEngine::Device().CreateFence(
 			fenceVal, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(fence.ReleaseAndGetAddressOf()));
 		if (FAILED(result)) { return result; }
 
@@ -299,9 +299,9 @@ namespace DX12Wrapper
 		_metaData.dimension = DirectX::TEX_DIMENSION_TEXTURE2D;
 	}
 
-	RESULT Texture::CreateTextureFromWIC(Dx12GraphicsEngine& graphicsEngine, const std::wstring& texturePath)
+	RESULT Texture::CreateTextureFromWIC(const std::wstring& texturePath)
 	{
-		ID3D12Device& device = graphicsEngine.Device();
+		ID3D12Device& device = Dx12GraphicsEngine::Device();
 
 		// ファイル読み込み
 		if (FAILED(LoadTextureFromWICFile(texturePath))) { return RESULT::FAILED; }
@@ -310,14 +310,14 @@ namespace DX12Wrapper
 		// マップ処理
 		if (FAILED(MapTexture())) { return RESULT::FAILED; }
 		// アップロードバッファーの内容をテクスチャバッファーへコピー
-		if (FAILED(CopyTexture(device, graphicsEngine))) { return RESULT::FAILED; }
+		if (FAILED(CopyTexture(device))) { return RESULT::FAILED; }
 
 		return RESULT::SUCCESS;
 	}
 
-	RESULT Texture::CreateTextureFromDDS(Dx12GraphicsEngine& graphicsEngine, const std::wstring& texturePath)
+	RESULT Texture::CreateTextureFromDDS(const std::wstring& texturePath)
 	{
-		ID3D12Device& device = graphicsEngine.Device();
+		ID3D12Device& device = Dx12GraphicsEngine::Device();
 
 		// ファイル読み込み
 		if (FAILED(LoadTextureFromDDSFile(texturePath))) { return RESULT::FAILED; }
@@ -326,16 +326,16 @@ namespace DX12Wrapper
 		// マップ処理
 		if (FAILED(MapTexture())) { return RESULT::FAILED; }
 		// アップロードバッファーの内容をテクスチャバッファーへコピー
-		if (FAILED(CopyTexture(device, graphicsEngine))) { return RESULT::FAILED; }
+		if (FAILED(CopyTexture(device))) { return RESULT::FAILED; }
 
 		return RESULT::SUCCESS;
 	}
 
 	RESULT Texture::CreateTextureFromConstantData(
-		Dx12GraphicsEngine& graphicsEngine, uint8_t* data, const size_t& stride, const size_t& dataNum,
+		uint8_t* data, const size_t& stride, const size_t& dataNum,
 		const size_t& width, const size_t& height, const DXGI_FORMAT& format)
 	{
-		ID3D12Device& device = graphicsEngine.Device();
+		ID3D12Device& device = Dx12GraphicsEngine::Device();
 
 		// テクスチャ生成用データ用意
 		SetTextureData(data, stride, dataNum, width, height, format);
@@ -344,7 +344,7 @@ namespace DX12Wrapper
 		// マップ処理
 		if (FAILED(MapTexture())) { return RESULT::FAILED; }
 		// アップロードバッファーの内容をテクスチャバッファーへコピー
-		if (FAILED(CopyTexture(device, graphicsEngine))) { return RESULT::FAILED; }
+		if (FAILED(CopyTexture(device))) { return RESULT::FAILED; }
 		return RESULT::SUCCESS;
 	}
 
@@ -376,14 +376,14 @@ namespace DX12Wrapper
 
 	RESULT Texture::CreateCubeTextureFromDDS(Dx12GraphicsEngine& graphicsEngine, const std::wstring& texturePath)
 	{
-		ID3D12Device& device = graphicsEngine.Device();
+		ID3D12Device& device = Dx12GraphicsEngine::Device();
 
 		// ファイル読み込み
 		if (FAILED(LoadTextureFromDDSFile(texturePath))) { return RESULT::FAILED; }
 		// バッファー生成
 		if (FAILED(CreateUploadAndCubeTextureBuffer(device))) { return RESULT::FAILED; }
 		// アップロードバッファーの内容をテクスチャバッファーへコピー
-		if (FAILED(CopyCubeTexture(graphicsEngine))) { return RESULT::FAILED; }
+		if (FAILED(CopyCubeTexture())) { return RESULT::FAILED; }
 
 		return RESULT::SUCCESS;
 	}

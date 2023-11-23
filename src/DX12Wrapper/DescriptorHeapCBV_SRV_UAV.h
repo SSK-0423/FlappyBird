@@ -20,30 +20,11 @@ namespace DX12Wrapper
 	class DescriptorHeapCBV_SRV_UAV
 	{
 	public:
+		// SpriteのDescriptorHeapのデストラクタでエラー出てるっぽい
 		DescriptorHeapCBV_SRV_UAV() = default;
 		~DescriptorHeapCBV_SRV_UAV() = default;
 		static constexpr int NEXT_REGISTER = -1;
 
-	private:
-		static constexpr UINT _MAX_CBV_DESCRIPTOR_NUM = 64;	// 定数バッファーの最大数
-		static constexpr UINT _MAX_SRV_DESCRIPTOR_NUM = 64;	// シェーダーリソースの最大数
-		static constexpr UINT _MAX_UAV_DESCRIPTOR_NUM = 64;	// アンオーダーアクセスの最大数
-
-		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> _descriptorHeap = nullptr;
-
-		SIZE_T _handleIncrimentSize = 0;
-		UINT _registedCBVNum = 0;
-		UINT _registedSRVNum = 0;
-		UINT _registedUAVNum = 0;
-
-		/// <summary>
-		/// ディスクリプタヒープ生成
-		/// </summary>
-		/// <param name="device">デバイス</param>
-		/// <returns></returns>
-		HRESULT CreateDescriptorHeap(ID3D12Device& device);
-
-	public:
 		/// <summary>
 		/// ディスクリプタヒープ生成
 		/// </summary>
@@ -186,5 +167,24 @@ namespace DX12Wrapper
 		ID3D12DescriptorHeap** GetDescriptorHeapAddress() {
 			return _descriptorHeap.GetAddressOf();
 		}
+
+	private:
+		static constexpr UINT _MAX_CBV_DESCRIPTOR_NUM = 64;	// 定数バッファーの最大数
+		static constexpr UINT _MAX_SRV_DESCRIPTOR_NUM = 64;	// シェーダーリソースの最大数
+		static constexpr UINT _MAX_UAV_DESCRIPTOR_NUM = 64;	// アンオーダーアクセスの最大数
+
+		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> _descriptorHeap = nullptr;
+
+		SIZE_T _handleIncrimentSize = 0;
+		UINT _registedCBVNum = 0;
+		UINT _registedSRVNum = 0;
+		UINT _registedUAVNum = 0;
+
+		/// <summary>
+		/// ディスクリプタヒープ生成
+		/// </summary>
+		/// <param name="device">デバイス</param>
+		/// <returns></returns>
+		HRESULT CreateDescriptorHeap(ID3D12Device& device);
 	};
 }

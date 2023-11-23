@@ -23,7 +23,7 @@ namespace Framework
 	{
 	public:
 		SpriteRenderer(Framework::Object* owner);
-		~SpriteRenderer() = default;
+		~SpriteRenderer();
 
 		void Update(float deltaTime) override;
 		void Draw() override;

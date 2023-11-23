@@ -13,7 +13,7 @@ namespace Framework
 	{
 	public:
 		Transform2D(Object* owner);
-		~Transform2D() = default;
+		~Transform2D();
 
 	private:
 		struct Transform2DData

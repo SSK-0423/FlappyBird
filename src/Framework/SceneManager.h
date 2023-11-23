@@ -28,7 +28,7 @@ namespace Framework
 
 	private:
 		SceneManager() = default;
-		~SceneManager() = default;
+		~SceneManager();
 		static const char* m_currentSceneName;
 		static const char* m_nextSceneName;
 		static std::unordered_map<const char*, std::unique_ptr<Scene>> m_scenes;

@@ -53,4 +53,7 @@ namespace Framework
 	{
 		m_nextSceneName = name;
 	}
+	SceneManager::~SceneManager()
+	{
+	}
 }

@@ -24,21 +24,8 @@ namespace DX12Wrapper
 {
 	class Dx12GraphicsEngine
 	{
-	private:
-		Dx12GraphicsEngine();
-		~Dx12GraphicsEngine() = default;
-		Dx12GraphicsEngine(const Dx12GraphicsEngine& inst) = delete;
-		void operator=(const Dx12GraphicsEngine& inst) = delete;
-
-		static constexpr UINT DOUBLE_BUFFER = 2;	// ダブルバッファリング
 
 	public:
-		/// <summary>
-		/// クラスのシングルトンインスタンス取得
-		/// </summary>
-		/// <returns>シングルトンインスタンス</returns>
-		static Dx12GraphicsEngine& Instance();
-
 		/// <summary>
 		/// DirectXで描画を行うための初期化処理
 		/// </summary>
@@ -47,43 +34,99 @@ namespace DX12Wrapper
 		/// <param name="windowHeight">ウィンドウ高</param>
 		/// <param name="dxgiFactory">ファクトリー</param>
 		/// <returns>Utility::RESULT::SUCCESS: 成功 Utility::RESULT::FAILED: 失敗</returns>
-		Utility::RESULT Init(const HWND& hwnd, const UINT& windowWidth, const UINT& windowHeight);
+		static Utility::RESULT Init(const HWND& hwnd, const UINT& windowWidth, const UINT& windowHeight);
+
+		/// <summary>
+		/// デバイス取得
+		/// </summary>
+		/// <returns></returns>
+		static ID3D12Device& Device();
+		/// <summary>
+		/// コマンドリスト取得
+		/// </summary>
+		/// <returns></returns>
+		static ID3D12GraphicsCommandList& CmdList();
+		/// <summary>
+		/// コマンドアロケータ取得
+		/// </summary>
+		/// <returns></returns>
+		static ID3D12CommandAllocator& CmdAllocator();
+		/// <summary>
+		/// コマンドキュー取得
+		/// </summary>
+		/// <returns></returns>
+		static ID3D12CommandQueue& CmdQueue();
+		/// <summary>
+		/// スワップチェーン取得
+		/// </summary>
+		/// <returns></returns>
+		static IDXGISwapChain3& SwapChain();
+
+		/// <summary>
+		/// 1フレームの描画開始
+		/// </summary>
+		static void BeginDraw();
+		/// <summary>
+		/// 1フレームの描画終了
+		/// </summary>
+		static void EndDraw();
+		/// <summary>
+		/// フレームレンダーターゲットセット
+		/// </summary>
+		static void SetFrameRenderTarget(const CD3DX12_VIEWPORT& viewport, const CD3DX12_RECT& scissorRect);
+
+		/// <summary>
+		/// レンダリングコンテキスト取得
+		/// </summary>
+		/// <returns></returns>
+		static DX12Wrapper::RenderingContext& GetRenderingContext();
+
+		static DX12Wrapper::DescriptorHeapRTV& GetFrameBufferDescriptorHeap();
+
+		static const CD3DX12_VIEWPORT& GetViewport();
 
 	private:
+		Dx12GraphicsEngine() = default;
+		~Dx12GraphicsEngine() = default;
+		Dx12GraphicsEngine(const Dx12GraphicsEngine& inst) = delete;
+		void operator=(const Dx12GraphicsEngine& inst) = delete;
+
+		static constexpr UINT DOUBLE_BUFFER = 2;	// ダブルバッファリング
+
 		// DXGI関連
-		Microsoft::WRL::ComPtr<IDXGIFactory4> _dxgiFactory = nullptr;
-		Microsoft::WRL::ComPtr<IDXGISwapChain3> _swapchain = nullptr;
+		static Microsoft::WRL::ComPtr<IDXGIFactory4> m_dxgiFactory;
+		static Microsoft::WRL::ComPtr<IDXGISwapChain3> m_swapchain;
 
 		// DirectX12初期化関連
-		Microsoft::WRL::ComPtr<ID3D12Device> _device = nullptr;
-		Microsoft::WRL::ComPtr<ID3D12CommandAllocator> _cmdAllocator = nullptr;
-		Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> _cmdList = nullptr;
-		Microsoft::WRL::ComPtr<ID3D12CommandQueue> _cmdQueue = nullptr;
+		static Microsoft::WRL::ComPtr<ID3D12Device> m_device;
+		static Microsoft::WRL::ComPtr<ID3D12CommandAllocator> m_cmdAllocator;
+		static Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> m_cmdList;
+		static Microsoft::WRL::ComPtr<ID3D12CommandQueue> m_cmdQueue;
 
 		// フェンス関連
-		Microsoft::WRL::ComPtr<ID3D12Fence> _fence = nullptr;
-		UINT _fenceVal = 0;
+		static Microsoft::WRL::ComPtr<ID3D12Fence> m_fence;
+		static UINT m_fenceVal;
 
 		// ウィンドウ関連
-		HWND _hwnd;
-		UINT _windowWidth;
-		UINT _windowHeight;
+		static HWND m_hwnd;
+		static UINT m_windowWidth;
+		static UINT m_windowHeight;
 
 		/// <summary>
 		/// デバッグレイヤーを有効にする
 		/// </summary>
 		/// <returns></returns>
-		HRESULT EnableDebugLayer();
+		static HRESULT EnableDebugLayer();
 		/// <summary>
 		/// デバイスとファクトリー生成
 		/// </summary>
 		/// <returns></returns>
-		HRESULT CreateDeviceAndDXGIFactory();
+		static HRESULT CreateDeviceAndDXGIFactory();
 		/// <summary>
 		/// コマンドアロケータ、リスト、キュー生成
 		/// </summary>
 		/// <returns></returns>
-		HRESULT CreateCommandX();
+		static HRESULT CreateCommandX();
 		/// <summary>
 		/// スワップチェーン生成
 		/// </summary>
@@ -92,87 +135,35 @@ namespace DX12Wrapper
 		/// <param name="windowHeightconst">ウィンドウ高</param>
 		/// <param name="dxgiFactory">ファクトリー</param>
 		/// <returns></returns>
-		HRESULT CreateSwapChain(
+		static HRESULT CreateSwapChain(
 			const HWND& hwnd, const UINT& windowWidth, const UINT& windowHeight,
 			const Microsoft::WRL::ComPtr<IDXGIFactory4>& dxgiFactory);
 		/// <summary>
 		/// フェンス生成
 		/// </summary>
 		/// <returns></returns>
-		HRESULT CreateFence();
+		static HRESULT CreateFence();
 
-	public:
-		/// <summary>
-		/// デバイス取得
-		/// </summary>
-		/// <returns></returns>
-		ID3D12Device& Device();
-		/// <summary>
-		/// コマンドリスト取得
-		/// </summary>
-		/// <returns></returns>
-		ID3D12GraphicsCommandList& CmdList();
-		/// <summary>
-		/// コマンドアロケータ取得
-		/// </summary>
-		/// <returns></returns>
-		ID3D12CommandAllocator& CmdAllocator();
-		/// <summary>
-		/// コマンドキュー取得
-		/// </summary>
-		/// <returns></returns>
-		ID3D12CommandQueue& CmdQueue();
-		/// <summary>
-		/// スワップチェーン取得
-		/// </summary>
-		/// <returns></returns>
-		IDXGISwapChain3& SwapChain();
+		static DX12Wrapper::RenderingContext m_renderContext;	            // レンダリングコンテキスト
+		static DX12Wrapper::RenderTargetBuffer m_frameBuffers[2];	        // フレームバッファ
+		static DX12Wrapper::DescriptorHeapRTV m_frameHeap;	                // フレームバッファ用ディスクリプタヒープ	
 
-		/// <summary>
-		/// 1フレームの描画開始
-		/// </summary>
-		void BeginDraw();
-		/// <summary>
-		/// 1フレームの描画終了
-		/// </summary>
-		void EndDraw();
-		/// <summary>
-		/// フレームレンダーターゲットセット
-		/// </summary>
-		void SetFrameRenderTarget(const CD3DX12_VIEWPORT& viewport, const CD3DX12_RECT& scissorRect);
+		static DX12Wrapper::DepthStencilBufferData m_depthStencilBufferData;	// デプスステンシルバッファーの設定
+		static DX12Wrapper::DepthStencilBuffer m_depthStencilBuffer;		    // デプスステンシルバッファー
+		static DX12Wrapper::DescriptorHeapDSV m_dsvHeap;					    // デプスステンシル用ヒープ
 
-	private:
-		DX12Wrapper::RenderingContext m_renderContext;	            // レンダリングコンテキスト
-		DX12Wrapper::RenderTargetBuffer _frameBuffers[2];	        // フレームバッファ
-		DX12Wrapper::DescriptorHeapRTV _frameHeap;	                // フレームバッファ用ディスクリプタヒープ	
-
-		DX12Wrapper::DepthStencilBufferData depthStencilBufferData;	// デプスステンシルバッファーの設定
-		DX12Wrapper::DepthStencilBuffer _depthStencilBuffer;		    // デプスステンシルバッファー
-		DX12Wrapper::DescriptorHeapDSV _dsvHeap;					    // デプスステンシル用ヒープ
-
-		DX12Wrapper::DescriptorHeapCBV_SRV_UAV m_imguiHeap;
+		static DX12Wrapper::DescriptorHeapCBV_SRV_UAV m_imguiHeap;
 
 		// フォントレンダリング関連
-		std::unique_ptr<DirectX::GraphicsMemory> m_graphicsMemory;
+		static std::unique_ptr<DirectX::GraphicsMemory> m_graphicsMemory;
 
-		CD3DX12_VIEWPORT m_viewport;
-		CD3DX12_RECT m_scissorRect;
+		static CD3DX12_VIEWPORT m_viewport;
+		static CD3DX12_RECT m_scissorRect;
 
 		/// <summary>
 		/// フレームバッファ用のレンダーターゲット生成
 		/// </summary>
 		/// <returns></returns>
-		Utility::RESULT CreateFrameRenderTarget();
-
-	public:
-		/// <summary>
-		/// レンダリングコンテキスト取得
-		/// </summary>
-		/// <returns></returns>
-		DX12Wrapper::RenderingContext& GetRenderingContext();
-
-		DX12Wrapper::DescriptorHeapRTV& GetFrameBufferDescriptorHeap();
-
-		const CD3DX12_VIEWPORT& GetViewport();
+		static Utility::RESULT CreateFrameRenderTarget();
 	};
 }

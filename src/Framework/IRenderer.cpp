@@ -10,13 +10,11 @@ namespace Framework
 {
 	void IRenderer::Render(const Scene* scene)
 	{
-		auto& graphicsEngine = DX12Wrapper::Dx12GraphicsEngine::Instance();
-
-		graphicsEngine.BeginDraw();
+		Dx12GraphicsEngine::BeginDraw();
 		{
 			RenderScene(scene->GetGameObjects());
 			RenderUI(scene->GetCanvases());
 		}
-		graphicsEngine.EndDraw();
+		Dx12GraphicsEngine::EndDraw();
 	}
 }
