@@ -105,8 +105,8 @@ namespace Framework
 		// ルートシグネチャとシェーダーセット
 		D3D12_GRAPHICS_PIPELINE_STATE_DESC pipelineState = {};
 		pipelineState.pRootSignature = &m_rootSignature->GetRootSignature();
-		pipelineState.VS = CD3DX12_SHADER_BYTECODE(&ShaderLibrary::Instance().GetShader("SpriteVS")->GetShader());
-		pipelineState.PS = CD3DX12_SHADER_BYTECODE(&ShaderLibrary::Instance().GetShader("SpritePS")->GetShader());
+		pipelineState.VS = CD3DX12_SHADER_BYTECODE(&ShaderLibrary::GetShader("SpriteVS")->GetShader());
+		pipelineState.PS = CD3DX12_SHADER_BYTECODE(&ShaderLibrary::GetShader("SpritePS")->GetShader());
 
 		// サンプルマスク設定
 		pipelineState.SampleMask = D3D12_DEFAULT_SAMPLE_MASK;

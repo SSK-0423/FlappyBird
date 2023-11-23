@@ -8,26 +8,36 @@ namespace Framework
 	static const TCHAR* SHADER_FOLDER_PASS = L"shaders/";
 	static const UINT BUFFSIZE = 128;
 
-	ShaderLibrary::ShaderLibrary()
-	{
-		_shaderTypeMap[SHADERTYPE::VERTEX] = "vs_5_0";
-		_shaderTypeMap[SHADERTYPE::PIXEL] = "ps_5_0";
+	// 静的メンバ変数の実体化
+	std::unordered_map<const char*, Shader> ShaderLibrary::m_shaderMap;
+	std::unordered_map<SHADERTYPE, const char*> ShaderLibrary::m_shaderTypeMap;
 
-		RegistShader(L"Sprite", "SpriteVS", SHADERTYPE::VERTEX, "VSMain");
-		RegistShader(L"Sprite", "SpritePS", SHADERTYPE::PIXEL, "PSMain");
-		RegistShader(L"Button", "ButtonVS", SHADERTYPE::VERTEX, "VSMain");
-		RegistShader(L"Button", "ButtonPS", SHADERTYPE::PIXEL, "PSMain");
-	};
 	ShaderLibrary::~ShaderLibrary()
 	{
+		m_shaderMap.clear();
+		m_shaderTypeMap.clear();
 	}
-	ShaderLibrary& ShaderLibrary::Instance()
+
+	RESULT ShaderLibrary::Init()
 	{
-		static ShaderLibrary inst;
-		return inst;
+		m_shaderTypeMap[SHADERTYPE::VERTEX] = "vs_5_0";
+		m_shaderTypeMap[SHADERTYPE::PIXEL] = "ps_5_0";
+
+		// シェーダーの登録
+		if (RegistShader(L"Sprite", "SpriteVS", SHADERTYPE::VERTEX, "VSMain") == RESULT::FAILED)
+			return RESULT::FAILED;
+		if (RegistShader(L"Sprite", "SpritePS", SHADERTYPE::PIXEL, "PSMain") == RESULT::FAILED)
+			return RESULT::FAILED;
+		if (RegistShader(L"Button", "ButtonVS", SHADERTYPE::VERTEX, "VSMain") == RESULT::FAILED)
+			return RESULT::FAILED;
+		if (RegistShader(L"Button", "ButtonPS", SHADERTYPE::PIXEL, "PSMain") == RESULT::FAILED)
+			return RESULT::FAILED;
+
+		return RESULT::SUCCESS;
 	}
-	void ShaderLibrary::RegistShader(
-		const TCHAR* shaderFileName, const std::string& shaderTag,
+
+	RESULT ShaderLibrary::RegistShader(
+		const TCHAR* shaderFileName, const char* shaderTag,
 		SHADERTYPE shaderType, const char* entryPointName)
 	{
 		TCHAR shaderFilePass[BUFFSIZE];
@@ -36,21 +46,25 @@ namespace Framework
 		lstrcat(shaderFilePass, L".hlsl");
 
 		Shader shader;
-		RESULT result = shader.Create(shaderFilePass, entryPointName, _shaderTypeMap[shaderType]);
+		RESULT result = shader.Create(shaderFilePass, entryPointName, m_shaderTypeMap[shaderType]);
 		if (result == RESULT::FAILED) {
 			TCHAR errorMessage[BUFFSIZE];
 			lstrcpyn(errorMessage, L"ShaderCompileFailed FileName \"", BUFFSIZE);
 			lstrcat(errorMessage, shaderFileName);
 			lstrcat(errorMessage, L"\"");
 			MessageBoxW(NULL, errorMessage, L"エラーメッセージ", MB_OK);
+
+			return RESULT::FAILED;
 		}
 
-		_shaderMap[shaderTag] = shader;
+		m_shaderMap[shaderTag] = shader;
+
+		return RESULT::SUCCESS;
 	}
-	Shader* ShaderLibrary::GetShader(const std::string& shaderTag)
+	Shader* ShaderLibrary::GetShader(const char* shaderTag)
 	{
-		if (_shaderMap.count(shaderTag) == 0)
+		if (m_shaderMap.count(shaderTag) == 0)
 			return nullptr;
-		return &_shaderMap[shaderTag];
+		return &m_shaderMap[shaderTag];
 	}
 }
