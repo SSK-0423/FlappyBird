@@ -8,4 +8,15 @@ namespace Framework
 	{
 		CollisionSystem::AddCollider(this);
 	}
+	void Collider::SetOnCollisionCallBack(std::function<void(Collider*)> func)
+	{
+		m_onCollisionCallBack = func;
+	}
+	void Collider::OnCollision(Collider* other)
+	{
+		if (m_onCollisionCallBack != nullptr)
+		{
+			m_onCollisionCallBack(other);
+		}
+	}
 }

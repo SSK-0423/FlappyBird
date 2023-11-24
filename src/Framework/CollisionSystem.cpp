@@ -3,6 +3,7 @@
 #include "IComponent.h"
 #include "Collider.h"
 #include "RectCollider.h"
+#include "Object.h"
 
 #include <DirectXMath.h>
 
@@ -30,8 +31,8 @@ namespace Framework
 				// 当たり判定検出
 				if (CollisionDetection(*collider1, *collider2))
 				{
-					// 衝突していた場合はコールバックを呼ぶ
-					OutputDebugStringA("Collision!!!!!!!!!!\n");
+					collider1->OnCollision(collider2);
+					collider2->OnCollision(collider1);
 				}
 			}
 		}

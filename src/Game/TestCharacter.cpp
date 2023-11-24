@@ -22,6 +22,7 @@ namespace FlappyBird
 		// コライダー
 		m_owner->AddComponent<RectCollider>(m_owner);
 		m_owner->GetComponent<RectCollider>()->SetRectSize(100, 100);
+		m_owner->GetComponent<RectCollider>()->SetOnCollisionCallBack(std::bind(&TestCharacter::OnCollision, this, std::placeholders::_1));
 	}
 	TestCharacter::~TestCharacter()
 	{
@@ -48,6 +49,10 @@ namespace FlappyBird
 	}
 	void TestCharacter::Draw()
 	{
+	}
+	void TestCharacter::OnCollision(Collider* other)
+	{
+		OutputDebugStringA("TestCharacter OnCollision\n");
 	}
 }
 

@@ -24,7 +24,12 @@ namespace Framework
 
 		COLLIDER_TYPE GetColliderType() const { return m_colliderType; };
 
+		// •K—v‚È‚ç‚ÎOnCollisionEnter, OnCollisionStay, OnCollisionExit‚ðŽÀ‘•‚·‚é
+		void SetOnCollisionCallBack(std::function<void(Collider*)> func);
+		void OnCollision(Collider* other);
+
 	protected:
 		COLLIDER_TYPE m_colliderType = COLLIDER_TYPE::NONE;
+		std::function<void(Collider*)> m_onCollisionCallBack = nullptr;
 	};
 }

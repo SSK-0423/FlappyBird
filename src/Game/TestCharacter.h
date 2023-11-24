@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Framework/IComponent.h"
+#include "Framework/Collider.h"
 
 using namespace Framework;
 
@@ -14,5 +15,6 @@ namespace FlappyBird
 
 		void Update(float deltaTime) override;
 		void Draw() override;
+		void OnCollision(Collider* other);
 	};
 }
