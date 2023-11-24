@@ -1,8 +1,9 @@
 #pragma once
-#include "Collider.h"
 
 namespace Framework
 {
+	class Collider;
+
 	class CollisionSystem
 	{
 	public:
@@ -22,6 +23,6 @@ namespace Framework
 
 		// •K—v‚ª‚ ‚ê‚Î‘¼‚Ì”»’è‚à’Ç‰Á
 
-		static std::list<std::shared_ptr<Collider>> m_colliders;
+		static std::list<Collider*> m_colliders;
 	};
 }

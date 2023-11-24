@@ -11,7 +11,7 @@ using namespace DirectX;
 namespace Framework
 {
 	// Ã“Iƒƒ“ƒo•Ï”‚ÌÀ‘Ì‰»
-	std::list<std::shared_ptr<Collider>> CollisionSystem::m_colliders;
+	std::list<Collider*> CollisionSystem::m_colliders;
 
 	void CollisionSystem::Update(float deltaTime)
 	{
@@ -39,7 +39,7 @@ namespace Framework
 
 	void CollisionSystem::AddCollider(Collider* collider)
 	{
-		m_colliders.push_back(std::shared_ptr<Collider>(collider));
+		m_colliders.push_back(collider);
 	}
 
 	void CollisionSystem::Reset()

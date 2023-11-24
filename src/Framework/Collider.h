@@ -14,7 +14,7 @@ namespace Framework
 	class Collider : public IComponent
 	{
 	public:
-		Collider(Object* owner) : IComponent(owner) {};
+		Collider(Object* owner);
 		virtual ~Collider() = default;
 
 		virtual void Update(float deltaTime) = 0;

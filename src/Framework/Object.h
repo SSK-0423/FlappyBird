@@ -9,6 +9,7 @@ namespace Framework
 		Object();
 		virtual ~Object()
 		{
+			m_components.clear();
 		}
 
 		template<class T>

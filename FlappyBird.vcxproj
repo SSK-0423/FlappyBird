@@ -166,6 +166,7 @@
     <ClCompile Include="src\DX12Wrapper\VertexBuffer.cpp" />
     <ClCompile Include="src\Framework\Button.cpp" />
     <ClCompile Include="src\Framework\Camera.cpp" />
+    <ClCompile Include="src\Framework\Collider.cpp" />
     <ClCompile Include="src\Framework\CollisionSystem.cpp" />
     <ClCompile Include="src\Framework\Game.cpp" />
     <ClCompile Include="src\Framework\InputSystem.cpp" />
