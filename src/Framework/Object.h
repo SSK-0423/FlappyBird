@@ -9,7 +9,6 @@ namespace Framework
 		Object();
 		virtual ~Object()
 		{
-			m_components.clear();
 		}
 
 		template<class T>
@@ -51,7 +50,11 @@ namespace Framework
 		bool m_isActive = true;
 	};
 
-	// Objectに別名をつける
-	using GameObject = Object;
-	using GUIObject = Object;
+	// templateで実装してあるオブジェクトマネージャーを
+	// GameObjectとUIObject用に使い分けるためのクラス
+	class GameObject : public Object
+	{};
+
+	class UIObject : public Object
+	{};
 }

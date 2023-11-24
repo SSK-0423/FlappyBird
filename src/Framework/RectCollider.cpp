@@ -3,11 +3,13 @@
 
 #include "Object.h"
 #include "Transform2D.h"
+#include "SpriteRenderer.h"
+#include "CollisionSystem.h"
 
 namespace Framework
 {
 	RectCollider::RectCollider(Object* owner)
-		: Collider(owner), m_rect(0, 0, 1, 1)
+		: Collider(owner), m_rect(0, 0, 1, 1, false)
 	{
 		m_colliderType = COLLIDER_TYPE::RECT;
 	}

@@ -37,7 +37,7 @@ namespace DX12Wrapper
 
 	DescriptorHeapCBV_SRV_UAV Dx12GraphicsEngine::m_imguiHeap;
 
-	std::unique_ptr<DirectX::GraphicsMemory> Dx12GraphicsEngine::m_graphicsMemory = nullptr;
+	DirectX::GraphicsMemory* Dx12GraphicsEngine::m_graphicsMemory = nullptr;
 
 	CD3DX12_VIEWPORT Dx12GraphicsEngine::m_viewport;
 	CD3DX12_RECT Dx12GraphicsEngine::m_scissorRect;
@@ -76,7 +76,7 @@ namespace DX12Wrapper
 		m_renderContext.Init(*m_cmdList.Get());
 
 		// GraphicsMemory初期化(DirectXTKを利用したフォントレンダリングで使用)
-		m_graphicsMemory = std::make_unique<DirectX::GraphicsMemory>(m_device.Get());
+		m_graphicsMemory = new DirectX::GraphicsMemory(m_device.Get());
 
 		m_viewport = CD3DX12_VIEWPORT(
 			0.f, 0.f, static_cast<float>(windowWidth), static_cast<float>(windowHeight));
@@ -394,5 +394,13 @@ namespace DX12Wrapper
 	const CD3DX12_VIEWPORT& Dx12GraphicsEngine::GetViewport()
 	{
 		return m_viewport;
+	}
+	Dx12GraphicsEngine::~Dx12GraphicsEngine()
+	{
+		if (m_graphicsMemory != nullptr)
+		{
+			delete m_graphicsMemory;
+			m_graphicsMemory = nullptr;
+		}
 	}
 }

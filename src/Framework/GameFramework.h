@@ -2,6 +2,7 @@
 
 // Frameworkフォルダ内を全てインクルード
 #include "Framework/Object.h";
+#include "Framework/GameObjectManager.h"
 #include "Framework/ObjectManager.h"
 
 // コンポーネント
@@ -30,5 +31,3 @@
 #include "Framework/IRenderer.h"
 #include "Framework/ShaderLibrary.h"
 #include "Framework/Sprite.h"
-
-#include "Framework/Canvas.h"

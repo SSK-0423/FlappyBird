@@ -1,6 +1,5 @@
 #pragma once
 #include "Object.h"
-#include "Canvas.h"
 #include "Camera.h"
 
 namespace Framework
@@ -14,13 +13,10 @@ namespace Framework
 		virtual void Init() = 0;
 		virtual void Update(float deltaTime);
 		virtual void LateUpdate(float deltaTime);
-		virtual void Final() = 0;
-
-		const std::vector<std::unique_ptr<Canvas>>& GetCanvases() const;
+		virtual void Final();
 
 		static const Camera& GetCamera();
 	protected:
-		std::vector<std::unique_ptr<Canvas>> m_canvases;
-		static std::unique_ptr<GameObject> m_cameraObject;
+		static std::shared_ptr<GameObject> m_cameraObject;
 	};
 }

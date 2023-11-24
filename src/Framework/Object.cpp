@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Object.h"
 #include "Transform2D.h"
+#include "GameObjectManager.h"
 
 namespace Framework
 {
@@ -17,9 +18,6 @@ namespace Framework
 	}
 	void Object::Draw()
 	{
-		// 子オブジェクトが存在する場合、
-		// 親オブジェクトはステージなどの背景オブジェクトの可能性があるため、
-		// 子オブジェクトを先に描画する
 		for (auto& component : m_components)
 		{
 			component->Draw();

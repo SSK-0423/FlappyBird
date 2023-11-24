@@ -87,7 +87,7 @@ namespace DX12Wrapper
 
 	private:
 		Dx12GraphicsEngine() = default;
-		~Dx12GraphicsEngine() = default;
+		~Dx12GraphicsEngine();
 		Dx12GraphicsEngine(const Dx12GraphicsEngine& inst) = delete;
 		void operator=(const Dx12GraphicsEngine& inst) = delete;
 
@@ -155,7 +155,7 @@ namespace DX12Wrapper
 		static DX12Wrapper::DescriptorHeapCBV_SRV_UAV m_imguiHeap;
 
 		// フォントレンダリング関連
-		static std::unique_ptr<DirectX::GraphicsMemory> m_graphicsMemory;
+		static DirectX::GraphicsMemory* m_graphicsMemory;
 
 		static CD3DX12_VIEWPORT m_viewport;
 		static CD3DX12_RECT m_scissorRect;

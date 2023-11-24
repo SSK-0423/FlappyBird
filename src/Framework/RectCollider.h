@@ -2,6 +2,8 @@
 
 #include "Collider.h"
 
+#include <DirectXMath.h>
+
 namespace Framework
 {
 	struct Rect
@@ -14,9 +16,22 @@ namespace Framework
 		float width;
 		float height;
 
-		Rect(float x, float y, float width, float height)
-			: x(x), y(y), width(width), height(height)
+		// 左上原点かどうか
+		bool isLeftUpOrigin;
+
+		Rect(float x, float y, float width, float height, bool isLeftUpOrigin)
+			: x(x), y(y), width(width), height(height), isLeftUpOrigin(isLeftUpOrigin)
 		{}
+
+		DirectX::XMFLOAT2 GetCenter() const
+		{
+			// 左上が原点の場合
+			if (isLeftUpOrigin)
+				return DirectX::XMFLOAT2(x + width / 2, y - height / 2);
+			// 中心が原点の場合
+			else
+				return DirectX::XMFLOAT2(x, y);
+		}
 	};
 
 	class RectCollider : public Collider

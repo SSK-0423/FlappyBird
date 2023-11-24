@@ -7,7 +7,7 @@ namespace Framework
 	{
 	public:
 		static void Update(float deltaTime);
-		static void AddCollider(std::shared_ptr<Collider>& collider);
+		static void AddCollider(Collider* collider);
 		static void Reset();
 
 	private:

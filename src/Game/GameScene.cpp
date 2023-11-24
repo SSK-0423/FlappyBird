@@ -15,23 +15,16 @@ namespace FlappyBird
 		OutputDebugStringA("GameScene Init\n");
 
 		// テストキャラクタ
-		std::shared_ptr<Object> testChara = std::make_shared<Object>();
-		testChara->AddComponent<TestCharacter>(testChara.get());
-		ObjectManager::AddObject(testChara);
+		Object* testChara = GameObjectManager::CreateObject();
+		testChara->AddComponent<TestCharacter>(testChara);
 
 		// テスト障害物
-		std::shared_ptr<Object> testObstacle = std::make_shared<Object>();
-		testObstacle->AddComponent<TestObstacle>(testObstacle.get());
-		ObjectManager::AddObject(testObstacle);
+		Object* testObstacle = GameObjectManager::CreateObject();
+		testObstacle->AddComponent<TestObstacle>(testObstacle);
 	}
 	void GameScene::Final()
 	{
-		for (auto& canvas : m_canvases)
-		{
-			canvas->Final();
-		}
-		m_canvases.clear();
-		m_canvases.shrink_to_fit();
+		Scene::Final();
 
 		OutputDebugStringA("GameScene Final\n");
 	}

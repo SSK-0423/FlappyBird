@@ -1,42 +1,46 @@
 #include "Scene.h"
 #include "IRenderer.h"
 #include "Transform2D.h"
-#include "ObjectManager.h"
+#include "GameObjectManager.h"
+#include "UIObjectManager.h"
 #include "CollisionSystem.h"
 
 namespace Framework
 {
-	std::unique_ptr<GameObject> Scene::m_cameraObject = nullptr;
+	// 静的メンバ変数の実体化
+	std::shared_ptr<GameObject> Scene::m_cameraObject = nullptr;
 
 	Scene::Scene()
 	{
 		// シーンがインスタンス化されるたびにカメラが生成されるのを防ぐ
 		if (m_cameraObject == nullptr)
 		{
-			m_cameraObject = std::make_unique<GameObject>();
+			m_cameraObject = std::make_shared<GameObject>();
 			m_cameraObject->AddComponent<Camera>(m_cameraObject.get());
 		}
 	}
 	void Scene::Update(float deltaTime)
 	{
 		// オブジェクト全体の更新
-		ObjectManager::Update(deltaTime);
+		GameObjectManager::Update(deltaTime);
 
 		// コリジョン判定
 		CollisionSystem::Update(deltaTime);
 
 		// UIの更新
-		for (auto& canvas : m_canvases)
-		{
-			canvas->Update(deltaTime);
-		}
+		UIObjectManager::Update(deltaTime);
+
 	}
 	void Scene::LateUpdate(float deltaTime)
 	{
 	}
-	const std::vector<std::unique_ptr<Canvas>>& Scene::GetCanvases() const
+	void Scene::Final()
 	{
-		return m_canvases;
+		// 全てのゲームオブジェクトを削除
+		GameObjectManager::Reset();
+
+		// 全てのUIオブジェクトを削除
+		UIObjectManager::Reset();
 	}
 	const Camera& Scene::GetCamera()
 	{
