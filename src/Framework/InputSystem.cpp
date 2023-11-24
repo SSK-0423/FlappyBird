@@ -10,23 +10,23 @@ constexpr BYTE ON_VALUE = 0x80;
 namespace Framework
 {
 	// 静的メンバ変数の実体化
-	//HWND InputSystem::m_hwnd;
+	HWND InputSystem::m_hwnd;
 
-	//LPDIRECTINPUT8 InputSystem::m_directInputInterface;
-	//LPDIRECTINPUTDEVICE8 InputSystem::m_keyboard;
-	//LPDIRECTINPUTDEVICE8 InputSystem::m_mouse;
+	LPDIRECTINPUT8 InputSystem::m_directInputInterface;
+	LPDIRECTINPUTDEVICE8 InputSystem::m_keyboard;
+	LPDIRECTINPUTDEVICE8 InputSystem::m_mouse;
 
-	//BYTE InputSystem::m_currentKeys[KEY_NUM];
-	//BYTE InputSystem::m_prevKeys[KEY_NUM];
-	//BUTTON_STATE InputSystem::m_keysState[KEY_NUM];
+	BYTE InputSystem::m_currentKeys[KEY_NUM];
+	BYTE InputSystem::m_prevKeys[KEY_NUM];
+	BUTTON_STATE InputSystem::m_keysState[KEY_NUM];
 
-	//DIMOUSESTATE InputSystem::m_currentMouse;
-	//DIMOUSESTATE InputSystem::m_prevMouse;
-	//BUTTON_STATE InputSystem::m_mouseButtonState[MOUSE_BUTTON_NUM];
+	DIMOUSESTATE InputSystem::m_currentMouse;
+	DIMOUSESTATE InputSystem::m_prevMouse;
+	BUTTON_STATE InputSystem::m_mouseButtonState[MOUSE_BUTTON_NUM];
 
-	//float InputSystem::m_mouseXMovement;
-	//float InputSystem::m_mouseYMovement;
-	//float InputSystem::m_mouseWheelMovement;
+	float InputSystem::m_mouseXMovement;
+	float InputSystem::m_mouseYMovement;
+	float InputSystem::m_mouseWheelMovement;
 
 	InputSystem::InputSystem()
 	{
@@ -144,7 +144,7 @@ namespace Framework
 		m_prevMouse = m_currentMouse;
 		// 最新のキーの押下状態を取得する
 		HRESULT result = m_mouse->GetDeviceState(sizeof(DIMOUSESTATE), &m_currentMouse);
-		if (FAILED(result)) { 
+		if (FAILED(result)) {
 			m_mouse->Acquire();
 			m_mouse->GetDeviceState(sizeof(DIMOUSESTATE), &m_currentMouse);
 		}
@@ -176,6 +176,10 @@ namespace Framework
 	bool InputSystem::GetKeyDown(KEYCODE keyCode)
 	{
 		return m_keysState[keyCode] == BUTTON_STATE::DOWN;
+	}
+	bool InputSystem::GetKey(KEYCODE keyCode)
+	{
+		return m_keysState[keyCode] == BUTTON_STATE::HOLD;
 	}
 	bool InputSystem::GetMouseButtonDown(MOUSECODE mouseCode)
 	{

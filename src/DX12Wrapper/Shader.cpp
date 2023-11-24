@@ -19,7 +19,7 @@ namespace DX12Wrapper
 			entoryPointName, shaderTypeAndVersion,
 			D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION,
 			0,
-			&_shaderBlob, &_errorBlob);
+			&m_shaderBlob, &m_errorBlob);
 #else
 		// シェーダーのコンパイル
 		HRESULT result = D3DCompileFromFile(
@@ -29,7 +29,7 @@ namespace DX12Wrapper
 			entoryPointName, shaderTypeAndVersion,
 			D3DCOMPILE_SKIP_OPTIMIZATION,
 			0,
-			&_shaderBlob, &_errorBlob);
+			&m_shaderBlob, &m_errorBlob);
 #endif // _DEBUG
 
 		if (FAILED(result)) {
@@ -38,10 +38,10 @@ namespace DX12Wrapper
 			}
 			else {
 				std::string errstr;	// エラーメッセージ受け取り用string
-				errstr.resize(_errorBlob->GetBufferSize()); // 必要なサイズ分確保
+				errstr.resize(m_errorBlob->GetBufferSize()); // 必要なサイズ分確保
 				// データコピー
-				std::copy_n((char*)_errorBlob->GetBufferPointer(),
-					_errorBlob->GetBufferSize(),
+				std::copy_n((char*)m_errorBlob->GetBufferPointer(),
+					m_errorBlob->GetBufferSize(),
 					errstr.begin());
 				errstr += "\n";
 

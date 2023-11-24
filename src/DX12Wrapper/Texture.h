@@ -24,15 +24,15 @@ namespace DX12Wrapper
 
 		Texture& operator=(const Texture& inst);
 	private:
-		Microsoft::WRL::ComPtr<ID3D12Resource> _uploadBuffer = nullptr;		// 中間バッファー(アップロード元)
-		Microsoft::WRL::ComPtr<ID3D12Resource> _textureBuffer = nullptr;	// テクスチャバッファー(アップロード先)
+		Microsoft::WRL::ComPtr<ID3D12Resource> m_uploadBuffer = nullptr;		// 中間バッファー(アップロード元)
+		Microsoft::WRL::ComPtr<ID3D12Resource> m_textureBuffer = nullptr;	// テクスチャバッファー(アップロード先)
 
-		std::vector<D3D12_SUBRESOURCE_DATA> _subresources; // キューブテクスチャ用サブリソース
+		std::vector<D3D12_SUBRESOURCE_DATA> m_subresources; // キューブテクスチャ用サブリソース
 
 		// ScratchImage::GetImageの戻り値にconstがついているため
-		const DirectX::Image* _image = nullptr;	// テクスチャの生データ
-		DirectX::TexMetadata _metaData;	        // テクスチャのメタ情報
-		DirectX::ScratchImage _scratchImage;    // 
+		const DirectX::Image* m_image = nullptr;	// テクスチャの生データ
+		DirectX::TexMetadata m_metaData;	        // テクスチャのメタ情報
+		DirectX::ScratchImage m_scratchImage;    // 
 
 		/// <summary>
 		/// WIC対応のファイル(bmp,png,jpeg,tiffなど)を読み込む
@@ -74,9 +74,9 @@ namespace DX12Wrapper
 		/// <param name="device">デバイス</param>
 		/// <param name="graphicsEngine">グラフィクスエンジン</param>
 		/// <returns></returns>
-		HRESULT CopyTexture(ID3D12Device& device, Dx12GraphicsEngine& graphicsEngine);
+		HRESULT CopyTexture(ID3D12Device& device);
 
-		HRESULT CopyCubeTexture(Dx12GraphicsEngine& graphicsEngine);
+		HRESULT CopyCubeTexture();
 
 		void SetTextureData(
 			uint8_t* data, const size_t& stride, const size_t& dataNum, const size_t& width, const size_t& height, const DXGI_FORMAT& format);
@@ -88,7 +88,7 @@ namespace DX12Wrapper
 		/// <param name="graphicsEngine">グラフィクスエンジン</param>
 		/// <param name="texturePath">テクスチャへのパス</param>
 		/// <returns>成功：Utility::RESULT::SUCCESS 失敗：Utility::RESULT::FAILED</returns>
-		Utility::RESULT CreateTextureFromWIC(Dx12GraphicsEngine& graphicsEngine, const std::wstring& texturePath);
+		Utility::RESULT CreateTextureFromWIC(const std::wstring& texturePath);
 
 		/// <summary>
 		/// DDSファイルからテクスチャを生成
@@ -96,7 +96,7 @@ namespace DX12Wrapper
 		/// <param name="graphicsEngine">グラフィクスエンジン</param>
 		/// <param name="texturePath">テクスチャへのパス</param>
 		/// <returns>成功：Utility::RESULT::SUCCESS 失敗：Utility::RESULT::FAILED</returns>
-		Utility::RESULT CreateTextureFromDDS(Dx12GraphicsEngine& graphicsEngine, const std::wstring& texturePath);
+		Utility::RESULT CreateTextureFromDDS(const std::wstring& texturePath);
 
 		/// <summary>
 		/// 用意したRGBAデータからテクスチャ生成
@@ -107,7 +107,7 @@ namespace DX12Wrapper
 		/// <param name="height"></param>
 		/// <returns></returns>
 		Utility::RESULT CreateTextureFromConstantData(
-			Dx12GraphicsEngine& graphicsEngine, uint8_t* data, const size_t& stride, const size_t& dataNum,
+			uint8_t* data, const size_t& stride, const size_t& dataNum,
 			const size_t& width, const size_t& height, const DXGI_FORMAT& format);
 
 		/// <summary>
@@ -129,7 +129,7 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns>テクスチャバッファー</returns>
 		ID3D12Resource& GetBuffer() const {
-			return *_textureBuffer.Get();
+			return *m_textureBuffer.Get();
 		}
 
 		/// <summary>
@@ -137,7 +137,7 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns>テクスチャのメタデータ</returns>
 		DirectX::TexMetadata& GetTexMetadata() {
-			return _metaData;
+			return m_metaData;
 		}
 
 		/// <summary>
@@ -145,7 +145,7 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns>テクスチャの生データ</returns>
 		const DirectX::Image& GetImage() {
-			return *_image;
+			return *m_image;
 		}
 	};
 }

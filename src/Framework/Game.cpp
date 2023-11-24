@@ -3,6 +3,7 @@
 #include "IRenderer.h"
 #include "InputSystem.h"
 #include "SceneManager.h"
+#include "ShaderLibrary.h"
 
 #include "DX12Wrapper/Dx12GraphicsEngine.h"
 #include "DX12Wrapper/FontRenderer.h"
@@ -18,23 +19,28 @@ namespace Framework
 {
 	void Game::Init()
 	{
-		m_window.Create(NAME, WIDTH, HEIGHT);
-		auto& hwnd = m_window.GetHwnd();
+		Window::Create(NAME, WIDTH, HEIGHT);
+		auto& hwnd = Window::GetHwnd();
 
-		RESULT result = InputSystem::Instance().Init(m_window.GetHwnd());
+		RESULT result = InputSystem::Init(hwnd);
 		if (result == RESULT::FAILED)
 		{
 			MessageBoxA(hwnd, "InputSystemの初期化に失敗", "エラー", MB_OK);
 		}
-		result = DX12Wrapper::Dx12GraphicsEngine::Instance().Init(m_window.GetHwnd(), WIDTH, HEIGHT);
+		result = DX12Wrapper::Dx12GraphicsEngine::Init(hwnd, WIDTH, HEIGHT);
 		if (result == RESULT::FAILED)
 		{
 			MessageBoxA(hwnd, "Dx12GraphicsEngineの初期化に失敗", "エラー", MB_OK);
 		}
-		result = DX12Wrapper::FontRenderer::Instance().Init(FONT_PATH);
+		result = DX12Wrapper::FontRenderer::Init(FONT_PATH);
 		if (result == RESULT::FAILED)
 		{
 			MessageBoxA(hwnd, "Dx12GraphicsEngineの初期化に失敗", "エラー", MB_OK);
+		}
+		result = ShaderLibrary::Init();
+		if (result == RESULT::FAILED)
+		{
+			MessageBoxA(hwnd, "ShaderLibraryの初期化に失敗", "エラー", MB_OK);
 		}
 		result = m_renderer.Init();
 		if (result == RESULT::FAILED)
@@ -43,16 +49,16 @@ namespace Framework
 		}
 
 		m_gameImpl.Init();
+
+		SceneManager::Init();
 	}
 
 	void Game::Run()
 	{
-		auto& sceneManager = SceneManager::Instance();
-
 		// 1フレーム目でのデルタタイムを0秒とする
 		m_prevFrameTime = std::chrono::system_clock::now();
 
-		while (bool isPlaying = m_window.DispatchWindowMessage())
+		while (bool isPlaying = Window::DispatchWindowMessage())
 		{
 			auto currentFrameTime = std::chrono::system_clock::now();
 			float deltaTime
@@ -61,20 +67,20 @@ namespace Framework
 			m_prevFrameTime = std::chrono::system_clock::now();
 
 			// キー入力
-			InputSystem::Instance().Update();
+			InputSystem::Update();
 
 			// 更新
-			sceneManager.ActiveSceneUpdate(deltaTime);
+			SceneManager::Update(deltaTime);
 
 			// 描画
-			sceneManager.ActiveSceneDraw(m_renderer);
+			SceneManager::Draw(m_renderer);
 
 			// フレーム最後の更新処理
-			sceneManager.ActiveSceneLateUpdate(deltaTime);
+			SceneManager::LateUpdate(deltaTime);
 
-#ifdef _DEBUG
-			DebugLog("%f (ms) \n", deltaTime * 1000.f);
-#endif
+			//#ifdef _DEBUG
+			//			DebugLog("%f (ms) \n", deltaTime * 1000.f);
+			//#endif
 		}
 
 		return;
@@ -83,7 +89,7 @@ namespace Framework
 	void Game::Final()
 	{
 		// 終了処理
-		SceneManager::Instance().ActiveSceneFinal();
+		SceneManager::Final();
 
 		m_gameImpl.Final();
 	}

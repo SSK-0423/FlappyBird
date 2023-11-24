@@ -23,10 +23,10 @@ namespace DX12Wrapper
 		static constexpr UINT MAXDESCRIPTORNUM = 8;							    // 登録可能なディスクリプタ数
 
 	private:
-		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> _rtvHeap = nullptr;	    // ディスクリプタヒープ
-		SIZE_T _handleIncrimentSize = 0;										// ハンドルのインクリメントサイズ
-		UINT _registedRTVNum = 0;									            // ヒープに登録されたディスクリプタ数
-		UINT _nextHandleLocation = 1;
+		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> m_rtvHeap = nullptr;	    // ディスクリプタヒープ
+		SIZE_T m_handleIncrimentSize = 0;										// ハンドルのインクリメントサイズ
+		UINT m_registedRTVNum = 0;									            // ヒープに登録されたディスクリプタ数
+		UINT m_nextHandleLocation = 1;
 
 		/// <summary>
 		/// ディスクリプタヒープ生成
@@ -49,8 +49,8 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns></returns>
 		D3D12_CPU_DESCRIPTOR_HANDLE GetCPUDescriptorHandleForHeapStart() {
-			_nextHandleLocation = 1;
-			return _rtvHeap->GetCPUDescriptorHandleForHeapStart();
+			m_nextHandleLocation = 1;
+			return m_rtvHeap->GetCPUDescriptorHandleForHeapStart();
 		}
 
 		/// <summary>
@@ -62,8 +62,8 @@ namespace DX12Wrapper
 		D3D12_CPU_DESCRIPTOR_HANDLE GetNextCPUDescriptorHandle();
 
 		D3D12_GPU_DESCRIPTOR_HANDLE GetGPUDescriptorHandleForHeapStart() {
-			_nextHandleLocation = 1;
-			return _rtvHeap->GetGPUDescriptorHandleForHeapStart();
+			m_nextHandleLocation = 1;
+			return m_rtvHeap->GetGPUDescriptorHandleForHeapStart();
 		}
 
 		/// <summary>
@@ -71,7 +71,7 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns></returns>
 		SIZE_T GetHandleIncrimentSize() {
-			return _handleIncrimentSize;
+			return m_handleIncrimentSize;
 		}
 
 		/// <summary>
@@ -79,7 +79,7 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns></returns>
 		UINT GetRegistedDescriptorNum() {
-			return _registedRTVNum;
+			return m_registedRTVNum;
 		}
 
 		/// <summary>

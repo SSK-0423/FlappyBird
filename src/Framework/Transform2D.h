@@ -13,7 +13,7 @@ namespace Framework
 	{
 	public:
 		Transform2D(Object* owner);
-		~Transform2D() = default;
+		~Transform2D();
 
 	private:
 		struct Transform2DData
@@ -21,7 +21,7 @@ namespace Framework
 			DirectX::XMMATRIX model;
 		};
 		Transform2DData m_bufferData;
-		std::unique_ptr<DX12Wrapper::ConstantBuffer> m_transformBuffer;
+		std::shared_ptr<DX12Wrapper::ConstantBuffer> m_transformBuffer;
 
 
 	public:

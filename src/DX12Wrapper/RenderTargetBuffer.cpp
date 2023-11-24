@@ -28,7 +28,7 @@ namespace DX12Wrapper
 			&resDesc,
 			D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE,		// オフスクリーンレンダリング使用時の状態遷移に対応
 			&clearValue,
-			IID_PPV_ARGS(_rtvBuffer.ReleaseAndGetAddressOf()));
+			IID_PPV_ARGS(m_rtvBuffer.ReleaseAndGetAddressOf()));
 
 		if (FAILED(result)) { return RESULT::FAILED; }
 
@@ -37,11 +37,11 @@ namespace DX12Wrapper
 
 	RESULT RenderTargetBuffer::Create(ID3D12Device& device, IDXGISwapChain3& swapchain, const size_t& index)
 	{
-		HRESULT result = swapchain.GetBuffer(index, IID_PPV_ARGS(_rtvBuffer.ReleaseAndGetAddressOf()));
+		HRESULT result = swapchain.GetBuffer(index, IID_PPV_ARGS(m_rtvBuffer.ReleaseAndGetAddressOf()));
 		if (FAILED(result)) { return RESULT::FAILED; }
 
 		// MipLevel = 1
-		auto resDesc = _rtvBuffer->GetDesc();
+		auto resDesc = m_rtvBuffer->GetDesc();
 
 		return RESULT::SUCCESS;
 	}

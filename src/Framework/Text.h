@@ -10,7 +10,7 @@ namespace Framework
 	{
 	public:
 		Text(Object* owner);
-		~Text() = default;
+		~Text();
 
 		void Update(float deltaTime) override;
 		void Draw() override;
@@ -24,6 +24,5 @@ namespace Framework
 	private:
 		std::wstring m_text;
 		DirectX::XMVECTORF32 m_color;
-		DX12Wrapper::FontRenderer& m_fontRenderer;
 	};
 }

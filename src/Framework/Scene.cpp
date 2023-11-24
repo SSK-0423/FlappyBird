@@ -1,53 +1,46 @@
 #include "Scene.h"
 #include "IRenderer.h"
 #include "Transform2D.h"
+#include "GameObjectManager.h"
+#include "UIObjectManager.h"
+#include "CollisionSystem.h"
 
 namespace Framework
 {
-	std::unique_ptr<GameObject> Scene::m_cameraObject = nullptr;
+	// 静的メンバ変数の実体化
+	std::shared_ptr<GameObject> Scene::m_cameraObject = nullptr;
 
 	Scene::Scene()
 	{
 		// シーンがインスタンス化されるたびにカメラが生成されるのを防ぐ
 		if (m_cameraObject == nullptr)
 		{
-			m_cameraObject = std::make_unique<GameObject>();
+			m_cameraObject = std::make_shared<GameObject>();
 			m_cameraObject->AddComponent<Camera>(m_cameraObject.get());
 		}
 	}
 	void Scene::Update(float deltaTime)
 	{
-		for (auto& obj : m_gameObjects)
-		{
-			if (obj->GetActive())
-			{
-				obj->Update(deltaTime);
-			}
-		}
+		// オブジェクト全体の更新
+		GameObjectManager::Update(deltaTime);
 
-		for (auto& canvas : m_canvases)
-		{
-			canvas->Update(deltaTime);
-		}
+		// コリジョン判定
+		CollisionSystem::Update(deltaTime);
+
+		// UIの更新
+		UIObjectManager::Update(deltaTime);
+
 	}
 	void Scene::LateUpdate(float deltaTime)
 	{
-		if (!m_isActive)
-		{
-			Final();
-		}
 	}
-	const std::vector<std::unique_ptr<GameObject>>& Scene::GetGameObjects() const
+	void Scene::Final()
 	{
-		return m_gameObjects;
-	}
-	const std::vector<std::unique_ptr<Canvas>>& Scene::GetCanvases() const
-	{
-		return m_canvases;
-	}
-	void Scene::SetActive(bool isActive)
-	{
-		m_isActive = isActive;
+		// 全てのゲームオブジェクトを削除
+		GameObjectManager::Reset();
+
+		// 全てのUIオブジェクトを削除
+		UIObjectManager::Reset();
 	}
 	const Camera& Scene::GetCamera()
 	{

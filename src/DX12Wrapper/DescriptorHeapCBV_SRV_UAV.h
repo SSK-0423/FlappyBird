@@ -20,30 +20,11 @@ namespace DX12Wrapper
 	class DescriptorHeapCBV_SRV_UAV
 	{
 	public:
+		// SpriteのDescriptorHeapのデストラクタでエラー出てるっぽい
 		DescriptorHeapCBV_SRV_UAV() = default;
 		~DescriptorHeapCBV_SRV_UAV() = default;
 		static constexpr int NEXT_REGISTER = -1;
 
-	private:
-		static constexpr UINT _MAX_CBV_DESCRIPTOR_NUM = 64;	// 定数バッファーの最大数
-		static constexpr UINT _MAX_SRV_DESCRIPTOR_NUM = 64;	// シェーダーリソースの最大数
-		static constexpr UINT _MAX_UAV_DESCRIPTOR_NUM = 64;	// アンオーダーアクセスの最大数
-
-		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> _descriptorHeap = nullptr;
-
-		SIZE_T _handleIncrimentSize = 0;
-		UINT _registedCBVNum = 0;
-		UINT _registedSRVNum = 0;
-		UINT _registedUAVNum = 0;
-
-		/// <summary>
-		/// ディスクリプタヒープ生成
-		/// </summary>
-		/// <param name="device">デバイス</param>
-		/// <returns></returns>
-		HRESULT CreateDescriptorHeap(ID3D12Device& device);
-
-	public:
 		/// <summary>
 		/// ディスクリプタヒープ生成
 		/// </summary>
@@ -56,7 +37,7 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns></returns>
 		D3D12_GPU_DESCRIPTOR_HANDLE GetGPUDescriptorHandleForHeapStart() {
-			return _descriptorHeap->GetGPUDescriptorHandleForHeapStart();
+			return m_descriptorHeap->GetGPUDescriptorHandleForHeapStart();
 		}
 
 		/// <summary>
@@ -64,7 +45,7 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns></returns>
 		D3D12_CPU_DESCRIPTOR_HANDLE GetCPUDescriptorHandleForHeapStart() {
-			return _descriptorHeap->GetCPUDescriptorHandleForHeapStart();
+			return m_descriptorHeap->GetCPUDescriptorHandleForHeapStart();
 		}
 
 		/// <summary>
@@ -72,7 +53,7 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns>GPUのCBV部分のディスクリプタヒープの先頭ハンドル</returns>
 		D3D12_GPU_DESCRIPTOR_HANDLE GetGPUDescriptorHandleForHeapStartCBV() {
-			return _descriptorHeap->GetGPUDescriptorHandleForHeapStart();
+			return m_descriptorHeap->GetGPUDescriptorHandleForHeapStart();
 		}
 
 		/// <summary>
@@ -80,32 +61,32 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns>GPUのSRV部分のディスクリプタヒープの先頭ハンドル</returns>
 		D3D12_GPU_DESCRIPTOR_HANDLE GetGPUDescriptorHandleForHeapStartSRV() {
-			auto gpuHandle = _descriptorHeap->GetGPUDescriptorHandleForHeapStart();
-			gpuHandle.ptr += _handleIncrimentSize * _MAX_CBV_DESCRIPTOR_NUM;
-			auto cpuHandle = _descriptorHeap->GetCPUDescriptorHandleForHeapStart();
-			cpuHandle.ptr += _handleIncrimentSize * _MAX_CBV_DESCRIPTOR_NUM;
+			auto gpuHandle = m_descriptorHeap->GetGPUDescriptorHandleForHeapStart();
+			gpuHandle.ptr += m_handleIncrimentSize * m_MAX_CBV_DESCRIPTOR_NUM;
+			auto cpuHandle = m_descriptorHeap->GetCPUDescriptorHandleForHeapStart();
+			cpuHandle.ptr += m_handleIncrimentSize * m_MAX_CBV_DESCRIPTOR_NUM;
 
 			return std::move(gpuHandle);
 		}
 
 		D3D12_GPU_DESCRIPTOR_HANDLE GetSRVHandle(int index) {
-			auto gpuHandle = _descriptorHeap->GetGPUDescriptorHandleForHeapStart();
-			gpuHandle.ptr += _handleIncrimentSize * _MAX_CBV_DESCRIPTOR_NUM;
-			gpuHandle.ptr += _handleIncrimentSize * index;
-			auto cpuHandle = _descriptorHeap->GetCPUDescriptorHandleForHeapStart();
-			cpuHandle.ptr += _handleIncrimentSize * _MAX_CBV_DESCRIPTOR_NUM;
-			cpuHandle.ptr += _handleIncrimentSize * index;
+			auto gpuHandle = m_descriptorHeap->GetGPUDescriptorHandleForHeapStart();
+			gpuHandle.ptr += m_handleIncrimentSize * m_MAX_CBV_DESCRIPTOR_NUM;
+			gpuHandle.ptr += m_handleIncrimentSize * index;
+			auto cpuHandle = m_descriptorHeap->GetCPUDescriptorHandleForHeapStart();
+			cpuHandle.ptr += m_handleIncrimentSize * m_MAX_CBV_DESCRIPTOR_NUM;
+			cpuHandle.ptr += m_handleIncrimentSize * index;
 
 			return std::move(gpuHandle);
 		}
 
 		CD3DX12_GPU_DESCRIPTOR_HANDLE GetGPUHandle() {
-			auto gpuHandle = _descriptorHeap->GetGPUDescriptorHandleForHeapStart();
-			gpuHandle.ptr += _handleIncrimentSize * _MAX_CBV_DESCRIPTOR_NUM;
-			auto cpuHandle = _descriptorHeap->GetCPUDescriptorHandleForHeapStart();
-			cpuHandle.ptr += _handleIncrimentSize * _MAX_CBV_DESCRIPTOR_NUM;
+			auto gpuHandle = m_descriptorHeap->GetGPUDescriptorHandleForHeapStart();
+			gpuHandle.ptr += m_handleIncrimentSize * m_MAX_CBV_DESCRIPTOR_NUM;
+			auto cpuHandle = m_descriptorHeap->GetCPUDescriptorHandleForHeapStart();
+			cpuHandle.ptr += m_handleIncrimentSize * m_MAX_CBV_DESCRIPTOR_NUM;
 
-			return CD3DX12_GPU_DESCRIPTOR_HANDLE(gpuHandle, _MAX_CBV_DESCRIPTOR_NUM, _handleIncrimentSize);
+			return CD3DX12_GPU_DESCRIPTOR_HANDLE(gpuHandle, m_MAX_CBV_DESCRIPTOR_NUM, m_handleIncrimentSize);
 		}
 
 		/// <summary>
@@ -113,8 +94,8 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns>GPUのUAV部分のディスクリプタヒープの先頭ハンドル</returns>
 		D3D12_GPU_DESCRIPTOR_HANDLE GetGPUDescriptorHandleForHeapStartUAV() {
-			auto handle = _descriptorHeap->GetGPUDescriptorHandleForHeapStart();
-			handle.ptr += _handleIncrimentSize * (_MAX_CBV_DESCRIPTOR_NUM + _MAX_UAV_DESCRIPTOR_NUM);
+			auto handle = m_descriptorHeap->GetGPUDescriptorHandleForHeapStart();
+			handle.ptr += m_handleIncrimentSize * (m_MAX_CBV_DESCRIPTOR_NUM + m_MAX_UAV_DESCRIPTOR_NUM);
 
 			return handle;
 		}
@@ -124,7 +105,7 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns>インクリメントサイズ</returns>
 		SIZE_T GetHandleIncrimentSize() {
-			return _handleIncrimentSize;
+			return m_handleIncrimentSize;
 		}
 
 		/// <summary>
@@ -165,26 +146,45 @@ namespace DX12Wrapper
 		/// コンスタントバッファーが登録されているか
 		/// </summary>
 		/// <returns></returns>
-		bool IsRegistedConstantBuffer() { return _registedCBVNum > 0; }
+		bool IsRegistedConstantBuffer() { return m_registedCBVNum > 0; }
 
 		/// <summary>
 		/// シェーダーリソースが登録されているか
 		/// </summary>
 		/// <returns></returns>
-		bool IsRegistedShaderResource() { return _registedSRVNum > 0; }
+		bool IsRegistedShaderResource() { return m_registedSRVNum > 0; }
 
 		/// <summary>
 		/// アンオーダーアクセスリソースが登録されているか
 		/// </summary>
 		/// <returns></returns>
-		bool IsRegistedUnorderedAccessResource() { return _registedUAVNum > 0; }
+		bool IsRegistedUnorderedAccessResource() { return m_registedUAVNum > 0; }
 
 		/// <summary>
 		/// ディスクリプタヒープのアドレス取得
 		/// </summary>
 		/// <returns>ディスクリプタヒープのアドレス</returns>
 		ID3D12DescriptorHeap** GetDescriptorHeapAddress() {
-			return _descriptorHeap.GetAddressOf();
+			return m_descriptorHeap.GetAddressOf();
 		}
+
+	private:
+		static constexpr UINT m_MAX_CBV_DESCRIPTOR_NUM = 64;	// 定数バッファーの最大数
+		static constexpr UINT m_MAX_SRV_DESCRIPTOR_NUM = 64;	// シェーダーリソースの最大数
+		static constexpr UINT m_MAX_UAV_DESCRIPTOR_NUM = 64;	// アンオーダーアクセスの最大数
+
+		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> m_descriptorHeap = nullptr;
+
+		SIZE_T m_handleIncrimentSize = 0;
+		UINT m_registedCBVNum = 0;
+		UINT m_registedSRVNum = 0;
+		UINT m_registedUAVNum = 0;
+
+		/// <summary>
+		/// ディスクリプタヒープ生成
+		/// </summary>
+		/// <param name="device">デバイス</param>
+		/// <returns></returns>
+		HRESULT CreateDescriptorHeap(ID3D12Device& device);
 	};
 }

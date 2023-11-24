@@ -9,6 +9,8 @@
 
 #include "Framework/Scene.h"
 
+#include "Framework/Object.h"
+
 using namespace Utility;
 using namespace DX12Wrapper;
 using namespace Framework;
@@ -25,7 +27,7 @@ namespace FlappyBird
 	{
 		return RESULT::SUCCESS;
 	}
-	void Renderer::RenderScene(const std::vector<std::unique_ptr<Framework::Object>>& gameObjects)
+	void Renderer::RenderScene(const std::list<Framework::GameObject*>& gameObjects)
 	{
 		for (auto& obj : gameObjects)
 		{
@@ -35,11 +37,14 @@ namespace FlappyBird
 			}
 		}
 	}
-	void Renderer::RenderUI(const std::vector<std::unique_ptr<Framework::Canvas>>& canvases)
+	void Renderer::RenderUI(const std::list<Framework::UIObject*>& uiObjects)
 	{
-		for (auto& canvas : canvases)
+		for (auto& obj : uiObjects)
 		{
-			canvas->Draw();
+			if (obj->GetActive())
+			{
+				obj->Draw();
+			}
 		}
 	}
 }

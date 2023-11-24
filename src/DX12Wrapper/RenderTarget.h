@@ -27,17 +27,17 @@ namespace DX12Wrapper
 	class RenderTarget
 	{
 	private:
-		Texture _renderTargetTexture;				// オフスクリーンテクスチャ
-		DescriptorHeapCBV_SRV_UAV _textureHeap;		// オフスクリーンテクスチャ用ヒープ
+		Texture m_renderTargetTexture;				// オフスクリーンテクスチャ
+		DescriptorHeapCBV_SRV_UAV m_textureHeap;		// オフスクリーンテクスチャ用ヒープ
 
-		RenderTargetBuffer _renderTargetBuffer;		// レンダーターゲットバッファー
-		DescriptorHeapRTV _rtvHeap;					// レンダーターゲット用ヒープ
+		RenderTargetBuffer m_renderTargetBuffer;		// レンダーターゲットバッファー
+		DescriptorHeapRTV m_rtvHeap;					// レンダーターゲット用ヒープ
 
-		Texture _depthStencilTexture;				// デプスステンシルテクスチャ
-		DepthStencilBuffer _depthStencilBuffer;		// デプスステンシルバッファー
-		DescriptorHeapDSV _dsvHeap;					// デプスステンシル用ヒープ
+		Texture m_depthStencilTexture;				// デプスステンシルテクスチャ
+		DepthStencilBuffer m_depthStencilBuffer;		// デプスステンシルバッファー
+		DescriptorHeapDSV m_dsvHeap;					// デプスステンシル用ヒープ
 
-		RenderTargetData _renderTargetData;			// レンダーターゲットデータ
+		RenderTargetData m_renderTargetData;			// レンダーターゲットデータ
 
 	public:
 		/// <summary>
@@ -64,7 +64,7 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns>レンダーターゲットテクスチャ</returns>
 		Texture& GetRenderTargetTexture() {
-			return _renderTargetTexture;
+			return m_renderTargetTexture;
 		}
 
 		/// <summary>
@@ -72,7 +72,7 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns>デプスステンシルテクスチャ</returns>
 		Texture& GetDepthStencilTexture() {
-			return _depthStencilTexture;
+			return m_depthStencilTexture;
 		}
 
 		/// <summary>

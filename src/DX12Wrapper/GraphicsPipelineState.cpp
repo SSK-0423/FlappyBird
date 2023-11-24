@@ -17,7 +17,7 @@ namespace DX12Wrapper
 		ID3D12Device& device, const D3D12_GRAPHICS_PIPELINE_STATE_DESC& piplineStateDesc)
 	{
 		HRESULT result = device.CreateGraphicsPipelineState(
-			&piplineStateDesc, IID_PPV_ARGS(_pipelineState.ReleaseAndGetAddressOf()));
+			&piplineStateDesc, IID_PPV_ARGS(m_pipelineState.ReleaseAndGetAddressOf()));
 
 		if (FAILED(result)) { return result; }
 

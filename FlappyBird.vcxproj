@@ -166,11 +166,13 @@
     <ClCompile Include="src\DX12Wrapper\VertexBuffer.cpp" />
     <ClCompile Include="src\Framework\Button.cpp" />
     <ClCompile Include="src\Framework\Camera.cpp" />
-    <ClCompile Include="src\Framework\Canvas.cpp" />
+    <ClCompile Include="src\Framework\Collider.cpp" />
+    <ClCompile Include="src\Framework\CollisionSystem.cpp" />
     <ClCompile Include="src\Framework\Game.cpp" />
     <ClCompile Include="src\Framework\InputSystem.cpp" />
     <ClCompile Include="src\Framework\IRenderer.cpp" />
     <ClCompile Include="src\Framework\Object.cpp" />
+    <ClCompile Include="src\Framework\RectCollider.cpp" />
     <ClCompile Include="src\Framework\Scene.cpp" />
     <ClCompile Include="src\Framework\SceneManager.cpp" />
     <ClCompile Include="src\Framework\ShaderLibrary.cpp" />
@@ -182,14 +184,16 @@
     <ClCompile Include="src\Framework\Transform2D.cpp" />
     <ClCompile Include="src\Framework\Window.cpp" />
     <ClCompile Include="src\Game\FlappyBird.cpp" />
+    <ClCompile Include="src\Game\GameScene.cpp" />
     <ClCompile Include="src\Game\main.cpp" />
     <ClCompile Include="src\Game\PressEnterText.cpp" />
     <ClCompile Include="src\Game\Renderer.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\Game\TestCharacter.cpp" />
+    <ClCompile Include="src\Game\TestObstacle.cpp" />
     <ClCompile Include="src\Game\TitleScene.cpp" />
-    <ClCompile Include="src\Game\TitleSceneCanvas.cpp" />
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -218,13 +222,19 @@
     <ClInclude Include="src\DX12Wrapper\VertexBuffer.h" />
     <ClInclude Include="src\Framework\Button.h" />
     <ClInclude Include="src\Framework\Camera.h" />
-    <ClInclude Include="src\Framework\Canvas.h" />
+    <ClInclude Include="src\Framework\Collider.h" />
+    <ClInclude Include="src\Framework\CollisionSystem.h" />
     <ClInclude Include="src\Framework\Game.h" />
+    <ClInclude Include="src\Framework\GameFramework.h" />
     <ClInclude Include="src\Framework\GameImpl.h" />
     <ClInclude Include="src\Framework\IComponent.h" />
     <ClInclude Include="src\Framework\InputSystem.h" />
     <ClInclude Include="src\Framework\IRenderer.h" />
     <ClInclude Include="src\Framework\Object.h" />
+    <ClInclude Include="src\Framework\GameObjectManager.h" />
+    <ClInclude Include="src\Framework\ObjectContainer.h" />
+    <ClInclude Include="src\Framework\ObjectManager.h" />
+    <ClInclude Include="src\Framework\RectCollider.h" />
     <ClInclude Include="src\Framework\Scene.h" />
     <ClInclude Include="src\Framework\SceneManager.h" />
     <ClInclude Include="src\Framework\ShaderLibrary.h" />
@@ -234,12 +244,15 @@
     <ClInclude Include="src\Framework\SpriteRenderer.h" />
     <ClInclude Include="src\Framework\Text.h" />
     <ClInclude Include="src\Framework\Transform2D.h" />
+    <ClInclude Include="src\Framework\UIObjectManager.h" />
     <ClInclude Include="src\Framework\Window.h" />
     <ClInclude Include="src\Game\FlappyBird.h" />
+    <ClInclude Include="src\Game\GameScene.h" />
     <ClInclude Include="src\Game\PressEnterText.h" />
     <ClInclude Include="src\Game\Renderer.h" />
+    <ClInclude Include="src\Game\TestCharacter.h" />
+    <ClInclude Include="src\Game\TestObstacle.h" />
     <ClInclude Include="src\Game\TitleScene.h" />
-    <ClInclude Include="src\Game\TitleSceneCanvas.h" />
     <ClInclude Include="src\pch.h" />
   </ItemGroup>
   <ItemGroup>

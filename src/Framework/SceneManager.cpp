@@ -3,44 +3,57 @@
 
 namespace Framework
 {
-	void SceneManager::ActiveSceneUpdate(float deltaTime)
+	// static変数の実体化
+	const char* SceneManager::m_currentSceneName = "";
+	const char* SceneManager::m_nextSceneName = nullptr;
+	std::unordered_map<const char*, std::unique_ptr<Scene>> SceneManager::m_scenes;
+
+	void SceneManager::Init()
 	{
-		m_scenes[m_activeSceneName]->Update(deltaTime);
+		// 一番最初に呼ばれるシーンの初期化
+		m_scenes[m_currentSceneName]->Init();
 	}
-	void SceneManager::ActiveSceneDraw(IRenderer& renderer)
+
+	void SceneManager::Update(float deltaTime)
 	{
-		renderer.Render(m_scenes[m_activeSceneName].get());
+		m_scenes[m_currentSceneName]->Update(deltaTime);
 	}
-	void SceneManager::ActiveSceneLateUpdate(float deltaTime)
+	void SceneManager::Draw(IRenderer& renderer)
 	{
-		// シーンが切り替わった場合は前のシーンのLateUpdateを呼ぶ
-		if (m_isSceneChanged && m_oldSceneName != "")
+		renderer.Render(m_scenes[m_currentSceneName].get());
+	}
+	void SceneManager::LateUpdate(float deltaTime)
+	{
+		m_scenes[m_currentSceneName]->LateUpdate(deltaTime);
+
+		// 次シーンが設定されている場合はシーンを切り替える
+		if (m_nextSceneName != nullptr)
 		{
-			m_scenes[m_oldSceneName]->LateUpdate(deltaTime);
-			m_isSceneChanged = false;
-		}
-		else
-		{
-			m_scenes[m_activeSceneName]->LateUpdate(deltaTime);
+			// 現在のシーンの終了処理
+			m_scenes[m_currentSceneName]->Final();
+			
+			// 次フレームから次シーンを開始できるようにここで初期化する
+			m_currentSceneName = m_nextSceneName;
+			m_scenes[m_currentSceneName]->Init();
+			m_nextSceneName = nullptr;
 		}
 	}
-	void SceneManager::ActiveSceneFinal()
+	void SceneManager::Final()
 	{
-		if (m_scenes[m_activeSceneName] != nullptr)
+		if (m_scenes[m_currentSceneName] != nullptr)
 		{
-			m_scenes[m_activeSceneName]->Final();
+			m_scenes[m_currentSceneName]->Final();
 		}
 	}
-	void SceneManager::LoadScene(const char* name)
+	void SceneManager::SetFirstScene(const char* name)
 	{
-		if (m_scenes[m_activeSceneName] != nullptr)
-		{
-			m_scenes[m_activeSceneName]->SetActive(false);
-		}
-		m_oldSceneName = m_activeSceneName;
-		m_activeSceneName = name;
-		m_scenes[m_activeSceneName]->SetActive(true);
-		m_scenes[m_activeSceneName]->Init();
-		m_isSceneChanged = true;
+		m_currentSceneName = name;
+	}
+	void SceneManager::SetNextScene(const char* name)
+	{
+		m_nextSceneName = name;
+	}
+	SceneManager::~SceneManager()
+	{
 	}
 }

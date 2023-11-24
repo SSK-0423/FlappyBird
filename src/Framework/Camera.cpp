@@ -34,11 +34,15 @@ namespace Framework
 		transform->scale = { windowSize.cx / 2.f, windowSize.cy / 2.f };
 		m_bufferData.view = transform->GetTransformMatrix();
 
-		auto& device = Dx12GraphicsEngine::Instance().Device();
+		auto& device = Dx12GraphicsEngine::Device();
 		if (m_cameraBuffer->Create(device, &m_bufferData, sizeof(CameraData)) == RESULT::FAILED)
 		{
 			MessageBoxA(NULL, "ContantBuffer‚Ì¶¬‚É¸”s", "ƒGƒ‰[", MB_OK);
 		}
+	}
+	Camera::~Camera()
+	{
+		OutputDebugStringA("Camera::~Camera()\n");
 	}
 	void Camera::Update(float deltaTime)
 	{

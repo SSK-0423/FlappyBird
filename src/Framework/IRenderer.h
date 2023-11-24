@@ -13,7 +13,7 @@ namespace Framework
 		void Render(const class Scene* scene);
 
 	private:
-		virtual void RenderScene(const std::vector<std::unique_ptr<class Object>>& gameObjects) = 0;
-		virtual void RenderUI(const std::vector<std::unique_ptr<class Canvas>>& canvases) = 0;
+		virtual void RenderScene(const std::list<class GameObject*>& gameObjects) = 0;
+		virtual void RenderUI(const std::list<class UIObject*>& uiObjects) = 0;
 	};
 }

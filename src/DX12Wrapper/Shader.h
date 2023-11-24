@@ -40,8 +40,8 @@ namespace DX12Wrapper
 		~Shader() = default;
 
 	private:
-		Microsoft::WRL::ComPtr<ID3DBlob> _shaderBlob = nullptr;
-		Microsoft::WRL::ComPtr<ID3DBlob> _errorBlob = nullptr;
+		Microsoft::WRL::ComPtr<ID3DBlob> m_shaderBlob = nullptr;
+		Microsoft::WRL::ComPtr<ID3DBlob> m_errorBlob = nullptr;
 
 		/// <summary>
 		/// シェーダーをコンパイル
@@ -74,7 +74,7 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns>シェーダー</returns>
 		ID3DBlob& GetShader() const {
-			return *_shaderBlob.Get();
+			return *m_shaderBlob.Get();
 		}
 	};
 }

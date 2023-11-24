@@ -23,7 +23,7 @@ namespace Framework
 	{
 	public:
 		SpriteRenderer(Framework::Object* owner);
-		~SpriteRenderer() = default;
+		~SpriteRenderer();
 
 		void Update(float deltaTime) override;
 		void Draw() override;
@@ -48,10 +48,10 @@ namespace Framework
 			BUFFER_COUNT
 		};
 
-		std::unique_ptr<DX12Wrapper::RootSignature> m_rootSignature = nullptr;
-		std::unique_ptr<DX12Wrapper::GraphicsPipelineState> m_pipelineState = nullptr;
-		std::unique_ptr<DX12Wrapper::ConstantBuffer> m_drawModeBuffer = nullptr;
-		std::unique_ptr<class Sprite> m_sprite = nullptr;
+		std::shared_ptr<DX12Wrapper::RootSignature> m_rootSignature = nullptr;
+		std::shared_ptr<DX12Wrapper::GraphicsPipelineState> m_pipelineState = nullptr;
+		std::shared_ptr<DX12Wrapper::ConstantBuffer> m_drawModeBuffer = nullptr;
+		std::shared_ptr<class Sprite> m_sprite = nullptr;
 		SPRITE_DRAW_MODE m_drawMode = SPRITE_DRAW_MODE::GAMEOBJECT;
 	};
 }

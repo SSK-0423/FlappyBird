@@ -27,12 +27,12 @@ namespace Framework
 	SpriteRenderer::SpriteRenderer(Framework::Object* owner)
 		: IComponent(owner)
 	{
-		m_sprite = std::make_unique<Sprite>(L"");
-		m_rootSignature = std::make_unique<RootSignature>();
-		m_pipelineState = std::make_unique<GraphicsPipelineState>();
-		m_drawModeBuffer = std::make_unique<ConstantBuffer>();
+		m_sprite = std::make_shared<Sprite>(L"");
+		m_rootSignature = std::make_shared<RootSignature>();
+		m_pipelineState = std::make_shared<GraphicsPipelineState>();
+		m_drawModeBuffer = std::make_shared<ConstantBuffer>();
 
-		ID3D12Device& device = Dx12GraphicsEngine::Instance().Device();
+		ID3D12Device& device = Dx12GraphicsEngine::Device();
 		if (CreateRootSignature(device) == RESULT::FAILED)
 		{
 			MessageBoxA(NULL, "RootSignatureの生成に失敗", "エラー", MB_OK);
@@ -46,10 +46,14 @@ namespace Framework
 			MessageBoxA(NULL, "ContantBufferの生成に失敗", "エラー", MB_OK);
 		}
 	}
+	SpriteRenderer::~SpriteRenderer()
+	{
+		OutputDebugStringA("SpriteRenderer::~SpriteRenderer()\n");
+	}
 	void SpriteRenderer::SetSprite(Sprite* sprite)
 	{
 		m_sprite.reset(sprite);
-		ID3D12Device& device = Dx12GraphicsEngine::Instance().Device();
+		ID3D12Device& device = Dx12GraphicsEngine::Device();
 
 		// モデル行列をセット
 		m_sprite->GetDescriptorHeap().RegistConstantBuffer(
@@ -85,7 +89,7 @@ namespace Framework
 	}
 	void SpriteRenderer::Draw()
 	{
-		RenderingContext renderingContext = Dx12GraphicsEngine::Instance().GetRenderingContext();
+		RenderingContext renderingContext = Dx12GraphicsEngine::GetRenderingContext();
 
 		renderingContext.SetGraphicsRootSignature(*m_rootSignature);
 		renderingContext.SetPipelineState(*m_pipelineState);
@@ -101,8 +105,8 @@ namespace Framework
 		// ルートシグネチャとシェーダーセット
 		D3D12_GRAPHICS_PIPELINE_STATE_DESC pipelineState = {};
 		pipelineState.pRootSignature = &m_rootSignature->GetRootSignature();
-		pipelineState.VS = CD3DX12_SHADER_BYTECODE(&ShaderLibrary::Instance().GetShader("SpriteVS")->GetShader());
-		pipelineState.PS = CD3DX12_SHADER_BYTECODE(&ShaderLibrary::Instance().GetShader("SpritePS")->GetShader());
+		pipelineState.VS = CD3DX12_SHADER_BYTECODE(&ShaderLibrary::GetShader("SpriteVS")->GetShader());
+		pipelineState.PS = CD3DX12_SHADER_BYTECODE(&ShaderLibrary::GetShader("SpritePS")->GetShader());
 
 		// サンプルマスク設定
 		pipelineState.SampleMask = D3D12_DEFAULT_SAMPLE_MASK;
@@ -148,8 +152,8 @@ namespace Framework
 	Utility::RESULT SpriteRenderer::CreateRootSignature(ID3D12Device& device)
 	{
 		RootSignatureData rootSigData;
-		rootSigData._descRangeData.cbvDescriptorNum = static_cast<UINT>(CONSTANT_BUFFER_INDEX::BUFFER_COUNT);
-		rootSigData._descRangeData.srvDescriptorNum = 1;
+		rootSigData.m_descRangeData.cbvDescriptorNum = static_cast<UINT>(CONSTANT_BUFFER_INDEX::BUFFER_COUNT);
+		rootSigData.m_descRangeData.srvDescriptorNum = 1;
 
 		return m_rootSignature->Create(device, rootSigData);
 	}

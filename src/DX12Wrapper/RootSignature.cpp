@@ -25,18 +25,18 @@ namespace DX12Wrapper
 		D3D12_TEXTURE_ADDRESS_MODE addressW,
 		UINT srvDescriptorNum, UINT cbvDescriptorNum, UINT uavDescriptorNum)
 	{
-		_samplerData.samplerFilter = samplerFilter;
-		_samplerData.addressU = addressU;
-		_samplerData.addressV = addressV;
-		_samplerData.addressW = addressW;
+		m_samplerData.samplerFilter = samplerFilter;
+		m_samplerData.addressU = addressU;
+		m_samplerData.addressV = addressV;
+		m_samplerData.addressW = addressW;
 
-		_descRangeData.srvDescriptorNum = srvDescriptorNum;
-		_descRangeData.cbvDescriptorNum = cbvDescriptorNum;
-		_descRangeData.uavDescriptorNum = uavDescriptorNum;
+		m_descRangeData.srvDescriptorNum = srvDescriptorNum;
+		m_descRangeData.cbvDescriptorNum = cbvDescriptorNum;
+		m_descRangeData.uavDescriptorNum = uavDescriptorNum;
 	}
 
 	RootSignatureData::RootSignatureData(SamplerData samplerData, DescriptorRangeData descRangeData)
-		: _samplerData(samplerData), _descRangeData(descRangeData)
+		: m_samplerData(samplerData), m_descRangeData(descRangeData)
 	{}
 
 	HRESULT RootSignature::CreateRootSignature(
@@ -72,7 +72,7 @@ namespace DX12Wrapper
 		// ルートシグネチャ生成
 		result = device.CreateRootSignature(
 			0, rootSignatureBlob->GetBufferPointer(), rootSignatureBlob->GetBufferSize(),
-			IID_PPV_ARGS(_rootSignature.ReleaseAndGetAddressOf()));
+			IID_PPV_ARGS(m_rootSignature.ReleaseAndGetAddressOf()));
 		if (FAILED(result)) { return result; }
 
 		return result;
@@ -81,14 +81,14 @@ namespace DX12Wrapper
 	RESULT RootSignature::Create(ID3D12Device& device, const RootSignatureData& data)
 	{
 		// STATIC_SAMPLER_DESC作成
-		SamplerData samplerData = data._samplerData;
+		SamplerData samplerData = data.m_samplerData;
 
 		CD3DX12_STATIC_SAMPLER_DESC samplerDesc = {};
 		samplerDesc.Init(
 			0, samplerData.samplerFilter, samplerData.addressU, samplerData.addressV, samplerData.addressW);
 
 		// ルートシグネチャ生成
-		return Create(device, data._descRangeData, samplerDesc, 1);
+		return Create(device, data.m_descRangeData, samplerDesc, 1);
 	}
 
 	RESULT RootSignature::Create(

@@ -41,12 +41,10 @@ namespace FlappyBird
 			text->SetColor(DirectX::Colors::Transparent);
 		}
 
-		Utility::DebugLog("elapsedTime %f (s)", floor(m_elapsedTime));
-
 		// エンターキーが押されたらゲームシーンへ
-		if (InputSystem::Instance().GetKeyDown(DIK_RETURN))
+		if (InputSystem::GetKeyDown(DIK_RETURN))
 		{
-			//SceneManager::Instance().LoadScene("Game");
+			SceneManager::SetNextScene("Game");
 		}
 	}
 	void PressEnterText::Draw()

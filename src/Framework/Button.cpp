@@ -15,8 +15,7 @@ namespace Framework
 	}
 	bool Button::CheckClick()
 	{
-		auto& inputSystem = InputSystem::Instance();
-		POINT mousePos = inputSystem.GetMousePosition();
+		POINT mousePos = InputSystem::GetMousePosition();
 
 		Transform2D* transform = m_owner->GetComponent<Transform2D>();
 		float left = transform->position.x - transform->scale.x / 2;
@@ -29,8 +28,7 @@ namespace Framework
 			top <= mousePos.y && mousePos.y <= bottom)
 		{
 			// マウスクリック
-			auto& inputSystem = InputSystem::Instance();
-			if (inputSystem.GetMouseButtonDown(MOUSECODE::LEFT))
+			if (InputSystem::GetMouseButtonDown(MOUSECODE::LEFT))
 			{
 				return true;
 			}

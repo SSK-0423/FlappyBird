@@ -10,9 +10,6 @@ namespace Framework
 		virtual ~Object()
 		{
 			m_components.clear();
-			m_components.shrink_to_fit();
-			m_children.clear();
-			m_children.shrink_to_fit();
 		}
 
 		template<class T>
@@ -34,29 +31,31 @@ namespace Framework
 				if (typeid(*comp.get()) == typeid(T))
 					return nullptr;
 			}
-			auto component = std::make_unique<T>(owner);
-			m_components.push_back(std::move(component));
+			m_components.push_back(std::make_shared<T>(owner));
 
-			return static_cast<T*>(m_components[m_components.size() - 1].get());
+			return static_cast<T*>(m_components.back().get());
 		}
 
 		void Update(float deltaTime);
 		void Draw();
 
-		Object* Parent();
-		void SetParent(Object* parent);
-		void AddChild(std::unique_ptr<Object>& child);
 		void SetActive(bool isActive);
 		bool GetActive();
 
+		void SetName(std::string name);
+		std::string GetName();
+
 	protected:
-		std::vector<std::unique_ptr<IComponent>> m_components;
-		Object* m_parent = nullptr;
-		std::vector<std::unique_ptr<Object>> m_children;
+		std::list<std::shared_ptr<IComponent>> m_components;
+		std::string m_name = "Object";
 		bool m_isActive = true;
 	};
 
-	// Objectに別名をつける
-	using GameObject = Object;
-	using GUIObject = Object;
+	// templateで実装してあるオブジェクトマネージャーを
+	// GameObjectとUIObject用に使い分けるためのクラス
+	class GameObject : public Object
+	{};
+
+	class UIObject : public Object
+	{};
 }

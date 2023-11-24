@@ -4,19 +4,20 @@
 
 #include "DX12Wrapper/Dx12GraphicsEngine.h"
 
+#include "GameObjectManager.h"
+#include "UIObjectManager.h"
+
 using namespace DX12Wrapper;
 
 namespace Framework
 {
 	void IRenderer::Render(const Scene* scene)
 	{
-		auto& graphicsEngine = DX12Wrapper::Dx12GraphicsEngine::Instance();
-
-		graphicsEngine.BeginDraw();
+		Dx12GraphicsEngine::BeginDraw();
 		{
-			RenderScene(scene->GetGameObjects());
-			RenderUI(scene->GetCanvases());
+			RenderScene(GameObjectManager::GetAllObject());
+			RenderUI(UIObjectManager::GetAllObject());
 		}
-		graphicsEngine.EndDraw();
+		Dx12GraphicsEngine::EndDraw();
 	}
 }

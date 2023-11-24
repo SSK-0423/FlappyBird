@@ -6,14 +6,17 @@
 
 namespace DX12Wrapper
 {
-	FontRenderer::FontRenderer()
-	{
-	}
+	// 静的メンバ変数の実体化
+	Microsoft::WRL::ComPtr<ID3D12Fence> FontRenderer::m_fence = nullptr;
+	UINT64 FontRenderer::m_fenceVal = 0;
+	std::unique_ptr<class DescriptorHeapCBV_SRV_UAV> FontRenderer::m_fontHeap = nullptr;
+	std::unique_ptr<DirectX::SpriteBatch> FontRenderer::m_spriteBatch = nullptr;
+	std::unique_ptr<DirectX::SpriteFont> FontRenderer::m_spriteFont = nullptr;
+
 	Utility::RESULT FontRenderer::Init(const std::wstring& fontPath)
 	{
-		auto& graphicsEngine = DX12Wrapper::Dx12GraphicsEngine::Instance();
-		auto& device = graphicsEngine.Device();
-		auto& cmdQueue = graphicsEngine.CmdQueue();
+		auto& device = Dx12GraphicsEngine::Device();
+		auto& cmdQueue = Dx12GraphicsEngine::CmdQueue();
 
 		// フェンス初期化
 		HRESULT hresult = device.CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(m_fence.ReleaseAndGetAddressOf()));
@@ -65,21 +68,16 @@ namespace DX12Wrapper
 		}
 		uploadResourcesFinished.wait();
 
-		m_spriteBatch->SetViewport(graphicsEngine.GetViewport());
+		m_spriteBatch->SetViewport(Dx12GraphicsEngine::GetViewport());
 
 		return result;
 	}
-	FontRenderer& FontRenderer::Instance()
-	{
-		static FontRenderer instance;
-		return instance;
-	}
 	void FontRenderer::DrawString(const std::wstring& text, const DirectX::XMFLOAT2& pos, const float& scale, const DirectX::XMVECTORF32& color)
 	{
-		auto& renderContext = Dx12GraphicsEngine::Instance().GetRenderingContext();
+		auto& renderContext = Dx12GraphicsEngine::GetRenderingContext();
 
 		renderContext.SetDescriptorHeap(*m_fontHeap.get());
-		m_spriteBatch->Begin(&Dx12GraphicsEngine::Instance().CmdList());
+		m_spriteBatch->Begin(&Dx12GraphicsEngine::CmdList());
 		m_spriteFont->DrawString(
 			m_spriteBatch.get(),			// SpriteBatch
 			text.c_str(),					// 文字列

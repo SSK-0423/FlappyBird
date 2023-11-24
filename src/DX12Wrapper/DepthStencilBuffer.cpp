@@ -15,7 +15,7 @@ namespace DX12Wrapper
 
 	RESULT DepthStencilBuffer::Create(ID3D12Device& device, const DepthStencilBufferData& data)
 	{
-		_depthStencilBufferData = data;
+		m_depthStencilBufferData = data;
 
 		CD3DX12_HEAP_PROPERTIES heapProp(D3D12_HEAP_TYPE_DEFAULT);
 		CD3DX12_RESOURCE_DESC resDesc = CD3DX12_RESOURCE_DESC::Tex2D(DXGI_FORMAT_R32_TYPELESS, data.width, data.height);
@@ -28,7 +28,7 @@ namespace DX12Wrapper
 			&resDesc,
 			D3D12_RESOURCE_STATE_DEPTH_WRITE,
 			&clearValue,
-			IID_PPV_ARGS(_dsvBuffer.ReleaseAndGetAddressOf()));
+			IID_PPV_ARGS(m_dsvBuffer.ReleaseAndGetAddressOf()));
 
 		if (FAILED(result)) { return RESULT::FAILED; }
 
