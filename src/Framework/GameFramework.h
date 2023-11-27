@@ -8,6 +8,7 @@
 // コンポーネント
 #include "Framework/IComponent.h"
 #include "Framework/Transform2D.h"
+#include "Framework/Rigidbody2D.h"
 #include "Framework/SpriteRenderer.h"
 #include "Framework/Text.h"
 #include "Framework/Collider.h"

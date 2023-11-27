@@ -173,6 +173,7 @@
     <ClCompile Include="src\Framework\IRenderer.cpp" />
     <ClCompile Include="src\Framework\Object.cpp" />
     <ClCompile Include="src\Framework\RectCollider.cpp" />
+    <ClCompile Include="src\Framework\Rigidbody2D.cpp" />
     <ClCompile Include="src\Framework\Scene.cpp" />
     <ClCompile Include="src\Framework\SceneManager.cpp" />
     <ClCompile Include="src\Framework\ShaderLibrary.cpp" />
@@ -183,9 +184,11 @@
     <ClCompile Include="src\Framework\Text.cpp" />
     <ClCompile Include="src\Framework\Transform2D.cpp" />
     <ClCompile Include="src\Framework\Window.cpp" />
+    <ClCompile Include="src\Game\Background.cpp" />
     <ClCompile Include="src\Game\FlappyBird.cpp" />
     <ClCompile Include="src\Game\GameScene.cpp" />
     <ClCompile Include="src\Game\main.cpp" />
+    <ClCompile Include="src\Game\Player.cpp" />
     <ClCompile Include="src\Game\PressEnterText.cpp" />
     <ClCompile Include="src\Game\Renderer.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
@@ -198,6 +201,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\Utility\EngineUtility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
@@ -235,6 +239,7 @@
     <ClInclude Include="src\Framework\ObjectContainer.h" />
     <ClInclude Include="src\Framework\ObjectManager.h" />
     <ClInclude Include="src\Framework\RectCollider.h" />
+    <ClInclude Include="src\Framework\Rigidbody2D.h" />
     <ClInclude Include="src\Framework\Scene.h" />
     <ClInclude Include="src\Framework\SceneManager.h" />
     <ClInclude Include="src\Framework\ShaderLibrary.h" />
@@ -246,14 +251,18 @@
     <ClInclude Include="src\Framework\Transform2D.h" />
     <ClInclude Include="src\Framework\UIObjectManager.h" />
     <ClInclude Include="src\Framework\Window.h" />
+    <ClInclude Include="src\Game\Background.h" />
     <ClInclude Include="src\Game\FlappyBird.h" />
     <ClInclude Include="src\Game\GameScene.h" />
+    <ClInclude Include="src\Game\Player.h" />
     <ClInclude Include="src\Game\PressEnterText.h" />
     <ClInclude Include="src\Game\Renderer.h" />
     <ClInclude Include="src\Game\TestCharacter.h" />
     <ClInclude Include="src\Game\TestObstacle.h" />
     <ClInclude Include="src\Game\TitleScene.h" />
     <ClInclude Include="src\pch.h" />
+    <ClInclude Include="src\Utility\EngineUtility.h" />
+    <ClInclude Include="src\Utility\ISingleton.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="FlappyBird.rc" />

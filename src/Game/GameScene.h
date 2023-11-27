@@ -3,6 +3,13 @@
 
 namespace FlappyBird
 {
+	enum class GAME_SCENE_LAYER
+	{
+		UI = 0,
+		GAMEOBJECT = 1,
+		BACKGROUND = 2,
+	};
+
 	class GameScene : public Framework::Scene
 	{
 	public:
