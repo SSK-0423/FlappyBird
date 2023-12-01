@@ -19,7 +19,10 @@ namespace FlappyBird
 		m_owner->GetComponent<SpriteRenderer>()->SetDrawMode(SPRITE_DRAW_MODE::GAMEOBJECT);
 		m_owner->GetComponent<SpriteRenderer>()->SetLayer(static_cast<UINT>(GAME_SCENE_LAYER::GAMEOBJECT));
 
+		// プレイヤーの位置を設定
+		auto windowSize = Window::GetWindowSize();
 		Transform2D* transform = m_owner->GetComponent<Transform2D>();
+		transform->position = { 200.f, windowSize.cy / 2.f };
 		transform->scale = { 50.f, 50.f };
 
 		// コライダー追加
@@ -29,16 +32,29 @@ namespace FlappyBird
 		// リジッドボディ追加
 		Rigidbody2D* rigidbody = m_owner->AddComponent<Rigidbody2D>(m_owner);
 		rigidbody->gravityScale = 1.5f;
-
-		// プレイヤーの位置を設定
-		auto windowSize = Window::GetWindowSize();
-		m_owner->GetComponent<Transform2D>()->position = { 200.f, windowSize.cy / 2.f };
 	}
 	Player::~Player()
 	{
 	}
 	void Player::Update(float deltaTime)
 	{
+		// プレイヤーの移動制限
+		auto windowSize = Window::GetWindowSize();
+		Transform2D* transform = m_owner->GetComponent<Transform2D>();
+
+		// 上端制限
+		if (transform->position.y < 0.f)
+		{
+			transform->position.y = 0.f;
+			m_owner->GetComponent<Rigidbody2D>()->velocity = { 0.f, 0.f };
+		}
+		// 下端制限
+		else if (transform->position.y > windowSize.cy)
+		{
+			transform->position.y = windowSize.cy;
+			m_owner->GetComponent<Rigidbody2D>()->velocity = { 0.f, 0.f };
+		}
+
 		// マウス左クリックでジャンプ
 		if (InputSystem::GetMouseButtonDown(MOUSECODE::LEFT))
 		{
