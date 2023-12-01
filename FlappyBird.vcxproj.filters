@@ -192,8 +192,20 @@
     <ClCompile Include="src\Game\TestObstacle.cpp">
       <Filter>ソース ファイル\Game\GameScene</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Background.cpp">
+      <Filter>ソース ファイル\Game\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Player.cpp">
+      <Filter>ソース ファイル\Game\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Rigidbody2D.cpp">
+      <Filter>ソース ファイル\Framework\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utility\EngineUtility.cpp">
+      <Filter>ソース ファイル\Utility</Filter>
+    </ClCompile>
     <ClCompile Include="src\Framework\Collider.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Framework\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -358,6 +370,21 @@
     </ClInclude>
     <ClInclude Include="src\Framework\ObjectManager.h">
       <Filter>ソース ファイル\Framework\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Rigidbody2D.h">
+      <Filter>ソース ファイル\Framework\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Player.h">
+      <Filter>ソース ファイル\Game\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Background.h">
+      <Filter>ソース ファイル\Game\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\EngineUtility.h">
+      <Filter>ソース ファイル\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\ISingleton.h">
+      <Filter>ソース ファイル\Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

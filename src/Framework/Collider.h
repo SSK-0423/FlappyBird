@@ -22,6 +22,8 @@ namespace Framework
 
 		virtual void* GetColliderShape() const = 0;
 
+		std::string GetTag() { return m_tag; };
+
 		COLLIDER_TYPE GetColliderType() const { return m_colliderType; };
 
 		// •K—v‚È‚ç‚ÎOnCollisionEnter, OnCollisionStay, OnCollisionExit‚ðŽÀ‘•‚·‚é
@@ -29,6 +31,7 @@ namespace Framework
 		void OnCollision(Collider* other);
 
 	protected:
+		std::string m_tag = "Default";
 		COLLIDER_TYPE m_colliderType = COLLIDER_TYPE::NONE;
 		std::function<void(Collider*)> m_onCollisionCallBack = nullptr;
 	};

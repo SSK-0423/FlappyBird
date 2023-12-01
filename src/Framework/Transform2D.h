@@ -15,16 +15,6 @@ namespace Framework
 		Transform2D(Object* owner);
 		~Transform2D();
 
-	private:
-		struct Transform2DData
-		{
-			DirectX::XMMATRIX model;
-		};
-		Transform2DData m_bufferData;
-		std::shared_ptr<DX12Wrapper::ConstantBuffer> m_transformBuffer;
-
-
-	public:
 		void Update(float deltaTime) override;
 		void Draw() override {};
 
@@ -35,5 +25,13 @@ namespace Framework
 
 		DX12Wrapper::ConstantBuffer& GetConstantBuffer();
 		DirectX::XMMATRIX GetTransformMatrix();
+
+	private:
+		struct Transform2DData
+		{
+			DirectX::XMMATRIX model;
+		};
+		Transform2DData m_bufferData;
+		std::shared_ptr<DX12Wrapper::ConstantBuffer> m_transformBuffer;
 	};
 }
