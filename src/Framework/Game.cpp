@@ -97,6 +97,8 @@ namespace Framework
 		// I—¹ˆ—
 		SceneManager::Final();
 
+		SoundEngine::Final();
+
 		m_gameImpl.Final();
 	}
 }

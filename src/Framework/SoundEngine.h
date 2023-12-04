@@ -3,12 +3,15 @@
 #include <xaudio2.h>
 #pragma comment(lib,"xaudio2.lib")
 
+#include <wrl.h>
+
 namespace Framework
 {
 	class SoundEngine
 	{
 	public:
 		static Utility::RESULT Init();
+		static void Final();
 
 		static IXAudio2& GetXAudio2();
 

@@ -15,8 +15,22 @@ namespace Framework
 		{
 			return Utility::RESULT::FAILED;
 		}
+		if (FAILED(CreateMasteringVoice()))
+		{
+			return Utility::RESULT::FAILED;
+		}
 
 		return Utility::RESULT::SUCCESS;
+	}
+	void SoundEngine::Final()
+	{
+		if (m_masteringVoice != nullptr)
+			m_masteringVoice->DestroyVoice();
+
+		if (m_xAudio2 != nullptr)
+			m_xAudio2->Release();
+
+		CoUninitialize();
 	}
 	IXAudio2& SoundEngine::GetXAudio2()
 	{
@@ -27,6 +41,12 @@ namespace Framework
 		UINT32 flags = 0;
 
 		HRESULT result = XAudio2Create(&m_xAudio2, flags);
+
+		if (FAILED(result))
+		{
+			MessageBoxA(NULL, "XAudio2の初期化に失敗", "エラー", MB_OK);
+			return result;
+		}
 
 		// デバッグ設定(Win8以降のみ)
 #if (_WIN32_WINNT >= 0x0602 /*_WIN32_WINNT_WIN8*/) && defined(_DEBUG)
@@ -40,7 +60,15 @@ namespace Framework
 	}
 	HRESULT SoundEngine::CreateMasteringVoice()
 	{
-		return E_NOTIMPL;
+		HRESULT result = m_xAudio2->CreateMasteringVoice(&m_masteringVoice);
+
+		if (FAILED(result))
+		{
+			MessageBoxA(NULL, "MasteringVoiceの初期化に失敗", "エラー", MB_OK);
+			return result;
+		}
+
+		return result;
 	}
 }
 
