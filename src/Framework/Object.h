@@ -45,9 +45,13 @@ namespace Framework
 		void SetName(std::string name);
 		std::string GetName();
 
+		void SetTag(std::string tag);
+		std::string GetTag();
+
 	protected:
 		std::list<std::shared_ptr<IComponent>> m_components;
 		std::string m_name = "Object";
+		std::string m_tag = "None";
 		bool m_isActive = true;
 	};
 

@@ -4,6 +4,9 @@
 
 namespace FlappyBird
 {
+	/// <summary>
+	/// ゲーム全体の進行を管理するクラス
+	/// </summary>
 	class GameMaster : public Framework::IComponent
 	{
 	public:

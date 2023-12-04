@@ -6,10 +6,10 @@
 #include "TestCharacter.h"
 #include "TestObstacle.h"
 
+#include "GameMaster.h"
 #include "Player.h"
-#include "Obstacle.h"
 #include "Background.h"
-#include "ObstaclePool.h"
+#include "ObstacleSpawner.h"
 
 using namespace Framework;
 
@@ -27,11 +27,13 @@ namespace FlappyBird
 		GameObject* player = GameObjectManager::CreateObject();
 		player->AddComponent<Player>(player);
 
-		// 障害物プール
-		GameObject* obstaclePool = GameObjectManager::CreateObject();
-		obstaclePool->AddComponent<ObstaclePool>(obstaclePool);
+		// 障害物を設置するオブジェクト
+		GameObject* obstacleSpawner = GameObjectManager::CreateObject();
+		obstacleSpawner->AddComponent<ObstacleSpawner>(obstacleSpawner);
 
-		obstaclePool->GetComponent<ObstaclePool>()->GetObstacle();
+		// ゲームマスター
+		GameObject* gameMaster = GameObjectManager::CreateObject();
+		gameMaster->AddComponent<GameMaster>(gameMaster);
 	}
 	void GameScene::Final()
 	{

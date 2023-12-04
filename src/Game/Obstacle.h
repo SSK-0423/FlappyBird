@@ -14,5 +14,11 @@ namespace FlappyBird
 		void Draw() override;
 
 		void OnCollision(Framework::Collider* other);
+
+		void SetMoveSpeed(float moveSpeedX, float moveSpeedY);
+
+	private:
+		float m_moveSpeedX = 0.0f;
+		float m_moveSpeedY = 0.0f;
 	};
 }

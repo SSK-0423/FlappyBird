@@ -47,8 +47,6 @@ namespace FlappyBird
 		// 使用可能な障害物がない場合は新たに生成する
 		m_obstaclePool.push_back(GameObject());
 		m_obstaclePool.back().AddComponent<Obstacle>(&m_obstaclePool.back());
-		m_obstaclePool.back().SetActive(true);
-		m_obstaclePool.back().SetName("Obstacle");
 
 		return m_obstaclePool.back();
 	}
@@ -60,7 +58,6 @@ namespace FlappyBird
 		{
 			obstacle.AddComponent<Obstacle>(&obstacle);
 			obstacle.SetActive(false);
-			obstacle.SetName("Obstacle");
 		}
 	}
 }

@@ -12,6 +12,9 @@ namespace FlappyBird
 	Player::Player(Framework::Object* owner)
 		: Framework::IComponent(owner), m_jumpVelocity(-5.f) // 左上原点なのでマイナス
 	{
+		m_owner->SetName("Player");
+		m_owner->SetTag("Player");
+
 		// スプライト追加
 		Sprite* sprite = new Sprite(L"res/player_jump.png");
 		m_owner->AddComponent<SpriteRenderer>(m_owner);
@@ -28,7 +31,7 @@ namespace FlappyBird
 		// コライダー追加
 		RectCollider* collider = m_owner->AddComponent<RectCollider>(m_owner);
 		collider->SetRectSize(transform->scale.x, transform->scale.y);
-		collider->SetTag("Player");
+		collider->SetOnCollisionCallBack(std::bind(&Player::OnCollision, this, std::placeholders::_1));
 
 		// リジッドボディ追加
 		Rigidbody2D* rigidbody = m_owner->AddComponent<Rigidbody2D>(m_owner);
@@ -68,5 +71,10 @@ namespace FlappyBird
 	}
 	void Player::OnCollision(Framework::Collider* other)
 	{
+		// 障害物に当たったらゲームオーバー
+		if (other->GetOwner()->GetTag() == "Obstacle")
+		{
+			Utility::DebugLog("Game Over\n");
+		}
 	}
 }

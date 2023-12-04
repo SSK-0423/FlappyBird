@@ -213,6 +213,12 @@
     <ClCompile Include="src\Game\ObstaclePool.cpp">
       <Filter>ソース ファイル\Game\GameScene</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\GameMaster.cpp">
+      <Filter>ソース ファイル\Game\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\ObstacleSpawner.cpp">
+      <Filter>ソース ファイル\Game\GameScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\pch.h">
@@ -396,6 +402,9 @@
       <Filter>ソース ファイル\Game\GameScene</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\GameMaster.h">
+      <Filter>ソース ファイル\Game\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\ObstacleSpawner.h">
       <Filter>ソース ファイル\Game\GameScene</Filter>
     </ClInclude>
   </ItemGroup>

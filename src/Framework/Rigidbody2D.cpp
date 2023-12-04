@@ -35,7 +35,7 @@ namespace Framework
 		position.y += velocity.y;
 		m_owner->GetComponent<Transform2D>()->position = position;
 
-		Utility::DebugLog("Velocity: %f\n", velocity.y);
+		//Utility::DebugLog("Velocity: %f\n", velocity.y);
 	}
 	void Rigidbody2D::Draw()
 	{
