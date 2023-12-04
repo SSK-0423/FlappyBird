@@ -22,6 +22,8 @@ namespace FlappyBird
 			if (obstacle.GetActive())
 				obstacle.Update(deltaTime);
 		}
+
+		//Utility::DebugLog("ObstaclePool Size: %d\n", m_obstaclePool.size());
 	}
 	void ObstaclePool::Draw()
 	{

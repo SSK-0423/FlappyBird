@@ -39,11 +39,17 @@ namespace FlappyBird
 		Transform2D* transform = m_owner->GetComponent<Transform2D>();
 		transform->position.x += m_moveSpeedX;
 		transform->position.y += m_moveSpeedY;
+
+		// カメラの範囲外に出たら非アクティブにする
+		// 1. カメラのレンダリング範囲内に入っているかどうかを判定する
+
+		if (transform->position.x < -transform->scale.x)
+		{
+			m_owner->SetActive(false);
+		}
+
 	}
 	void Obstacle::Draw()
-	{
-	}
-	void Obstacle::OnCollision(Framework::Collider* other)
 	{
 	}
 	void Obstacle::SetMoveSpeed(float moveSpeedX, float moveSpeedY)

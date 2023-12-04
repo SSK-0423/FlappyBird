@@ -13,8 +13,6 @@ namespace FlappyBird
 		void Update(float deltaTime) override;
 		void Draw() override;
 
-		void OnCollision(Framework::Collider* other);
-
 		void SetMoveSpeed(float moveSpeedX, float moveSpeedY);
 
 	private:

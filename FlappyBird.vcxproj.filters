@@ -55,6 +55,9 @@
     <Filter Include="ソース ファイル\Framework\Object">
       <UniqueIdentifier>{13a1e544-1fb1-459d-a6f5-880ef5828a6a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\GameScene\Obstacle">
+      <UniqueIdentifier>{1ee82067-cb97-426d-acbd-a17432314587}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Game\main.cpp">
@@ -207,17 +210,17 @@
     <ClCompile Include="src\Framework\Collider.cpp">
       <Filter>ソース ファイル\Framework\Component</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\Obstacle.cpp">
-      <Filter>ソース ファイル\Game\GameScene</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Game\ObstaclePool.cpp">
-      <Filter>ソース ファイル\Game\GameScene</Filter>
-    </ClCompile>
     <ClCompile Include="src\Game\GameMaster.cpp">
       <Filter>ソース ファイル\Game\GameScene</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Obstacle.cpp">
+      <Filter>ソース ファイル\Game\GameScene\Obstacle</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\ObstaclePool.cpp">
+      <Filter>ソース ファイル\Game\GameScene\Obstacle</Filter>
+    </ClCompile>
     <ClCompile Include="src\Game\ObstacleSpawner.cpp">
-      <Filter>ソース ファイル\Game\GameScene</Filter>
+      <Filter>ソース ファイル\Game\GameScene\Obstacle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -395,17 +398,17 @@
     <ClInclude Include="src\Utility\ISingleton.h">
       <Filter>ソース ファイル\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\Obstacle.h">
-      <Filter>ソース ファイル\Game\GameScene</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Game\ObstaclePool.h">
-      <Filter>ソース ファイル\Game\GameScene</Filter>
-    </ClInclude>
     <ClInclude Include="src\Game\GameMaster.h">
       <Filter>ソース ファイル\Game\GameScene</Filter>
     </ClInclude>
+    <ClInclude Include="src\Game\Obstacle.h">
+      <Filter>ソース ファイル\Game\GameScene\Obstacle</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\ObstaclePool.h">
+      <Filter>ソース ファイル\Game\GameScene\Obstacle</Filter>
+    </ClInclude>
     <ClInclude Include="src\Game\ObstacleSpawner.h">
-      <Filter>ソース ファイル\Game\GameScene</Filter>
+      <Filter>ソース ファイル\Game\GameScene\Obstacle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

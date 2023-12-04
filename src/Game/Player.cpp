@@ -26,7 +26,7 @@ namespace FlappyBird
 		auto windowSize = Window::GetWindowSize();
 		Transform2D* transform = m_owner->GetComponent<Transform2D>();
 		transform->position = { 200.f, windowSize.cy / 2.f };
-		transform->scale = { 100.f, 100.f };
+		transform->scale = { 75.f, 75.f };
 
 		// コライダー追加
 		RectCollider* collider = m_owner->AddComponent<RectCollider>(m_owner);
