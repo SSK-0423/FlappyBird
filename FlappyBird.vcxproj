@@ -186,8 +186,12 @@
     <ClCompile Include="src\Framework\Window.cpp" />
     <ClCompile Include="src\Game\Background.cpp" />
     <ClCompile Include="src\Game\FlappyBird.cpp" />
+    <ClCompile Include="src\Game\GameMaster.cpp" />
     <ClCompile Include="src\Game\GameScene.cpp" />
     <ClCompile Include="src\Game\main.cpp" />
+    <ClCompile Include="src\Game\Obstacle.cpp" />
+    <ClCompile Include="src\Game\ObstaclePool.cpp" />
+    <ClCompile Include="src\Game\ObstacleSpawner.cpp" />
     <ClCompile Include="src\Game\Player.cpp" />
     <ClCompile Include="src\Game\PressEnterText.cpp" />
     <ClCompile Include="src\Game\Renderer.cpp">
@@ -236,7 +240,6 @@
     <ClInclude Include="src\Framework\IRenderer.h" />
     <ClInclude Include="src\Framework\Object.h" />
     <ClInclude Include="src\Framework\GameObjectManager.h" />
-    <ClInclude Include="src\Framework\ObjectContainer.h" />
     <ClInclude Include="src\Framework\ObjectManager.h" />
     <ClInclude Include="src\Framework\RectCollider.h" />
     <ClInclude Include="src\Framework\Rigidbody2D.h" />
@@ -253,7 +256,11 @@
     <ClInclude Include="src\Framework\Window.h" />
     <ClInclude Include="src\Game\Background.h" />
     <ClInclude Include="src\Game\FlappyBird.h" />
+    <ClInclude Include="src\Game\GameMaster.h" />
     <ClInclude Include="src\Game\GameScene.h" />
+    <ClInclude Include="src\Game\Obstacle.h" />
+    <ClInclude Include="src\Game\ObstaclePool.h" />
+    <ClInclude Include="src\Game\ObstacleSpawner.h" />
     <ClInclude Include="src\Game\Player.h" />
     <ClInclude Include="src\Game\PressEnterText.h" />
     <ClInclude Include="src\Game\Renderer.h" />
@@ -268,7 +275,7 @@
     <ResourceCompile Include="FlappyBird.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\2048_DirectX.ico" />
+    <Image Include="res\FlappyBird.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

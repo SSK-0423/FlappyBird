@@ -39,4 +39,12 @@ namespace Framework
 	{
 		return m_name;
 	}
+	void Object::SetTag(std::string tag)
+	{
+		m_tag = tag;
+	}
+	std::string Object::GetTag()
+	{
+		return m_tag;
+	}
 }

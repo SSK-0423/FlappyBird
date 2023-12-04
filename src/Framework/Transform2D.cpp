@@ -35,7 +35,7 @@ namespace Framework
 		// デバイス座標系に合わせる際に+1するのでy座標はマイナス値を使う y=0⇒1 y=windowHeight⇒-1
 		XMMATRIX translation = XMMatrixTranslation(position.x, -position.y, depth);
 		XMMATRIX scaling = XMMatrixScaling(scale.x, scale.y, 1.f);
-		XMMATRIX rotation = XMMatrixRotationZ(angle);
+		XMMATRIX rotation = XMMatrixRotationZ(XMConvertToRadians(angle));
 
 		// ピクセル単位の座標系から正規化デバイス座標系に変更する行列
 		XMMATRIX convertToDeviceCoord = XMMatrixIdentity();
