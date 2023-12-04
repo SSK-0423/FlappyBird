@@ -207,6 +207,12 @@
     <ClCompile Include="src\Framework\Collider.cpp">
       <Filter>ソース ファイル\Framework\Component</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Obstacle.cpp">
+      <Filter>ソース ファイル\Game\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\ObstaclePool.cpp">
+      <Filter>ソース ファイル\Game\GameScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\pch.h">
@@ -365,9 +371,6 @@
     <ClInclude Include="src\Framework\UIObjectManager.h">
       <Filter>ソース ファイル\Framework\Object</Filter>
     </ClInclude>
-    <ClInclude Include="src\Framework\ObjectContainer.h">
-      <Filter>ソース ファイル\Framework\Object</Filter>
-    </ClInclude>
     <ClInclude Include="src\Framework\ObjectManager.h">
       <Filter>ソース ファイル\Framework\Object</Filter>
     </ClInclude>
@@ -385,6 +388,15 @@
     </ClInclude>
     <ClInclude Include="src\Utility\ISingleton.h">
       <Filter>ソース ファイル\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Obstacle.h">
+      <Filter>ソース ファイル\Game\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\ObstaclePool.h">
+      <Filter>ソース ファイル\Game\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\GameMaster.h">
+      <Filter>ソース ファイル\Game\GameScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

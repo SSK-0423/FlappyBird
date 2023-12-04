@@ -22,7 +22,8 @@ namespace Framework
 
 		virtual void* GetColliderShape() const = 0;
 
-		std::string GetTag() { return m_tag; };
+		void SetTag(std::string tag) { m_tag = tag; };
+		const std::string& GetTag() { return m_tag; };
 
 		COLLIDER_TYPE GetColliderType() const { return m_colliderType; };
 

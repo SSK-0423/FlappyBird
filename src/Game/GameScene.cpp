@@ -7,7 +7,9 @@
 #include "TestObstacle.h"
 
 #include "Player.h"
+#include "Obstacle.h"
 #include "Background.h"
+#include "ObstaclePool.h"
 
 using namespace Framework;
 
@@ -17,15 +19,6 @@ namespace FlappyBird
 	{
 		OutputDebugStringA("GameScene Init\n");
 
-		//// テストキャラクタ
-		//Object* testChara = GameObjectManager::CreateObject();
-		//testChara->AddComponent<TestCharacter>(testChara);
-
-		//// テスト障害物
-		//Object* testObstacle = GameObjectManager::CreateObject();
-		//testObstacle->AddComponent<TestObstacle>(testObstacle);
-
-
 		// 背景
 		GameObject* background = GameObjectManager::CreateObject();
 		background->AddComponent<Background>(background);
@@ -34,6 +27,11 @@ namespace FlappyBird
 		GameObject* player = GameObjectManager::CreateObject();
 		player->AddComponent<Player>(player);
 
+		// 障害物プール
+		GameObject* obstaclePool = GameObjectManager::CreateObject();
+		obstaclePool->AddComponent<ObstaclePool>(obstaclePool);
+
+		obstaclePool->GetComponent<ObstaclePool>()->GetObstacle();
 	}
 	void GameScene::Final()
 	{
