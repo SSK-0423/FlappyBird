@@ -417,7 +417,7 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\2048_DirectX.ico">
+    <Image Include="res\FlappyBird.ico">
       <Filter>リソース ファイル</Filter>
     </Image>
   </ItemGroup>

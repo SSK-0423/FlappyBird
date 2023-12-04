@@ -16,7 +16,7 @@ namespace FlappyBird
 		void Draw() override;
 
 	private:
-		const unsigned int SPACE = 200;
+		const unsigned int SPACE = 225;
 		float m_spawnInverval = 2.0f;
 		float m_spawnTimer = 0.0f;
 

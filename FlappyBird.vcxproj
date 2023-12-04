@@ -275,7 +275,7 @@
     <ResourceCompile Include="FlappyBird.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\2048_DirectX.ico" />
+    <Image Include="res\FlappyBird.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

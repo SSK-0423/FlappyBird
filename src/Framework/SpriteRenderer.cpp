@@ -81,7 +81,7 @@ namespace Framework
 	}
 	void SpriteRenderer::SetLayer(UINT layer)
 	{
-		// レイヤーが小さい手前に描画される
+		// レイヤーが小さい程手前に描画される
 		m_owner->GetComponent<Transform2D>()->depth = static_cast<float>(layer) / SPRITE_LAYER_MAX;
 	}
 	void SpriteRenderer::Update(float deltaTime)
