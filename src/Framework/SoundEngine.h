@@ -13,7 +13,8 @@ namespace Framework
 		static Utility::RESULT Init();
 		static void Final();
 
-		static IXAudio2& GetXAudio2();
+		static IXAudio2& XAudio2();
+		static IXAudio2MasteringVoice& MasteringVoice();
 
 	private:
 		SoundEngine() = default;

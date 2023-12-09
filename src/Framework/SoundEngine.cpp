@@ -32,9 +32,13 @@ namespace Framework
 
 		CoUninitialize();
 	}
-	IXAudio2& SoundEngine::GetXAudio2()
+	IXAudio2& SoundEngine::XAudio2()
 	{
 		return *m_xAudio2;
+	}
+	IXAudio2MasteringVoice& SoundEngine::MasteringVoice()
+	{
+		return *m_masteringVoice;
 	}
 	HRESULT SoundEngine::CreateXAudio2()
 	{

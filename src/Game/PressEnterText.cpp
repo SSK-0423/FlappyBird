@@ -1,13 +1,5 @@
 #include "pch.h"
 #include "PressEnterText.h"
-#include "Framework/Object.h"
-#include "Framework/Transform2D.h"
-#include "Framework/Text.h"
-#include "Framework/Window.h"
-#include "Framework/InputSystem.h"
-#include "Framework/SceneManager.h"
-
-#include "Utility/EngineUtility.h"
 
 using namespace Framework;
 
@@ -19,11 +11,15 @@ namespace FlappyBird
 		auto windowSize = Window::GetWindowSize();
 
 		// テキスト追加
-		auto text = owner->AddComponent<Text>(owner);
+		Text* text = m_owner->AddComponent<Text>(m_owner);
 		text->SetText(L"Press Enter");
 		text->SetColor(DirectX::Colors::White);
 		text->SetPosition({ windowSize.cx / 3.f, windowSize.cy * 2.5f / 4.f });
 		text->SetScale(0.5f);
+
+		// 効果音追加
+		SoundClip* sound = m_owner->AddComponent<SoundClip>(m_owner);
+		sound->LoadWavSound(L"res/sound/decide.wav");
 	}
 	void PressEnterText::Update(float deltaTime)
 	{
@@ -44,6 +40,9 @@ namespace FlappyBird
 		// エンターキーが押されたらゲームシーンへ
 		if (InputSystem::GetKeyDown(DIK_RETURN))
 		{
+			// 効果音再生
+			m_owner->GetComponent<SoundClip>()->PlayOneShot(true);
+
 			SceneManager::SetNextScene("Game");
 		}
 	}

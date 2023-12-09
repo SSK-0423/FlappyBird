@@ -225,6 +225,9 @@
     <ClCompile Include="src\Framework\SoundEngine.cpp">
       <Filter>ソース ファイル\Framework\System\Sound</Filter>
     </ClCompile>
+    <ClCompile Include="src\Framework\WAVFileReader.cpp">
+      <Filter>ソース ファイル\Framework\System\Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\pch.h">
@@ -414,6 +417,9 @@
       <Filter>ソース ファイル\Game\GameScene\Obstacle</Filter>
     </ClInclude>
     <ClInclude Include="src\Framework\SoundEngine.h">
+      <Filter>ソース ファイル\Framework\System\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\WAVFileReader.h">
       <Filter>ソース ファイル\Framework\System\Sound</Filter>
     </ClInclude>
   </ItemGroup>

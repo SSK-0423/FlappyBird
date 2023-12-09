@@ -184,6 +184,7 @@
     <ClCompile Include="src\Framework\SpriteRenderer.cpp" />
     <ClCompile Include="src\Framework\Text.cpp" />
     <ClCompile Include="src\Framework\Transform2D.cpp" />
+    <ClCompile Include="src\Framework\WAVFileReader.cpp" />
     <ClCompile Include="src\Framework\Window.cpp" />
     <ClCompile Include="src\Game\Background.cpp" />
     <ClCompile Include="src\Game\FlappyBird.cpp" />
@@ -255,6 +256,7 @@
     <ClInclude Include="src\Framework\Text.h" />
     <ClInclude Include="src\Framework\Transform2D.h" />
     <ClInclude Include="src\Framework\UIObjectManager.h" />
+    <ClInclude Include="src\Framework\WAVFileReader.h" />
     <ClInclude Include="src\Framework\Window.h" />
     <ClInclude Include="src\Game\Background.h" />
     <ClInclude Include="src\Game\FlappyBird.h" />

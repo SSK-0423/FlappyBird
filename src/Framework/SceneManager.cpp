@@ -55,5 +55,6 @@ namespace Framework
 	}
 	SceneManager::~SceneManager()
 	{
+		m_scenes.clear();
 	}
 }

@@ -21,6 +21,6 @@ namespace Framework
 		void PlayLoop(const char* name);
 
 	private:
-		std::vector<SoundClip> m_soundClips;
+		std::vector<SoundClip> m_SoundClips;
 	};
 }
