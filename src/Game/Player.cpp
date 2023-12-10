@@ -11,8 +11,8 @@ using namespace Framework;
 namespace FlappyBird
 {
 	Player::Player(Framework::Object* owner)
-		: Framework::IComponent(owner), m_jumpVelocity(-5.f), // 左上原点なのでマイナス
-		m_elapsedTime(0.f), m_gameReadyAnimationInterval(0.675f), m_isAlive(true)
+		: Framework::IComponent(owner), m_jumpVelocity(-500.f), // 左上原点なのでマイナス
+		m_elapsedTime(0.f), m_gameReadyAnimationInterval(0.5f), m_isAlive(true)
 	{
 		m_gameMaster = GameObjectManager::FindObject("GameMaster")->GetComponent<GameMaster>();
 
@@ -31,12 +31,12 @@ namespace FlappyBird
 		// プレイヤーの位置を設定
 		auto windowSize = Window::GetWindowSize();
 		Transform2D* transform = m_owner->GetComponent<Transform2D>();
-		transform->position = { 200.f, 50.f };
+		transform->position = { 200.f, windowSize.cy / 2.f };
 		transform->scale = { 75.f, 75.f };
 
 		// コライダー追加
 		RectCollider* collider = m_owner->AddComponent<RectCollider>(m_owner);
-		collider->SetRectSize(transform->scale.x * 0.7f, transform->scale.y * 0.7f);
+		collider->SetRectSize(transform->scale.x * 0.2f, transform->scale.y * 0.6f);
 		collider->SetOnCollisionCallBack(std::bind(&Player::OnCollision, this, std::placeholders::_1));
 
 		// リジッドボディ追加
@@ -45,7 +45,7 @@ namespace FlappyBird
 
 		// 効果音追加
 		SoundClip* sound = m_owner->AddComponent<SoundClip>(m_owner);
-		sound->LoadWavSound(L"res/sound/se_jump3.wav");
+		sound->LoadWavSound(L"res/sound/jump.wav");
 	}
 	void Player::Update(float deltaTime)
 	{
@@ -166,12 +166,12 @@ namespace FlappyBird
 
 		// ダメージ音声再生
 		std::unique_ptr<SoundClip> damageSound = std::make_unique<SoundClip>(nullptr);
-		damageSound->LoadWavSound(L"res/sound/se_damage5.wav");
+		damageSound->LoadWavSound(L"res/sound/damage.wav");
 		damageSound->Play(true);
 
 		// 落下音声再生
 		std::unique_ptr<SoundClip> sound = std::make_unique<SoundClip>(nullptr);
-		sound->LoadWavSound(L"res/sound/水に落下（ヒューポチャン）.wav");
+		sound->LoadWavSound(L"res/sound/fall.wav");
 		sound->Play();
 	}
 }

@@ -37,8 +37,8 @@ namespace FlappyBird
 	void Obstacle::Update(float deltaTime)
 	{
 		Transform2D* transform = m_owner->GetComponent<Transform2D>();
-		transform->position.x += m_moveSpeedX;
-		transform->position.y += m_moveSpeedY;
+		transform->position.x += m_moveSpeedX * deltaTime;
+		transform->position.y += m_moveSpeedY * deltaTime;
 
 		// カメラの範囲外に出たら非アクティブにする
 		// 1. カメラのレンダリング範囲内に入っているかどうかを判定する

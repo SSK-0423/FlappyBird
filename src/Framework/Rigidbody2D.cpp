@@ -19,20 +19,20 @@ namespace Framework
 	}
 	void Rigidbody2D::Update(float deltaTime)
 	{
-		velocity.x += acceleration.x * deltaTime;
-		velocity.y += acceleration.y * deltaTime;
+		velocity.x += acceleration.x;
+		velocity.y += acceleration.y;
 
 		// 重力が有効なら適用する
 		if (useGravity)
 		{
 			// Vf = Vi + at
-			velocity.y += gravity * gravityScale * deltaTime;
+			velocity.y += gravity * gravityScale;
 		}
 
 		// 適用
 		XMFLOAT2 position = m_owner->GetComponent<Transform2D>()->position;
-		position.x += velocity.x;
-		position.y += velocity.y;
+		position.x += velocity.x * deltaTime;
+		position.y += velocity.y * deltaTime;
 		m_owner->GetComponent<Transform2D>()->position = position;
 
 		//Utility::DebugLog("Velocity: %f\n", velocity.y);

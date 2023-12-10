@@ -10,6 +10,7 @@ namespace Framework
 		IComponent(Object* owner) : m_owner(owner), m_isActive(true) {};
 		virtual ~IComponent() {};
 		virtual void Update(float deltaTime) = 0;
+		virtual void FixedUpdate() {};
 		virtual void Draw() = 0;
 
 		Object* GetOwner() { return m_owner; }

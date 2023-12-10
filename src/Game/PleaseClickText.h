@@ -3,11 +3,11 @@
 
 namespace FlappyBird
 {
-	class PressEnterText : public Framework::IComponent
+	class PleaseClickText : public Framework::IComponent
 	{
 	public:
-		PressEnterText(class Framework::Object* owner);
-		~PressEnterText() = default;
+		PleaseClickText(class Framework::Object* owner);
+		~PleaseClickText() = default;
 
 		void Update(float deltaTime) override;
 		void Draw() override;
@@ -18,7 +18,7 @@ namespace FlappyBird
 		float m_elapsedWaitTime;
 		float m_waitSoundTime;
 
-		bool m_isPushedEnter;
+		bool m_isClicked;
 
 		std::unique_ptr<Framework::SoundClip> m_backgroundSound;
 

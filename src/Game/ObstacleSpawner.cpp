@@ -59,7 +59,7 @@ namespace FlappyBird
 			randomY + overObstacleTransform->scale.y / 2.f + SPACE / 2.f };
 
 		// “yŠÇ‚ÌˆÚ“®‘¬“x‚ğİ’è
-		overObstacle.GetComponent<Obstacle>()->SetMoveSpeed(-1.f, 0.f);
-		underObstacle.GetComponent<Obstacle>()->SetMoveSpeed(-1.f, 0.f);
+		overObstacle.GetComponent<Obstacle>()->SetMoveSpeed(-m_obstacleSpeed, 0.f);
+		underObstacle.GetComponent<Obstacle>()->SetMoveSpeed(-m_obstacleSpeed, 0.f);
 	}
 }

@@ -198,7 +198,7 @@
     <ClCompile Include="src\Game\ObstaclePool.cpp" />
     <ClCompile Include="src\Game\ObstacleSpawner.cpp" />
     <ClCompile Include="src\Game\Player.cpp" />
-    <ClCompile Include="src\Game\PressEnterText.cpp" />
+    <ClCompile Include="src\Game\PleaseClickText.cpp" />
     <ClCompile Include="src\Game\Renderer.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
@@ -273,7 +273,7 @@
     <ClInclude Include="src\Game\ObstaclePool.h" />
     <ClInclude Include="src\Game\ObstacleSpawner.h" />
     <ClInclude Include="src\Game\Player.h" />
-    <ClInclude Include="src\Game\PressEnterText.h" />
+    <ClInclude Include="src\Game\PleaseClickText.h" />
     <ClInclude Include="src\Game\Renderer.h" />
     <ClInclude Include="src\Game\Score.h" />
     <ClInclude Include="src\Game\ScoreFrame.h" />

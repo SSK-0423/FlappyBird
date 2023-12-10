@@ -1,12 +1,12 @@
 #include "pch.h"
-#include "PressEnterText.h"
+#include "PleaseClickText.h"
 
 using namespace Framework;
 
 namespace FlappyBird
 {
-	PressEnterText::PressEnterText(Object* owner)
-		: IComponent(owner), m_isPushedEnter(false), m_elapsedBlinkTime(0.f), m_elapsedWaitTime(0.f),
+	PleaseClickText::PleaseClickText(Object* owner)
+		: IComponent(owner), m_isClicked(false), m_elapsedBlinkTime(0.f), m_elapsedWaitTime(0.f),
 		m_waitSoundTime(2.5f), m_blinkAnimationInterval(0.5f), m_backgroundSound(nullptr), m_currentColorIndex(0)
 	{
 		m_colors.resize(2);
@@ -17,23 +17,23 @@ namespace FlappyBird
 
 		// テキスト追加
 		Text* text = m_owner->AddComponent<Text>(m_owner);
-		text->SetText(L"Press Enter");
+		text->SetText(L"Please Click");
 		text->SetColor(m_colors[0]);
 		text->SetPosition({ windowSize.cx / 3.f, windowSize.cy * 2.5f / 4.f });
 		text->SetScale(0.5f);
 
 		// 効果音追加
 		SoundClip* sound = m_owner->AddComponent<SoundClip>(m_owner);
-		sound->LoadWavSound(L"res/sound/決定ボタンを押す24.wav");
+		sound->LoadWavSound(L"res/sound/decide.wav");
 
 		// BGM追加
 		m_backgroundSound.reset(new SoundClip(m_owner));
-		m_backgroundSound->LoadWavSound(L"res/sound/魔王魂 ループ  8bit01.wav");
+		m_backgroundSound->LoadWavSound(L"res/sound/title_bgm.wav");
 		m_backgroundSound->Play();
 	}
-	void PressEnterText::Update(float deltaTime)
+	void PleaseClickText::Update(float deltaTime)
 	{
-		if (m_isPushedEnter)
+		if (m_isClicked)
 		{
 			m_elapsedWaitTime += deltaTime;
 			if (m_elapsedWaitTime >= m_waitSoundTime)
@@ -43,10 +43,12 @@ namespace FlappyBird
 		}
 		else
 		{
-			// エンターキーが押されたらゲームシーンへ
-			if (InputSystem::GetKeyDown(DIK_RETURN))
+			// クリックされたらゲームシーンへ
+			if (InputSystem::GetMouseButtonDown(MOUSECODE::LEFT) ||
+				InputSystem::GetMouseButtonDown(MOUSECODE::RIGHT) ||
+				InputSystem::GetMouseButtonDown(MOUSECODE::WHEEL))
 			{
-				m_isPushedEnter = true;
+				m_isClicked = true;
 				m_blinkAnimationInterval /= 4.f;
 				m_owner->GetComponent<SoundClip>()->Play();
 				m_backgroundSound->Stop();
@@ -55,10 +57,10 @@ namespace FlappyBird
 
 		BlinkAnimation(deltaTime);
 	}
-	void PressEnterText::Draw()
+	void PleaseClickText::Draw()
 	{
 	}
-	void PressEnterText::BlinkAnimation(float deltaTime)
+	void PleaseClickText::BlinkAnimation(float deltaTime)
 	{
 		m_elapsedBlinkTime += deltaTime;
 		if (m_elapsedBlinkTime >= m_blinkAnimationInterval)

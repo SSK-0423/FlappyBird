@@ -10,7 +10,7 @@
 #include "Framework/Text.h"
 #include "Framework/Transform2D.h"
 
-#include "PressEnterText.h"
+#include "PleaseClickText.h"
 
 using namespace Framework;
 
@@ -44,11 +44,11 @@ namespace FlappyBird
 		titleText->SetText(L"Flappy Bird");
 		titleText->SetPosition({ size.cx / 6.f, size.cy / 8.f });
 		titleText->SetScale(1.f);
-		titleText->SetColor(DirectX::Colors::GreenYellow);
+		titleText->SetColor(DirectX::Colors::Green);
 
 		// スタートテキスト
-		UIObject* pressEnterText = UIObjectManager::CreateObject();
-		pressEnterText->AddComponent<PressEnterText>(pressEnterText);
+		UIObject* pleaseClick = UIObjectManager::CreateObject();
+		pleaseClick->AddComponent<PleaseClickText>(pleaseClick);
 
 		OutputDebugStringA("TitleScene Init\n");
 	}
