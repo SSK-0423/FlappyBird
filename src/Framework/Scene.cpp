@@ -3,6 +3,7 @@
 #include "Transform2D.h"
 #include "GameObjectManager.h"
 #include "UIObjectManager.h"
+#include "SoundManager.h"
 #include "CollisionSystem.h"
 
 namespace Framework
@@ -43,6 +44,9 @@ namespace Framework
 
 		// コリジョンシステムをリセット
 		CollisionSystem::Reset();
+
+		// サウンドをリセット
+		SoundManager::Reset();
 	}
 	const Camera& Scene::GetCamera()
 	{

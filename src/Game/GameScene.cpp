@@ -8,6 +8,8 @@
 #include "Background.h"
 #include "ObstacleSpawner.h"
 #include "Score.h"
+#include "ScoreFrame.h"
+#include "GameReadyUI.h"
 #include "GameOverUI.h"
 
 using namespace Framework;
@@ -27,6 +29,10 @@ namespace FlappyBird
 		UIObject* gameOverUI = UIObjectManager::CreateObject();
 		gameOverUI->AddComponent<GameOverUI>(gameOverUI);
 
+		// ゲーム開始準備UI
+		UIObject* gameReadyUI = UIObjectManager::CreateObject();
+		gameReadyUI->AddComponent<GameReadyUI>(gameReadyUI);
+
 		// ゲームマスター
 		GameObject* gameMaster = GameObjectManager::CreateObject();
 		gameMaster->AddComponent<GameMaster>(gameMaster);
@@ -44,6 +50,9 @@ namespace FlappyBird
 		obstacleSpawner->AddComponent<ObstacleSpawner>(obstacleSpawner);
 
 		// UI
+		UIObject* scoreFrame = UIObjectManager::CreateObject();
+		scoreFrame->AddComponent<ScoreFrame>(scoreFrame);
+
 		// スコア
 		UIObject* score = UIObjectManager::CreateObject();
 		score->AddComponent<Score>(score);

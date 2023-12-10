@@ -6,14 +6,19 @@ using namespace Framework;
 namespace FlappyBird
 {
 	PressEnterText::PressEnterText(Object* owner)
-		: IComponent(owner)
+		: IComponent(owner), m_isPushedEnter(false), m_elapsedBlinkTime(0.f), m_elapsedWaitTime(0.f),
+		m_waitSoundTime(2.5f), m_blinkAnimationInterval(0.5f), m_backgroundSound(nullptr), m_currentColorIndex(0)
 	{
+		m_colors.resize(2);
+		m_colors[0] = DirectX::Colors::Black;
+		m_colors[1] = DirectX::Colors::Transparent;
+
 		auto windowSize = Window::GetWindowSize();
 
 		// テキスト追加
 		Text* text = m_owner->AddComponent<Text>(m_owner);
 		text->SetText(L"Press Enter");
-		text->SetColor(DirectX::Colors::White);
+		text->SetColor(m_colors[0]);
 		text->SetPosition({ windowSize.cx / 3.f, windowSize.cy * 2.5f / 4.f });
 		text->SetScale(0.5f);
 
@@ -28,32 +33,39 @@ namespace FlappyBird
 	}
 	void PressEnterText::Update(float deltaTime)
 	{
-		// 点滅
-		auto text = m_owner->GetComponent<Text>();
-		m_elapsedTime += deltaTime;
-
-		// 1秒ごとに点滅
-		if (static_cast<int>(floor(m_elapsedTime)) % 2 == 0)
+		if (m_isPushedEnter)
 		{
-			text->SetColor(DirectX::Colors::Black);
+			m_elapsedWaitTime += deltaTime;
+			if (m_elapsedWaitTime >= m_waitSoundTime)
+			{
+				SceneManager::SetNextScene("Game");
+			}
 		}
 		else
 		{
-			text->SetColor(DirectX::Colors::Transparent);
+			// エンターキーが押されたらゲームシーンへ
+			if (InputSystem::GetKeyDown(DIK_RETURN))
+			{
+				m_isPushedEnter = true;
+				m_blinkAnimationInterval /= 4.f;
+				m_owner->GetComponent<SoundClip>()->Play();
+				m_backgroundSound->Stop();
+			}
 		}
 
-		// エンターキーが押されたらゲームシーンへ
-		if (InputSystem::GetKeyDown(DIK_RETURN))
-		{
-			// 効果音再生
-			m_owner->GetComponent<SoundClip>()->Play(true);
-			
-			// BGM停止
-			m_backgroundSound->Stop();
-
-			SceneManager::SetNextScene("Game");
-		}
+		BlinkAnimation(deltaTime);
 	}
 	void PressEnterText::Draw()
-	{}
+	{
+	}
+	void PressEnterText::BlinkAnimation(float deltaTime)
+	{
+		m_elapsedBlinkTime += deltaTime;
+		if (m_elapsedBlinkTime >= m_blinkAnimationInterval)
+		{
+			m_elapsedBlinkTime = 0.f;
+			m_owner->GetComponent<Text>()->SetColor(m_colors[m_currentColorIndex]);
+			m_currentColorIndex = (m_currentColorIndex + 1) % m_colors.size();
+		}
+	}
 }

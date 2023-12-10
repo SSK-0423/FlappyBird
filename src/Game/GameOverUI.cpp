@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "GameOverUI.h"
+#include "GameScene.h"
 
 using namespace Framework;
 
@@ -14,15 +15,10 @@ namespace FlappyBird
 
 		// ゲームオーバーUIの画像を追加
 
-		// 背景
-		//UIObject* background = UIObjectManager::CreateObject();
-		//Sprite* backgroundSprite = background->AddComponent<Sprite>(background);
-		//backgroundSprite->SetTexture(L"res/texture/GameOverBackground.png");
-
 		// リトライボタン
 		UIObject* retry = UIObjectManager::CreateObject();
 		Button* retryButton = retry->AddComponent<Button>(retry);
-		retryButton->SetTexture(L"res/texture/RetryButton.png");
+		retryButton->SetTexture(L"res/texture/retry_button.png");
 		retryButton->SetPosition({ windowSize.cx / 2.f, windowSize.cy / 2.f });
 		retryButton->SetScale({ 200.f, 50.f });
 		retryButton->SetOnClick([]() { SceneManager::SetNextScene("Game"); });
@@ -31,7 +27,7 @@ namespace FlappyBird
 		// 辞めるボタン
 		UIObject* title = UIObjectManager::CreateObject();
 		Button* titleButton = title->AddComponent<Button>(title);
-		titleButton->SetTexture(L"res/texture/QuitButton.png");
+		titleButton->SetTexture(L"res/texture/quit_button.png");
 		titleButton->SetPosition({ windowSize.cx / 2.f, windowSize.cy / 2.f + 150.f });
 		titleButton->SetScale({ 200.f, 50.f });
 		titleButton->SetOnClick([]() { SceneManager::SetNextScene("Title"); });

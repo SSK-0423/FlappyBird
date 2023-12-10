@@ -12,7 +12,7 @@ namespace FlappyBird
 {
 	Player::Player(Framework::Object* owner)
 		: Framework::IComponent(owner), m_jumpVelocity(-5.f), // 左上原点なのでマイナス
-		m_elapsedTime(0.f), m_gameReadyAnimationInterval(0.65f), m_isAlive(true)
+		m_elapsedTime(0.f), m_gameReadyAnimationInterval(0.675f), m_isAlive(true)
 	{
 		m_gameMaster = GameObjectManager::FindObject("GameMaster")->GetComponent<GameMaster>();
 
@@ -23,20 +23,20 @@ namespace FlappyBird
 		m_owner->SetTag("Player");
 
 		// スプライト追加
-		m_owner->AddComponent<SpriteRenderer>(m_owner);
-		m_owner->GetComponent<SpriteRenderer>()->SetSprite(m_fallSprite);
-		m_owner->GetComponent<SpriteRenderer>()->SetDrawMode(SPRITE_DRAW_MODE::GAMEOBJECT);
-		m_owner->GetComponent<SpriteRenderer>()->SetLayer(static_cast<UINT>(GAME_SCENE_LAYER::GAMEOBJECT));
+		SpriteRenderer* spriteRenderer = m_owner->AddComponent<SpriteRenderer>(m_owner);
+		spriteRenderer->SetSprite(m_fallSprite);
+		spriteRenderer->SetDrawMode(SPRITE_DRAW_MODE::GAMEOBJECT);
+		spriteRenderer->SetLayer(static_cast<UINT>(GAME_SCENE_LAYER::GAMEOBJECT));
 
 		// プレイヤーの位置を設定
 		auto windowSize = Window::GetWindowSize();
 		Transform2D* transform = m_owner->GetComponent<Transform2D>();
-		transform->position = { 200.f, windowSize.cy / 2.f };
+		transform->position = { 200.f, 50.f };
 		transform->scale = { 75.f, 75.f };
 
 		// コライダー追加
 		RectCollider* collider = m_owner->AddComponent<RectCollider>(m_owner);
-		collider->SetRectSize(transform->scale.x * 0.8f, transform->scale.y * 0.8f);
+		collider->SetRectSize(transform->scale.x * 0.7f, transform->scale.y * 0.7f);
 		collider->SetOnCollisionCallBack(std::bind(&Player::OnCollision, this, std::placeholders::_1));
 
 		// リジッドボディ追加

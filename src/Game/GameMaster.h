@@ -28,6 +28,7 @@ namespace FlappyBird
 	private:
 		GAME_STATE m_gameState;
 		Framework::UIObject* m_gameOverUI;
+		Framework::UIObject* m_gameReadyUI;
 
 		float m_elapsedTime;
 		float m_gameStartTime;
@@ -35,6 +36,8 @@ namespace FlappyBird
 		void GameReady(float deltaTime);
 		void GameOver(float deltaTime);
 
+		void OnGameReady();
+		void OnGameStart();
 		void OnGameOver();
 	};
 }

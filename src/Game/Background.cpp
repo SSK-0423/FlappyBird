@@ -14,7 +14,7 @@ namespace FlappyBird
 	{
 		auto size = Window::GetWindowSize();
 
-		Sprite* sprite = new Sprite(L"res/texture/Background.jpg");
+		Sprite* sprite = new Sprite(L"res/texture/background.jpg");
 		SpriteRenderer* spriteRenderer = m_owner->AddComponent<SpriteRenderer>(m_owner);
 		spriteRenderer->SetSprite(sprite);
 		spriteRenderer->SetDrawMode(SPRITE_DRAW_MODE::GUI);

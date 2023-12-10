@@ -3,7 +3,7 @@
 
 namespace Framework
 {
-	SoundClip::SoundClip(Object* owner) : 
+	SoundClip::SoundClip(Object* owner) :
 		IComponent(owner), m_soundname(nullptr), m_sourceVoice(nullptr)
 	{
 	}
@@ -45,6 +45,8 @@ namespace Framework
 				m_sourceVoice->GetState(&state, XAUDIO2_VOICE_NOSAMPLESPLAYED);
 			}
 		}
+
+		Utility::DebugLog("çƒê∂èIóπ\n");
 	}
 	void SoundClip::Stop()
 	{

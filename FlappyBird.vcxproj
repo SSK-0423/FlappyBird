@@ -191,6 +191,7 @@
     <ClCompile Include="src\Game\FlappyBird.cpp" />
     <ClCompile Include="src\Game\GameMaster.cpp" />
     <ClCompile Include="src\Game\GameOverUI.cpp" />
+    <ClCompile Include="src\Game\GameReadyUI.cpp" />
     <ClCompile Include="src\Game\GameScene.cpp" />
     <ClCompile Include="src\Game\main.cpp" />
     <ClCompile Include="src\Game\Obstacle.cpp" />
@@ -203,9 +204,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\Game\Score.cpp" />
+    <ClCompile Include="src\Game\ScoreFrame.cpp" />
     <ClCompile Include="src\Game\TestCharacter.cpp" />
     <ClCompile Include="src\Game\TestObstacle.cpp" />
     <ClCompile Include="src\Game\TitleScene.cpp" />
+    <ClCompile Include="src\Game\UserGuide.cpp" />
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -264,6 +267,7 @@
     <ClInclude Include="src\Game\FlappyBird.h" />
     <ClInclude Include="src\Game\GameMaster.h" />
     <ClInclude Include="src\Game\GameOverUI.h" />
+    <ClInclude Include="src\Game\GameReadyUI.h" />
     <ClInclude Include="src\Game\GameScene.h" />
     <ClInclude Include="src\Game\Obstacle.h" />
     <ClInclude Include="src\Game\ObstaclePool.h" />
@@ -272,9 +276,11 @@
     <ClInclude Include="src\Game\PressEnterText.h" />
     <ClInclude Include="src\Game\Renderer.h" />
     <ClInclude Include="src\Game\Score.h" />
+    <ClInclude Include="src\Game\ScoreFrame.h" />
     <ClInclude Include="src\Game\TestCharacter.h" />
     <ClInclude Include="src\Game\TestObstacle.h" />
     <ClInclude Include="src\Game\TitleScene.h" />
+    <ClInclude Include="src\Game\UserGuide.h" />
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\Utility\EngineUtility.h" />
     <ClInclude Include="src\Utility\ISingleton.h" />

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Score.h"
 #include "GameMaster.h"
+#include "GameScene.h"
 
 using namespace Framework;
 
@@ -19,7 +20,6 @@ namespace FlappyBird
 		text->SetColor(DirectX::Colors::Black);
 
 		m_gameMaster = GameObjectManager::FindObject("GameMaster")->GetComponent<GameMaster>();
-
 	}
 
 	void Score::Update(float deltaTime)

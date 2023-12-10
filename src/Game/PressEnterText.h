@@ -12,8 +12,19 @@ namespace FlappyBird
 		void Update(float deltaTime) override;
 		void Draw() override;
 	private:
-		float m_elapsedTime = 0.f;
+		float m_elapsedBlinkTime;
+		float m_blinkAnimationInterval;
+
+		float m_elapsedWaitTime;
+		float m_waitSoundTime;
+
+		bool m_isPushedEnter;
 
 		std::unique_ptr<Framework::SoundClip> m_backgroundSound;
+
+		std::vector<DirectX::XMVECTORF32> m_colors;
+		size_t m_currentColorIndex;
+
+		void BlinkAnimation(float deltaTime);
 	};
 }
