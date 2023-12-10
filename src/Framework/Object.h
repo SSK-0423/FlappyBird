@@ -58,8 +58,16 @@ namespace Framework
 	// templateで実装してあるオブジェクトマネージャーを
 	// GameObjectとUIObject用に使い分けるためのクラス
 	class GameObject : public Object
-	{};
+	{
+	public:
+		GameObject() = default;
+		~GameObject() {}
+	};
 
 	class UIObject : public Object
-	{};
+	{
+	public:
+		UIObject() = default;
+		~UIObject() {}
+	};
 }

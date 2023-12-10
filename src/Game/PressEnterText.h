@@ -1,5 +1,5 @@
 #pragma once
-#include "Framework/IComponent.h"
+#include "Framework/GameFramework.h"
 
 namespace FlappyBird
 {

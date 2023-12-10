@@ -222,6 +222,9 @@
     <ClCompile Include="src\Game\ObstacleSpawner.cpp">
       <Filter>ソース ファイル\Game\GameScene\Obstacle</Filter>
     </ClCompile>
+    <ClCompile Include="src\Framework\WAVFileReader.cpp">
+      <Filter>ソース ファイル\Framework\System\Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\pch.h">
@@ -409,6 +412,9 @@
     </ClInclude>
     <ClInclude Include="src\Game\ObstacleSpawner.h">
       <Filter>ソース ファイル\Game\GameScene\Obstacle</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\WAVFileReader.h">
+      <Filter>ソース ファイル\Framework\System\Sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
