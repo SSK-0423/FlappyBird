@@ -22,6 +22,10 @@ namespace FlappyBird
 		// UnityのStart関数のようなものを用意し、
 		// シーンの最初のフレームが実行される前に一斉に初期化処理を行うようにする
 
+		// ゲームマスター
+		GameObject* gameMaster = GameObjectManager::CreateObject();
+		gameMaster->AddComponent<GameMaster>(gameMaster);
+
 		// 背景
 		GameObject* background = GameObjectManager::CreateObject();
 		background->AddComponent<Background>(background);
@@ -33,10 +37,6 @@ namespace FlappyBird
 		// 障害物を設置するオブジェクト
 		GameObject* obstacleSpawner = GameObjectManager::CreateObject();
 		obstacleSpawner->AddComponent<ObstacleSpawner>(obstacleSpawner);
-
-		// ゲームマスター
-		GameObject* gameMaster = GameObjectManager::CreateObject();
-		gameMaster->AddComponent<GameMaster>(gameMaster);
 
 		// UI
 		// スコア

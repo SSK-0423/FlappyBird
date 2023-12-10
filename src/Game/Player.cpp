@@ -4,15 +4,18 @@
 #include "Framework/GameFramework.h"
 
 #include "GameScene.h"
+#include "GameMaster.h"
 
 using namespace Framework;
 
 namespace FlappyBird
 {
 	Player::Player(Framework::Object* owner)
-		: Framework::IComponent(owner), m_jumpVelocity(-5.f) // 左上原点なのでマイナス
+		: Framework::IComponent(owner), m_jumpVelocity(-5.f), // 左上原点なのでマイナス
+		m_elapsedTime(0.f), m_gameReadyAnimationInterval(0.65f), m_isAlive(true)
 	{
-		m_isAlive = true;
+		m_gameMaster = GameObjectManager::FindObject("GameMaster")->GetComponent<GameMaster>();
+
 		m_jumpSprite = std::make_shared<Sprite>(L"res/player_jump.png");
 		m_fallSprite = std::make_shared<Sprite>(L"res/player_fall.png");
 
@@ -44,16 +47,23 @@ namespace FlappyBird
 		SoundClip* sound = m_owner->AddComponent<SoundClip>(m_owner);
 		sound->LoadWavSound(L"res/sound/se_jump3.wav");
 	}
-	Player::~Player()
-	{
-	}
 	void Player::Update(float deltaTime)
 	{
 		// 生存中のみ更新
-		if (m_isAlive)
+		switch (m_gameMaster->GetGameState())
 		{
+		case GAME_STATE::READY:
+			GameReadyAnimation(deltaTime);
+			break;
+		case GAME_STATE::PLAYING:
 			Move(deltaTime);
 			ChangeSprite();
+			break;
+		case GAME_STATE::GAMEOVER:
+			GameOverAnimation(deltaTime);
+			break;
+		default:
+			break;
 		}
 	}
 	void Player::Draw()
@@ -83,6 +93,24 @@ namespace FlappyBird
 	}
 	void Player::Move(float deltaTime)
 	{
+		LimitPosition();
+
+		// マウス左クリックでジャンプ
+		if (InputSystem::GetMouseButtonDown(MOUSECODE::LEFT))
+		{
+			Jump();
+		}
+	}
+
+	void Player::Jump()
+	{
+		m_owner->GetComponent<Rigidbody2D>()->velocity = { 0.f, 0.f };
+		m_owner->GetComponent<Rigidbody2D>()->AddForce({ 0.f, m_jumpVelocity }, FORCE_MODE::VELOCITY);
+		m_owner->GetComponent<SoundClip>()->Play();
+	}
+	
+	void Player::LimitPosition()
+	{
 		// プレイヤーの移動制限
 		auto windowSize = Window::GetWindowSize();
 		Transform2D* transform = m_owner->GetComponent<Transform2D>();
@@ -99,30 +127,44 @@ namespace FlappyBird
 			transform->position.y = windowSize.cy;
 			m_owner->GetComponent<Rigidbody2D>()->velocity = { 0.f, 0.f };
 		}
+	}
 
-		// マウス左クリックでジャンプ
-		if (InputSystem::GetMouseButtonDown(MOUSECODE::LEFT))
+	void Player::GameReadyAnimation(float deltaTime)
+	{
+		// ゲーム開始演出
+		// 一定間隔でジャンプする
+		m_elapsedTime += deltaTime;
+		if (m_elapsedTime >= m_gameReadyAnimationInterval)
 		{
-			m_owner->GetComponent<Rigidbody2D>()->velocity = { 0.f, 0.f };
-			m_owner->GetComponent<Rigidbody2D>()->AddForce({ 0.f, m_jumpVelocity }, FORCE_MODE::VELOCITY);
-			m_owner->GetComponent<SoundClip>()->Play();
+			Jump();
+			m_elapsedTime = 0.f;
 		}
 	}
+	
+	void Player::GameOverAnimation(float deltaTime)
+	{
+		// ゲームオーバー演出
+		Transform2D* transform = m_owner->GetComponent<Transform2D>();
+		transform->position.y += 0.5f;
+		transform->angle += 0.5f;
+	}
+	
 	bool Player::IsDead()
 	{
 		return !m_isAlive;
 	}
+	
 	void Player::OnDead()
 	{
 		m_isAlive = false;
 
-		std::unique_ptr<SoundClip> damageSound = std::make_unique<SoundClip>(m_owner);
-		damageSound->LoadWavSound(L"res/sound/se_damage5.wav");
-		damageSound->Play();
+		m_gameMaster->ChangeState(GAME_STATE::GAMEOVER);
 
 		// Rigidbodyの影響を無効化
 		m_owner->GetComponent<Rigidbody2D>()->SetActive(false);
 
-		// ゲームオーバー演出
+		std::unique_ptr<SoundClip> damageSound = std::make_unique<SoundClip>(m_owner);
+		damageSound->LoadWavSound(L"res/sound/se_damage5.wav");
+		damageSound->Play(true);
 	}
 }

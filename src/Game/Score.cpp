@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Score.h"
+#include "GameMaster.h"
 
 using namespace Framework;
 
@@ -12,30 +13,28 @@ namespace FlappyBird
 
 		// テキスト追加
 		Text* text = m_owner->AddComponent<Text>(m_owner);
-		text->SetText(L"SCORE");
+		text->SetText(L"SCORE: " + std::to_wstring(m_score));
 		text->SetScale(0.25f);
 		text->SetPosition({ windowSize.cx / 2.0f - 50.0f, 0.f });
 		text->SetColor(DirectX::Colors::Black);
 
-		m_player = GameObjectManager::FindObject("Player")->GetComponent<Player>();
+		m_gameMaster = GameObjectManager::FindObject("GameMaster")->GetComponent<GameMaster>();
+
 	}
 
 	void Score::Update(float deltaTime)
 	{
-		// プレイヤーが死んでいたら更新しない
-		if (m_player->IsDead())
+		if (m_gameMaster->GetGameState() == GAME_STATE::PLAYING)
 		{
-			return;
+			// 一定時間間隔でスコアを加算
+			m_elapsedTime += deltaTime;
+			if (m_elapsedTime >= m_scoreAddInterval)
+			{
+				AddScore(1);
+				m_elapsedTime = 0.f;
+			}
+			m_owner->GetComponent<Text>()->SetText(L"SCORE: " + std::to_wstring(m_score));
 		}
-
-		// 一定時間間隔でスコアを加算
-		m_elapsedTime += deltaTime;
-		if (m_elapsedTime >= m_scoreAddInterval)
-		{
-			AddScore(1);
-			m_elapsedTime = 0.f;
-		}
-		m_owner->GetComponent<Text>()->SetText(L"SCORE: " + std::to_wstring(m_score));
 	}
 
 	void Score::Draw()

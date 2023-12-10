@@ -2,6 +2,7 @@
 #include "ObstacleSpawner.h"
 #include "ObstaclePool.h"
 #include "Obstacle.h"
+#include "GameMaster.h"
 
 using namespace Framework;
 
@@ -10,6 +11,7 @@ namespace FlappyBird
 	ObstacleSpawner::ObstacleSpawner(Framework::Object* owner) : IComponent(owner)
 	{
 		m_obstaclePool = m_owner->AddComponent<ObstaclePool>(m_owner);
+		m_gameMaster = GameObjectManager::FindObject("GameMaster")->GetComponent<GameMaster>();
 
 		// 現在時刻(ms)をシード値として乱数生成器を初期化
 		auto now = std::chrono::system_clock::now();

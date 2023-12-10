@@ -2,10 +2,10 @@
 
 #include "Framework/GameFramework.h"
 
-#include "Player.h"
-
 namespace FlappyBird
 {
+	class GameMaster;
+
 	class Score : public Framework::IComponent
 	{
 	public:
@@ -19,10 +19,10 @@ namespace FlappyBird
 		unsigned int GetScore();
 
 	private:
+		GameMaster* m_gameMaster;
+
 		unsigned int m_score;
 		float m_scoreAddInterval;
 		float m_elapsedTime;
-
-		Player* m_player;
 	};
 }
