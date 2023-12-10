@@ -29,7 +29,6 @@ namespace Framework
 
 		// UI‚ÌXV
 		UIObjectManager::Update(deltaTime);
-
 	}
 	void Scene::LateUpdate(float deltaTime)
 	{

@@ -13,7 +13,7 @@ namespace Framework
 	{
 		for (auto& component : m_components)
 		{
-			if (component->IsActive())
+			if (component->GetActive())
 				component->Update(deltaTime);
 		}
 
@@ -27,7 +27,7 @@ namespace Framework
 	{
 		for (auto& component : m_components)
 		{
-			if (component->IsActive())
+			if (component->GetActive())
 				component->Draw();
 		}
 
@@ -43,7 +43,7 @@ namespace Framework
 
 		for (auto& child : m_children)
 		{
-			child->SetActive(isActive);
+			child->SetActive(m_isActive);
 		}
 	}
 	bool Object::GetActive()

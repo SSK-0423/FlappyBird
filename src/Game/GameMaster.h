@@ -27,11 +27,14 @@ namespace FlappyBird
 		GAME_STATE GetGameState();
 	private:
 		GAME_STATE m_gameState;
+		Framework::UIObject* m_gameOverUI;
 
 		float m_elapsedTime;
 		float m_gameStartTime;
 
 		void GameReady(float deltaTime);
 		void GameOver(float deltaTime);
+
+		void OnGameOver();
 	};
 }

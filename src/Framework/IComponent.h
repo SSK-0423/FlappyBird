@@ -14,7 +14,7 @@ namespace Framework
 
 		Object* GetOwner() { return m_owner; }
 		void SetActive(bool isActive) { m_isActive = isActive; }
-		bool IsActive() { return m_isActive; }
+		bool GetActive() { return m_isActive; }
 
 	protected:
 		Object* m_owner;

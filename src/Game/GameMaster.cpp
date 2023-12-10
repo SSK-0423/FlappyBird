@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "GameMaster.h"
 #include "Player.h"
+#include "GameOverUI.h"
 
 using namespace Framework;
 
@@ -9,6 +10,8 @@ namespace FlappyBird
 	GameMaster::GameMaster(Framework::Object* owner) :
 		IComponent(owner), m_gameState(GAME_STATE::READY), m_elapsedTime(0.0f), m_gameStartTime(4.0f)
 	{
+		m_gameOverUI = UIObjectManager::FindObject("GameOverUI");
+
 		m_owner->SetName("GameMaster");
 
 		// BGM追加
@@ -38,6 +41,20 @@ namespace FlappyBird
 	void GameMaster::ChangeState(GAME_STATE state)
 	{
 		m_gameState = state;
+
+		// ステート切り替え時の処理
+		switch (m_gameState)
+		{
+		case GAME_STATE::READY:
+			break;
+		case GAME_STATE::PLAYING:
+			break;
+		case GAME_STATE::GAMEOVER:
+			OnGameOver();
+			break;
+		default:
+			break;
+		}
 	}
 	GAME_STATE GameMaster::GetGameState()
 	{
@@ -50,12 +67,19 @@ namespace FlappyBird
 		{
 			m_gameState = GAME_STATE::PLAYING;
 		}
+
+		//Utility::DebugLog("Game Ready\n");
 	}
 	void GameMaster::GameOver(float deltaTime)
 	{
 		m_owner->GetComponent<SoundClip>()->Stop();
 
 		// ゲームオーバーUIを表示
+	}
+	void GameMaster::OnGameOver()
+	{
+		// ゲームオーバーUIを表示
+		m_gameOverUI->SetActive(true);
 	}
 }
 

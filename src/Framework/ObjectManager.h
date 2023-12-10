@@ -35,7 +35,8 @@ namespace Framework
 	{
 		for (auto& object : m_objects)
 		{
-			object->Update(deltaTime);
+			if (object->GetActive())
+				object->Update(deltaTime);
 		}
 	}
 

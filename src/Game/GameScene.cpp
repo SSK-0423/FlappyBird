@@ -23,6 +23,10 @@ namespace FlappyBird
 		// UnityのStart関数のようなものを用意し、
 		// シーンの最初のフレームが実行される前に一斉に初期化処理を行うようにする
 
+		// ゲームオーバーUI
+		UIObject* gameOverUI = UIObjectManager::CreateObject();
+		gameOverUI->AddComponent<GameOverUI>(gameOverUI);
+
 		// ゲームマスター
 		GameObject* gameMaster = GameObjectManager::CreateObject();
 		gameMaster->AddComponent<GameMaster>(gameMaster);
@@ -43,10 +47,6 @@ namespace FlappyBird
 		// スコア
 		UIObject* score = UIObjectManager::CreateObject();
 		score->AddComponent<Score>(score);
-
-		// ゲームオーバーUI
-		UIObject* gameOverUI = UIObjectManager::CreateObject();
-		gameOverUI->AddComponent<GameOverUI>(gameOverUI);
 	}
 	void GameScene::Final()
 	{
