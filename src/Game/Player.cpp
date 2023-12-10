@@ -12,6 +12,8 @@ namespace FlappyBird
 	Player::Player(Framework::Object* owner)
 		: Framework::IComponent(owner), m_jumpVelocity(-5.f) // 左上原点なのでマイナス
 	{
+		m_isAlive = true;
+
 		m_owner->SetName("Player");
 		m_owner->SetTag("Player");
 
@@ -46,6 +48,26 @@ namespace FlappyBird
 	}
 	void Player::Update(float deltaTime)
 	{
+		// 生存中のみ更新
+		if (m_isAlive)
+		{
+			Move(deltaTime);
+		}
+	}
+	void Player::Draw()
+	{
+	}
+	void Player::OnCollision(Framework::Collider* other)
+	{
+		// 生存中かつ障害物に当たったらゲームオーバー
+		if (m_isAlive && other->GetOwner()->GetTag() == "Obstacle")
+		{
+			Utility::DebugLog("Game Over\n");
+			OnDead();
+		}
+	}
+	void Player::Move(float deltaTime)
+	{
 		// プレイヤーの移動制限
 		auto windowSize = Window::GetWindowSize();
 		Transform2D* transform = m_owner->GetComponent<Transform2D>();
@@ -71,15 +93,20 @@ namespace FlappyBird
 			m_owner->GetComponent<SoundClip>()->Play();
 		}
 	}
-	void Player::Draw()
+	void Player::OnDead()
 	{
-	}
-	void Player::OnCollision(Framework::Collider* other)
-	{
-		// 障害物に当たったらゲームオーバー
-		if (other->GetOwner()->GetTag() == "Obstacle")
-		{
-			Utility::DebugLog("Game Over\n");
-		}
+		m_isAlive = false;
+
+		std::unique_ptr<SoundClip> damageSound = std::make_unique<SoundClip>(m_owner);
+		damageSound->LoadWavSound(L"res/sound/se_damage5.wav");
+		damageSound->Play();
+
+		// Rigidbodyの影響を無効化
+		// TODO: コンポーネントごとにSetActiveを実装する
+		Rigidbody2D* rigidbody = m_owner->GetComponent<Rigidbody2D>();
+		rigidbody->useGravity = false;
+		rigidbody->velocity = { 0.f, 0.f };
+
+		// ゲームオーバー演出
 	}
 }

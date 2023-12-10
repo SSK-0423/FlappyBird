@@ -46,14 +46,14 @@ namespace FlappyBird
 		auto& overObstacle = m_obstaclePool->GetObstacle();
 		Transform2D* overObstacleTransform = overObstacle.GetComponent<Transform2D>();
 		overObstacleTransform->position = {
-			static_cast<float>(windowSize.cx),
+			static_cast<float>(windowSize.cx) + overObstacleTransform->scale.x / 2.f,
 			randomY - overObstacleTransform->scale.y / 2.f - SPACE / 2.f };
 		overObstacleTransform->angle = 180.f;
 
 		auto& underObstacle = m_obstaclePool->GetObstacle();
 		Transform2D* underObstacleTransform = underObstacle.GetComponent<Transform2D>();
 		underObstacleTransform->position = {
-			static_cast<float>(windowSize.cx), 
+			static_cast<float>(windowSize.cx) + underObstacleTransform->scale.x / 2.f,
 			randomY + overObstacleTransform->scale.y / 2.f + SPACE / 2.f };
 
 		// “yŠÇ‚ÌˆÚ“®‘¬“x‚ğİ’è

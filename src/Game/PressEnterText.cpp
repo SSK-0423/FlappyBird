@@ -20,6 +20,11 @@ namespace FlappyBird
 		// 効果音追加
 		SoundClip* sound = m_owner->AddComponent<SoundClip>(m_owner);
 		sound->LoadWavSound(L"res/sound/決定ボタンを押す24.wav");
+
+		// BGM追加
+		m_backgroundSound.reset(new SoundClip(m_owner));
+		m_backgroundSound->LoadWavSound(L"res/sound/魔王魂 ループ  8bit01.wav");
+		m_backgroundSound->Play();
 	}
 	void PressEnterText::Update(float deltaTime)
 	{
@@ -42,6 +47,9 @@ namespace FlappyBird
 		{
 			// 効果音再生
 			m_owner->GetComponent<SoundClip>()->Play(true);
+			
+			// BGM停止
+			m_backgroundSound->Stop();
 
 			SceneManager::SetNextScene("Game");
 		}

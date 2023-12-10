@@ -23,27 +23,28 @@ namespace FlappyBird
 		// 背景
 		UIObject* background = UIObjectManager::CreateObject();
 		Sprite* backgroundSprite = new Sprite(L"res/Background.jpg");
-		background->AddComponent<SpriteRenderer>(background);
-		background->GetComponent<SpriteRenderer>()->SetSprite(backgroundSprite);
-		background->GetComponent<SpriteRenderer>()->SetDrawMode(SPRITE_DRAW_MODE::GUI);
-		background->GetComponent<Transform2D>()->position = { size.cx / 2.f, size.cy / 2.f };
-		background->GetComponent<Transform2D>()->scale = { size.cx * 1.f, size.cy * 1.f };
+		SpriteRenderer* backgroundRenderer = background->AddComponent<SpriteRenderer>(background);
+		backgroundRenderer->SetSprite(backgroundSprite);
+		backgroundRenderer->SetDrawMode(SPRITE_DRAW_MODE::GUI);
+		Transform2D* backgroundTransform = background->GetComponent<Transform2D>();
+		backgroundTransform->position = { size.cx / 2.f, size.cy / 2.f };
+		backgroundTransform->scale = { size.cx * 1.f, size.cy * 1.f };
 
 		// タイトルテキストの輪郭線
-		UIObject* text = UIObjectManager::CreateObject();
-		text->AddComponent<Text>(text);
-		text->GetComponent<Text>()->SetText(L"Flappy Bird");
-		text->GetComponent<Text>()->SetPosition({ size.cx / 6.f, size.cy / 8.f });
-		text->GetComponent<Text>()->SetScale(1.005f);
-		text->GetComponent<Text>()->SetColor(DirectX::Colors::White);
+		UIObject* outline = UIObjectManager::CreateObject();
+		Text* outlineText = outline->AddComponent<Text>(outline);
+		outlineText->SetText(L"Flappy Bird");
+		outlineText->SetPosition({ size.cx / 6.f, size.cy / 8.f });
+		outlineText->SetScale(1.005f);
+		outlineText->SetColor(DirectX::Colors::White);
 
 		// タイトルテキスト
-		UIObject* titleText = UIObjectManager::CreateObject();
-		titleText->AddComponent<Text>(titleText);
-		titleText->GetComponent<Text>()->SetText(L"Flappy Bird");
-		titleText->GetComponent<Text>()->SetPosition({ size.cx / 6.f, size.cy / 8.f });
-		titleText->GetComponent<Text>()->SetScale(1.f);
-		titleText->GetComponent<Text>()->SetColor(DirectX::Colors::GreenYellow);
+		UIObject* title = UIObjectManager::CreateObject();
+		Text* titleText = title->AddComponent<Text>(title);
+		titleText->SetText(L"Flappy Bird");
+		titleText->SetPosition({ size.cx / 6.f, size.cy / 8.f });
+		titleText->SetScale(1.f);
+		titleText->SetColor(DirectX::Colors::GreenYellow);
 
 		// スタートテキスト
 		UIObject* pressEnterText = UIObjectManager::CreateObject();

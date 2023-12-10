@@ -13,5 +13,7 @@ namespace FlappyBird
 		void Draw() override;
 	private:
 		float m_elapsedTime = 0.f;
+
+		std::unique_ptr<Framework::SoundClip> m_backgroundSound;
 	};
 }

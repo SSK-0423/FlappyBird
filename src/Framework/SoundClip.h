@@ -25,6 +25,8 @@ namespace Framework
 		/// <param name="wait">‰¹‚ÌÄ¶‚ªI—¹‚·‚é‚Ü‚Å‘Ò‚Â‚©</param>
 		void Play(bool wait = false);
 
+		void Stop();
+
 	private:
 		const wchar_t* m_soundname;
 		IXAudio2SourceVoice* m_sourceVoice;

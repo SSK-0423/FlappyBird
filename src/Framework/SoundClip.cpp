@@ -46,4 +46,11 @@ namespace Framework
 			}
 		}
 	}
+	void SoundClip::Stop()
+	{
+		if (m_sourceVoice != nullptr)
+		{
+			m_sourceVoice->Stop();
+		}
+	}
 }

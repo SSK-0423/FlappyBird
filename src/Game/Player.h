@@ -18,7 +18,11 @@ namespace FlappyBird
 
 	private:
 		float m_jumpVelocity;
-
+		
+		void Move(float deltaTime);
+		
 		// Ž€–S‚µ‚½‚©‚Ç‚¤‚©
+		bool m_isAlive;
+		void OnDead();
 	};
 }
