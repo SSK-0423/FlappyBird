@@ -364,4 +364,4 @@ FodyWeavers.xsd
 
 # Resources
 # 再配布が禁止されているフリー素材
-decide.wav
+*.wav

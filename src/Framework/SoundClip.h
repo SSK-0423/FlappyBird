@@ -11,20 +11,22 @@ namespace Framework
 	public:
 		SoundClip(Object* owner);
 		~SoundClip();
-	private:
-		// サウンドデータ
-		IXAudio2SourceVoice* m_sourceVoice;
 
 	public:
 		// サウンドデータの設定
-		Utility::RESULT LoadWavSound(const wchar_t* filename);
-		std::unique_ptr<uint8_t[]> wavData;
-		DirectX::WAVData m_wavData;
+		Utility::RESULT LoadWavSound(const wchar_t* filename, bool isLoop = false);
 
 		void Update(float deltaTime) override;
 		void Draw() override;
 
-		void PlayOneShot(bool wait = false);
-		void PlayLoop();
+		/// <summary>
+		/// サウンド再生
+		/// </summary>
+		/// <param name="wait">音の再生が終了するまで待つか</param>
+		void Play(bool wait = false);
+
+	private:
+		const wchar_t* m_soundname;
+		IXAudio2SourceVoice* m_sourceVoice;
 	};
 }

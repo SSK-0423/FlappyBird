@@ -19,7 +19,7 @@ namespace FlappyBird
 
 		// Œø‰Ê‰¹’Ç‰Á
 		SoundClip* sound = m_owner->AddComponent<SoundClip>(m_owner);
-		sound->LoadWavSound(L"res/sound/decide.wav");
+		sound->LoadWavSound(L"res/sound/Œˆ’èƒ{ƒ^ƒ“‚ð‰Ÿ‚·24.wav");
 	}
 	void PressEnterText::Update(float deltaTime)
 	{
@@ -41,7 +41,7 @@ namespace FlappyBird
 		if (InputSystem::GetKeyDown(DIK_RETURN))
 		{
 			// Œø‰Ê‰¹Ä¶
-			m_owner->GetComponent<SoundClip>()->PlayOneShot(true);
+			m_owner->GetComponent<SoundClip>()->Play(true);
 
 			SceneManager::SetNextScene("Game");
 		}

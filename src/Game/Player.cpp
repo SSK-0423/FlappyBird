@@ -36,6 +36,10 @@ namespace FlappyBird
 		// リジッドボディ追加
 		Rigidbody2D* rigidbody = m_owner->AddComponent<Rigidbody2D>(m_owner);
 		rigidbody->gravityScale = 1.5f;
+
+		// 効果音追加
+		SoundClip* sound = m_owner->AddComponent<SoundClip>(m_owner);
+		sound->LoadWavSound(L"res/sound/se_jump3.wav");
 	}
 	Player::~Player()
 	{
@@ -64,6 +68,7 @@ namespace FlappyBird
 		{
 			m_owner->GetComponent<Rigidbody2D>()->velocity = { 0.f, 0.f };
 			m_owner->GetComponent<Rigidbody2D>()->AddForce({ 0.f, m_jumpVelocity }, FORCE_MODE::VELOCITY);
+			m_owner->GetComponent<SoundClip>()->Play();
 		}
 	}
 	void Player::Draw()

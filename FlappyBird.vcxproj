@@ -178,7 +178,6 @@
     <ClCompile Include="src\Framework\SceneManager.cpp" />
     <ClCompile Include="src\Framework\ShaderLibrary.cpp" />
     <ClCompile Include="src\Framework\SoundClip.cpp" />
-    <ClCompile Include="src\Framework\SoundEngine.cpp" />
     <ClCompile Include="src\Framework\SoundManager.cpp" />
     <ClCompile Include="src\Framework\Sprite.cpp" />
     <ClCompile Include="src\Framework\SpriteRenderer.cpp" />
@@ -249,7 +248,6 @@
     <ClInclude Include="src\Framework\SceneManager.h" />
     <ClInclude Include="src\Framework\ShaderLibrary.h" />
     <ClInclude Include="src\Framework\SoundClip.h" />
-    <ClInclude Include="src\Framework\SoundEngine.h" />
     <ClInclude Include="src\Framework\SoundManager.h" />
     <ClInclude Include="src\Framework\Sprite.h" />
     <ClInclude Include="src\Framework\SpriteRenderer.h" />
