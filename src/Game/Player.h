@@ -17,9 +17,14 @@ namespace FlappyBird
 
 		bool IsDead();
 	private:
+		std::shared_ptr<Framework::Sprite> m_jumpSprite;
+		std::shared_ptr<Framework::Sprite> m_fallSprite;
+
+		void ChangeSprite();
+
 		float m_jumpVelocity;
 		void Move(float deltaTime);
-		
+
 		// Ž€–S‚µ‚½‚©‚Ç‚¤‚©
 		bool m_isAlive;
 		void OnDead();

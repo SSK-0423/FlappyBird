@@ -19,6 +19,11 @@ namespace FlappyBird
 	{
 		OutputDebugStringA("GameScene Init\n");
 
+		// 他オブジェクトをObjectManager::Findで取得する際に、
+		// コンストラクタで初期化処理を行うと、対象オブジェクトがまだ生成されていない可能性があるため、
+		// UnityのStart関数のようなものを用意し、
+		// シーンの最初のフレームが実行される前に一斉に初期化処理を行うようにする
+
 		// 背景
 		GameObject* background = GameObjectManager::CreateObject();
 		background->AddComponent<Background>(background);

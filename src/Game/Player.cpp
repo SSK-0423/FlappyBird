@@ -13,14 +13,15 @@ namespace FlappyBird
 		: Framework::IComponent(owner), m_jumpVelocity(-5.f) // 左上原点なのでマイナス
 	{
 		m_isAlive = true;
+		m_jumpSprite = std::make_shared<Sprite>(L"res/player_jump.png");
+		m_fallSprite = std::make_shared<Sprite>(L"res/player_fall.png");
 
 		m_owner->SetName("Player");
 		m_owner->SetTag("Player");
 
 		// スプライト追加
-		Sprite* sprite = new Sprite(L"res/player_jump.png");
 		m_owner->AddComponent<SpriteRenderer>(m_owner);
-		m_owner->GetComponent<SpriteRenderer>()->SetSprite(sprite);
+		m_owner->GetComponent<SpriteRenderer>()->SetSprite(m_fallSprite);
 		m_owner->GetComponent<SpriteRenderer>()->SetDrawMode(SPRITE_DRAW_MODE::GAMEOBJECT);
 		m_owner->GetComponent<SpriteRenderer>()->SetLayer(static_cast<UINT>(GAME_SCENE_LAYER::GAMEOBJECT));
 
@@ -32,7 +33,7 @@ namespace FlappyBird
 
 		// コライダー追加
 		RectCollider* collider = m_owner->AddComponent<RectCollider>(m_owner);
-		collider->SetRectSize(transform->scale.x, transform->scale.y);
+		collider->SetRectSize(transform->scale.x * 0.8f, transform->scale.y * 0.8f);
 		collider->SetOnCollisionCallBack(std::bind(&Player::OnCollision, this, std::placeholders::_1));
 
 		// リジッドボディ追加
@@ -52,6 +53,7 @@ namespace FlappyBird
 		if (m_isAlive)
 		{
 			Move(deltaTime);
+			ChangeSprite();
 		}
 	}
 	void Player::Draw()
@@ -64,6 +66,19 @@ namespace FlappyBird
 		{
 			Utility::DebugLog("Game Over\n");
 			OnDead();
+		}
+	}
+	void Player::ChangeSprite()
+	{
+		// 落下中は落下スプライトを表示
+		if (m_owner->GetComponent<Rigidbody2D>()->velocity.y > 0.f)
+		{
+			m_owner->GetComponent<SpriteRenderer>()->SetSprite(m_fallSprite);
+		}
+		// 上昇中は上昇スプライトを表示
+		else
+		{
+			m_owner->GetComponent<SpriteRenderer>()->SetSprite(m_jumpSprite);
 		}
 	}
 	void Player::Move(float deltaTime)
