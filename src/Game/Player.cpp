@@ -81,7 +81,7 @@ namespace FlappyBird
 	void Player::ChangeSprite()
 	{
 		// 落下中は落下スプライトを表示
-		if (m_owner->GetComponent<Rigidbody2D>()->velocity.y > 0.f)
+		if (m_owner->GetComponent<Rigidbody2D>()->velocity.y >= 0.f)
 		{
 			m_owner->GetComponent<SpriteRenderer>()->SetSprite(m_fallSprite);
 		}
@@ -108,7 +108,7 @@ namespace FlappyBird
 		m_owner->GetComponent<Rigidbody2D>()->AddForce({ 0.f, m_jumpVelocity }, FORCE_MODE::VELOCITY);
 		m_owner->GetComponent<SoundClip>()->Play();
 	}
-	
+
 	void Player::LimitPosition()
 	{
 		// プレイヤーの移動制限
@@ -139,21 +139,22 @@ namespace FlappyBird
 			Jump();
 			m_elapsedTime = 0.f;
 		}
+		ChangeSprite();
 	}
-	
+
 	void Player::GameOverAnimation(float deltaTime)
 	{
 		// ゲームオーバー演出
 		Transform2D* transform = m_owner->GetComponent<Transform2D>();
-		transform->position.y += 0.5f;
-		transform->angle += 0.5f;
+		transform->position.y += 2.5f;
+		transform->angle += 2.5f;
 	}
-	
+
 	bool Player::IsDead()
 	{
 		return !m_isAlive;
 	}
-	
+
 	void Player::OnDead()
 	{
 		m_isAlive = false;
@@ -163,8 +164,14 @@ namespace FlappyBird
 		// Rigidbodyの影響を無効化
 		m_owner->GetComponent<Rigidbody2D>()->SetActive(false);
 
-		std::unique_ptr<SoundClip> damageSound = std::make_unique<SoundClip>(m_owner);
+		// ダメージ音声再生
+		std::unique_ptr<SoundClip> damageSound = std::make_unique<SoundClip>(nullptr);
 		damageSound->LoadWavSound(L"res/sound/se_damage5.wav");
 		damageSound->Play(true);
+
+		// 落下音声再生
+		std::unique_ptr<SoundClip> sound = std::make_unique<SoundClip>(nullptr);
+		sound->LoadWavSound(L"res/sound/水に落下（ヒューポチャン）.wav");
+		sound->Play();
 	}
 }
