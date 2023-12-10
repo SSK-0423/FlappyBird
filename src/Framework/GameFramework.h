@@ -1,7 +1,7 @@
 #pragma once
 
 // Frameworkフォルダ内を全てインクルード
-#include "Framework/Object.h";
+#include "Framework/Object.h"
 #include "Framework/GameObjectManager.h"
 #include "Framework/ObjectManager.h"
 
