@@ -3,13 +3,11 @@
 
 #include "Framework/GameFramework.h"
 
-#include "TestCharacter.h"
-#include "TestObstacle.h"
-
 #include "GameMaster.h"
 #include "Player.h"
 #include "Background.h"
 #include "ObstacleSpawner.h"
+#include "Score.h"
 
 using namespace Framework;
 
@@ -39,6 +37,11 @@ namespace FlappyBird
 		// ゲームマスター
 		GameObject* gameMaster = GameObjectManager::CreateObject();
 		gameMaster->AddComponent<GameMaster>(gameMaster);
+
+		// UI
+		// スコア
+		UIObject* score = UIObjectManager::CreateObject();
+		score->AddComponent<Score>(score);
 	}
 	void GameScene::Final()
 	{

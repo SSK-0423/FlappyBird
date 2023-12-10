@@ -201,6 +201,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\Game\Score.cpp" />
     <ClCompile Include="src\Game\TestCharacter.cpp" />
     <ClCompile Include="src\Game\TestObstacle.cpp" />
     <ClCompile Include="src\Game\TitleScene.cpp" />
@@ -268,6 +269,7 @@
     <ClInclude Include="src\Game\Player.h" />
     <ClInclude Include="src\Game\PressEnterText.h" />
     <ClInclude Include="src\Game\Renderer.h" />
+    <ClInclude Include="src\Game\Score.h" />
     <ClInclude Include="src\Game\TestCharacter.h" />
     <ClInclude Include="src\Game\TestObstacle.h" />
     <ClInclude Include="src\Game\TitleScene.h" />
