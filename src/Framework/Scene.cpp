@@ -41,6 +41,9 @@ namespace Framework
 
 		// 全てのUIオブジェクトを削除
 		UIObjectManager::Reset();
+
+		// コリジョンシステムをリセット
+		CollisionSystem::Reset();
 	}
 	const Camera& Scene::GetCamera()
 	{

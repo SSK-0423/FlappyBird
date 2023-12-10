@@ -48,8 +48,12 @@ namespace Framework
 		void SetTag(std::string tag);
 		std::string GetTag();
 
+		void AddChild(Object* child);
+
 	protected:
 		std::list<std::shared_ptr<IComponent>> m_components;
+		std::list<Object*> m_children;
+		Object* m_parent = nullptr;
 		std::string m_name = "Object";
 		std::string m_tag = "None";
 		bool m_isActive = true;

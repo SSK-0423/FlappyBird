@@ -8,6 +8,7 @@
 #include "Background.h"
 #include "ObstacleSpawner.h"
 #include "Score.h"
+#include "GameOverUI.h"
 
 using namespace Framework;
 
@@ -42,6 +43,10 @@ namespace FlappyBird
 		// スコア
 		UIObject* score = UIObjectManager::CreateObject();
 		score->AddComponent<Score>(score);
+
+		// ゲームオーバーUI
+		UIObject* gameOverUI = UIObjectManager::CreateObject();
+		gameOverUI->AddComponent<GameOverUI>(gameOverUI);
 	}
 	void GameScene::Final()
 	{

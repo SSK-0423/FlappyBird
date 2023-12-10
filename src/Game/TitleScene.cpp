@@ -22,7 +22,7 @@ namespace FlappyBird
 
 		// ”wŒi
 		UIObject* background = UIObjectManager::CreateObject();
-		Sprite* backgroundSprite = new Sprite(L"res/Background.jpg");
+		Sprite* backgroundSprite = new Sprite(L"res/texture/Background.jpg");
 		SpriteRenderer* backgroundRenderer = background->AddComponent<SpriteRenderer>(background);
 		backgroundRenderer->SetSprite(backgroundSprite);
 		backgroundRenderer->SetDrawMode(SPRITE_DRAW_MODE::GUI);

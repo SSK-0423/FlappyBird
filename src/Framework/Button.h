@@ -19,8 +19,8 @@ namespace Framework
 	public:
 		void Update(float deltaTime) override;
 		void Draw() override;
-		void SetPosition(float x, float y);
-		void SetScale(float x, float y);
+		void SetPosition(const DirectX::XMFLOAT2& position);
+		void SetScale(const DirectX::XMFLOAT2& scale);
 		void SetTexture(const std::wstring& path);
 		void SetText(const std::wstring& text);
 		void SetOnClick(const std::function<void()>& onClick);

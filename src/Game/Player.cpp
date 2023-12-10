@@ -16,8 +16,8 @@ namespace FlappyBird
 	{
 		m_gameMaster = GameObjectManager::FindObject("GameMaster")->GetComponent<GameMaster>();
 
-		m_jumpSprite = std::make_shared<Sprite>(L"res/player_jump.png");
-		m_fallSprite = std::make_shared<Sprite>(L"res/player_fall.png");
+		m_jumpSprite = std::make_shared<Sprite>(L"res/texture/player_jump.png");
+		m_fallSprite = std::make_shared<Sprite>(L"res/texture/player_fall.png");
 
 		m_owner->SetName("Player");
 		m_owner->SetTag("Player");

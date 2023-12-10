@@ -25,7 +25,7 @@ namespace FlappyBird
 		Rigidbody2D* rigidbody = m_owner->AddComponent<Rigidbody2D>(m_owner);
 		rigidbody->useGravity = false;
 
-		Sprite* sprite = new Sprite(L"res/dokan_long.png");
+		Sprite* sprite = new Sprite(L"res/texture/dokan_long.png");
 		SpriteRenderer* spriteRenderer = m_owner->AddComponent<SpriteRenderer>(m_owner);
 		spriteRenderer->SetSprite(sprite);
 		spriteRenderer->SetDrawMode(SPRITE_DRAW_MODE::GAMEOBJECT);

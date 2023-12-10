@@ -57,6 +57,9 @@ namespace Framework
 
 	void CollisionSystem::Reset()
 	{
+		// std::listのclearではdeleteは呼ばれないが、
+		// GameObjectManager, UIObjectManagerのResetでコライダーは削除されるので、
+		// ここではdeleteは呼ばない
 		m_colliders.clear();
 	}
 
