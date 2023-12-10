@@ -93,6 +93,10 @@ namespace FlappyBird
 			m_owner->GetComponent<SoundClip>()->Play();
 		}
 	}
+	bool Player::IsDead()
+	{
+		return !m_isAlive;
+	}
 	void Player::OnDead()
 	{
 		m_isAlive = false;
@@ -102,10 +106,7 @@ namespace FlappyBird
 		damageSound->Play();
 
 		// Rigidbodyの影響を無効化
-		// TODO: コンポーネントごとにSetActiveを実装する
-		Rigidbody2D* rigidbody = m_owner->GetComponent<Rigidbody2D>();
-		rigidbody->useGravity = false;
-		rigidbody->velocity = { 0.f, 0.f };
+		m_owner->GetComponent<Rigidbody2D>()->SetActive(false);
 
 		// ゲームオーバー演出
 	}

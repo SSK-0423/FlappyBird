@@ -13,14 +13,16 @@ namespace Framework
 	{
 		for (auto& component : m_components)
 		{
-			component->Update(deltaTime);
+			if (component->IsActive())
+				component->Update(deltaTime);
 		}
 	}
 	void Object::Draw()
 	{
 		for (auto& component : m_components)
 		{
-			component->Draw();
+			if (component->IsActive())
+				component->Draw();
 		}
 	}
 	void Object::SetActive(bool isActive)

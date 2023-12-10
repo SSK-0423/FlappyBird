@@ -13,12 +13,11 @@ namespace FlappyBird
 		void Update(float deltaTime) override;
 		void Draw() override;
 
-		// Ž€–Sƒtƒ‰ƒO‚ðƒIƒ“‚É‚·‚é
 		void OnCollision(Framework::Collider* other);
 
+		bool IsDead();
 	private:
 		float m_jumpVelocity;
-		
 		void Move(float deltaTime);
 		
 		// Ž€–S‚µ‚½‚©‚Ç‚¤‚©

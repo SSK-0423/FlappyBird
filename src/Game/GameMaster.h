@@ -4,6 +4,8 @@
 
 namespace FlappyBird
 {
+	class Player;
+
 	/// <summary>
 	/// ゲーム全体の進行を管理するクラス
 	/// </summary>
@@ -15,5 +17,8 @@ namespace FlappyBird
 
 		void Update(float deltaTime) override;
 		void Draw() override;
+
+	private:
+		Player* m_player;
 	};
 }
