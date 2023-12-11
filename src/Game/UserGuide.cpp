@@ -7,7 +7,7 @@ using namespace Framework;
 namespace FlappyBird
 {
 	UserGuide::UserGuide(Framework::Object* owner) :
-		Framework::IComponent(owner), m_elapsedTime(0.f), m_animationInverval(0.5f), m_currentSpriteIndex(0)
+		Framework::IComponent(owner), m_elapsedTime(0.f), m_animationInverval(0.65f), m_currentSpriteIndex(0)
 	{
 		m_mouseSprites.resize(2);
 		m_mouseSprites[0] = std::make_shared<Sprite>(L"res/texture/mouse.png");

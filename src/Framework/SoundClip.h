@@ -23,7 +23,7 @@ namespace Framework
 		/// サウンド再生
 		/// </summary>
 		/// <param name="wait">音の再生が終了するまで待つか</param>
-		void Play(bool wait = false);
+		void Play(float volume = 0.1f, bool wait = false);
 
 		void Stop();
 

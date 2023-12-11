@@ -22,7 +22,7 @@ namespace Framework
 	void SoundClip::Draw()
 	{
 	}
-	void SoundClip::Play(bool wait)
+	void SoundClip::Play(float volume, bool wait)
 	{
 		m_sourceVoice = SoundManager::Play(m_soundname);
 
@@ -30,6 +30,7 @@ namespace Framework
 		{
 			return;
 		}
+		m_sourceVoice->SetVolume(volume);
 
 		// 再生中かどうかを判定する必要がある
 		// 直ぐにデリートされては困るので、一度再生が終わるまで待つ
