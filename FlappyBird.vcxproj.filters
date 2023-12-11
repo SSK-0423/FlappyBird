@@ -225,9 +225,6 @@
     <ClCompile Include="src\Game\GameReadyUI.cpp">
       <Filter>ソース ファイル\Game\GameScene\UI</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\PleaseClickText.cpp">
-      <Filter>ソース ファイル\Game\GameScene\UI</Filter>
-    </ClCompile>
     <ClCompile Include="src\Game\Score.cpp">
       <Filter>ソース ファイル\Game\GameScene\UI</Filter>
     </ClCompile>
@@ -236,6 +233,9 @@
     </ClCompile>
     <ClCompile Include="src\Game\UserGuide.cpp">
       <Filter>ソース ファイル\Game\GameScene\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\PleaseClickText.cpp">
+      <Filter>ソース ファイル\Game\TitleScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -425,9 +425,6 @@
     <ClInclude Include="src\Game\GameReadyUI.h">
       <Filter>ソース ファイル\Game\GameScene\UI</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\PleaseClickText.h">
-      <Filter>ソース ファイル\Game\GameScene\UI</Filter>
-    </ClInclude>
     <ClInclude Include="src\Game\Score.h">
       <Filter>ソース ファイル\Game\GameScene\UI</Filter>
     </ClInclude>
@@ -436,6 +433,9 @@
     </ClInclude>
     <ClInclude Include="src\Game\UserGuide.h">
       <Filter>ソース ファイル\Game\GameScene\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\PleaseClickText.h">
+      <Filter>ソース ファイル\Game\TitleScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

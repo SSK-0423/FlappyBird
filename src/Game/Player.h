@@ -23,6 +23,7 @@ namespace FlappyBird
 
 		std::shared_ptr<Framework::Sprite> m_jumpSprite;
 		std::shared_ptr<Framework::Sprite> m_fallSprite;
+		std::shared_ptr<Framework::Sprite> m_deadSprite;
 		void ChangeSprite();
 
 		float m_jumpVelocity;

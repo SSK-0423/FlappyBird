@@ -28,7 +28,7 @@ namespace FlappyBird
 
 		// BGM’Ç‰Á
 		m_backgroundSound.reset(new SoundClip(m_owner));
-		m_backgroundSound->LoadWavSound(L"res/sound/title_bgm.wav");
+		m_backgroundSound->LoadWavSound(L"res/sound/title_bgm.wav", true);
 		m_backgroundSound->Play();
 	}
 	void PleaseClickText::Update(float deltaTime)

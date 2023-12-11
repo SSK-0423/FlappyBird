@@ -18,7 +18,7 @@ namespace FlappyBird
 
 		// BGM’Ç‰Á
 		SoundClip* sound = m_owner->AddComponent<SoundClip>(m_owner);
-		sound->LoadWavSound(L"res/sound/game_bgm.wav");
+		sound->LoadWavSound(L"res/sound/game_bgm.wav", true);
 		sound->Play();
 	}
 	void GameMaster::Update(float deltaTime)
