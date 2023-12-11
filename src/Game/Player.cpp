@@ -11,8 +11,8 @@ using namespace Framework;
 namespace FlappyBird
 {
 	Player::Player(Framework::Object* owner)
-		: Framework::IComponent(owner), m_jumpVelocity(-500.f), // 左上原点なのでマイナス
-		m_elapsedTime(0.f), m_gameReadyAnimationInterval(0.5f), m_isAlive(true)
+		: Framework::IComponent(owner), m_jumpVelocity(-750.f), // 左上原点なのでマイナス
+		m_elapsedTime(0.f), m_gameReadyAnimationInterval(0.65f), m_isAlive(true)
 	{
 		m_gameMaster = GameObjectManager::FindObject("GameMaster")->GetComponent<GameMaster>();
 
@@ -41,7 +41,7 @@ namespace FlappyBird
 
 		// リジッドボディ追加
 		Rigidbody2D* rigidbody = m_owner->AddComponent<Rigidbody2D>(m_owner);
-		rigidbody->gravityScale = 1.5f;
+		rigidbody->gravityScale = 5.0f;
 
 		// 効果音追加
 		SoundClip* sound = m_owner->AddComponent<SoundClip>(m_owner);
@@ -167,7 +167,7 @@ namespace FlappyBird
 		// ダメージ音声再生
 		std::unique_ptr<SoundClip> damageSound = std::make_unique<SoundClip>(nullptr);
 		damageSound->LoadWavSound(L"res/sound/damage.wav");
-		damageSound->Play(true);
+		damageSound->Play(0.1, true);
 
 		// 落下音声再生
 		std::unique_ptr<SoundClip> sound = std::make_unique<SoundClip>(nullptr);

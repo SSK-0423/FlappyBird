@@ -12,7 +12,7 @@
 static const TCHAR* NAME = L"FlappyBird";
 static const LONG WIDTH = 1024;
 static const LONG HEIGHT = 768;
-static const TCHAR* FONT_PATH = L"res/font/segoe_ui.spritefont";
+static const TCHAR* FONT_PATH = L"res/font/x12y16pxSolidLinker64.spritefont";
 
 using namespace Utility;
 

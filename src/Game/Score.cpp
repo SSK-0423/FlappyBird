@@ -15,8 +15,8 @@ namespace FlappyBird
 		// テキスト追加
 		Text* text = m_owner->AddComponent<Text>(m_owner);
 		text->SetText(L"SCORE: " + std::to_wstring(m_score));
-		text->SetScale(0.25f);
-		text->SetPosition({ windowSize.cx / 2.0f - 50.0f, 0.f });
+		text->SetScale(0.4f);
+		text->SetPosition({ windowSize.cx / 2.0f - 50.f, 5.f });
 		text->SetColor(DirectX::Colors::Black);
 
 		m_gameMaster = GameObjectManager::FindObject("GameMaster")->GetComponent<GameMaster>();

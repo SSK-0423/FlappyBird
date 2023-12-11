@@ -143,7 +143,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>DirectXTex\Bin\Desktop_2022\x64\Release;C:\DirectX12\FlappyBird\DirectXTK\Bin\Desktop_2022_Win10\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>DirectXTex\Bin\Desktop_2022\x64\Release;DirectXTK\Bin\Desktop_2022_Win10\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -205,8 +205,6 @@
     </ClCompile>
     <ClCompile Include="src\Game\Score.cpp" />
     <ClCompile Include="src\Game\ScoreFrame.cpp" />
-    <ClCompile Include="src\Game\TestCharacter.cpp" />
-    <ClCompile Include="src\Game\TestObstacle.cpp" />
     <ClCompile Include="src\Game\TitleScene.cpp" />
     <ClCompile Include="src\Game\UserGuide.cpp" />
     <ClCompile Include="src\pch.cpp">
@@ -277,8 +275,6 @@
     <ClInclude Include="src\Game\Renderer.h" />
     <ClInclude Include="src\Game\Score.h" />
     <ClInclude Include="src\Game\ScoreFrame.h" />
-    <ClInclude Include="src\Game\TestCharacter.h" />
-    <ClInclude Include="src\Game\TestObstacle.h" />
     <ClInclude Include="src\Game\TitleScene.h" />
     <ClInclude Include="src\Game\UserGuide.h" />
     <ClInclude Include="src\pch.h" />

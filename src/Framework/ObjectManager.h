@@ -8,6 +8,7 @@ namespace Framework
 	{
 	public:
 		static void Update(float deltaTime);
+		static void FixedUpdate(float interval);
 
 		static T* CreateObject();
 
@@ -37,6 +38,16 @@ namespace Framework
 		{
 			if (object->GetActive())
 				object->Update(deltaTime);
+		}
+	}
+
+	template<class T>
+	inline void ObjectManager<T>::FixedUpdate(float interval)
+	{
+		for (auto& object : m_objects)
+		{
+			if (object->GetActive())
+				object->FixedUpdate(interval);
 		}
 	}
 

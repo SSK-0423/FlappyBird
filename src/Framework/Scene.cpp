@@ -11,7 +11,7 @@ namespace Framework
 	// 静的メンバ変数の実体化
 	std::shared_ptr<GameObject> Scene::m_cameraObject = nullptr;
 
-	Scene::Scene()
+	Scene::Scene() : m_fixedUpdateInterval(0.02f), m_elapsedTime(0.f)
 	{
 		// シーンがインスタンス化されるたびにカメラが生成されるのを防ぐ
 		if (m_cameraObject == nullptr)
@@ -30,6 +30,15 @@ namespace Framework
 
 		// UIの更新
 		UIObjectManager::Update(deltaTime);
+
+		// 一定間隔起きにFixedUpdateを呼び出す
+		// 別スレッドで処理するべき？
+		m_elapsedTime += deltaTime;
+		if (m_elapsedTime >= m_fixedUpdateInterval)
+		{
+			GameObjectManager::FixedUpdate(m_fixedUpdateInterval);
+			m_elapsedTime = 0.0f;
+		}
 	}
 	void Scene::LateUpdate(float deltaTime)
 	{

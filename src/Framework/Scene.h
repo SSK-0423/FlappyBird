@@ -18,5 +18,8 @@ namespace Framework
 		static const Camera& GetCamera();
 	protected:
 		static std::shared_ptr<GameObject> m_cameraObject;
+
+		float m_elapsedTime;
+		float m_fixedUpdateInterval;
 	};
 }
