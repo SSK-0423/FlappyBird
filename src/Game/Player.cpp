@@ -4,23 +4,29 @@
 #include "Framework/GameFramework.h"
 
 #include "GameScene.h"
+#include "GameMaster.h"
 
 using namespace Framework;
 
 namespace FlappyBird
 {
 	Player::Player(Framework::Object* owner)
-		: Framework::IComponent(owner), m_jumpVelocity(-5.f) // 左上原点なのでマイナス
+		: Framework::IComponent(owner), m_jumpVelocity(-500.f), // 左上原点なのでマイナス
+		m_elapsedTime(0.f), m_gameReadyAnimationInterval(0.5f), m_isAlive(true)
 	{
+		m_gameMaster = GameObjectManager::FindObject("GameMaster")->GetComponent<GameMaster>();
+
+		m_jumpSprite = std::make_shared<Sprite>(L"res/texture/player_jump.png");
+		m_fallSprite = std::make_shared<Sprite>(L"res/texture/player_fall.png");
+
 		m_owner->SetName("Player");
 		m_owner->SetTag("Player");
 
 		// スプライト追加
-		Sprite* sprite = new Sprite(L"res/player_jump.png");
-		m_owner->AddComponent<SpriteRenderer>(m_owner);
-		m_owner->GetComponent<SpriteRenderer>()->SetSprite(sprite);
-		m_owner->GetComponent<SpriteRenderer>()->SetDrawMode(SPRITE_DRAW_MODE::GAMEOBJECT);
-		m_owner->GetComponent<SpriteRenderer>()->SetLayer(static_cast<UINT>(GAME_SCENE_LAYER::GAMEOBJECT));
+		SpriteRenderer* spriteRenderer = m_owner->AddComponent<SpriteRenderer>(m_owner);
+		spriteRenderer->SetSprite(m_fallSprite);
+		spriteRenderer->SetDrawMode(SPRITE_DRAW_MODE::GAMEOBJECT);
+		spriteRenderer->SetLayer(static_cast<UINT>(GAME_SCENE_LAYER::GAMEOBJECT));
 
 		// プレイヤーの位置を設定
 		auto windowSize = Window::GetWindowSize();
@@ -30,7 +36,7 @@ namespace FlappyBird
 
 		// コライダー追加
 		RectCollider* collider = m_owner->AddComponent<RectCollider>(m_owner);
-		collider->SetRectSize(transform->scale.x, transform->scale.y);
+		collider->SetRectSize(transform->scale.x * 0.2f, transform->scale.y * 0.6f);
 		collider->SetOnCollisionCallBack(std::bind(&Player::OnCollision, this, std::placeholders::_1));
 
 		// リジッドボディ追加
@@ -39,12 +45,71 @@ namespace FlappyBird
 
 		// 効果音追加
 		SoundClip* sound = m_owner->AddComponent<SoundClip>(m_owner);
-		sound->LoadWavSound(L"res/sound/se_jump3.wav");
-	}
-	Player::~Player()
-	{
+		sound->LoadWavSound(L"res/sound/jump.wav");
 	}
 	void Player::Update(float deltaTime)
+	{
+		// 生存中のみ更新
+		switch (m_gameMaster->GetGameState())
+		{
+		case GAME_STATE::READY:
+			GameReadyAnimation(deltaTime);
+			break;
+		case GAME_STATE::PLAYING:
+			Move(deltaTime);
+			ChangeSprite();
+			break;
+		case GAME_STATE::GAMEOVER:
+			GameOverAnimation(deltaTime);
+			break;
+		default:
+			break;
+		}
+	}
+	void Player::Draw()
+	{
+	}
+	void Player::OnCollision(Framework::Collider* other)
+	{
+		// 生存中かつ障害物に当たったらゲームオーバー
+		if (m_isAlive && other->GetOwner()->GetTag() == "Obstacle")
+		{
+			Utility::DebugLog("Game Over\n");
+			OnDead();
+		}
+	}
+	void Player::ChangeSprite()
+	{
+		// 落下中は落下スプライトを表示
+		if (m_owner->GetComponent<Rigidbody2D>()->velocity.y >= 0.f)
+		{
+			m_owner->GetComponent<SpriteRenderer>()->SetSprite(m_fallSprite);
+		}
+		// 上昇中は上昇スプライトを表示
+		else
+		{
+			m_owner->GetComponent<SpriteRenderer>()->SetSprite(m_jumpSprite);
+		}
+	}
+	void Player::Move(float deltaTime)
+	{
+		LimitPosition();
+
+		// マウス左クリックでジャンプ
+		if (InputSystem::GetMouseButtonDown(MOUSECODE::LEFT))
+		{
+			Jump();
+		}
+	}
+
+	void Player::Jump()
+	{
+		m_owner->GetComponent<Rigidbody2D>()->velocity = { 0.f, 0.f };
+		m_owner->GetComponent<Rigidbody2D>()->AddForce({ 0.f, m_jumpVelocity }, FORCE_MODE::VELOCITY);
+		m_owner->GetComponent<SoundClip>()->Play();
+	}
+
+	void Player::LimitPosition()
 	{
 		// プレイヤーの移動制限
 		auto windowSize = Window::GetWindowSize();
@@ -62,24 +127,51 @@ namespace FlappyBird
 			transform->position.y = windowSize.cy;
 			m_owner->GetComponent<Rigidbody2D>()->velocity = { 0.f, 0.f };
 		}
+	}
 
-		// マウス左クリックでジャンプ
-		if (InputSystem::GetMouseButtonDown(MOUSECODE::LEFT))
-		{
-			m_owner->GetComponent<Rigidbody2D>()->velocity = { 0.f, 0.f };
-			m_owner->GetComponent<Rigidbody2D>()->AddForce({ 0.f, m_jumpVelocity }, FORCE_MODE::VELOCITY);
-			m_owner->GetComponent<SoundClip>()->Play();
-		}
-	}
-	void Player::Draw()
+	void Player::GameReadyAnimation(float deltaTime)
 	{
-	}
-	void Player::OnCollision(Framework::Collider* other)
-	{
-		// 障害物に当たったらゲームオーバー
-		if (other->GetOwner()->GetTag() == "Obstacle")
+		// ゲーム開始演出
+		// 一定間隔でジャンプする
+		m_elapsedTime += deltaTime;
+		if (m_elapsedTime >= m_gameReadyAnimationInterval)
 		{
-			Utility::DebugLog("Game Over\n");
+			Jump();
+			m_elapsedTime = 0.f;
 		}
+		ChangeSprite();
+	}
+
+	void Player::GameOverAnimation(float deltaTime)
+	{
+		// ゲームオーバー演出
+		Transform2D* transform = m_owner->GetComponent<Transform2D>();
+		transform->position.y += 2.5f;
+		transform->angle += 2.5f;
+	}
+
+	bool Player::IsDead()
+	{
+		return !m_isAlive;
+	}
+
+	void Player::OnDead()
+	{
+		m_isAlive = false;
+
+		m_gameMaster->ChangeState(GAME_STATE::GAMEOVER);
+
+		// Rigidbodyの影響を無効化
+		m_owner->GetComponent<Rigidbody2D>()->SetActive(false);
+
+		// ダメージ音声再生
+		std::unique_ptr<SoundClip> damageSound = std::make_unique<SoundClip>(nullptr);
+		damageSound->LoadWavSound(L"res/sound/damage.wav");
+		damageSound->Play(true);
+
+		// 落下音声再生
+		std::unique_ptr<SoundClip> sound = std::make_unique<SoundClip>(nullptr);
+		sound->LoadWavSound(L"res/sound/fall.wav");
+		sound->Play();
 	}
 }

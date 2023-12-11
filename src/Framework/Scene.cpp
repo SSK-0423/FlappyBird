@@ -3,6 +3,7 @@
 #include "Transform2D.h"
 #include "GameObjectManager.h"
 #include "UIObjectManager.h"
+#include "SoundManager.h"
 #include "CollisionSystem.h"
 
 namespace Framework
@@ -29,7 +30,6 @@ namespace Framework
 
 		// UIの更新
 		UIObjectManager::Update(deltaTime);
-
 	}
 	void Scene::LateUpdate(float deltaTime)
 	{
@@ -41,6 +41,12 @@ namespace Framework
 
 		// 全てのUIオブジェクトを削除
 		UIObjectManager::Reset();
+
+		// コリジョンシステムをリセット
+		CollisionSystem::Reset();
+
+		// サウンドをリセット
+		SoundManager::Reset();
 	}
 	const Camera& Scene::GetCamera()
 	{

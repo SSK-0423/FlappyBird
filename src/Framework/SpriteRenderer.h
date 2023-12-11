@@ -27,8 +27,13 @@ namespace Framework
 
 		void Update(float deltaTime) override;
 		void Draw() override;
+		
 		void SetSprite(class Sprite* sprite);
+		// TODO: スプライトアニメーションを実装する
+		void SetSprite(std::shared_ptr<class Sprite> sprite);
+
 		void SetDrawMode(SPRITE_DRAW_MODE drawMode);
+
 		/// <summary>
 		/// スプライトの描画順を制御するレイヤー(最大32)を設定する
 		/// レイヤーの値が小さいほど手前に描画される

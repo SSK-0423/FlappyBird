@@ -4,21 +4,39 @@
 
 namespace FlappyBird
 {
+	class GameMaster;
+
 	class Player : public Framework::IComponent
 	{
 	public:
 		Player(Framework::Object* owner);
-		~Player();
+		~Player() = default;
 
 		void Update(float deltaTime) override;
 		void Draw() override;
 
-		// Ž€–Sƒtƒ‰ƒO‚ðƒIƒ“‚É‚·‚é
 		void OnCollision(Framework::Collider* other);
 
+		bool IsDead();
 	private:
+		GameMaster* m_gameMaster;
+
+		std::shared_ptr<Framework::Sprite> m_jumpSprite;
+		std::shared_ptr<Framework::Sprite> m_fallSprite;
+		void ChangeSprite();
+
 		float m_jumpVelocity;
+		void Move(float deltaTime);
+		void Jump();
+		void LimitPosition();
+
+		float m_elapsedTime;
+		float m_gameReadyAnimationInterval;
+		void GameReadyAnimation(float deltaTime);
+		void GameOverAnimation(float deltaTime);
 
 		// Ž€–S‚µ‚½‚©‚Ç‚¤‚©
+		bool m_isAlive;
+		void OnDead();
 	};
 }

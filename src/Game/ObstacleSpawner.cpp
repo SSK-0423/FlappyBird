@@ -2,6 +2,7 @@
 #include "ObstacleSpawner.h"
 #include "ObstaclePool.h"
 #include "Obstacle.h"
+#include "GameMaster.h"
 
 using namespace Framework;
 
@@ -10,6 +11,7 @@ namespace FlappyBird
 	ObstacleSpawner::ObstacleSpawner(Framework::Object* owner) : IComponent(owner)
 	{
 		m_obstaclePool = m_owner->AddComponent<ObstaclePool>(m_owner);
+		m_gameMaster = GameObjectManager::FindObject("GameMaster")->GetComponent<GameMaster>();
 
 		// 現在時刻(ms)をシード値として乱数生成器を初期化
 		auto now = std::chrono::system_clock::now();
@@ -46,18 +48,18 @@ namespace FlappyBird
 		auto& overObstacle = m_obstaclePool->GetObstacle();
 		Transform2D* overObstacleTransform = overObstacle.GetComponent<Transform2D>();
 		overObstacleTransform->position = {
-			static_cast<float>(windowSize.cx),
+			static_cast<float>(windowSize.cx) + overObstacleTransform->scale.x / 2.f,
 			randomY - overObstacleTransform->scale.y / 2.f - SPACE / 2.f };
 		overObstacleTransform->angle = 180.f;
 
 		auto& underObstacle = m_obstaclePool->GetObstacle();
 		Transform2D* underObstacleTransform = underObstacle.GetComponent<Transform2D>();
 		underObstacleTransform->position = {
-			static_cast<float>(windowSize.cx), 
+			static_cast<float>(windowSize.cx) + underObstacleTransform->scale.x / 2.f,
 			randomY + overObstacleTransform->scale.y / 2.f + SPACE / 2.f };
 
 		// 土管の移動速度を設定
-		overObstacle.GetComponent<Obstacle>()->SetMoveSpeed(-1.f, 0.f);
-		underObstacle.GetComponent<Obstacle>()->SetMoveSpeed(-1.f, 0.f);
+		overObstacle.GetComponent<Obstacle>()->SetMoveSpeed(-m_obstacleSpeed, 0.f);
+		underObstacle.GetComponent<Obstacle>()->SetMoveSpeed(-m_obstacleSpeed, 0.f);
 	}
 }

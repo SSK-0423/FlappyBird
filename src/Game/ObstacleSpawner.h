@@ -5,6 +5,7 @@
 namespace FlappyBird
 {
 	class ObstaclePool;
+	class GameMaster;
 
 	class ObstacleSpawner : public Framework::IComponent
 	{
@@ -19,8 +20,11 @@ namespace FlappyBird
 		const unsigned int SPACE = 225;
 		float m_spawnInverval = 2.0f;
 		float m_spawnTimer = 0.0f;
+		float m_elapsedTime = 0.0f;
+		float m_obstacleSpeed = 150.0f;
 
 		ObstaclePool* m_obstaclePool;
+		GameMaster* m_gameMaster;
 
 		std::mt19937_64 m_randomEngine;
 		std::uniform_int_distribution<unsigned int> m_randomGenerator;

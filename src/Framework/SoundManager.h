@@ -10,6 +10,7 @@ namespace Framework
 	{
 	public:
 		static Utility::RESULT Init();
+		static void Reset();
 		static void Final();
 		static Utility::RESULT LoadWavSound(const wchar_t* filename, bool isLoop);
 		static IXAudio2SourceVoice* Play(const wchar_t* soundname);

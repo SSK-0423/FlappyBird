@@ -74,6 +74,30 @@ namespace Framework
 			*m_drawModeBuffer.get(),
 			static_cast<UINT>(CONSTANT_BUFFER_INDEX::DRAW_MODE));
 	}
+	void SpriteRenderer::SetSprite(std::shared_ptr<class Sprite> sprite)
+	{
+		m_sprite = sprite;
+		ID3D12Device& device = Dx12GraphicsEngine::Device();
+
+		// モデル行列をセット
+		m_sprite->GetDescriptorHeap().RegistConstantBuffer(
+			device,
+			m_owner->GetComponent<Transform2D>()->GetConstantBuffer(),
+			static_cast<UINT>(CONSTANT_BUFFER_INDEX::TRANSFORM));
+
+		// ビュープロジェクション行列をセット
+		auto& camera = Scene::GetCamera();
+		m_sprite->GetDescriptorHeap().RegistConstantBuffer(
+			device,
+			camera.GetConstantBuffer(),
+			static_cast<UINT>(CONSTANT_BUFFER_INDEX::CAMERA));
+
+		// 描画モードをセット
+		m_sprite->GetDescriptorHeap().RegistConstantBuffer(
+			device,
+			*m_drawModeBuffer.get(),
+			static_cast<UINT>(CONSTANT_BUFFER_INDEX::DRAW_MODE));
+	}
 	void SpriteRenderer::SetDrawMode(SPRITE_DRAW_MODE drawMode)
 	{
 		m_drawMode = drawMode;

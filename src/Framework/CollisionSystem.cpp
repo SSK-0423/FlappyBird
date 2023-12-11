@@ -41,10 +41,9 @@ namespace Framework
 				// 当たり判定検出
 				if (CollisionDetection(*collider1, *collider2))
 				{
-					//Utility::DebugLog("CollisionDetection: true\n");
+					Utility::DebugLog("CollisionDetection: true\n");
 					collider1->OnCollision(collider2);
 					collider2->OnCollision(collider1);
-
 				}
 			}
 		}
@@ -57,6 +56,9 @@ namespace Framework
 
 	void CollisionSystem::Reset()
 	{
+		// std::listのclearではdeleteは呼ばれないが、
+		// GameObjectManager, UIObjectManagerのResetでコライダーは削除されるので、
+		// ここではdeleteは呼ばない
 		m_colliders.clear();
 	}
 

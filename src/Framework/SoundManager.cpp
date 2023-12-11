@@ -23,12 +23,24 @@ namespace Framework
 
 		return Utility::RESULT::SUCCESS;
 	}
+	void SoundManager::Reset()
+	{
+		for (auto source : m_sourceVoices)
+		{
+			source->Stop();
+			source->DestroyVoice();
+		}
+		m_sourceVoices.clear();
+
+		m_soundDatas.clear();
+	}
 	void SoundManager::Final()
 	{
 		m_soundDatas.clear();
 
 		for (auto source : m_sourceVoices)
 		{
+			source->Stop();
 			source->DestroyVoice();
 		}
 		m_sourceVoices.clear();

@@ -49,13 +49,13 @@ namespace Framework
 		if (m_text != nullptr)
 			m_text->Draw();
 	}
-	void Button::SetPosition(float x, float y)
+	void Button::SetPosition(const DirectX::XMFLOAT2& position)
 	{
-		m_owner->GetComponent<Transform2D>()->position = { x, y };
+		m_owner->GetComponent<Transform2D>()->position = position;
 	}
-	void Button::SetScale(float x, float y)
+	void Button::SetScale(const DirectX::XMFLOAT2& scale)
 	{
-		m_owner->GetComponent<Transform2D>()->scale = { x, y };
+		m_owner->GetComponent<Transform2D>()->scale = scale;
 	}
 	void Button::SetTexture(const std::wstring& path)
 	{

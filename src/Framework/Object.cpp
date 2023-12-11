@@ -13,19 +13,38 @@ namespace Framework
 	{
 		for (auto& component : m_components)
 		{
-			component->Update(deltaTime);
+			if (component->GetActive())
+				component->Update(deltaTime);
+		}
+
+		for (auto& child : m_children)
+		{
+			if (child->GetActive())
+				child->Update(deltaTime);
 		}
 	}
 	void Object::Draw()
 	{
 		for (auto& component : m_components)
 		{
-			component->Draw();
+			if (component->GetActive())
+				component->Draw();
+		}
+
+		for (auto& child : m_children)
+		{
+			if (child->GetActive())
+				child->Draw();
 		}
 	}
 	void Object::SetActive(bool isActive)
 	{
 		m_isActive = isActive;
+
+		for (auto& child : m_children)
+		{
+			child->SetActive(m_isActive);
+		}
 	}
 	bool Object::GetActive()
 	{
@@ -46,5 +65,9 @@ namespace Framework
 	std::string Object::GetTag()
 	{
 		return m_tag;
+	}
+	void Object::AddChild(Object* child)
+	{
+		m_children.push_back(child);
 	}
 }
