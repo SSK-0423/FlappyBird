@@ -22,7 +22,7 @@ namespace FlappyBird
 
 		// 背景
 		UIObject* background = UIObjectManager::CreateObject();
-		Sprite* backgroundSprite = new Sprite(L"res/texture/Background.jpg");
+		Sprite* backgroundSprite = new Sprite(L"res/texture/sky.png");
 		SpriteRenderer* backgroundRenderer = background->AddComponent<SpriteRenderer>(background);
 		backgroundRenderer->SetSprite(backgroundSprite);
 		backgroundRenderer->SetDrawMode(SPRITE_DRAW_MODE::GUI);
@@ -34,15 +34,15 @@ namespace FlappyBird
 		UIObject* outline = UIObjectManager::CreateObject();
 		Text* outlineText = outline->AddComponent<Text>(outline);
 		outlineText->SetText(L"Flappy Bird");
-		outlineText->SetPosition({ size.cx / 6.f, size.cy / 8.f });
-		outlineText->SetScale(1.005f);
+		outlineText->SetPosition({ size.cx / 6.f + 5.f, size.cy / 7.f + 5.f });
+		outlineText->SetScale(1.f);
 		outlineText->SetColor(DirectX::Colors::White);
 
 		// タイトルテキスト
 		UIObject* title = UIObjectManager::CreateObject();
 		Text* titleText = title->AddComponent<Text>(title);
 		titleText->SetText(L"Flappy Bird");
-		titleText->SetPosition({ size.cx / 6.f, size.cy / 8.f });
+		titleText->SetPosition({ size.cx / 6.f, size.cy / 7.f });
 		titleText->SetScale(1.f);
 		titleText->SetColor(DirectX::Colors::Green);
 
