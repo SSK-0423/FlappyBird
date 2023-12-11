@@ -18,6 +18,7 @@ namespace FlappyBird
 
 		m_jumpSprite = std::make_shared<Sprite>(L"res/texture/player_jump.png");
 		m_fallSprite = std::make_shared<Sprite>(L"res/texture/player_fall.png");
+		m_deadSprite = std::make_shared<Sprite>(L"res/texture/player_dead.png");
 
 		m_owner->SetName("Player");
 		m_owner->SetTag("Player");
@@ -145,6 +146,8 @@ namespace FlappyBird
 	void Player::GameOverAnimation(float deltaTime)
 	{
 		// ゲームオーバー演出
+		m_owner->GetComponent<SpriteRenderer>()->SetSprite(m_deadSprite);
+
 		Transform2D* transform = m_owner->GetComponent<Transform2D>();
 		transform->position.y += 2.5f;
 		transform->angle += 2.5f;

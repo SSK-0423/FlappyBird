@@ -25,10 +25,17 @@ namespace FlappyBird
 	void ObstacleSpawner::Update(float deltaTime)
 	{
 		m_spawnTimer += deltaTime;
+		m_speedUpTimer += deltaTime;
 
 		if (m_spawnTimer >= m_spawnInverval)
 		{
 			SpawnObstacle();
+		}
+		if (m_obstacleSpeed < m_maxObstacleSpeed && 
+			m_speedUpTimer >= m_speedUpInterval)
+		{
+			m_obstacleSpeed += 25.0f;
+			m_speedUpTimer = 0.0f;
 		}
 	}
 	void ObstacleSpawner::Draw()

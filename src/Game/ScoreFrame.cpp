@@ -20,7 +20,7 @@ namespace FlappyBird
 
 		Transform2D* transform = m_owner->GetComponent<Transform2D>();
 		transform->position = { windowSize.cx / 2.0f - 75.f, 0.f };
-		transform->scale = { 250.f, 50.f };
+		transform->scale = { 350.f, 50.f };
 	}
 
 	void ScoreFrame::Update(float deltaTime)
