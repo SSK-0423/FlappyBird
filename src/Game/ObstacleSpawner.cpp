@@ -18,6 +18,19 @@ namespace FlappyBird
 		auto nowMs = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()).count();
 		m_randomEngine = std::mt19937_64(nowMs);
 		m_randomGenerator = std::uniform_int_distribution<unsigned int>(SPACE, Window::GetWindowSize().cy - SPACE);
+
+		// 土管の初期位置を設定
+		m_lastSpawnY = m_randomGenerator(m_randomEngine);
+
+		// 土管の幅取得
+		float obstacleScaleX = 100.0f;
+
+		// 最小土管生成間隔 = 土管の横幅 / 土管の移動スピード
+		// 土管の生成位置は画面の右端+土管の横幅なので、横幅を移動スピードで割ると
+		// 生成された土管が画面内に収まるまでの時間がわかる
+		m_minSpawnInterval = obstacleScaleX / m_obstacleSpeed;
+		// 1回のスピードアップの変化量
+		m_spawnSpeedUpDiff = std::abs(m_spawnInverval - m_minSpawnInterval) / m_spawnSpeedUpStep;
 	}
 	ObstacleSpawner::~ObstacleSpawner()
 	{
@@ -25,17 +38,20 @@ namespace FlappyBird
 	void ObstacleSpawner::Update(float deltaTime)
 	{
 		m_spawnTimer += deltaTime;
-		m_speedUpTimer += deltaTime;
+		m_spawnSpeedUpTimer += deltaTime;
 
 		if (m_spawnTimer >= m_spawnInverval)
 		{
 			SpawnObstacle();
 		}
-		if (m_obstacleSpeed < m_maxObstacleSpeed && 
-			m_speedUpTimer >= m_speedUpInterval)
+		// 一定時間経過すると土管の生成間隔を短くする
+		// ただし、最小生成間隔を下回らないようして、土管が重ならないようにする
+		if (m_spawnInverval > m_minSpawnInterval &&
+			m_spawnSpeedUpTimer >= m_spawnSpeedUpInterval)
 		{
-			m_obstacleSpeed += 25.0f;
-			m_speedUpTimer = 0.0f;
+			// 誤差を考慮して最小生成間隔を下回らないようにする
+			m_spawnInverval = std::max(m_spawnInverval - m_spawnSpeedUpDiff, m_minSpawnInterval);
+			m_spawnSpeedUpTimer = 0.f;
 		}
 	}
 	void ObstacleSpawner::Draw()
@@ -46,6 +62,15 @@ namespace FlappyBird
 		// スポーンタイマーをリセット
 		m_spawnTimer = 0.0f;
 
+		// 絶対に避けられない配置にならないようにする
+		// 土管の生成間隔が最小生成間隔に近いほど、土管生成時の乱数幅を狭める
+		// 最小生成間隔の時に同じ高さに生成し続けるのを防ぐために、最後に小さい値を足す
+		unsigned int diff = SPACE * std::abs(m_spawnInverval - m_minSpawnInterval) + SPACE / 5.f;
+
+
+		m_randomGenerator.param(std::uniform_int_distribution<unsigned int>::param_type(
+			std::max(SPACE, m_lastSpawnY - diff),
+			std::min(static_cast<unsigned long>(m_lastSpawnY + diff), Window::GetWindowSize().cy - SPACE)));
 		// 土管の隙間のY座標をランダムに決める
 		unsigned int randomY = m_randomGenerator(m_randomEngine);
 
@@ -68,5 +93,7 @@ namespace FlappyBird
 		// 土管の移動速度を設定
 		overObstacle.GetComponent<Obstacle>()->SetMoveSpeed(-m_obstacleSpeed, 0.f);
 		underObstacle.GetComponent<Obstacle>()->SetMoveSpeed(-m_obstacleSpeed, 0.f);
+
+		m_lastSpawnY = randomY;
 	}
 }

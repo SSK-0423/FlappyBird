@@ -18,12 +18,20 @@ namespace FlappyBird
 
 	private:
 		const unsigned int SPACE = 225;
+		unsigned int m_lastSpawnY = 0;
+
 		float m_spawnInverval = 2.0f;
 		float m_spawnTimer = 0.0f;
-		float m_speedUpTimer = 0.0f;
-		float m_speedUpInterval = 10.0f;
+
+		float m_spawnSpeedUpTimer = 0.0f;
+		float m_spawnSpeedUpInterval = 10.0f;
+		float m_spawnSpeedUpDiff = 0.1f;
+		unsigned int m_spawnSpeedUpStep = 10;	// 最小生成間隔に到達するまでに必要なスピードアップ回数
+
+		float m_minSpawnInterval = 0.5f;
+
+
 		float m_obstacleSpeed = 150.0f;
-		float m_maxObstacleSpeed = 300.0f;
 
 		ObstaclePool* m_obstaclePool;
 		GameMaster* m_gameMaster;
