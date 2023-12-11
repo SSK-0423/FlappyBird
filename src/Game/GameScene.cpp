@@ -3,11 +3,14 @@
 
 #include "Framework/GameFramework.h"
 
-#include "TestCharacter.h"
-#include "TestObstacle.h"
-
+#include "GameMaster.h"
 #include "Player.h"
 #include "Background.h"
+#include "ObstacleSpawner.h"
+#include "Score.h"
+#include "ScoreFrame.h"
+#include "GameReadyUI.h"
+#include "GameOverUI.h"
 
 using namespace Framework;
 
@@ -17,14 +20,22 @@ namespace FlappyBird
 	{
 		OutputDebugStringA("GameScene Init\n");
 
-		//// テストキャラクタ
-		//Object* testChara = GameObjectManager::CreateObject();
-		//testChara->AddComponent<TestCharacter>(testChara);
+		// 他オブジェクトをObjectManager::Findで取得する際に、
+		// コンストラクタで初期化処理を行うと、対象オブジェクトがまだ生成されていない可能性があるため、
+		// UnityのStart関数のようなものを用意し、
+		// シーンの最初のフレームが実行される前に一斉に初期化処理を行うようにする
 
-		//// テスト障害物
-		//Object* testObstacle = GameObjectManager::CreateObject();
-		//testObstacle->AddComponent<TestObstacle>(testObstacle);
+		// ゲームオーバーUI
+		UIObject* gameOverUI = UIObjectManager::CreateObject();
+		gameOverUI->AddComponent<GameOverUI>(gameOverUI);
 
+		// ゲーム開始準備UI
+		UIObject* gameReadyUI = UIObjectManager::CreateObject();
+		gameReadyUI->AddComponent<GameReadyUI>(gameReadyUI);
+
+		// ゲームマスター
+		GameObject* gameMaster = GameObjectManager::CreateObject();
+		gameMaster->AddComponent<GameMaster>(gameMaster);
 
 		// 背景
 		GameObject* background = GameObjectManager::CreateObject();
@@ -34,6 +45,17 @@ namespace FlappyBird
 		GameObject* player = GameObjectManager::CreateObject();
 		player->AddComponent<Player>(player);
 
+		// 障害物を設置するオブジェクト
+		GameObject* obstacleSpawner = GameObjectManager::CreateObject();
+		obstacleSpawner->AddComponent<ObstacleSpawner>(obstacleSpawner);
+
+		// UI
+		UIObject* scoreFrame = UIObjectManager::CreateObject();
+		scoreFrame->AddComponent<ScoreFrame>(scoreFrame);
+
+		// スコア
+		UIObject* score = UIObjectManager::CreateObject();
+		score->AddComponent<Score>(score);
 	}
 	void GameScene::Final()
 	{

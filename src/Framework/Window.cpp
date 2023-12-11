@@ -28,8 +28,8 @@ namespace Framework
 		m_wndClassEx.lpfnWndProc = (WNDPROC)WindowProcedure;		// コールバック関数指定
 		m_wndClassEx.lpszClassName = _T("FlappyBird");
 		m_wndClassEx.hInstance = GetModuleHandle(nullptr);
-		m_wndClassEx.hIcon = LoadIcon(m_wndClassEx.hInstance, MAKEINTRESOURCE(IDI_ICON1));
-		m_wndClassEx.hIconSm = LoadIcon(m_wndClassEx.hInstance, MAKEINTRESOURCE(IDI_ICON1));
+		m_wndClassEx.hIcon = LoadIcon(m_wndClassEx.hInstance, MAKEINTRESOURCE(IDI_ICON2));
+		m_wndClassEx.hIconSm = LoadIcon(m_wndClassEx.hInstance, MAKEINTRESOURCE(IDI_ICON2));
 
 		RegisterClassEx(&m_wndClassEx);
 

@@ -18,10 +18,20 @@ namespace Framework
 	{
 		// 総当たり判定
 		// TODO: より複雑なゲームを実装する際は空間分割を実装する
+		// 現状はO(N^2)の計算量なので、オブジェクト数が増えると重くなる
 		for (auto& collider1 : m_colliders)
 		{
 			for (auto& collider2 : m_colliders)
 			{
+				// TODO: 衝突するコライダーの表を作る
+
+				// 非アクティブなコライダーは判定しない
+				if (!collider1->GetOwner()->GetActive() ||
+					!collider2->GetOwner()->GetActive())
+				{
+					continue;
+				}
+
 				// 同じコライダー同士は判定しない(アドレスで判定)
 				if (&collider1 == &collider2)
 				{
@@ -31,6 +41,7 @@ namespace Framework
 				// 当たり判定検出
 				if (CollisionDetection(*collider1, *collider2))
 				{
+					Utility::DebugLog("CollisionDetection: true\n");
 					collider1->OnCollision(collider2);
 					collider2->OnCollision(collider1);
 				}
@@ -45,6 +56,9 @@ namespace Framework
 
 	void CollisionSystem::Reset()
 	{
+		// std::listのclearではdeleteは呼ばれないが、
+		// GameObjectManager, UIObjectManagerのResetでコライダーは削除されるので、
+		// ここではdeleteは呼ばない
 		m_colliders.clear();
 	}
 

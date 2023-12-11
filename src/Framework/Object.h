@@ -45,17 +45,33 @@ namespace Framework
 		void SetName(std::string name);
 		std::string GetName();
 
+		void SetTag(std::string tag);
+		std::string GetTag();
+
+		void AddChild(Object* child);
+
 	protected:
 		std::list<std::shared_ptr<IComponent>> m_components;
+		std::list<Object*> m_children;
+		Object* m_parent = nullptr;
 		std::string m_name = "Object";
+		std::string m_tag = "None";
 		bool m_isActive = true;
 	};
 
 	// templateで実装してあるオブジェクトマネージャーを
 	// GameObjectとUIObject用に使い分けるためのクラス
 	class GameObject : public Object
-	{};
+	{
+	public:
+		GameObject() = default;
+		~GameObject() {}
+	};
 
 	class UIObject : public Object
-	{};
+	{
+	public:
+		UIObject() = default;
+		~UIObject() {}
+	};
 }

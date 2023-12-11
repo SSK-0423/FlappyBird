@@ -26,6 +26,7 @@ namespace Framework
 		ObjectManager() = default;
 		virtual ~ObjectManager();
 
+		// static std::list<std::unique_ptr<T>> m_objects;
 		static std::list<T*> m_objects;
 	};
 
@@ -34,7 +35,8 @@ namespace Framework
 	{
 		for (auto& object : m_objects)
 		{
-			object->Update(deltaTime);
+			if (object->GetActive())
+				object->Update(deltaTime);
 		}
 	}
 
@@ -107,6 +109,10 @@ namespace Framework
 		// 全オブジェクトを削除する
 		if (!m_objects.empty())
 		{
+			for (auto& object : m_objects)
+			{
+				delete object;
+			}
 			m_objects.clear();
 		}
 	}
@@ -116,6 +122,10 @@ namespace Framework
 	{
 		if (!m_objects.empty())
 		{
+			for (auto& object : m_objects)
+			{
+				delete object;
+			}
 			m_objects.clear();
 		}
 	}

@@ -1,5 +1,6 @@
 #include "SceneManager.h"
 #include "IRenderer.h"
+#include "GameObjectManager.h"
 
 namespace Framework
 {
@@ -29,13 +30,21 @@ namespace Framework
 		// 次シーンが設定されている場合はシーンを切り替える
 		if (m_nextSceneName != nullptr)
 		{
+			const char* nextSceneName = m_nextSceneName;
+			const char* currentSceneName = m_currentSceneName;
+			int currentObjectCount = GameObjectManager::GetAllObject().size();
+
 			// 現在のシーンの終了処理
 			m_scenes[m_currentSceneName]->Final();
-			
+
 			// 次フレームから次シーンを開始できるようにここで初期化する
 			m_currentSceneName = m_nextSceneName;
 			m_scenes[m_currentSceneName]->Init();
 			m_nextSceneName = nullptr;
+
+			Utility::DebugLog("Scene Change: %s -> %s\n", currentSceneName, nextSceneName);
+			Utility::DebugLog("%s Object Count: %d\n", currentSceneName, currentObjectCount);
+			Utility::DebugLog("%s Object Count: %d\n", currentSceneName, GameObjectManager::GetAllObject().size());
 		}
 	}
 	void SceneManager::Final()
@@ -55,5 +64,6 @@ namespace Framework
 	}
 	SceneManager::~SceneManager()
 	{
+		m_scenes.clear();
 	}
 }

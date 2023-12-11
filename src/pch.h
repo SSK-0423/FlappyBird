@@ -1,11 +1,9 @@
 #pragma once
 
 // プリコンパイル済みヘッダー
-
 #include <Windows.h>
 #include <cassert>
 #include <tchar.h>
-
 #include <vector>
 #include <map>
 #include <unordered_map>
@@ -16,6 +14,6 @@
 #include <string>
 #include <functional>
 #include <list>
-
+#include <stack>
 #include "Utility/EngineUtility.h"
 #include "Utility/ISingleton.h"

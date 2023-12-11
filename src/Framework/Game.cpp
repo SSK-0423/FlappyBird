@@ -4,6 +4,7 @@
 #include "InputSystem.h"
 #include "SceneManager.h"
 #include "ShaderLibrary.h"
+#include "SoundManager.h"
 
 #include "DX12Wrapper/Dx12GraphicsEngine.h"
 #include "DX12Wrapper/FontRenderer.h"
@@ -36,6 +37,11 @@ namespace Framework
 		if (result == RESULT::FAILED)
 		{
 			MessageBoxA(hwnd, "Dx12GraphicsEngineの初期化に失敗", "エラー", MB_OK);
+		}
+		result = SoundManager::Init();
+		if (result == RESULT::FAILED)
+		{
+			MessageBoxA(hwnd, "SoundManagerの初期化に失敗", "エラー", MB_OK);
 		}
 		result = ShaderLibrary::Init();
 		if (result == RESULT::FAILED)
@@ -90,6 +96,8 @@ namespace Framework
 	{
 		// 終了処理
 		SceneManager::Final();
+
+		SoundManager::Final();
 
 		m_gameImpl.Final();
 	}
