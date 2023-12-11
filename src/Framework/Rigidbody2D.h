@@ -20,6 +20,7 @@ namespace Framework
 		~Rigidbody2D();
 
 		void Update(float deltaTime) override;
+		void FixedUpdate(float interval) override;
 		void Draw() override;
 
 		void AddForce(DirectX::XMFLOAT2 force, FORCE_MODE mode = FORCE_MODE::FORCE);

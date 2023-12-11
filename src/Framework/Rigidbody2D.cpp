@@ -19,6 +19,9 @@ namespace Framework
 	}
 	void Rigidbody2D::Update(float deltaTime)
 	{
+	}
+	void Rigidbody2D::FixedUpdate(float interval)
+	{
 		velocity.x += acceleration.x;
 		velocity.y += acceleration.y;
 
@@ -31,11 +34,9 @@ namespace Framework
 
 		// “K—p
 		XMFLOAT2 position = m_owner->GetComponent<Transform2D>()->position;
-		position.x += velocity.x * deltaTime;
-		position.y += velocity.y * deltaTime;
+		position.x += velocity.x * interval;
+		position.y += velocity.y * interval;
 		m_owner->GetComponent<Transform2D>()->position = position;
-
-		//Utility::DebugLog("Velocity: %f\n", velocity.y);
 	}
 	void Rigidbody2D::Draw()
 	{

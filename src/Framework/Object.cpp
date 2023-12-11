@@ -23,6 +23,20 @@ namespace Framework
 				child->Update(deltaTime);
 		}
 	}
+	void Object::FixedUpdate(float interval)
+	{
+		for (auto& component : m_components)
+		{
+			if (component->GetActive())
+				component->FixedUpdate(interval);
+		}
+
+		for (auto& child : m_children)
+		{
+			if (child->GetActive())
+				child->FixedUpdate(interval);
+		}
+	}
 	void Object::Draw()
 	{
 		for (auto& component : m_components)
