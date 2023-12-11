@@ -20,7 +20,7 @@ namespace FlappyBird
 		Button* retryButton = retry->AddComponent<Button>(retry);
 		retryButton->SetTexture(L"res/texture/retry_button.png");
 		retryButton->SetPosition({ windowSize.cx / 2.f, windowSize.cy / 2.f });
-		retryButton->SetScale({ 200.f, 50.f });
+		retryButton->SetScale({ 300.f, 300.f / 4.f });
 		retryButton->SetOnClick([]() { SceneManager::SetNextScene("Game"); });
 		m_owner->AddChild(retry);
 
@@ -29,7 +29,7 @@ namespace FlappyBird
 		Button* titleButton = title->AddComponent<Button>(title);
 		titleButton->SetTexture(L"res/texture/quit_button.png");
 		titleButton->SetPosition({ windowSize.cx / 2.f, windowSize.cy / 2.f + 150.f });
-		titleButton->SetScale({ 200.f, 50.f });
+		titleButton->SetScale({ 300.f, 300.f / 4.f });
 		titleButton->SetOnClick([]() { SceneManager::SetNextScene("Title"); });
 		m_owner->AddChild(title);
 
@@ -37,8 +37,8 @@ namespace FlappyBird
 		UIObject* gameOver = UIObjectManager::CreateObject();
 		Text* gameOverText = gameOver->AddComponent<Text>(gameOver);
 		gameOverText->SetText(L"Game Over");
-		gameOverText->SetPosition({ windowSize.cx / 2.f - 180.f, windowSize.cy / 2.f - 150.f });
-		gameOverText->SetScale(0.5f);
+		gameOverText->SetPosition({ windowSize.cx / 2.f - 220.f, windowSize.cy / 2.f - 150.f });
+		gameOverText->SetScale(0.75f);
 		gameOverText->SetColor(DirectX::Colors::Red);
 		m_owner->AddChild(gameOver);
 
