@@ -58,6 +58,9 @@
     <Filter Include="ソース ファイル\Game\GameScene\Obstacle">
       <UniqueIdentifier>{1ee82067-cb97-426d-acbd-a17432314587}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\GameScene\UI">
+      <UniqueIdentifier>{05dd7cfe-b2b4-424f-9f6f-4d34d5f570da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Game\main.cpp">
@@ -132,9 +135,6 @@
     <ClCompile Include="src\Game\FlappyBird.cpp">
       <Filter>ソース ファイル\Game</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\PressEnterText.cpp">
-      <Filter>ソース ファイル\Game\TitleScene</Filter>
-    </ClCompile>
     <ClCompile Include="src\Game\TitleScene.cpp">
       <Filter>ソース ファイル\Game\TitleScene</Filter>
     </ClCompile>
@@ -189,12 +189,6 @@
     <ClCompile Include="src\Framework\RectCollider.cpp">
       <Filter>ソース ファイル\Framework\System\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\TestCharacter.cpp">
-      <Filter>ソース ファイル\Game\GameScene</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Game\TestObstacle.cpp">
-      <Filter>ソース ファイル\Game\GameScene</Filter>
-    </ClCompile>
     <ClCompile Include="src\Game\Background.cpp">
       <Filter>ソース ファイル\Game\GameScene</Filter>
     </ClCompile>
@@ -224,6 +218,24 @@
     </ClCompile>
     <ClCompile Include="src\Framework\WAVFileReader.cpp">
       <Filter>ソース ファイル\Framework\System\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\GameOverUI.cpp">
+      <Filter>ソース ファイル\Game\GameScene\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\GameReadyUI.cpp">
+      <Filter>ソース ファイル\Game\GameScene\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\PleaseClickText.cpp">
+      <Filter>ソース ファイル\Game\GameScene\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Score.cpp">
+      <Filter>ソース ファイル\Game\GameScene\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\ScoreFrame.cpp">
+      <Filter>ソース ファイル\Game\GameScene\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\UserGuide.cpp">
+      <Filter>ソース ファイル\Game\GameScene\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -302,9 +314,6 @@
     <ClInclude Include="src\Game\FlappyBird.h">
       <Filter>ソース ファイル\Game</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\PressEnterText.h">
-      <Filter>ソース ファイル\Game\TitleScene</Filter>
-    </ClInclude>
     <ClInclude Include="src\Game\TitleScene.h">
       <Filter>ソース ファイル\Game\TitleScene</Filter>
     </ClInclude>
@@ -371,14 +380,8 @@
     <ClInclude Include="src\Framework\RectCollider.h">
       <Filter>ソース ファイル\Framework\System\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\TestCharacter.h">
-      <Filter>ソース ファイル\Game\GameScene</Filter>
-    </ClInclude>
     <ClInclude Include="src\Framework\GameFramework.h">
       <Filter>ソース ファイル\Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Game\TestObstacle.h">
-      <Filter>ソース ファイル\Game\GameScene</Filter>
     </ClInclude>
     <ClInclude Include="src\Framework\UIObjectManager.h">
       <Filter>ソース ファイル\Framework\Object</Filter>
@@ -415,6 +418,24 @@
     </ClInclude>
     <ClInclude Include="src\Framework\WAVFileReader.h">
       <Filter>ソース ファイル\Framework\System\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\GameOverUI.h">
+      <Filter>ソース ファイル\Game\GameScene\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\GameReadyUI.h">
+      <Filter>ソース ファイル\Game\GameScene\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\PleaseClickText.h">
+      <Filter>ソース ファイル\Game\GameScene\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Score.h">
+      <Filter>ソース ファイル\Game\GameScene\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\ScoreFrame.h">
+      <Filter>ソース ファイル\Game\GameScene\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\UserGuide.h">
+      <Filter>ソース ファイル\Game\GameScene\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
