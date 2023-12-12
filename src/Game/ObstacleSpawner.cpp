@@ -17,7 +17,7 @@ namespace FlappyBird
 		auto now = std::chrono::system_clock::now();
 		auto nowMs = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()).count();
 		m_randomEngine = std::mt19937_64(nowMs);
-		m_randomGenerator = std::uniform_int_distribution<unsigned int>(SPACE, Window::GetWindowSize().cy - SPACE);
+		m_randomGenerator = std::uniform_int_distribution<int>(SPACE, static_cast<int>(Window::GetWindowSize().cy - SPACE));
 
 		// 土管の初期位置を設定
 		m_lastSpawnY = m_randomGenerator(m_randomEngine);
@@ -62,19 +62,19 @@ namespace FlappyBird
 		// スポーンタイマーをリセット
 		m_spawnTimer = 0.0f;
 
+		auto windowSize = Window::GetWindowSize();
+
 		// 絶対に避けられない配置にならないようにする
 		// 土管の生成間隔が最小生成間隔に近いほど、土管生成時の乱数幅を狭める
 		// 最小生成間隔の時に同じ高さに生成し続けるのを防ぐために、最後に小さい値を足す
-		unsigned int diff = SPACE * std::abs(m_spawnInverval - m_minSpawnInterval) + SPACE / 5.f;
+		int diff = SPACE * std::abs(m_spawnInverval - m_minSpawnInterval) + SPACE / 5.f;
+		int minY = std::max(SPACE, m_lastSpawnY - diff);
+		int maxY = std::min(m_lastSpawnY + diff, static_cast<int>(Window::GetWindowSize().cy - SPACE));
 
-
-		m_randomGenerator.param(std::uniform_int_distribution<unsigned int>::param_type(
-			std::max(SPACE, m_lastSpawnY - diff),
-			std::min(static_cast<unsigned long>(m_lastSpawnY + diff), Window::GetWindowSize().cy - SPACE)));
+		m_randomGenerator.param(std::uniform_int_distribution<int>::param_type(minY, maxY));
 		// 土管の隙間のY座標をランダムに決める
-		unsigned int randomY = m_randomGenerator(m_randomEngine);
+		int randomY = m_randomGenerator(m_randomEngine);
 
-		auto windowSize = Window::GetWindowSize();
 
 		// 土管を設置
 		auto& overObstacle = m_obstaclePool->GetObstacle();
@@ -95,5 +95,7 @@ namespace FlappyBird
 		underObstacle.GetComponent<Obstacle>()->SetMoveSpeed(-m_obstacleSpeed, 0.f);
 
 		m_lastSpawnY = randomY;
+
+		Utility::DebugLog("minY: %d, maxY: %d, randomY: %d\n", minY, maxY, randomY);
 	}
 }
