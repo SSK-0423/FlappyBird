@@ -17,7 +17,7 @@ namespace FlappyBird
 		Framework::GameObject& GetObstacle();
 
 	private:
-		const size_t POOL_SIZE = 10;
+		const size_t POOL_SIZE = 20;
 		std::list<Framework::GameObject> m_obstaclePool;
 
 		void InitObstaclePool();

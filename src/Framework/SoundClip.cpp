@@ -47,7 +47,7 @@ namespace Framework
 			}
 		}
 
-		Utility::DebugLog("Ä¶I—¹\n");
+		//Utility::DebugLog("Ä¶I—¹\n");
 	}
 	void SoundClip::Stop()
 	{

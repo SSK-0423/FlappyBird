@@ -1,4 +1,5 @@
 #pragma once
+#define NOMINMAX
 
 // プリコンパイル済みヘッダー
 #include <Windows.h>

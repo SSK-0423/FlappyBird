@@ -41,7 +41,7 @@ namespace Framework
 				// “–‚½‚è”»’èŒŸo
 				if (CollisionDetection(*collider1, *collider2))
 				{
-					Utility::DebugLog("CollisionDetection: true\n");
+					//Utility::DebugLog("CollisionDetection: true\n");
 					collider1->OnCollision(collider2);
 					collider2->OnCollision(collider1);
 				}
