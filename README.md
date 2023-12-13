@@ -1,4 +1,5 @@
 # FlappyBird
+DirectX12で開発した2Dゲーム
 ![FlappyBird](https://github.com/SSK-0423/FlappyBird/assets/83057130/f7939122-4e83-41d9-af63-c0bdf6cf5246)
 
 ### 動作要件
