@@ -11,6 +11,9 @@ namespace FlappyBird
 
 		void Update(float deltaTime) override;
 		void Draw() override;
+
+		Framework::Subject<Framework::NotificationEvent> OnClicked;
+
 	private:
 		float m_elapsedBlinkTime;
 		float m_blinkAnimationInterval;

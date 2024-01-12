@@ -38,7 +38,7 @@ namespace FlappyBird
 			m_elapsedWaitTime += deltaTime;
 			if (m_elapsedWaitTime >= m_waitSoundTime)
 			{
-				SceneManager::SetNextScene("Game");
+				OnClicked.Notify(NotificationEvent());
 			}
 		}
 		else

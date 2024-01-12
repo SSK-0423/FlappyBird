@@ -61,6 +61,9 @@
     <Filter Include="ソース ファイル\Game\GameScene\UI">
       <UniqueIdentifier>{05dd7cfe-b2b4-424f-9f6f-4d34d5f570da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Framework\System\Observer">
+      <UniqueIdentifier>{955cb2e5-6075-43e1-a091-37cff863ab83}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Game\main.cpp">
@@ -235,6 +238,9 @@
       <Filter>ソース ファイル\Game\GameScene\UI</Filter>
     </ClCompile>
     <ClCompile Include="src\Game\PleaseClickText.cpp">
+      <Filter>ソース ファイル\Game\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\TitleSceneUI.cpp">
       <Filter>ソース ファイル\Game\TitleScene</Filter>
     </ClCompile>
   </ItemGroup>
@@ -436,6 +442,15 @@
     </ClInclude>
     <ClInclude Include="src\Game\PleaseClickText.h">
       <Filter>ソース ファイル\Game\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\TitleSceneUI.h">
+      <Filter>ソース ファイル\Game\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Subject.h">
+      <Filter>ソース ファイル\Framework\System\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\NotificationEvent.h">
+      <Filter>ソース ファイル\Framework\System\Observer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

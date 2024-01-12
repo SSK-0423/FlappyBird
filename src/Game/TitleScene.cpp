@@ -11,6 +11,7 @@
 #include "Framework/Transform2D.h"
 
 #include "PleaseClickText.h"
+#include "TitleSceneUI.h"
 
 using namespace Framework;
 
@@ -21,7 +22,7 @@ namespace FlappyBird
 		auto size = Window::GetWindowSize();
 
 		// 背景
-		UIObject* background = UIObjectManager::CreateObject();
+		GameObject* background = GameObjectManager::CreateObject();
 		Sprite* backgroundSprite = new Sprite(L"res/texture/sky.png");
 		SpriteRenderer* backgroundRenderer = background->AddComponent<SpriteRenderer>(background);
 		backgroundRenderer->SetSprite(backgroundSprite);
@@ -30,25 +31,29 @@ namespace FlappyBird
 		backgroundTransform->position = { size.cx / 2.f, size.cy / 2.f };
 		backgroundTransform->scale = { size.cx * 1.f, size.cy * 1.f };
 
-		// タイトルテキストの輪郭線
-		UIObject* outline = UIObjectManager::CreateObject();
-		Text* outlineText = outline->AddComponent<Text>(outline);
-		outlineText->SetText(L"Flappy Bird");
-		outlineText->SetPosition({ size.cx / 6.f + 5.f, size.cy / 7.f + 5.f });
-		outlineText->SetScale(1.f);
-		outlineText->SetColor(DirectX::Colors::White);
+		// UI
+		UIObject* titleSceneUI = UIObjectManager::CreateObject();
+		titleSceneUI->AddComponent<TitleSceneUI>(titleSceneUI);
 
-		// タイトルテキスト
-		UIObject* title = UIObjectManager::CreateObject();
-		Text* titleText = title->AddComponent<Text>(title);
-		titleText->SetText(L"Flappy Bird");
-		titleText->SetPosition({ size.cx / 6.f, size.cy / 7.f });
-		titleText->SetScale(1.f);
-		titleText->SetColor(DirectX::Colors::Green);
+		//// タイトルテキストの輪郭線
+		//UIObject* outline = UIObjectManager::CreateObject();
+		//Text* outlineText = outline->AddComponent<Text>(outline);
+		//outlineText->SetText(L"Flappy Bird");
+		//outlineText->SetPosition({ size.cx / 6.f + 5.f, size.cy / 7.f + 5.f });
+		//outlineText->SetScale(1.f);
+		//outlineText->SetColor(DirectX::Colors::White);
 
-		// スタートテキスト
-		UIObject* pleaseClick = UIObjectManager::CreateObject();
-		pleaseClick->AddComponent<PleaseClickText>(pleaseClick);
+		//// タイトルテキスト
+		//UIObject* title = UIObjectManager::CreateObject();
+		//Text* titleText = title->AddComponent<Text>(title);
+		//titleText->SetText(L"Flappy Bird");
+		//titleText->SetPosition({ size.cx / 6.f, size.cy / 7.f });
+		//titleText->SetScale(1.f);
+		//titleText->SetColor(DirectX::Colors::Green);
+
+		//// スタートテキスト
+		//UIObject* pleaseClick = UIObjectManager::CreateObject();
+		//pleaseClick->AddComponent<PleaseClickText>(pleaseClick);
 
 		OutputDebugStringA("TitleScene Init\n");
 	}

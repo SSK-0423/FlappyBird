@@ -33,3 +33,6 @@
 #include "Framework/IRenderer.h"
 #include "Framework/ShaderLibrary.h"
 #include "Framework/Sprite.h"
+
+#include "Framework/Subject.h"
+#include "Framework/NotificationEvent.h"
