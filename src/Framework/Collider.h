@@ -10,7 +10,6 @@ namespace Framework
 		NONE,
 	};
 
-
 	class Collider : public IComponent
 	{
 	public:

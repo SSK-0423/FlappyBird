@@ -170,7 +170,7 @@ namespace FlappyBird
 		// ƒ_ƒ[ƒW‰¹ºÄ¶
 		std::unique_ptr<SoundClip> damageSound = std::make_unique<SoundClip>(nullptr);
 		damageSound->LoadWavSound(L"res/sound/damage.wav");
-		damageSound->Play(0.1, true);
+		damageSound->Play(0.1f, true);
 
 		// —‰º‰¹ºÄ¶
 		std::unique_ptr<SoundClip> sound = std::make_unique<SoundClip>(nullptr);

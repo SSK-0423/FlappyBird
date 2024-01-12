@@ -66,6 +66,7 @@ namespace Framework
 	{
 		m_colliders.clear();
 	}
+
 	bool CollisionSystem::CollisionDetection(const Collider& collider1, const Collider& collider2)
 	{
 		// 矩形同士の判定
@@ -83,7 +84,7 @@ namespace Framework
 		const Rect* rect1 = reinterpret_cast<Rect*>(collider1.GetColliderShape());
 		const Rect* rect2 = reinterpret_cast<Rect*>(collider2.GetColliderShape());
 
-		// TODO: 矩形同士の判定
+		// 矩形の中心座標を取得
 		XMFLOAT2 rect1Center = rect1->GetCenter();
 		XMFLOAT2 rect2Center = rect2->GetCenter();
 
@@ -105,3 +106,4 @@ namespace Framework
 		return false;
 	}
 }
+
