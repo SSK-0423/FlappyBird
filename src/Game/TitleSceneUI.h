@@ -12,5 +12,9 @@ namespace FlappyBird
 
 		void Update(float deltaTime) override;
 		void Draw() override;
+
+	private:
+		std::vector<Framework::UIObject*> m_gameModeButtons;
+		void ShowGameModeButtons(Framework::NotificationEvent e);
 	};
 }
