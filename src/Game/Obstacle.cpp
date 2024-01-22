@@ -45,6 +45,7 @@ namespace FlappyBird
 
 		if (transform->position.x < -transform->scale.x)
 		{
+			// ‰¹‚ð–Â‚ç‚·
 			m_owner->SetActive(false);
 		}
 
