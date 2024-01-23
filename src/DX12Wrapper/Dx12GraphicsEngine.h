@@ -165,5 +165,9 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns></returns>
 		static Utility::RESULT CreateFrameRenderTarget();
+
+		static Utility::RESULT CreateImguiDescriptorHeap();
+
+		static DescriptorHeapCBV_SRV_UAV& GetImguiDescriptorHeap();
 	};
 }

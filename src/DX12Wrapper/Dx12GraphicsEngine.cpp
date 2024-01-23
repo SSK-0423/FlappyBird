@@ -1,8 +1,8 @@
 #include "Dx12GraphicsEngine.h"
 
-//#include "imgui.h"
-//#include "imgui_impl_dx12.h"
-//#include "imgui_impl_win32.h"
+#include "imgui.h"
+#include "imgui_impl_dx12.h"
+#include "imgui_impl_win32.h"
 
 #include <DirectXMath.h>
 
@@ -54,7 +54,7 @@ namespace DX12Wrapper
 
 		// デバッグレイヤー有効
 #ifdef _DEBUG
-		//if (FAILED(EnableDebugLayer())) { return Utility::RESULT::FAILED; }
+		if (FAILED(EnableDebugLayer())) { return Utility::RESULT::FAILED; }
 #endif // DEBUG
 
 		// デバイスとファクトリー生成
@@ -71,6 +71,9 @@ namespace DX12Wrapper
 
 		// フレームバッファ―(最終レンダリング先)生成
 		if (CreateFrameRenderTarget() == Utility::RESULT::FAILED) { return Utility::RESULT::FAILED; }
+
+		// Imgui用のヒープ生成
+		if (CreateImguiDescriptorHeap() == Utility::RESULT::FAILED) { return Utility::RESULT::FAILED; }
 
 		// レンダリングコンテキストの初期化
 		m_renderContext.Init(*m_cmdList.Get());
@@ -278,10 +281,20 @@ namespace DX12Wrapper
 		// ビューポートとシザー矩形セット
 		m_renderContext.SetViewport(m_viewport);
 		m_renderContext.SetScissorRect(m_scissorRect);
+
+		// Imgui描画前準備
+		//ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+		//ImGui_ImplDX12_NewFrame();
+		//ImGui_ImplWin32_NewFrame();
+		//ImGui::NewFrame();
 	}
 
 	void Dx12GraphicsEngine::EndDraw()
 	{
+		// Imguiの描画
+		m_renderContext.SetDescriptorHeap(m_imguiHeap);
+		//ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), m_cmdList.Get());
+
 		// 描画対象のバッファーを示すインデックス取得
 		auto bbIdx = m_swapchain->GetCurrentBackBufferIndex();
 
@@ -381,6 +394,11 @@ namespace DX12Wrapper
 		m_dsvHeap.RegistDescriptor(*m_device.Get(), m_depthStencilBuffer);
 
 		return Utility::RESULT::SUCCESS;
+	}
+
+	Utility::RESULT Dx12GraphicsEngine::CreateImguiDescriptorHeap()
+	{
+		return m_imguiHeap.Create(*m_device.Get());
 	}
 
 	DX12Wrapper::RenderingContext& Dx12GraphicsEngine::GetRenderingContext()

@@ -6,6 +6,7 @@
 
 #include "GameObjectManager.h"
 #include "UIObjectManager.h"
+#include "Editor.h"
 
 using namespace DX12Wrapper;
 
@@ -15,8 +16,11 @@ namespace Framework
 	{
 		Dx12GraphicsEngine::BeginDraw();
 		{
+			Editor::BeginDraw();
 			RenderScene(GameObjectManager::GetAllObject());
 			RenderUI(UIObjectManager::GetAllObject());
+			Editor::TestDraw();
+			Editor::EndDraw();
 		}
 		Dx12GraphicsEngine::EndDraw();
 	}

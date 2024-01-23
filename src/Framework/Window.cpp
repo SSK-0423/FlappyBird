@@ -1,13 +1,17 @@
 #include "Window.h"
 #include "../resource.h"
+#include "imgui_impl_win32.h"
 
+// ImGuiのウィンドウプロシージャ
+extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND, UINT, WPARAM, LPARAM);
 
 namespace Framework
 {
 	// 静的メンバ変数の実体化
 	HWND Window::m_hwnd;
 	WNDCLASSEX Window::m_wndClassEx;
-	
+
+
 	LRESULT WindowProcedure(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 	{
 		switch (msg)
@@ -19,6 +23,8 @@ namespace Framework
 		default:
 			break;
 		}
+		// ImgGuiのウィンドウサイズ変更などを可能にする
+		ImGui_ImplWin32_WndProcHandler(hwnd, msg, wparam, lparam);
 		return DefWindowProc(hwnd, msg, wparam, lparam);
 	}
 

@@ -67,10 +67,14 @@ namespace FlappyBird
 
 	void TitleSceneUI::Update(float deltaTime)
 	{
+		Editor::DebugLog("TitleSceneUI::Update");
+		// FPS
+		Editor::DebugLog("FPS: %f", 1.f / deltaTime);
 	}
 
 	void TitleSceneUI::Draw()
 	{
+		Editor::DebugLog("TitleSceneUI::Draw");
 	}
 
 	void TitleSceneUI::ShowGameModeButtons(NotificationEvent e)

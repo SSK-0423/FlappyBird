@@ -36,3 +36,5 @@
 
 #include "Framework/Subject.h"
 #include "Framework/NotificationEvent.h"
+
+#include "Framework/Editor.h"
