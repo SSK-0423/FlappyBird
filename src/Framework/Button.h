@@ -23,6 +23,7 @@ namespace Framework
 		void SetScale(const DirectX::XMFLOAT2& scale);
 		void SetTexture(const std::wstring& path);
 		void SetText(const std::wstring& text);
+		void SetLayer(int layer);
 		void SetOnClick(const std::function<void()>& onClick);
 	};
 }

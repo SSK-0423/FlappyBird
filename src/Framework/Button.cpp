@@ -69,6 +69,10 @@ namespace Framework
 		}
 		m_text->SetText(text);
 	}
+	void Button::SetLayer(int layer)
+	{
+		m_spriteRenderer->SetLayer(layer);
+	}
 	void Button::SetOnClick(const std::function<void()>& onClick)
 	{
 		m_onClick = onClick;

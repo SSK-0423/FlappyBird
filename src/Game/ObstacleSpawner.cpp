@@ -75,7 +75,6 @@ namespace FlappyBird
 		// “yŠÇ‚ÌŒ„ŠÔ‚ÌYÀ•W‚ðƒ‰ƒ“ƒ_ƒ€‚ÉŒˆ‚ß‚é
 		int randomY = m_randomGenerator(m_randomEngine);
 
-
 		// “yŠÇ‚ðÝ’u
 		auto& overObstacle = m_obstaclePool->GetObstacle();
 		Transform2D* overObstacleTransform = overObstacle.GetComponent<Transform2D>();

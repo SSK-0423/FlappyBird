@@ -5,6 +5,7 @@
 #include "SceneManager.h"
 #include "ShaderLibrary.h"
 #include "SoundManager.h"
+#include "Editor.h"
 
 #include "DX12Wrapper/Dx12GraphicsEngine.h"
 #include "DX12Wrapper/FontRenderer.h"
@@ -53,6 +54,11 @@ namespace Framework
 		{
 			MessageBoxA(hwnd, "Rendererの初期化に失敗", "エラー", MB_OK);
 		}
+		result = Editor::Init();
+		if (result == RESULT::FAILED)
+		{
+			MessageBoxA(hwnd, "Editorの初期化に失敗", "エラー", MB_OK);
+		}
 
 		m_gameImpl.Init();
 
@@ -83,10 +89,6 @@ namespace Framework
 
 			// フレーム最後の更新処理
 			SceneManager::LateUpdate(deltaTime);
-
-			//#ifdef _DEBUG
-			//			DebugLog("%f (ms) \n", deltaTime * 1000.f);
-			//#endif
 		}
 
 		return;

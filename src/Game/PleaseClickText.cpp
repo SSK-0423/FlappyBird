@@ -25,20 +25,18 @@ namespace FlappyBird
 		// 効果音追加
 		SoundClip* sound = m_owner->AddComponent<SoundClip>(m_owner);
 		sound->LoadWavSound(L"res/sound/decide.wav");
-
-		// BGM追加
-		m_backgroundSound.reset(new SoundClip(m_owner));
-		m_backgroundSound->LoadWavSound(L"res/sound/title_bgm.wav", true);
-		m_backgroundSound->Play();
 	}
 	void PleaseClickText::Update(float deltaTime)
 	{
+		// クリックされたら
 		if (m_isClicked)
 		{
+			// SEの再生が終わったらクリックされたことを通知
 			m_elapsedWaitTime += deltaTime;
 			if (m_elapsedWaitTime >= m_waitSoundTime)
 			{
-				SceneManager::SetNextScene("Game");
+				OnClicked.Notify(NotificationEvent());
+				m_owner->SetActive(false);
 			}
 		}
 		else
@@ -51,7 +49,6 @@ namespace FlappyBird
 				m_isClicked = true;
 				m_blinkAnimationInterval /= 4.f;
 				m_owner->GetComponent<SoundClip>()->Play();
-				m_backgroundSound->Stop();
 			}
 		}
 
