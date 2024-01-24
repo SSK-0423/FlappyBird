@@ -17,6 +17,7 @@ namespace Framework
 
 		static void DebugLog(const char* fmt, ...);
 
+		static DX12Wrapper::DescriptorHeapCBV_SRV_UAV& GetImGuiHeap();
 	private:
 		static DX12Wrapper::DescriptorHeapCBV_SRV_UAV m_imguiHeap;
 

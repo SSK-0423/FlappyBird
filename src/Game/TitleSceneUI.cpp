@@ -16,6 +16,7 @@ namespace FlappyBird
 
 		// タイトルテキストの輪郭線
 		UIObject* outline = UIObjectManager::CreateObject();
+		//GameObject* outline = GameObjectManager::CreateObject();
 		Text* outlineText = outline->AddComponent<Text>(outline);
 		outlineText->SetText(L"Flappy Bird");
 		outlineText->SetPosition({ windowSize.cx / 6.f + 5.f, windowSize.cy / 7.f + 5.f });

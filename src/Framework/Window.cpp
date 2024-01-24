@@ -56,10 +56,13 @@ namespace Framework
 			m_wndClassEx.hInstance,	// 呼び出しアプリケーションハンドル
 			nullptr);	            // 追加パラメータ
 
+#ifdef _NODEBUG
 		// 最大化ボタンを消す
 		LONG style = GetWindowLong(m_hwnd, GWL_STYLE);
 		style &= ~WS_MAXIMIZEBOX;
 		SetWindowLong(m_hwnd, GWL_STYLE, style);
+#endif // _DEBUG
+
 
 		ShowWindow(m_hwnd, SW_SHOWNORMAL);
 	}

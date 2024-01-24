@@ -9,6 +9,7 @@ namespace DX12Wrapper
 	class DescriptorHeapCBV_SRV_UAV;
 	class ShaderResourceViewDesc;
 	class Texture;
+	class RenderTarget;
 }
 
 namespace FlappyBird
@@ -32,9 +33,11 @@ namespace FlappyBird
 		std::unique_ptr<DX12Wrapper::RootSignature> m_rootSignature = nullptr;
 		std::unique_ptr<DX12Wrapper::GraphicsPipelineState> m_pipelineState = nullptr;
 		std::unique_ptr<DX12Wrapper::DescriptorHeapCBV_SRV_UAV> m_descriptorHeap = nullptr;
+		std::unique_ptr<DX12Wrapper::RenderTarget> m_renderTarget = nullptr;
 
 		Utility::RESULT CreateRootSignature();
 		Utility::RESULT CreatePipelineState();
 		Utility::RESULT CreateDescriptorHeap();
+		Utility::RESULT CreateRenderTarget();
 	};
 }

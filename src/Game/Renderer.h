@@ -19,5 +19,6 @@ namespace FlappyBird
 
 		std::unique_ptr<class RenderObjectPass> m_renderObjectPass = nullptr;
 		std::unique_ptr<class RenderScreenPass> m_renderScreenPass = nullptr;
+		std::unique_ptr<class RenderUIPass> m_renderUIPass = nullptr;
 	};
 }

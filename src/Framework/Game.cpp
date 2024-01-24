@@ -11,8 +11,15 @@
 #include "DX12Wrapper/FontRenderer.h"
 
 static const TCHAR* NAME = L"FlappyBird";
+
+#ifdef _DEBUG
 static const LONG WIDTH = 1024;
 static const LONG HEIGHT = 768;
+#else
+static const LONG WIDTH = 1024;
+static const LONG HEIGHT = 768;
+#endif // _DEBUG
+
 static const TCHAR* FONT_PATH = L"res/font/x12y16pxSolidLinker64.spritefont";
 
 using namespace Utility;
@@ -49,15 +56,15 @@ namespace Framework
 		{
 			MessageBoxA(hwnd, "ShaderLibraryの初期化に失敗", "エラー", MB_OK);
 		}
-		result = m_renderer.Init();
-		if (result == RESULT::FAILED)
-		{
-			MessageBoxA(hwnd, "Rendererの初期化に失敗", "エラー", MB_OK);
-		}
 		result = Editor::Init();
 		if (result == RESULT::FAILED)
 		{
 			MessageBoxA(hwnd, "Editorの初期化に失敗", "エラー", MB_OK);
+		}
+		result = m_renderer.Init();
+		if (result == RESULT::FAILED)
+		{
+			MessageBoxA(hwnd, "Rendererの初期化に失敗", "エラー", MB_OK);
 		}
 
 		m_gameImpl.Init();

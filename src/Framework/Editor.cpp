@@ -99,14 +99,18 @@ namespace Framework
 		// const char*‚ğˆø”‚É‚·‚é‚Æ•¶š‰»‚¯‚µ‚½‚Ì‚Åstd::string‚É•ÏŠ·‚µ‚Ä‚¢‚é
 		m_debugLog.emplace_back(buf);
 	}
+	DX12Wrapper::DescriptorHeapCBV_SRV_UAV& Editor::GetImGuiHeap()
+	{
+		return m_imguiHeap;
+	}
 	void Editor::DrawGameWindow()
 	{
 		ImGui::Begin("GameWindow");
 		ImGui::Image(
 			(ImTextureID)m_imguiHeap.GetSRVHandle(0).ptr,
 			ImVec2(ImGui::GetWindowSize().x, ImGui::GetWindowSize().y),
-			ImVec2(0, 1),
-			ImVec2(1, 0));
+			ImVec2(0, 0),
+			ImVec2(1, 1));
 		ImGui::End();
 	}
 	void Editor::DrawDebugLog()

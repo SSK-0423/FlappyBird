@@ -13,6 +13,7 @@
 
 #include "RenderObjectPass.h"
 #include "RenderScreenPass.h"
+#include "RenderUIPass.h"
 
 using namespace Utility;
 using namespace DX12Wrapper;
@@ -34,6 +35,12 @@ namespace FlappyBird
 		{
 			return RESULT::FAILED;
 		}
+		// UI描画パスを初期化
+		m_renderUIPass = std::make_unique<RenderUIPass>();
+		if (m_renderUIPass->Init() == RESULT::FAILED)
+		{
+			return RESULT::FAILED;
+		}
 		// スクリーン描画パスを初期化
 		m_renderScreenPass = std::make_unique<RenderScreenPass>();
 		if (m_renderScreenPass->Init() == RESULT::FAILED)
@@ -51,19 +58,12 @@ namespace FlappyBird
 	{
 		// オブジェクト描画
 		m_renderObjectPass->Render(gameObjects);
-
-		// スクリーン描画パス
-		m_renderScreenPass->Render();
 	}
 	void Renderer::RenderUI(const std::list<Framework::UIObject*>& uiObjects)
 	{
-		for (auto& obj : uiObjects)
-		{
-			if (obj->GetActive())
-			{
-				obj->Draw();
-			}
-		}
+		// UI描画パス
+		m_renderUIPass->Render(uiObjects);
+		// スクリーン描画パス
+		m_renderScreenPass->Render();
 	}
 }
-
