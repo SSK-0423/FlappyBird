@@ -38,25 +38,25 @@ namespace FlappyBird
 		// ゲームモード選択ボタン
 		// 1人プレイボタン
 		UIObject* singlePlay = UIObjectManager::CreateObject();
-		singlePlay->SetName("SinglePlayButton");
+		singlePlay->SetName("GameStartButton");
 		Button* singlePlayButton = singlePlay->AddComponent<Button>(singlePlay);
-		singlePlayButton->SetTexture(L"res/texture/single_play_button.png");
+		singlePlayButton->SetTexture(L"res/texture/game_start_button.png");
 		singlePlayButton->SetPosition({ windowSize.cx / 2.f, windowSize.cy / 2.f });
 		singlePlayButton->SetScale({ 300.f, 300.f / 4.f });
 		singlePlayButton->SetLayer(static_cast<UINT>(TITLE_SCENE_LAYER::UI));
 		singlePlayButton->SetOnClick([]() {SceneManager::SetNextScene("Game"); });
 		m_gameModeButtons.push_back(singlePlay);
 
-		// 2人プレイボタン
-		UIObject* multiPlay = UIObjectManager::CreateObject();
-		multiPlay->SetName("MultiPlayButton");
-		Button* multiPlayButton = multiPlay->AddComponent<Button>(multiPlay);
-		multiPlayButton->SetTexture(L"res/texture/multi_play_button.png");
-		multiPlayButton->SetPosition({ windowSize.cx / 2.f, windowSize.cy / 2.f + 150.f });
-		multiPlayButton->SetScale({ 300.f, 300.f / 4.f });
-		multiPlayButton->SetLayer(static_cast<UINT>(TITLE_SCENE_LAYER::UI));
-		multiPlayButton->SetOnClick([]() {SceneManager::SetNextScene("Game"); });
-		m_gameModeButtons.push_back(multiPlay);
+		// ノーツエディットボタン
+		UIObject* notesEdit = UIObjectManager::CreateObject();
+		notesEdit->SetName("NotesEditButton");
+		Button* notesEditButton = notesEdit->AddComponent<Button>(notesEdit);
+		notesEditButton->SetTexture(L"res/texture/notes_edit_button.png");
+		notesEditButton->SetPosition({ windowSize.cx / 2.f, windowSize.cy / 2.f + 100.f });
+		notesEditButton->SetScale({ 300.f, 300.f / 4.f });
+		notesEditButton->SetLayer(static_cast<UINT>(TITLE_SCENE_LAYER::UI));
+		notesEditButton->SetOnClick([]() {SceneManager::SetNextScene("NotesEdit"); });
+		m_gameModeButtons.push_back(notesEdit);
 
 		// ゲームモード選択ボタンを非表示にする
 		for (auto& button : m_gameModeButtons)

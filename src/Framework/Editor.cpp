@@ -69,7 +69,7 @@ namespace Framework
 		Dx12GraphicsEngine::GetRenderingContext().SetDescriptorHeap(m_imguiHeap);
 		ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), &Dx12GraphicsEngine::CmdList());
 	}
-	void Editor::TestDraw()
+	void Editor::Draw()
 	{
 		DrawDebugLog();
 	}

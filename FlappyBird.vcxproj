@@ -202,6 +202,8 @@
     <ClCompile Include="src\Game\GameReadyUI.cpp" />
     <ClCompile Include="src\Game\GameScene.cpp" />
     <ClCompile Include="src\Game\main.cpp" />
+    <ClCompile Include="src\Game\NotesEditScene.cpp" />
+    <ClCompile Include="src\Game\NotesEditUI.cpp" />
     <ClCompile Include="src\Game\Obstacle.cpp" />
     <ClCompile Include="src\Game\ObstaclePool.cpp" />
     <ClCompile Include="src\Game\ObstacleSpawner.cpp" />
@@ -287,6 +289,8 @@
     <ClInclude Include="src\Game\GameOverUI.h" />
     <ClInclude Include="src\Game\GameReadyUI.h" />
     <ClInclude Include="src\Game\GameScene.h" />
+    <ClInclude Include="src\Game\NotesEditScene.h" />
+    <ClInclude Include="src\Game\NotesEditUI.h" />
     <ClInclude Include="src\Game\Obstacle.h" />
     <ClInclude Include="src\Game\ObstaclePool.h" />
     <ClInclude Include="src\Game\ObstacleSpawner.h" />

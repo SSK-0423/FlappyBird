@@ -13,7 +13,7 @@ namespace Framework
 		static void Final();
 		static void BeginDraw();
 		static void EndDraw();
-		static void TestDraw();
+		static void Draw();
 
 		static void DebugLog(const char* fmt, ...);
 

@@ -19,7 +19,7 @@ namespace Framework
 			Editor::BeginDraw();
 			RenderScene(GameObjectManager::GetAllObject());
 			RenderUI(UIObjectManager::GetAllObject());
-			Editor::TestDraw();
+			Editor::Draw();
 			Editor::EndDraw();
 		}
 		Dx12GraphicsEngine::EndDraw();

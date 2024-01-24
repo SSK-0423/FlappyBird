@@ -70,6 +70,9 @@
     <Filter Include="ソース ファイル\Framework\System\Editor">
       <UniqueIdentifier>{0d1142a2-46f0-49b6-97bf-0dee06101188}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\NotesEditorScene">
+      <UniqueIdentifier>{f8dc4534-0874-4376-bb2a-71e09c6e94fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Game\main.cpp">
@@ -272,6 +275,12 @@
     </ClCompile>
     <ClCompile Include="src\Framework\Editor.cpp">
       <Filter>ソース ファイル\Framework\System\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\NotesEditScene.cpp">
+      <Filter>ソース ファイル\Game\NotesEditorScene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\NotesEditUI.cpp">
+      <Filter>ソース ファイル\Game\NotesEditorScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -508,6 +517,12 @@
     </ClInclude>
     <ClInclude Include="src\Framework\Editor.h">
       <Filter>ソース ファイル\Framework\System\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\NotesEditScene.h">
+      <Filter>ソース ファイル\Game\NotesEditorScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\NotesEditUI.h">
+      <Filter>ソース ファイル\Game\NotesEditorScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
