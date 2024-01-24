@@ -9,7 +9,6 @@ namespace FlappyBird
 		BACKGROUND,
 	};
 
-
 	class NotesEditScene : public Framework::Scene
 	{
 	public:

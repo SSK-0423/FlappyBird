@@ -73,6 +73,9 @@
     <Filter Include="ソース ファイル\Game\NotesEditorScene">
       <UniqueIdentifier>{f8dc4534-0874-4376-bb2a-71e09c6e94fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Shaders">
+      <UniqueIdentifier>{e9b22ef7-1f80-4443-9cb2-64e1b0f8e963}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Game\main.cpp">
@@ -281,6 +284,12 @@
     </ClCompile>
     <ClCompile Include="src\Game\NotesEditUI.cpp">
       <Filter>ソース ファイル\Game\NotesEditorScene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\RenderObjectPass.cpp">
+      <Filter>ソース ファイル\Game\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\RenderScreenPass.cpp">
+      <Filter>ソース ファイル\Game\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -524,6 +533,12 @@
     <ClInclude Include="src\Game\NotesEditUI.h">
       <Filter>ソース ファイル\Game\NotesEditorScene</Filter>
     </ClInclude>
+    <ClInclude Include="src\Game\RenderObjectPass.h">
+      <Filter>ソース ファイル\Game\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\RenderScreenPass.h">
+      <Filter>ソース ファイル\Game\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="FlappyBird.rc">
@@ -534,5 +549,10 @@
     <Image Include="res\FlappyBird.ico">
       <Filter>リソース ファイル</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="shaders\FullScreen.hlsl">
+      <Filter>ソース ファイル\Shaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

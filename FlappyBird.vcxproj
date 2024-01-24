@@ -213,6 +213,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\Game\RenderObjectPass.cpp" />
+    <ClCompile Include="src\Game\RenderScreenPass.cpp" />
     <ClCompile Include="src\Game\Score.cpp" />
     <ClCompile Include="src\Game\ScoreFrame.cpp" />
     <ClCompile Include="src\Game\TitleScene.cpp" />
@@ -297,6 +299,8 @@
     <ClInclude Include="src\Game\Player.h" />
     <ClInclude Include="src\Game\PleaseClickText.h" />
     <ClInclude Include="src\Game\Renderer.h" />
+    <ClInclude Include="src\Game\RenderObjectPass.h" />
+    <ClInclude Include="src\Game\RenderScreenPass.h" />
     <ClInclude Include="src\Game\Score.h" />
     <ClInclude Include="src\Game\ScoreFrame.h" />
     <ClInclude Include="src\Game\TitleScene.h" />
@@ -311,6 +315,13 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\FlappyBird.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="shaders\FullScreen.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VSMain</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+    </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

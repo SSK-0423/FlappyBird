@@ -281,19 +281,12 @@ namespace DX12Wrapper
 		// ビューポートとシザー矩形セット
 		m_renderContext.SetViewport(m_viewport);
 		m_renderContext.SetScissorRect(m_scissorRect);
-
-		// Imgui描画前準備
-		//ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-		//ImGui_ImplDX12_NewFrame();
-		//ImGui_ImplWin32_NewFrame();
-		//ImGui::NewFrame();
 	}
 
 	void Dx12GraphicsEngine::EndDraw()
 	{
 		// Imguiの描画
 		m_renderContext.SetDescriptorHeap(m_imguiHeap);
-		//ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), m_cmdList.Get());
 
 		// 描画対象のバッファーを示すインデックス取得
 		auto bbIdx = m_swapchain->GetCurrentBackBufferIndex();

@@ -21,6 +21,10 @@ namespace Framework
 		static DX12Wrapper::DescriptorHeapCBV_SRV_UAV m_imguiHeap;
 
 		static std::list<std::string> m_debugLog;
+		static void DrawGameWindow();
 		static void DrawDebugLog();
+		static void DrawPlayStopButton();
+		static void DrawInspector();
+		static void DrawSceneHierarchy();
 	};
 }

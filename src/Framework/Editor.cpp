@@ -47,6 +47,8 @@ namespace Framework
 
 		ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
+		// エディタ用にフレームバッファのテクスチャを取得して登録
+
 		return RESULT::SUCCESS;
 	}
 	void Editor::Final()
@@ -71,7 +73,20 @@ namespace Framework
 	}
 	void Editor::Draw()
 	{
+		// 
 		DrawDebugLog();
+
+		// ゲームウィンドウの描画
+		DrawGameWindow();
+
+		// シーンヒエラルキーの描画
+		DrawSceneHierarchy();
+
+		// 再生・停止機能
+		DrawPlayStopButton();
+
+		// インスペクターの描画
+		DrawInspector();
 	}
 	void Editor::DebugLog(const char* fmt, ...)
 	{
@@ -84,6 +99,16 @@ namespace Framework
 		// const char*を引数にすると文字化けしたのでstd::stringに変換している
 		m_debugLog.emplace_back(buf);
 	}
+	void Editor::DrawGameWindow()
+	{
+		ImGui::Begin("GameWindow");
+		ImGui::Image(
+			(ImTextureID)m_imguiHeap.GetSRVHandle(0).ptr,
+			ImVec2(ImGui::GetWindowSize().x, ImGui::GetWindowSize().y),
+			ImVec2(0, 1),
+			ImVec2(1, 0));
+		ImGui::End();
+	}
 	void Editor::DrawDebugLog()
 	{
 		ImGui::Begin("DebugLog");
@@ -91,6 +116,29 @@ namespace Framework
 		{
 			ImGui::Text(log.c_str());
 		}
+		ImGui::End();
+	}
+	void Editor::DrawPlayStopButton()
+	{
+		ImGui::Begin("PlayStopButton");
+		if (ImGui::Button("Play"))
+		{
+			// ゲーム開始
+		}
+		if (ImGui::Button("Stop"))
+		{
+			// ゲーム終了
+		}
+		ImGui::End();
+	}
+	void Editor::DrawInspector()
+	{
+		ImGui::Begin("Inspector");
+		ImGui::End();
+	}
+	void Editor::DrawSceneHierarchy()
+	{
+		ImGui::Begin("SceneHierarchy");
 		ImGui::End();
 	}
 }
