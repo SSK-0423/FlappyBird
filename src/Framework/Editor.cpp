@@ -46,7 +46,6 @@ namespace Framework
 		}
 
 		ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-		ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
 		return RESULT::SUCCESS;
 	}
