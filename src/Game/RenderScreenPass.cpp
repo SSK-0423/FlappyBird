@@ -52,6 +52,9 @@ namespace FlappyBird
 			renderingContext.SetGraphicsRootSignature(*m_rootSignature);
 			renderingContext.SetPipelineState(*m_pipelineState);
 			renderingContext.SetDescriptorHeap(*m_descriptorHeap);
+			// フルスクリーンポリゴンの頂点セット
+			renderingContext.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+			renderingContext.DrawInstanced(4, 1, 0, 0);
 		}
 	}
 	void RenderScreenPass::SetRenderTexture(ShaderResourceViewDesc& desc, Texture& texture)
