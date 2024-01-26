@@ -18,7 +18,9 @@ namespace FlappyBird
 {
 	void GameScene::Init()
 	{
-		OutputDebugStringA("GameScene Init\n");
+#ifdef _DEBUG
+		Editor::DebugLog("GameScene Init\n");
+#endif // _DEBUG
 
 		// 他オブジェクトをObjectManager::Findで取得する際に、
 		// コンストラクタで初期化処理を行うと、対象オブジェクトがまだ生成されていない可能性があるため、
@@ -60,7 +62,8 @@ namespace FlappyBird
 	void GameScene::Final()
 	{
 		Scene::Final();
-
-		OutputDebugStringA("GameScene Final\n");
+#ifdef _DEBUG
+		Editor::DebugLog("GameScene Final\n");
+#endif // _DEBUG
 	}
 }

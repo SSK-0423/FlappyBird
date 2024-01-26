@@ -26,6 +26,8 @@ namespace Framework
 			m_scenes.insert(std::make_pair(name, std::make_unique<T>()));
 		}
 
+		static const std::unordered_map<const char*, std::unique_ptr<Scene>>& GetAllScene();
+
 	private:
 		SceneManager() = default;
 		~SceneManager();

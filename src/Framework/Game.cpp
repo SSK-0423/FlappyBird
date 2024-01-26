@@ -15,6 +15,9 @@ static const TCHAR* NAME = L"FlappyBird";
 #ifdef _DEBUG
 static const LONG WIDTH = 1024;
 static const LONG HEIGHT = 768;
+
+static const LONG GAME_WIDTH = 1024;
+static const LONG GAME_HEIGHT = 768;
 #else
 static const LONG WIDTH = 1024;
 static const LONG HEIGHT = 768;

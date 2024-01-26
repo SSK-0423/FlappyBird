@@ -62,8 +62,8 @@ namespace Framework
 	{
 		m_nextSceneName = name;
 	}
-	SceneManager::~SceneManager()
+	const std::unordered_map<const char*, std::unique_ptr<Scene>>& SceneManager::GetAllScene()
 	{
-		m_scenes.clear();
+		return m_scenes;
 	}
 }

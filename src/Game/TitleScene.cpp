@@ -42,12 +42,15 @@ namespace FlappyBird
 		UIObject* titleSceneUI = UIObjectManager::CreateObject();
 		titleSceneUI->AddComponent<TitleSceneUI>(titleSceneUI);
 
-		OutputDebugStringA("TitleScene Init\n");
+#ifdef _DEBUG
+		Editor::DebugLog("TitleScene Init\n");
+#endif // _DEBUG
 	}
 	void TitleScene::Final()
 	{
 		Scene::Final();
-
-		OutputDebugStringA("TitleScene Final\n");
+#ifdef _DEBUG
+		Editor::DebugLog("TitleScene Final\n");
+#endif // _DEBUG
 	}
 }

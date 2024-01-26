@@ -291,6 +291,9 @@
     <ClCompile Include="src\Game\RenderScreenPass.cpp">
       <Filter>ソース ファイル\Game\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\RenderUIPass.cpp">
+      <Filter>ソース ファイル\Game\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\pch.h">
@@ -539,6 +542,9 @@
     <ClInclude Include="src\Game\RenderScreenPass.h">
       <Filter>ソース ファイル\Game\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="src\Game\RenderUIPass.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="FlappyBird.rc">
@@ -554,5 +560,7 @@
     <FxCompile Include="shaders\FullScreen.hlsl">
       <Filter>ソース ファイル\Shaders</Filter>
     </FxCompile>
+    <FxCompile Include="shaders\Button.hlsl" />
+    <FxCompile Include="shaders\Sprite.hlsl" />
   </ItemGroup>
 </Project>

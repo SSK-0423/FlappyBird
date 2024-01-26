@@ -9,6 +9,10 @@
 #include "Window.h"
 #include "DX12Wrapper/Dx12GraphicsEngine.h"
 
+#include "GameObjectManager.h"
+#include "UIObjectManager.h"
+#include "SceneManager.h"
+
 using namespace DX12Wrapper;
 using namespace Utility;
 
@@ -87,8 +91,14 @@ namespace Framework
 		// 再生・停止機能
 		DrawPlayStopButton();
 
+		// シーン切り替えボタン
+		DrawSceneButton();
+
 		// インスペクターの描画
 		DrawInspector();
+
+		// パフォーマンスの描画
+		DrawPerformance();
 	}
 	void Editor::DebugLog(const char* fmt, ...)
 	{
@@ -110,7 +120,7 @@ namespace Framework
 		ImGui::Begin("GameWindow");
 		ImGui::Image(
 			(ImTextureID)m_imguiHeap.GetSRVHandle(0).ptr,
-			ImVec2(ImGui::GetWindowSize().x, ImGui::GetWindowSize().y),
+			ImVec2(1024, 768),
 			ImVec2(0, 0),
 			ImVec2(1, 1));
 		ImGui::End();
@@ -145,6 +155,39 @@ namespace Framework
 	void Editor::DrawSceneHierarchy()
 	{
 		ImGui::Begin("SceneHierarchy");
+
+		// 全ゲームオブジェクトを表示
+		for (auto& gameObject : GameObjectManager::GetAllObject())
+		{
+			ImGui::Text(gameObject->GetName().c_str());
+		}
+
+		//// 全UIオブジェクトを表示
+		//for (auto& uiObject : UIObjectManager::GetAllObject())
+		//{
+		//	ImGui::Text(uiObject->GetName().c_str());
+		//}
+
+		ImGui::End();
+	}
+	void Editor::DrawPerformance()
+	{
+		ImGui::Begin("Performance");
+		ImGui::Text("%.2f FPS", ImGui::GetIO().Framerate);
+		ImGui::End();
+	}
+	void Editor::DrawSceneButton()
+	{
+		ImGui::Begin("SceneButton");
+		for (auto& scene : SceneManager::GetAllScene())
+		{
+			// 横並びにする
+			ImGui::SameLine();
+			if (ImGui::Button(scene.first))
+			{
+				SceneManager::SetNextScene(scene.first);
+			}
+		}
 		ImGui::End();
 	}
 }

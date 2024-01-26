@@ -11,7 +11,9 @@ namespace FlappyBird
 	void NotesEditScene::Init()
 	{
 		// TODO: ‚±‚±‚É‰Šú‰»ˆ—‚ğ‘‚­
+#ifdef _DEBUG
 		Editor::DebugLog("NotesEditScene::Init");
+#endif // _DEBUG
 
 		// UI
 		UIObject* editWindow = UIObjectManager::CreateObject();
@@ -19,7 +21,9 @@ namespace FlappyBird
 	}
 	void NotesEditScene::Final()
 	{
+#ifdef _DEBUG
 		Editor::DebugLog("NotesEditScene::Final");
+#endif // _DEBUG
 	}
 }
 
