@@ -3,6 +3,8 @@
 
 namespace Framework
 {
+	class Object;
+
 	class Editor
 	{
 	public:
@@ -27,7 +29,9 @@ namespace Framework
 		static void DrawPlayStopButton();
 		static void DrawInspector();
 		static void DrawSceneHierarchy();
+		static void DrawChildObject(Object& object);
 		static void DrawPerformance();
 		static void DrawSceneButton();
+		static std::string selectedObjectUUID;
 	};
 }

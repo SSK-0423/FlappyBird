@@ -16,23 +16,9 @@ namespace FlappyBird
 	}
 	void ObstaclePool::Update(float deltaTime)
 	{
-		// 未使用の障害物を動かす
-		for (auto& obstacle : m_obstaclePool)
-		{
-			if (obstacle.GetActive())
-				obstacle.Update(deltaTime);
-		}
-
-		//Utility::DebugLog("ObstaclePool Size: %d\n", m_obstaclePool.size());
 	}
 	void ObstaclePool::Draw()
 	{
-		// 未使用の障害物を描画する
-		for (auto& obstacle : m_obstaclePool)
-		{
-			if (obstacle.GetActive())
-				obstacle.Draw();
-		}
 	}
 	Framework::GameObject& ObstaclePool::GetObstacle()
 	{
@@ -60,6 +46,7 @@ namespace FlappyBird
 		{
 			obstacle.AddComponent<Obstacle>(&obstacle);
 			obstacle.SetActive(false);
+			m_owner->AddChild(&obstacle);
 		}
 	}
 }

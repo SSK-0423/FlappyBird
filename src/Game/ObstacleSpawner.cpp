@@ -10,6 +10,8 @@ namespace FlappyBird
 {
 	ObstacleSpawner::ObstacleSpawner(Framework::Object* owner) : IComponent(owner)
 	{
+		m_owner->SetName("ObstacleSpawner");
+
 		m_obstaclePool = m_owner->AddComponent<ObstaclePool>(m_owner);
 		m_gameMaster = GameObjectManager::FindObject("GameMaster")->GetComponent<GameMaster>();
 

@@ -44,12 +44,15 @@ namespace Framework
 		bool GetActive();
 
 		void SetName(std::string name);
-		std::string GetName();
+		const std::string GetName();
 
 		void SetTag(std::string tag);
-		std::string GetTag();
+		const std::string GetTag();
 
 		void AddChild(Object* child);
+		const std::list<Object*>& GetChildren();
+
+		const std::string GetUUID();
 
 	protected:
 		std::list<std::shared_ptr<IComponent>> m_components;
@@ -57,6 +60,7 @@ namespace Framework
 		Object* m_parent = nullptr;
 		std::string m_name = "Object";
 		std::string m_tag = "None";
+		std::string m_uuid;
 		bool m_isActive = true;
 	};
 

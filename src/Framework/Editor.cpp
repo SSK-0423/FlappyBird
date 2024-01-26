@@ -21,6 +21,7 @@ namespace Framework
 	// 静的メンバ変数の実体化
 	DescriptorHeapCBV_SRV_UAV Editor::m_imguiHeap;
 	std::list<std::string> Editor::m_debugLog;
+	std::string Editor::selectedObjectUUID = "";
 
 	RESULT Editor::Init()
 	{
@@ -150,6 +151,7 @@ namespace Framework
 	void Editor::DrawInspector()
 	{
 		ImGui::Begin("Inspector");
+
 		ImGui::End();
 	}
 	void Editor::DrawSceneHierarchy()
@@ -157,18 +159,58 @@ namespace Framework
 		ImGui::Begin("SceneHierarchy");
 
 		// 全ゲームオブジェクトを表示
-		for (auto& gameObject : GameObjectManager::GetAllObject())
+		for (auto gameObject : GameObjectManager::GetAllObject())
 		{
-			ImGui::Text(gameObject->GetName().c_str());
+			DrawChildObject(*gameObject);
 		}
 
-		//// 全UIオブジェクトを表示
-		//for (auto& uiObject : UIObjectManager::GetAllObject())
-		//{
-		//	ImGui::Text(uiObject->GetName().c_str());
-		//}
-
 		ImGui::End();
+	}
+	void Editor::DrawChildObject(Object& object)
+	{
+		ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_None;
+
+		// 選択中のオブジェクトをハイライト
+		if (selectedObjectUUID == object.GetUUID())
+		{
+			flags |= ImGuiTreeNodeFlags_Selected;
+		}
+		
+		// 子オブジェクトがある場合はツリーを開閉できるようにする
+		if (object.GetChildren().size() > 0)
+		{
+			if (ImGui::TreeNodeEx(object.GetName().c_str(), flags))
+			{
+				// ルートオブジェクトの場合はTreePopする
+				for (auto child : object.GetChildren())
+				{
+					DrawChildObject(*child);
+				}
+				ImGui::TreePop();
+			}
+		}
+		// 子オブジェクトがない場合は葉として表示
+		else
+		{
+			flags |= ImGuiTreeNodeFlags_Leaf;
+			ImGui::TreeNodeEx(object.GetName().c_str(), flags);
+			ImGui::TreePop();
+		}
+
+		// クリックされたら選択中のオブジェクトを変更
+		if (ImGui::IsItemClicked())
+		{
+			selectedObjectUUID = object.GetUUID();
+		}
+
+		// 選択中のオブジェクトのみインスペクターを表示
+		if (flags & ImGuiTreeNodeFlags_Selected)
+		{
+			ImGui::Begin("Inspector");
+			ImGui::Text(object.GetName().c_str());
+			ImGui::Text(object.GetUUID().c_str());
+			ImGui::End();
+		}
 	}
 	void Editor::DrawPerformance()
 	{

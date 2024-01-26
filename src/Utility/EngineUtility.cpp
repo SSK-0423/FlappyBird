@@ -1,6 +1,8 @@
 #include "EngineUtility.h"
 #include <locale>
 
+#pragma comment(lib, "rpcrt4.lib")
+
 namespace Utility
 {
 	const int EXTENSION_DOT_POINT = 3;
@@ -47,5 +49,27 @@ namespace Utility
 
 		errno_t err = mbstowcs_s(&convertedCount, dst, dstSize, src, _TRUNCATE);
 		return err;
+	}
+	std::string GenerateUUID()
+	{
+		// UUIDを生成
+		UUID uuid;
+		if (UuidCreate(&uuid) != RPC_S_OK)
+		{
+			MessageBoxA(nullptr, "UUIDの生成に失敗", "エラー", MB_OK);
+		}
+
+		// UUIDを文字列に変換
+		char* str;
+		if (UuidToStringA(&uuid, (RPC_CSTR*)&str) == RPC_S_OUT_OF_MEMORY)
+		{
+			MessageBoxA(nullptr, "UUIDの文字列変換に失敗", "エラー", MB_OK);
+		}
+
+		std::string result = str;
+		// UuidToStringAで確保したメモリを解放
+		RpcStringFreeA((RPC_CSTR*)&str);
+
+		return result;
 	}
 }

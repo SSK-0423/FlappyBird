@@ -8,6 +8,9 @@ namespace Framework
 	Object::Object()
 	{
 		m_components.push_back(std::make_shared<Transform2D>(this));
+
+		// UUIDÇê∂ê¨
+		m_uuid = Utility::GenerateUUID();
 	}
 	void Object::Update(float deltaTime)
 	{
@@ -68,7 +71,7 @@ namespace Framework
 	{
 		m_name = name;
 	}
-	std::string Object::GetName()
+	const std::string Object::GetName()
 	{
 		return m_name;
 	}
@@ -76,12 +79,20 @@ namespace Framework
 	{
 		m_tag = tag;
 	}
-	std::string Object::GetTag()
+	const std::string Object::GetTag()
 	{
 		return m_tag;
 	}
 	void Object::AddChild(Object* child)
 	{
 		m_children.push_back(child);
+	}
+	const std::list<Object*>& Object::GetChildren()
+	{
+		return m_children;
+	}
+	const std::string Object::GetUUID()
+	{
+		return m_uuid;
 	}
 }

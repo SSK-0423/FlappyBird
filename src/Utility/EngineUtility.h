@@ -149,4 +149,6 @@ namespace Utility
 		sprintf_s(buff, format, t...);
 		OutputDebugStringA(buff);
 	}
+
+	std::string GenerateUUID();
 }
