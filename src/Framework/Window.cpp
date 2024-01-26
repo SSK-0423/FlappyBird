@@ -39,7 +39,7 @@ namespace Framework
 
 		RegisterClassEx(&m_wndClassEx);
 
-		RECT rect = { 0,0,width,height };
+		RECT rect = { 0, 0, width, height };
 
 		AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
 
@@ -61,8 +61,7 @@ namespace Framework
 		LONG style = GetWindowLong(m_hwnd, GWL_STYLE);
 		style &= ~WS_MAXIMIZEBOX;
 		SetWindowLong(m_hwnd, GWL_STYLE, style);
-#endif // _DEBUG
-
+#endif // _NODEBUG
 
 		ShowWindow(m_hwnd, SW_SHOWNORMAL);
 	}

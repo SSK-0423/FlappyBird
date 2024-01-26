@@ -52,21 +52,33 @@ namespace FlappyBird
 	void RenderScreenPass::Render()
 	{
 		RenderingContext renderingContext = Dx12GraphicsEngine::GetRenderingContext();
-#ifdef _DEBUG
-		m_renderTarget->BeginRendering(renderingContext, m_viewport, m_scissorRect);
-		{
-			renderingContext.SetGraphicsRootSignature(*m_rootSignature);
-			renderingContext.SetPipelineState(*m_pipelineState);
-			renderingContext.SetDescriptorHeap(*m_descriptorHeap);
-			// フルスクリーンポリゴンの頂点セット
-			renderingContext.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
-			renderingContext.DrawInstanced(4, 1, 0, 0);
-		}
-		m_renderTarget->EndRendering(renderingContext);
+
+//#ifdef _DEBUG
+//		m_renderTarget->BeginRendering(renderingContext, m_viewport, m_scissorRect);
+//		{
+//			renderingContext.SetGraphicsRootSignature(*m_rootSignature);
+//			renderingContext.SetPipelineState(*m_pipelineState);
+//			renderingContext.SetDescriptorHeap(*m_descriptorHeap);
+//			// フルスクリーンポリゴンの頂点セット
+//			renderingContext.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+//			renderingContext.DrawInstanced(4, 1, 0, 0);
+//		}
+//		m_renderTarget->EndRendering(renderingContext);
+//
+//		Dx12GraphicsEngine::SetFrameRenderTarget(m_viewport, m_scissorRect);
+//#else
+//		Dx12GraphicsEngine::SetFrameRenderTarget(m_viewport, m_scissorRect);
+//		{
+//			renderingContext.SetGraphicsRootSignature(*m_rootSignature);
+//			renderingContext.SetPipelineState(*m_pipelineState);
+//			renderingContext.SetDescriptorHeap(*m_descriptorHeap);
+//			// フルスクリーンポリゴンの頂点セット
+//			renderingContext.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+//			renderingContext.DrawInstanced(4, 1, 0, 0);
+//		}
+//#endif
 
 		Dx12GraphicsEngine::SetFrameRenderTarget(m_viewport, m_scissorRect);
-#else
-		Dx12GraphicsEngine::SetFrameRenderTarget(m_viewport, m_scissorRect);
 		{
 			renderingContext.SetGraphicsRootSignature(*m_rootSignature);
 			renderingContext.SetPipelineState(*m_pipelineState);
@@ -75,7 +87,6 @@ namespace FlappyBird
 			renderingContext.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 			renderingContext.DrawInstanced(4, 1, 0, 0);
 		}
-#endif
 	}
 	void RenderScreenPass::SetRenderTexture(ShaderResourceViewDesc& desc, Texture& texture)
 	{

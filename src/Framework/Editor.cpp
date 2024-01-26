@@ -73,11 +73,13 @@ namespace Framework
 	}
 	void Editor::Draw()
 	{
+		ImGui::DockSpaceOverViewport(ImGui::GetWindowViewport(), ImGuiDockNodeFlags_PassthruCentralNode);
+
 		// 
 		DrawDebugLog();
 
 		// ゲームウィンドウの描画
-		DrawGameWindow();
+		//DrawGameWindow();
 
 		// シーンヒエラルキーの描画
 		DrawSceneHierarchy();
