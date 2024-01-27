@@ -8,6 +8,18 @@ using namespace Utility;
 
 namespace DX12Wrapper
 {
+	Texture::Texture(const Texture& inst)
+	{
+		// テクスチャバッファーと結びつける
+		this->m_textureBuffer = inst.m_textureBuffer.Get();
+
+		// シェーダーリソースとして登録する際に必要な情報をセット
+		DirectX::Image* img = new DirectX::Image();
+		img->format = inst.m_image->format;
+		this->m_image = img;
+
+		this->m_metaData.mipLevels = 1;
+	}
 	Texture& Texture::operator=(const Texture& inst)
 	{
 		// テクスチャバッファーと結びつける

@@ -10,27 +10,31 @@
 #include "Framework/Text.h"
 #include "Framework/Transform2D.h"
 
+#include "DX12Wrapper/Dx12GraphicsEngine.h"
+
 #include "PleaseClickText.h"
 #include "TitleSceneUI.h"
 
 using namespace Framework;
+using namespace DX12Wrapper;
 
 namespace FlappyBird
 {
 	void TitleScene::Init()
 	{
-		auto size = Window::GetWindowSize();
+		auto viewportSize = Dx12GraphicsEngine::GetViewport();
 
 		// ”wŒi
 		GameObject* background = GameObjectManager::CreateObject();
+		background->SetName("Background");
 		Sprite* backgroundSprite = new Sprite(L"res/texture/sky.png");
 		SpriteRenderer* backgroundRenderer = background->AddComponent<SpriteRenderer>(background);
 		backgroundRenderer->SetSprite(backgroundSprite);
 		backgroundRenderer->SetDrawMode(SPRITE_DRAW_MODE::GUI);
 		backgroundRenderer->SetLayer(static_cast<UINT>(TITLE_SCENE_LAYER::BACKGROUND));
 		Transform2D* backgroundTransform = background->GetComponent<Transform2D>();
-		backgroundTransform->position = { size.cx / 2.f, size.cy / 2.f };
-		backgroundTransform->scale = { size.cx * 1.f, size.cy * 1.f };
+		backgroundTransform->position = { viewportSize.Width / 2.f, viewportSize.Height / 2.f };
+		backgroundTransform->scale = { viewportSize.Width * 1.f, viewportSize.Height * 1.f };
 
 		// BGM
 		GameObject* bgm = GameObjectManager::CreateObject();
@@ -40,6 +44,7 @@ namespace FlappyBird
 
 		// UI
 		UIObject* titleSceneUI = UIObjectManager::CreateObject();
+		titleSceneUI->SetName("TitleSceneUI");
 		titleSceneUI->AddComponent<TitleSceneUI>(titleSceneUI);
 
 #ifdef _DEBUG

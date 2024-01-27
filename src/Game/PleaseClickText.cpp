@@ -1,7 +1,10 @@
 #include "pch.h"
 #include "PleaseClickText.h"
+#include "DX12Wrapper/Dx12GraphicsEngine.h"
+
 
 using namespace Framework;
+using namespace DX12Wrapper;
 
 namespace FlappyBird
 {
@@ -13,7 +16,8 @@ namespace FlappyBird
 		m_colors[0] = DirectX::Colors::Black;
 		m_colors[1] = DirectX::Colors::Transparent;
 
-		auto windowSize = Window::GetWindowSize();
+		auto viewport = Dx12GraphicsEngine::GetViewport();
+		SIZE windowSize = { viewport.Width, viewport.Height };
 
 		// テキスト追加
 		Text* text = m_owner->AddComponent<Text>(m_owner);

@@ -34,7 +34,10 @@ namespace DX12Wrapper
 		/// <param name="windowHeight">ウィンドウ高</param>
 		/// <param name="dxgiFactory">ファクトリー</param>
 		/// <returns>Utility::RESULT::SUCCESS: 成功 Utility::RESULT::FAILED: 失敗</returns>
-		static Utility::RESULT Init(const HWND& hwnd, const UINT& windowWidth, const UINT& windowHeight);
+		static Utility::RESULT Init(const HWND& hwnd,
+			const UINT& windowWidth, const UINT& windowHeight,
+			const UINT& viewportWidth, const UINT& viewportHeight,
+			const UINT& scissorRectWidth, const UINT& scissorRectHeight);
 
 		/// <summary>
 		/// デバイス取得
@@ -83,7 +86,9 @@ namespace DX12Wrapper
 
 		static DX12Wrapper::DescriptorHeapRTV& GetFrameBufferDescriptorHeap();
 
+		static const SIZE GetFrameRenderTargetSize();
 		static const CD3DX12_VIEWPORT& GetViewport();
+		static const CD3DX12_RECT& GetScissorRect();
 
 	private:
 		Dx12GraphicsEngine() = default;

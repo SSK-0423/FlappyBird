@@ -24,10 +24,19 @@ namespace FlappyBird
 		{
 			return RESULT::FAILED;
 		}
+
 		// ビューポートとシザー矩形の設定
-		auto windowSize = Window::GetWindowSize();
-		m_viewport = CD3DX12_VIEWPORT(0.0f, 0.0f, windowSize.cx, windowSize.cy);
-		m_scissorRect = CD3DX12_RECT(0, 0, windowSize.cx, windowSize.cy);
+#ifdef _DEBUG
+		//m_viewport = CD3DX12_VIEWPORT(
+		//	0.f, 0.f, static_cast<float>(1024), static_cast<float>(768));
+		//m_scissorRect = CD3DX12_RECT(0, 0, 1024, 768);
+		m_viewport = CD3DX12_VIEWPORT(
+			0.f, 0.f, static_cast<float>(1920), static_cast<float>(1080));
+		m_scissorRect = CD3DX12_RECT(0, 0, 1920, 1080);
+#else
+		m_viewport = Dx12GraphicsEngine::GetViewport();
+		m_scissorRect = Dx12GraphicsEngine::GetScissorRect();
+#endif // _DEBUG
 
 		return RESULT::SUCCESS;
 	}
@@ -53,19 +62,20 @@ namespace FlappyBird
 	{
 		m_renderTarget = std::make_unique<RenderTarget>();
 
-		auto windowSize = Window::GetWindowSize();
+		auto renderTargetSize = Dx12GraphicsEngine::GetFrameRenderTargetSize();
+		Editor::DebugLog("renderTargetSize %d %d", renderTargetSize.cx, renderTargetSize.cy);
 
 		RenderTargetData data;
-		data.depthStencilBufferData.width = windowSize.cx;
-		data.depthStencilBufferData.height = windowSize.cy;
+		data.depthStencilBufferData.width = renderTargetSize.cx;
+		data.depthStencilBufferData.height = renderTargetSize.cy;
 
 		data.renderTargetBufferData.clearColor[0] = 0.f;
 		data.renderTargetBufferData.clearColor[1] = 0.f;
 		data.renderTargetBufferData.clearColor[2] = 0.f;
 		data.renderTargetBufferData.clearColor[3] = 1.f;
 		data.renderTargetBufferData.colorFormat = DXGI_FORMAT_R8G8B8A8_UNORM;
-		data.renderTargetBufferData.width = windowSize.cx;
-		data.renderTargetBufferData.height = windowSize.cy;
+		data.renderTargetBufferData.width = renderTargetSize.cx;
+		data.renderTargetBufferData.height = renderTargetSize.cy;
 		data.useDepth = true;	// 深度は一つでよいのでカラー出力のレンダーターゲットのみで使用する
 
 		return m_renderTarget->Create(Dx12GraphicsEngine::Device(), data);

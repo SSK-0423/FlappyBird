@@ -1,17 +1,21 @@
 #include "Editor.h"
 #include "pch.h"
-#include "Editor.h"
 
 #include "imgui.h"
 #include "imgui_impl_dx12.h"
 #include "imgui_impl_win32.h"
 
 #include "Window.h"
+#include "Game.h"
 #include "DX12Wrapper/Dx12GraphicsEngine.h"
 
 #include "GameObjectManager.h"
 #include "UIObjectManager.h"
 #include "SceneManager.h"
+
+#include "Transform2D.h"
+
+static const LONG DELTA = 40;
 
 using namespace DX12Wrapper;
 using namespace Utility;
@@ -84,13 +88,13 @@ namespace Framework
 		DrawDebugLog();
 
 		// ゲームウィンドウの描画
-		//DrawGameWindow();
+		DrawGameWindow();
 
 		// シーンヒエラルキーの描画
 		DrawSceneHierarchy();
 
 		// 再生・停止機能
-		DrawPlayStopButton();
+		//DrawPlayStopButton();
 
 		// シーン切り替えボタン
 		DrawSceneButton();
@@ -119,12 +123,16 @@ namespace Framework
 	void Editor::DrawGameWindow()
 	{
 		ImGui::Begin("GameWindow");
+		auto viewport = Dx12GraphicsEngine::GetViewport();
+		SIZE size = { viewport.Width, viewport.Height };
 		ImGui::Image(
 			(ImTextureID)m_imguiHeap.GetSRVHandle(0).ptr,
-			ImVec2(1024, 768),
+			ImVec2(size.cx, size.cy),
 			ImVec2(0, 0),
 			ImVec2(1, 1));
+		ImGui::SetWindowSize("GameWindow", ImVec2(size.cx + DELTA / 4, size.cy + DELTA));
 		ImGui::End();
+
 	}
 	void Editor::DrawDebugLog()
 	{
@@ -137,16 +145,18 @@ namespace Framework
 	}
 	void Editor::DrawPlayStopButton()
 	{
-		ImGui::Begin("PlayStopButton");
-		if (ImGui::Button("Play"))
-		{
-			// ゲーム開始
-		}
-		if (ImGui::Button("Stop"))
-		{
-			// ゲーム終了
-		}
-		ImGui::End();
+		//ImGui::Begin("PlayStopButton");
+		//if (ImGui::ArrowButton("Play", ImGuiDir_Right))
+		//{
+		//	// ゲーム開始
+		//}
+		//ImGui::SameLine();
+		//// 停止ボタン
+		//if (ImGui::InvisibleButton("Stop", ImVec2(10, 10), ImGuiButtonFlags_None))
+		//{
+		//	// ゲーム停止
+		//}
+		//ImGui::End();
 	}
 	void Editor::DrawInspector()
 	{
@@ -164,6 +174,12 @@ namespace Framework
 			DrawChildObject(*gameObject);
 		}
 
+		// 全UIオブジェクトを表示
+		for (auto uiObject : UIObjectManager::GetAllObject())
+		{
+			DrawChildObject(*uiObject);
+		}
+
 		ImGui::End();
 	}
 	void Editor::DrawChildObject(Object& object)
@@ -175,7 +191,7 @@ namespace Framework
 		{
 			flags |= ImGuiTreeNodeFlags_Selected;
 		}
-		
+
 		// 子オブジェクトがある場合はツリーを開閉できるようにする
 		if (object.GetChildren().size() > 0)
 		{
@@ -209,6 +225,23 @@ namespace Framework
 			ImGui::Begin("Inspector");
 			ImGui::Text(object.GetName().c_str());
 			ImGui::Text(object.GetUUID().c_str());
+
+			Transform2D* transform = object.GetComponent<Transform2D>();
+			DirectX::XMFLOAT2 position = transform->position;
+			DirectX::XMFLOAT2 scale = transform->scale;
+			float rotation = transform->angle;
+
+			// Transform2Dの値を表示
+			ImGui::PushItemWidth(200);
+			ImGui::InputFloat2("Position", &position.x);
+			ImGui::InputFloat("Rotation", &rotation);
+			ImGui::InputFloat2("Scale   ", &scale.x);
+
+			// 変更した値を反映
+			transform->position = position;
+			transform->scale = scale;
+			transform->angle = rotation;
+
 			ImGui::End();
 		}
 	}

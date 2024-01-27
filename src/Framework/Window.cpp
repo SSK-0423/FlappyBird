@@ -10,6 +10,7 @@ namespace Framework
 	// 静的メンバ変数の実体化
 	HWND Window::m_hwnd;
 	WNDCLASSEX Window::m_wndClassEx;
+	SIZE Window::m_gameWindowSize;
 
 
 	LRESULT WindowProcedure(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
@@ -28,7 +29,7 @@ namespace Framework
 		return DefWindowProc(hwnd, msg, wparam, lparam);
 	}
 
-	void Window::Create(const TCHAR* name, LONG width, LONG height)
+	void Window::Create(const TCHAR* name, LONG width, LONG height, LONG gameWidth, LONG gameHeight)
 	{
 		m_wndClassEx.cbSize = sizeof(WNDCLASSEX);
 		m_wndClassEx.lpfnWndProc = (WNDPROC)WindowProcedure;		// コールバック関数指定
@@ -56,7 +57,8 @@ namespace Framework
 			m_wndClassEx.hInstance,	// 呼び出しアプリケーションハンドル
 			nullptr);	            // 追加パラメータ
 
-#ifdef _NODEBUG
+#ifdef _DEBUG
+#else
 		// 最大化ボタンを消す
 		LONG style = GetWindowLong(m_hwnd, GWL_STYLE);
 		style &= ~WS_MAXIMIZEBOX;
@@ -64,6 +66,9 @@ namespace Framework
 #endif // _NODEBUG
 
 		ShowWindow(m_hwnd, SW_SHOWNORMAL);
+
+		m_gameWindowSize.cx = gameWidth;
+		m_gameWindowSize.cy = gameHeight;
 	}
 	bool Window::DispatchWindowMessage()
 	{
@@ -89,5 +94,9 @@ namespace Framework
 		size.cy = rect.bottom - rect.top;
 
 		return size;
+	}
+	SIZE Window::GetGameWindowSize()
+	{
+		return m_gameWindowSize;
 	}
 }

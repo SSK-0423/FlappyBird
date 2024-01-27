@@ -3,6 +3,7 @@
 #include "TitleScene.h"
 
 #include "PleaseClickText.h"
+#include "DX12Wrapper/Dx12GraphicsEngine.h"
 
 using namespace Framework;
 
@@ -12,7 +13,13 @@ namespace FlappyBird
 	{
 		m_owner->SetName("TitleSceneUI");
 
-		auto windowSize = Window::GetWindowSize();
+		auto viewport = DX12Wrapper::Dx12GraphicsEngine::GetViewport();
+		auto scissorRect = DX12Wrapper::Dx12GraphicsEngine::GetScissorRect();
+		SIZE windowSize;
+		windowSize.cx = static_cast<LONG>(viewport.Width);
+		windowSize.cy = static_cast<LONG>(viewport.Height);
+
+		Editor::DebugLog("Window Size: %d, %d", windowSize.cx, windowSize.cy);
 
 		// タイトルテキストの輪郭線
 		UIObject* outline = UIObjectManager::CreateObject();
@@ -68,14 +75,10 @@ namespace FlappyBird
 
 	void TitleSceneUI::Update(float deltaTime)
 	{
-		//Editor::DebugLog("TitleSceneUI::Update");
-		//// FPS
-		//Editor::DebugLog("FPS: %f", 1.f / deltaTime);
 	}
 
 	void TitleSceneUI::Draw()
 	{
-		//Editor::DebugLog("TitleSceneUI::Draw");
 	}
 
 	void TitleSceneUI::ShowGameModeButtons(NotificationEvent e)

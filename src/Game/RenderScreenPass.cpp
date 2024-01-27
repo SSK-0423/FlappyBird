@@ -6,6 +6,7 @@
 #include "DX12Wrapper/RootSignature.h"
 #include "DX12Wrapper/GraphicsPipelineState.h"
 #include "DX12Wrapper/RenderTarget.h"
+#include "DX12Wrapper/ShaderResourceViewDesc.h"
 
 using namespace DX12Wrapper;
 using namespace Framework;
@@ -43,9 +44,8 @@ namespace FlappyBird
 		}
 
 		// ビューポートとシザー矩形の設定
-		auto windowSize = Window::GetWindowSize();
-		m_viewport = CD3DX12_VIEWPORT(0.0f, 0.0f, windowSize.cx, windowSize.cy);
-		m_scissorRect = CD3DX12_RECT(0, 0, windowSize.cx, windowSize.cy);
+		m_viewport = Dx12GraphicsEngine::GetViewport();
+		m_scissorRect = Dx12GraphicsEngine::GetScissorRect();
 
 		return RESULT::SUCCESS;
 	}
@@ -53,30 +53,30 @@ namespace FlappyBird
 	{
 		RenderingContext renderingContext = Dx12GraphicsEngine::GetRenderingContext();
 
-//#ifdef _DEBUG
-//		m_renderTarget->BeginRendering(renderingContext, m_viewport, m_scissorRect);
-//		{
-//			renderingContext.SetGraphicsRootSignature(*m_rootSignature);
-//			renderingContext.SetPipelineState(*m_pipelineState);
-//			renderingContext.SetDescriptorHeap(*m_descriptorHeap);
-//			// フルスクリーンポリゴンの頂点セット
-//			renderingContext.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
-//			renderingContext.DrawInstanced(4, 1, 0, 0);
-//		}
-//		m_renderTarget->EndRendering(renderingContext);
-//
-//		Dx12GraphicsEngine::SetFrameRenderTarget(m_viewport, m_scissorRect);
-//#else
-//		Dx12GraphicsEngine::SetFrameRenderTarget(m_viewport, m_scissorRect);
-//		{
-//			renderingContext.SetGraphicsRootSignature(*m_rootSignature);
-//			renderingContext.SetPipelineState(*m_pipelineState);
-//			renderingContext.SetDescriptorHeap(*m_descriptorHeap);
-//			// フルスクリーンポリゴンの頂点セット
-//			renderingContext.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
-//			renderingContext.DrawInstanced(4, 1, 0, 0);
-//		}
-//#endif
+		//#ifdef _DEBUG
+		//		m_renderTarget->BeginRendering(renderingContext, m_viewport, m_scissorRect);
+		//		{
+		//			renderingContext.SetGraphicsRootSignature(*m_rootSignature);
+		//			renderingContext.SetPipelineState(*m_pipelineState);
+		//			renderingContext.SetDescriptorHeap(*m_descriptorHeap);
+		//			// フルスクリーンポリゴンの頂点セット
+		//			renderingContext.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+		//			renderingContext.DrawInstanced(4, 1, 0, 0);
+		//		}
+		//		m_renderTarget->EndRendering(renderingContext);
+		//
+		//		Dx12GraphicsEngine::SetFrameRenderTarget(m_viewport, m_scissorRect);
+		//#else
+		//		Dx12GraphicsEngine::SetFrameRenderTarget(m_viewport, m_scissorRect);
+		//		{
+		//			renderingContext.SetGraphicsRootSignature(*m_rootSignature);
+		//			renderingContext.SetPipelineState(*m_pipelineState);
+		//			renderingContext.SetDescriptorHeap(*m_descriptorHeap);
+		//			// フルスクリーンポリゴンの頂点セット
+		//			renderingContext.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+		//			renderingContext.DrawInstanced(4, 1, 0, 0);
+		//		}
+		//#endif
 
 		Dx12GraphicsEngine::SetFrameRenderTarget(m_viewport, m_scissorRect);
 		{
@@ -88,8 +88,9 @@ namespace FlappyBird
 			renderingContext.DrawInstanced(4, 1, 0, 0);
 		}
 	}
-	void RenderScreenPass::SetRenderTexture(ShaderResourceViewDesc& desc, Texture& texture)
+	void RenderScreenPass::SetRenderTexture(Texture& texture)
 	{
+		ShaderResourceViewDesc desc(texture);
 		m_descriptorHeap->RegistShaderResource(Dx12GraphicsEngine::Device(), texture, desc, 0);
 #ifdef _DEBUG
 		// デバッグモード時はImGuiのディスクリプタヒープにも登録
@@ -158,14 +159,14 @@ namespace FlappyBird
 	{
 		m_renderTarget = std::make_unique<RenderTarget>();
 
-		auto windowSize = Window::GetWindowSize();
+		auto renderTargetSize = Dx12GraphicsEngine::GetFrameRenderTargetSize();
 
 		RenderTargetData data;
-		data.renderTargetBufferData.width = windowSize.cx;
-		data.renderTargetBufferData.height = windowSize.cy;
+		data.renderTargetBufferData.width = renderTargetSize.cx;
+		data.renderTargetBufferData.height = renderTargetSize.cy;
 		data.renderTargetBufferData.colorFormat = DXGI_FORMAT_R8G8B8A8_UNORM;
-		data.depthStencilBufferData.width = windowSize.cx;
-		data.depthStencilBufferData.height = windowSize.cy;
+		data.depthStencilBufferData.width = renderTargetSize.cx;
+		data.depthStencilBufferData.height = renderTargetSize.cy;
 		data.useDepth = false;
 
 		return m_renderTarget->Create(Dx12GraphicsEngine::Device(), data);

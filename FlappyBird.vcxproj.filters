@@ -560,7 +560,11 @@
     <FxCompile Include="shaders\FullScreen.hlsl">
       <Filter>ソース ファイル\Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="shaders\Button.hlsl" />
-    <FxCompile Include="shaders\Sprite.hlsl" />
+    <FxCompile Include="shaders\Button.hlsl">
+      <Filter>ソース ファイル\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\Sprite.hlsl">
+      <Filter>ソース ファイル\Shaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

@@ -39,9 +39,9 @@ namespace Framework
 
 		// ピクセル単位の座標系から正規化デバイス座標系に変更する行列
 		XMMATRIX convertToDeviceCoord = XMMatrixIdentity();
-		auto windowSize = Window::GetWindowSize();
-		convertToDeviceCoord.r[0].m128_f32[0] = 2.f / windowSize.cx;	// (0～1)に正規化
-		convertToDeviceCoord.r[1].m128_f32[1] = 2.f / windowSize.cy;	// (0～1)に正規化
+		auto viewportSize = Dx12GraphicsEngine::GetViewport();
+		convertToDeviceCoord.r[0].m128_f32[0] = 2.f / viewportSize.Width;	// (0～1)に正規化
+		convertToDeviceCoord.r[1].m128_f32[1] = 2.f / viewportSize.Height;	// (0～1)に正規化
 		convertToDeviceCoord.r[3].m128_f32[0] = -1.f;	//デバイス座標系(-1～1)に合わせる
 		convertToDeviceCoord.r[3].m128_f32[1] = 1.f;	//デバイス座標系(-1～1)に合わせる
 

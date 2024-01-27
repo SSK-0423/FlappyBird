@@ -12,16 +12,16 @@
 
 static const TCHAR* NAME = L"FlappyBird";
 
-#ifdef _DEBUG
-static const LONG WIDTH = 1024;
-static const LONG HEIGHT = 768;
-
-static const LONG GAME_WIDTH = 1024;
-static const LONG GAME_HEIGHT = 768;
-#else
-static const LONG WIDTH = 1024;
-static const LONG HEIGHT = 768;
-#endif // _DEBUG
+//#ifdef _DEBUG
+//static const LONG WINDOW_WIDTH = 1920;
+//static const LONG WINDOW_HEIGHT = 1080;
+//
+//static const LONG GAME_WIDTH = 1024;
+//static const LONG GAME_HEIGHT = 768;
+//#else
+//static const LONG WINDOW_WIDTH = 1024;
+//static const LONG WINDOW_HEIGHT = 768;
+//#endif // _DEBUG
 
 static const TCHAR* FONT_PATH = L"res/font/x12y16pxSolidLinker64.spritefont";
 
@@ -31,7 +31,9 @@ namespace Framework
 {
 	void Game::Init()
 	{
-		Window::Create(NAME, WIDTH, HEIGHT);
+
+		Window::Create(NAME, WINDOW_WIDTH, WINDOW_HEIGHT);
+
 		auto& hwnd = Window::GetHwnd();
 
 		RESULT result = InputSystem::Init(hwnd);
@@ -39,7 +41,16 @@ namespace Framework
 		{
 			MessageBoxA(hwnd, "InputSystemの初期化に失敗", "エラー", MB_OK);
 		}
-		result = DX12Wrapper::Dx12GraphicsEngine::Init(hwnd, WIDTH, HEIGHT);
+#ifdef _DEBUG
+		result = DX12Wrapper::Dx12GraphicsEngine::Init(hwnd,
+			WINDOW_WIDTH, WINDOW_HEIGHT,
+			GAME_WIDTH, GAME_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT);
+#else
+		result = DX12Wrapper::Dx12GraphicsEngine::Init(hwnd,
+			WINDOW_WIDTH, WINDOW_HEIGHT,
+			WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT);
+#endif // _DEBUG
+
 		if (result == RESULT::FAILED)
 		{
 			MessageBoxA(hwnd, "Dx12GraphicsEngineの初期化に失敗", "エラー", MB_OK);

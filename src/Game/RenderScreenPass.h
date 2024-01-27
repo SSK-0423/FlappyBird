@@ -7,7 +7,6 @@ namespace DX12Wrapper
 	class RootSignature;
 	class GraphicsPipelineState;
 	class DescriptorHeapCBV_SRV_UAV;
-	class ShaderResourceViewDesc;
 	class Texture;
 	class RenderTarget;
 }
@@ -24,7 +23,7 @@ namespace FlappyBird
 
 		void Render();
 
-		void SetRenderTexture(DX12Wrapper::ShaderResourceViewDesc& desc, DX12Wrapper::Texture& texture);
+		void SetRenderTexture(DX12Wrapper::Texture& texture);
 
 	private:
 		CD3DX12_VIEWPORT m_viewport;

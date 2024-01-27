@@ -22,6 +22,7 @@ namespace DX12Wrapper
 		Texture() = default;
 		~Texture() = default;
 
+		Texture(const Texture& inst);
 		Texture& operator=(const Texture& inst);
 	private:
 		Microsoft::WRL::ComPtr<ID3D12Resource> m_uploadBuffer = nullptr;		// 中間バッファー(アップロード元)

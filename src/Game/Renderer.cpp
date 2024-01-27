@@ -49,8 +49,9 @@ namespace FlappyBird
 		}
 
 		// オブジェクトの描画結果を渡す
-		ShaderResourceViewDesc desc(m_renderObjectPass->GetRenderTexture());
-		m_renderScreenPass->SetRenderTexture(desc, m_renderObjectPass->GetRenderTexture());
+		m_renderUIPass->SetRenderTexture(m_renderObjectPass->GetRenderTexture());
+		//m_renderScreenPass->SetRenderTexture(m_renderUIPass->GetRenderTexture());
+		m_renderScreenPass->SetRenderTexture(m_renderObjectPass->GetRenderTexture());
 
 		return RESULT::SUCCESS;
 	}
