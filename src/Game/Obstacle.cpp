@@ -2,8 +2,10 @@
 #include "Obstacle.h"
 
 #include "GameScene.h"
+#include "DX12Wrapper/Dx12GraphicsEngine.h"
 
 using namespace Framework;
+using namespace DX12Wrapper;
 
 namespace FlappyBird
 {
@@ -13,11 +15,11 @@ namespace FlappyBird
 		m_owner->SetName("Obstacle");
 		m_owner->SetTag("Obstacle");
 
-		auto windowSize = Window::GetWindowSize();
+		auto viewportSize = Dx12GraphicsEngine::GetViewport();
 
 		Transform2D* transform = m_owner->GetComponent<Transform2D>();
 		transform->position = { 500.f, 300.f };
-		transform->scale = { 100.f, windowSize.cy / 1.f };
+		transform->scale = { 100.f, viewportSize.Height / 1.f };
 
 		RectCollider* collider = m_owner->AddComponent<RectCollider>(m_owner);
 		collider->SetRectSize(transform->scale.x, transform->scale.y);

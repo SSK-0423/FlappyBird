@@ -72,9 +72,6 @@ namespace FlappyBird
 			// コールバックを呼ぶために直接代入ではなく関数を呼ぶ
 			ChangeState(GAME_STATE::PLAYING);
 		}
-
-		//Utility::DebugLog("%f\n", deltaTime);
-		//Utility::DebugLog("Game Ready\n");
 	}
 	void GameMaster::GameOver(float deltaTime)
 	{

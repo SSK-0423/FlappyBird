@@ -2,6 +2,8 @@
 #include "../resource.h"
 #include "imgui_impl_win32.h"
 
+#include "Editor.h"
+
 // ImGuiのウィンドウプロシージャ
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND, UINT, WPARAM, LPARAM);
 
@@ -20,6 +22,11 @@ namespace Framework
 			// ウィンドウが破棄されたら呼ばれる
 		case WM_DESTROY:
 			PostQuitMessage(0);	// OSにアプリの終了を通知
+			return 0;
+			// ウィンドウサイズが変更されたら呼ばれる
+		case WM_SIZE:
+			Editor::DebugLog("WM_SIZE");
+			Editor::DebugLog("%d %d", LOWORD(lparam), HIWORD(lparam));
 			return 0;
 		default:
 			break;
@@ -65,7 +72,7 @@ namespace Framework
 		SetWindowLong(m_hwnd, GWL_STYLE, style);
 #endif // _NODEBUG
 
-		ShowWindow(m_hwnd, SW_SHOWNORMAL);
+		ShowWindow(m_hwnd, SW_SHOW);
 
 		m_gameWindowSize.cx = gameWidth;
 		m_gameWindowSize.cy = gameHeight;

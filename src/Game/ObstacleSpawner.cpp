@@ -3,8 +3,10 @@
 #include "ObstaclePool.h"
 #include "Obstacle.h"
 #include "GameMaster.h"
+#include "DX12Wrapper/Dx12GraphicsEngine.h"
 
 using namespace Framework;
+using namespace DX12Wrapper;
 
 namespace FlappyBird
 {
@@ -19,7 +21,7 @@ namespace FlappyBird
 		auto now = std::chrono::system_clock::now();
 		auto nowMs = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()).count();
 		m_randomEngine = std::mt19937_64(nowMs);
-		m_randomGenerator = std::uniform_int_distribution<int>(SPACE, static_cast<int>(Window::GetWindowSize().cy - SPACE));
+		m_randomGenerator = std::uniform_int_distribution<int>(SPACE, static_cast<int>(Dx12GraphicsEngine::GetViewport().Height - SPACE));
 
 		// 土管の初期位置を設定
 		m_lastSpawnY = m_randomGenerator(m_randomEngine);
@@ -64,14 +66,14 @@ namespace FlappyBird
 		// スポーンタイマーをリセット
 		m_spawnTimer = 0.0f;
 
-		auto windowSize = Window::GetWindowSize();
+		auto viewportSize = Dx12GraphicsEngine::GetViewport();
 
 		// 絶対に避けられない配置にならないようにする
 		// 土管の生成間隔が最小生成間隔に近いほど、土管生成時の乱数幅を狭める
 		// 最小生成間隔の時に同じ高さに生成し続けるのを防ぐために、最後に小さい値を足す
 		int diff = SPACE * std::abs(m_spawnInverval - m_minSpawnInterval) + SPACE / 5.f;
 		int minY = std::max(SPACE, m_lastSpawnY - diff);
-		int maxY = std::min(m_lastSpawnY + diff, static_cast<int>(Window::GetWindowSize().cy - SPACE));
+		int maxY = std::min(m_lastSpawnY + diff, static_cast<int>(viewportSize.Height - SPACE));
 
 		m_randomGenerator.param(std::uniform_int_distribution<int>::param_type(minY, maxY));
 		// 土管の隙間のY座標をランダムに決める
@@ -81,14 +83,14 @@ namespace FlappyBird
 		auto& overObstacle = m_obstaclePool->GetObstacle();
 		Transform2D* overObstacleTransform = overObstacle.GetComponent<Transform2D>();
 		overObstacleTransform->position = {
-			static_cast<float>(windowSize.cx) + overObstacleTransform->scale.x / 2.f,
+			static_cast<float>(viewportSize.Width) + overObstacleTransform->scale.x / 2.f,
 			randomY - overObstacleTransform->scale.y / 2.f - SPACE / 2.f };
 		overObstacleTransform->angle = 180.f;
 
 		auto& underObstacle = m_obstaclePool->GetObstacle();
 		Transform2D* underObstacleTransform = underObstacle.GetComponent<Transform2D>();
 		underObstacleTransform->position = {
-			static_cast<float>(windowSize.cx) + underObstacleTransform->scale.x / 2.f,
+			static_cast<float>(viewportSize.Width) + underObstacleTransform->scale.x / 2.f,
 			randomY + overObstacleTransform->scale.y / 2.f + SPACE / 2.f };
 
 		// 土管の移動速度を設定

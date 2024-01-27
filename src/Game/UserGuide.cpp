@@ -1,8 +1,10 @@
 #include "pch.h"
 #include "UserGuide.h"
 #include "GameScene.h"
+#include "DX12Wrapper/Dx12GraphicsEngine.h"
 
 using namespace Framework;
+using namespace DX12Wrapper;
 
 namespace FlappyBird
 {
@@ -13,7 +15,7 @@ namespace FlappyBird
 		m_mouseSprites[0] = std::make_shared<Sprite>(L"res/texture/mouse.png");
 		m_mouseSprites[1] = std::make_shared<Sprite>(L"res/texture/mouse_leftclick.png");
 
-		auto windowSize = Window::GetWindowSize();
+		auto viewportSize = Dx12GraphicsEngine::GetViewport();
 
 		SpriteRenderer* spriteRenderer = m_owner->AddComponent<SpriteRenderer>(m_owner);
 		spriteRenderer->SetSprite(m_mouseSprites[m_currentSpriteIndex]);
@@ -21,7 +23,7 @@ namespace FlappyBird
 		spriteRenderer->SetLayer(static_cast<UINT>(GAME_SCENE_LAYER::UI));
 
 		Transform2D* transform = m_owner->GetComponent<Transform2D>();
-		transform->position = { windowSize.cx / 2.f + 100.f, windowSize.cy / 2.f };
+		transform->position = { viewportSize.Width / 2.f + 100.f, viewportSize.Height / 2.f };
 		transform->scale = { 100.f, 100.f };
 	}
 

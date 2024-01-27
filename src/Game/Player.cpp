@@ -6,7 +6,10 @@
 #include "GameScene.h"
 #include "GameMaster.h"
 
+#include "DX12Wrapper/Dx12GraphicsEngine.h"
+
 using namespace Framework;
+using namespace DX12Wrapper;
 
 namespace FlappyBird
 {
@@ -30,9 +33,9 @@ namespace FlappyBird
 		spriteRenderer->SetLayer(static_cast<UINT>(GAME_SCENE_LAYER::GAMEOBJECT));
 
 		// プレイヤーの位置を設定
-		auto windowSize = Window::GetWindowSize();
+		auto viewportSize = Dx12GraphicsEngine::GetViewport();
 		Transform2D* transform = m_owner->GetComponent<Transform2D>();
-		transform->position = { 200.f, windowSize.cy / 2.f };
+		transform->position = { 200.f, viewportSize.Height / 2.f };
 		transform->scale = { 75.f, 75.f };
 
 		// コライダー追加
