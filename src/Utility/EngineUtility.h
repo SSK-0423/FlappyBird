@@ -151,4 +151,6 @@ namespace Utility
 	}
 
 	std::string GenerateUUID();
+
+	std::vector<std::string> GetFilePathsInDirectoryWithExtension(const std::string& directoryPath, const std::string& extension);
 }

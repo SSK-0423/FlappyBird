@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Framework/GameFramework.h"
+#include "FumenData.h"
 
 namespace FlappyBird
 {
@@ -12,5 +13,10 @@ namespace FlappyBird
 
 		void Update(float deltaTime) override;
 		void Draw() override;
+	private:
+		FumenData m_fumenData;
+
+		void DrawFumenData();
+		void DrawSaveLoadButton();
 	};
 }

@@ -16,5 +16,6 @@
 #include <functional>
 #include <list>
 #include <stack>
+#include <filesystem>
 #include "Utility/EngineUtility.h"
 #include "Utility/ISingleton.h"

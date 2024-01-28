@@ -72,4 +72,16 @@ namespace Utility
 
 		return result;
 	}
+	std::vector<std::string> GetFilePathsInDirectoryWithExtension(const std::string& directoryPath, const std::string& extension)
+	{
+		std::vector<std::string> filePaths;
+
+		for (const auto& entry : std::filesystem::directory_iterator(directoryPath)) {
+			if (entry.path().extension() == extension) {
+				filePaths.push_back(entry.path().string());
+			}
+		}
+
+		return filePaths;
+	}
 }

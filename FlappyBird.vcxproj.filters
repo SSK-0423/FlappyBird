@@ -76,6 +76,12 @@
     <Filter Include="ソース ファイル\Shaders">
       <UniqueIdentifier>{e9b22ef7-1f80-4443-9cb2-64e1b0f8e963}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\NotesEditorScene\NotesEditor">
+      <UniqueIdentifier>{55714da1-bdff-40ff-9a2c-97118993972f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\NotesEditorScene\Fumen">
+      <UniqueIdentifier>{a8285cc8-89c3-41a6-86bd-9fcd68bcc3fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Game\main.cpp">
@@ -544,6 +550,9 @@
     </ClInclude>
     <ClInclude Include="src\Game\RenderUIPass.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\FumenData.h">
+      <Filter>ソース ファイル\Game\NotesEditorScene\Fumen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

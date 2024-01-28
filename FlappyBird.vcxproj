@@ -288,6 +288,7 @@
     <ClInclude Include="src\Framework\Window.h" />
     <ClInclude Include="src\Game\Background.h" />
     <ClInclude Include="src\Game\FlappyBird.h" />
+    <ClInclude Include="src\Game\FumenData.h" />
     <ClInclude Include="src\Game\GameMaster.h" />
     <ClInclude Include="src\Game\GameOverUI.h" />
     <ClInclude Include="src\Game\GameReadyUI.h" />
