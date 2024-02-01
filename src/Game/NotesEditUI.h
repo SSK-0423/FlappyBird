@@ -18,5 +18,7 @@ namespace FlappyBird
 
 		void DrawFumenData();
 		void DrawSaveLoadButton();
+
+		static std::string m_selectedMusicPath;
 	};
 }

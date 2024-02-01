@@ -17,5 +17,6 @@
 #include <list>
 #include <stack>
 #include <filesystem>
+#include <fstream>
 #include "Utility/EngineUtility.h"
 #include "Utility/ISingleton.h"

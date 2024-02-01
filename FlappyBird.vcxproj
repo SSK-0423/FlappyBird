@@ -153,6 +153,7 @@
     <ClCompile Include="imgui\imgui_draw.cpp" />
     <ClCompile Include="imgui\imgui_impl_dx12.cpp" />
     <ClCompile Include="imgui\imgui_impl_win32.cpp" />
+    <ClCompile Include="imgui\imgui_stdlib.cpp" />
     <ClCompile Include="imgui\imgui_tables.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\DX12Wrapper\ConstantBuffer.cpp" />
@@ -197,6 +198,7 @@
     <ClCompile Include="src\Framework\Window.cpp" />
     <ClCompile Include="src\Game\Background.cpp" />
     <ClCompile Include="src\Game\FlappyBird.cpp" />
+    <ClCompile Include="src\Game\FumenJsonReadWriter.cpp" />
     <ClCompile Include="src\Game\GameMaster.cpp" />
     <ClCompile Include="src\Game\GameOverUI.cpp" />
     <ClCompile Include="src\Game\GameReadyUI.cpp" />
@@ -233,6 +235,7 @@
     <ClInclude Include="imgui\imgui_impl_dx12.h" />
     <ClInclude Include="imgui\imgui_impl_win32.h" />
     <ClInclude Include="imgui\imgui_internal.h" />
+    <ClInclude Include="imgui\imgui_stdlib.h" />
     <ClInclude Include="imgui\imstb_rectpack.h" />
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
@@ -289,6 +292,7 @@
     <ClInclude Include="src\Game\Background.h" />
     <ClInclude Include="src\Game\FlappyBird.h" />
     <ClInclude Include="src\Game\FumenData.h" />
+    <ClInclude Include="src\Game\FumenJsonReadWriter.h" />
     <ClInclude Include="src\Game\GameMaster.h" />
     <ClInclude Include="src\Game\GameOverUI.h" />
     <ClInclude Include="src\Game\GameReadyUI.h" />
@@ -298,6 +302,7 @@
     <ClInclude Include="src\Game\Obstacle.h" />
     <ClInclude Include="src\Game\ObstaclePool.h" />
     <ClInclude Include="src\Game\ObstacleSpawner.h" />
+    <ClInclude Include="src\Game\picojson.h" />
     <ClInclude Include="src\Game\Player.h" />
     <ClInclude Include="src\Game\PleaseClickText.h" />
     <ClInclude Include="src\Game\Renderer.h" />

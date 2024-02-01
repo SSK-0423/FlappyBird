@@ -300,6 +300,12 @@
     <ClCompile Include="src\Game\RenderUIPass.cpp">
       <Filter>ソース ファイル\Game\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\FumenJsonReadWriter.cpp">
+      <Filter>ソース ファイル\Game\NotesEditorScene\Fumen</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_stdlib.cpp">
+      <Filter>ソース ファイル\imgui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\pch.h">
@@ -553,6 +559,15 @@
     </ClInclude>
     <ClInclude Include="src\Game\FumenData.h">
       <Filter>ソース ファイル\Game\NotesEditorScene\Fumen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\FumenJsonReadWriter.h">
+      <Filter>ソース ファイル\Game\NotesEditorScene\Fumen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\picojson.h">
+      <Filter>ソース ファイル\Game\NotesEditorScene\Fumen</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui_stdlib.h">
+      <Filter>ソース ファイル\imgui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

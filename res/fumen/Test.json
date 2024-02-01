@@ -1,0 +1,8 @@
+{
+  "MusicInfo": {
+    "beat": 4,
+    "bpm": 175,
+    "musicFilePath": "res\\sound\\damage.wav",
+    "musicName": "Test"
+  }
+}
