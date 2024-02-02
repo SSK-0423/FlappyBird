@@ -82,6 +82,12 @@
     <Filter Include="ソース ファイル\Game\NotesEditorScene\Fumen">
       <UniqueIdentifier>{a8285cc8-89c3-41a6-86bd-9fcd68bcc3fc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\NotesEditorScene\NotesEditor\Bar">
+      <UniqueIdentifier>{af944520-4fb8-41ec-8376-356edeeccffe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\NotesEditorScene\NotesEditor\Lane">
+      <UniqueIdentifier>{2388c0b8-3fb8-4122-b39e-e4df21fbb90b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Game\main.cpp">
@@ -305,6 +311,15 @@
     </ClCompile>
     <ClCompile Include="imgui\imgui_stdlib.cpp">
       <Filter>ソース ファイル\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\NotesManager.cpp">
+      <Filter>ソース ファイル\Game\NotesEditorScene\NotesEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\BarLine.cpp">
+      <Filter>ソース ファイル\Game\NotesEditorScene\NotesEditor\Bar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\BarManager.cpp">
+      <Filter>ソース ファイル\Game\NotesEditorScene\NotesEditor\Bar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -568,6 +583,15 @@
     </ClInclude>
     <ClInclude Include="imgui\imgui_stdlib.h">
       <Filter>ソース ファイル\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\NotesManager.h">
+      <Filter>ソース ファイル\Game\NotesEditorScene\NotesEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\BarLine.h">
+      <Filter>ソース ファイル\Game\NotesEditorScene\NotesEditor\Bar</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\BarManager.h">
+      <Filter>ソース ファイル\Game\NotesEditorScene\NotesEditor\Bar</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -126,7 +126,7 @@ namespace Framework
 		auto viewport = Dx12GraphicsEngine::GetViewport();
 		SIZE size = { viewport.Width, viewport.Height };
 		ImGui::Image(
-			(ImTextureID)m_imguiHeap.GetSRVHandle(0).ptr,
+			(ImTextureID)m_imguiHeap.GetSRVHandle(static_cast<int>(EDITOR_SRV_INDEX::GAME_WINDOW)).ptr,
 			ImVec2(size.cx, size.cy),
 			ImVec2(0, 0),
 			ImVec2(1, 1));

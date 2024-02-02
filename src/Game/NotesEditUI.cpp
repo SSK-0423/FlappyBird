@@ -25,6 +25,7 @@ namespace FlappyBird
 	{
 		DrawFumenData();
 		DrawSaveLoadButton();
+		DrawPlayStopButton();
 	}
 	void NotesEditUI::DrawFumenData()
 	{
@@ -34,8 +35,6 @@ namespace FlappyBird
 		std::filesystem::path soundPath = "res\\sound";
 		// "res/sound"以下の音楽ファイルパスの一覧を取得する
 		auto musicFilePaths = GetFilePathsInDirectoryWithExtension(soundPath.string(), ".wav");
-
-		//static std::string selectedJsonPath = "No Select";
 
 		// 音楽ファイルパスの一覧をドロップダウン形式で表示
 		if (ImGui::BeginCombo("Music File Path", m_selectedMusicPath.c_str()))
@@ -111,6 +110,22 @@ namespace FlappyBird
 		}
 
 		ImGui::Text(actionLog.c_str());
+
+		ImGui::End();
+	}
+	void NotesEditUI::DrawPlayStopButton()
+	{
+		ImGui::Begin("Play/Stop");
+
+		if (ImGui::Button("Play"))
+		{
+			// 曲を再生
+		}
+		ImGui::SameLine();
+		if (ImGui::Button("Stop"))
+		{
+			// 曲を停止
+		}
 
 		ImGui::End();
 	}

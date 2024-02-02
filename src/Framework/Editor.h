@@ -5,6 +5,11 @@ namespace Framework
 {
 	class Object;
 
+	enum class EDITOR_SRV_INDEX
+	{
+		GAME_WINDOW = 0,
+	};
+
 	class Editor
 	{
 	public:

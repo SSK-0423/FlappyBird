@@ -197,6 +197,8 @@
     <ClCompile Include="src\Framework\WAVFileReader.cpp" />
     <ClCompile Include="src\Framework\Window.cpp" />
     <ClCompile Include="src\Game\Background.cpp" />
+    <ClCompile Include="src\Game\BarLine.cpp" />
+    <ClCompile Include="src\Game\BarManager.cpp" />
     <ClCompile Include="src\Game\FlappyBird.cpp" />
     <ClCompile Include="src\Game\FumenJsonReadWriter.cpp" />
     <ClCompile Include="src\Game\GameMaster.cpp" />
@@ -206,6 +208,7 @@
     <ClCompile Include="src\Game\main.cpp" />
     <ClCompile Include="src\Game\NotesEditScene.cpp" />
     <ClCompile Include="src\Game\NotesEditUI.cpp" />
+    <ClCompile Include="src\Game\NotesManager.cpp" />
     <ClCompile Include="src\Game\Obstacle.cpp" />
     <ClCompile Include="src\Game\ObstaclePool.cpp" />
     <ClCompile Include="src\Game\ObstacleSpawner.cpp" />
@@ -290,6 +293,8 @@
     <ClInclude Include="src\Framework\WAVFileReader.h" />
     <ClInclude Include="src\Framework\Window.h" />
     <ClInclude Include="src\Game\Background.h" />
+    <ClInclude Include="src\Game\BarLine.h" />
+    <ClInclude Include="src\Game\BarManager.h" />
     <ClInclude Include="src\Game\FlappyBird.h" />
     <ClInclude Include="src\Game\FumenData.h" />
     <ClInclude Include="src\Game\FumenJsonReadWriter.h" />
@@ -299,6 +304,7 @@
     <ClInclude Include="src\Game\GameScene.h" />
     <ClInclude Include="src\Game\NotesEditScene.h" />
     <ClInclude Include="src\Game\NotesEditUI.h" />
+    <ClInclude Include="src\Game\NotesManager.h" />
     <ClInclude Include="src\Game\Obstacle.h" />
     <ClInclude Include="src\Game\ObstaclePool.h" />
     <ClInclude Include="src\Game\ObstacleSpawner.h" />
