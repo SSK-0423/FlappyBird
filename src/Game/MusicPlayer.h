@@ -17,6 +17,7 @@ namespace FlappyBird
 		void Play();
 		void Stop();
 
+		float GetMusicLength();
 	private:
 		Framework::SoundClip* m_music;
 		wchar_t m_musicPath[256];

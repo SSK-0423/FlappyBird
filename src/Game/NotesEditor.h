@@ -25,10 +25,15 @@ namespace FlappyBird
 		void LoadFumen(const std::string& loadPath, FumenData& data);
 		void Play();
 		void Stop();
+		void LoadMusic(const std::string& musicPath);
+		void StartEdit(const FumenData& data);
 
-		BarManager* m_barManager;
-		LaneManager* m_laneManager;
-		NotesManager* m_notesManager;
-		MusicPlayer* m_musicPlayer;
+		void PutNotes();
+		void DeleteNotes();
+
+		BarManager* m_barManager = nullptr;
+		LaneManager* m_laneManager = nullptr;
+		NotesManager* m_notesManager = nullptr;
+		MusicPlayer* m_musicPlayer = nullptr;
 	};
 }

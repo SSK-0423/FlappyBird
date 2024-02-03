@@ -23,13 +23,24 @@ namespace FlappyBird
 	}
 	void NotesEditUI::Draw()
 	{
-		DrawFumenData();
+		ImGui::Begin("EditWindow");
+
+		ImGui::SeparatorText("Save/Load");
 		DrawSaveLoadButton();
+
+		ImGui::SeparatorText("Music Play/Stop");
 		DrawPlayStopButton();
+
+		ImGui::SeparatorText("Edit Start");
+		DrawEditStartButton();
+
+		ImGui::SeparatorText("Fumen Data");
+		DrawFumenData();
+
+		ImGui::End();
 	}
 	void NotesEditUI::DrawFumenData()
 	{
-		ImGui::Begin("Fumen Data");
 		ImGui::InputText("Music Name", &m_fumenData.musicName, 0);
 
 		std::filesystem::path soundPath = "res/sound";
@@ -70,12 +81,9 @@ namespace FlappyBird
 
 		ImGui::InputFloat("BPM", &m_fumenData.bpm, 0);
 		ImGui::InputInt("Beat", &m_fumenData.beat, 0);
-		ImGui::End();
 	}
 	void NotesEditUI::DrawSaveLoadButton()
 	{
-		ImGui::Begin("File");
-
 		static std::string selectedJsonPath = "No Select";     // ドロップダウンで選択されたファイル名
 		static std::string openedFumenPath = "No Opened";       // 現在開いているファイル名
 		static std::string actionLog = "";                     // 保存や読み込みの結果を表示
@@ -127,13 +135,9 @@ namespace FlappyBird
 		}
 
 		ImGui::Text(actionLog.c_str());
-
-		ImGui::End();
 	}
 	void NotesEditUI::DrawPlayStopButton()
 	{
-		ImGui::Begin("Play/Stop");
-
 		if (ImGui::Button("Play"))
 		{
 			// 曲を再生
@@ -145,7 +149,13 @@ namespace FlappyBird
 			// 曲を停止
 			OnStop.Notify(NotificationEvent());
 		}
-
-		ImGui::End();
+	}
+	void NotesEditUI::DrawEditStartButton()
+	{
+		if (ImGui::Button("Edit Start"))
+		{
+			// 編集開始
+			OnEditStart.Notify(m_fumenData);
+		}
 	}
 }

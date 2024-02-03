@@ -27,6 +27,8 @@ namespace Framework
 
 		void Stop(bool isPause = false);
 
+		float GetLength();
+
 	private:
 		const wchar_t* m_soundname;
 		IXAudio2SourceVoice* m_sourceVoice;

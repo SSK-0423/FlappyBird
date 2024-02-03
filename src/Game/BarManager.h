@@ -10,8 +10,10 @@ namespace FlappyBird
 		BarManager(Framework::Object* owner);
 		~BarManager() = default;
 
+		void CreateBarLine();
 		void Update(float deltaTime) override;
 		void Draw() override;
+
 
 	private:
 		// ¬ßü‚Ìˆê——

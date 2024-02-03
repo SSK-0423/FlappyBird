@@ -8,6 +8,9 @@ namespace FlappyBird
 	BarManager::BarManager(Framework::Object* owner) : IComponent(owner)
 	{
 	}
+	void BarManager::CreateBarLine()
+	{
+	}
 	void BarManager::Update(float deltaTime)
 	{
 	}

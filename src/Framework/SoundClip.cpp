@@ -71,4 +71,9 @@ namespace Framework
 			}
 		}
 	}
+	float SoundClip::GetLength()
+	{
+		// サウンドデータの長さを取得する
+		return SoundManager::GetSoundLength(m_soundname);
+	}
 }

@@ -1,5 +1,8 @@
 #include "SoundManager.h"
 
+
+#include "Editor.h"
+
 namespace Framework
 {
 	// 静的メンバ変数の実体化
@@ -157,5 +160,24 @@ namespace Framework
 		sourceVoice->SubmitSourceBuffer(&m_soundDatas[soundname].buffer);
 
 		return sourceVoice;
+	}
+	float SoundManager::GetSoundLength(const wchar_t* soundname)
+	{
+		// サウンドが読み込み済みかチェックする
+		if (m_soundDatas.find(soundname) == m_soundDatas.end())
+		{
+			return 0.0f;
+		}
+
+		SoundData& data = m_soundDatas[soundname];
+
+		// サンプルレートとサンプル数から長さを計算
+		DWORD sampleNum = data.waveData.audioBytes / data.waveData.wfx->nBlockAlign;
+		DWORD sampleRate = data.waveData.wfx->nSamplesPerSec;
+
+		Editor::DebugLog("Sample Num : %d", sampleNum);
+		Editor::DebugLog("Sample Rate : %d", sampleRate);
+
+		return (float)sampleNum / sampleRate;
 	}
 }

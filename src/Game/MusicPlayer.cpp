@@ -24,7 +24,7 @@ namespace FlappyBird
 	void MusicPlayer::Load(const char* musicPath)
 	{
 		// ƒpƒX‚ðwchar_tŒ^‚É•ÏŠ·
-		Utility::charToWchar(musicPath, m_musicPath, 256);
+		Utility::charToWchar(musicPath, m_musicPath, _countof(m_musicPath));
 
 		m_music->LoadWavSound(m_musicPath);
 
@@ -45,5 +45,9 @@ namespace FlappyBird
 	{
 		m_music->Stop(true);
 		m_isPlaying = false;
+	}
+	float MusicPlayer::GetMusicLength()
+	{
+		return m_music->GetLength();
 	}
 }

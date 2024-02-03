@@ -14,6 +14,7 @@ namespace Framework
 		static void Final();
 		static Utility::RESULT LoadWavSound(const wchar_t* filename, bool isLoop);
 		static IXAudio2SourceVoice* Play(const wchar_t* soundname);
+		static float GetSoundLength(const wchar_t* soundname);
 
 	private:
 		SoundManager() = default;
