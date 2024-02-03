@@ -18,6 +18,7 @@ namespace Framework
 
 		void Update(float deltaTime) override;
 		void Draw() override;
+		void DrawInspector() override;
 
 		/// <summary>
 		/// ƒTƒEƒ“ƒhÄ¶
@@ -28,6 +29,7 @@ namespace Framework
 		void Stop(bool isPause = false);
 
 		float GetLength();
+		float GetCurrentPlayTime();
 
 	private:
 		const wchar_t* m_soundname;

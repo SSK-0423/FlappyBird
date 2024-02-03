@@ -107,6 +107,10 @@ namespace Framework
 	{
 		m_children.push_back(child);
 	}
+	void Object::RemoveChild(Object* child)
+	{
+		m_children.remove(child);
+	}
 	const std::list<Object*>& Object::GetChildren()
 	{
 		return m_children;

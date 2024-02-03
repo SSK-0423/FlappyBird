@@ -51,6 +51,7 @@ namespace Framework
 		const std::string GetTag();
 
 		void AddChild(Object* child);
+		void RemoveChild(Object* child);
 		const std::list<Object*>& GetChildren();
 
 		const std::string GetUUID();

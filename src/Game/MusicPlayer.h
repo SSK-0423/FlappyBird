@@ -12,12 +12,15 @@ namespace FlappyBird
 
 		void Update(float deltaTime) override;
 		void Draw() override;
+		void DrawInspector() override;
 
 		void Load(const char* musicPath);
 		void Play();
 		void Stop();
 
 		float GetMusicLength();
+		float GetCurrentPlayTimeMs();
+
 	private:
 		Framework::SoundClip* m_music;
 		wchar_t m_musicPath[256];

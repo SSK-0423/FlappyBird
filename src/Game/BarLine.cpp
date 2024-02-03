@@ -19,13 +19,12 @@ namespace FlappyBird
 		spriteRenderer->SetSprite(sprite);
 		spriteRenderer->SetDrawMode(SPRITE_DRAW_MODE::GUI);
 		spriteRenderer->SetLayer(SPRITE_LAYER::UI);
-		//spriteRenderer->SetActive(false);
 
 		// テスト用のTransform2D
 		auto viewportSize = Dx12GraphicsEngine::GetViewport();
-		Transform2D* transform = owner->GetComponent<Transform2D>();
-		transform->position = { viewportSize.Width, viewportSize.Height / 2.f };
-		transform->scale = { 5.f, viewportSize.Height };
+		m_transform = owner->GetComponent<Transform2D>();
+		m_transform->position = { viewportSize.Width, viewportSize.Height / 2.f };
+		m_transform->scale = { 5.f, viewportSize.Height };
 	}
 	BarLine::~BarLine()
 	{
@@ -37,14 +36,26 @@ namespace FlappyBird
 			return;
 		}
 
-		// 自分のタイミングでノーツを生成する
+		if (m_transform->position.x < 0.f)
+		{
+			m_owner->SetActive(false);
+			m_canPlaySE = true;
 
-		// 現在の再生時間を取得
+			// 位置初期化
+			m_transform->position.x = Dx12GraphicsEngine::GetViewport().Width;
+		}
 
-		// ノーツ判定ライン到達タイミングと比較
+		// ノーツのタイミングと判定ラインのタイミングの差を計算
+		float diff = m_timing - m_currentPlayTime;
 
-		// 到達タイミングになったらノーツを生成
+		auto viewportSize = Dx12GraphicsEngine::GetViewport();
 
+		// 画面の右端から判定ラインまでの距離
+		float distanceX = viewportSize.Width - 200.f;
+
+		float x = (diff / 1000.f) * distanceX;
+
+		m_transform->position.x = 200.f + x / 2.f;
 	}
 	void BarLine::Draw()
 	{
@@ -57,5 +68,21 @@ namespace FlappyBird
 	void BarLine::SetTiming(float timing)
 	{
 		m_timing = timing;
+	}
+	float BarLine::GetTiming()
+	{
+		return m_timing;
+	}
+	void BarLine::SetCurrentPlayTime(float currentPlayTime)
+	{
+		m_currentPlayTime = currentPlayTime;
+	}
+	bool BarLine::CanPlaySE()
+	{
+		return m_canPlaySE;
+	}
+	void BarLine::SetCanPlaySE(bool canPlaySE)
+	{
+		m_canPlaySE = canPlaySE;
 	}
 }

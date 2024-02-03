@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "MusicPlayer.h"
 
+#include "imgui.h"
+
 using namespace Framework;
 using namespace Utility;
 
@@ -21,12 +23,21 @@ namespace FlappyBird
 	void MusicPlayer::Draw()
 	{
 	}
+	void MusicPlayer::DrawInspector()
+	{
+		if (ImGui::CollapsingHeader("MusicPlayer"))
+		{
+			ImGui::Text("MusicPath: %s", m_musicPath);
+			ImGui::Text("IsPlaying: %s", m_isPlaying ? "true" : "false");
+			ImGui::Text("MusicLength: %.2f", m_music->GetLength());
+			ImGui::Text("CurrentTime: %.2f", m_music->GetCurrentPlayTime());
+		}
+	}
 	void MusicPlayer::Load(const char* musicPath)
 	{
-		// ƒpƒX‚ðwchar_tŒ^‚É•ÏŠ·
 		Utility::charToWchar(musicPath, m_musicPath, _countof(m_musicPath));
 
-		m_music->LoadWavSound(m_musicPath);
+		m_music->LoadWavSound(m_musicPath, true);
 
 		m_isPlaying = false;
 	}
@@ -49,5 +60,9 @@ namespace FlappyBird
 	float MusicPlayer::GetMusicLength()
 	{
 		return m_music->GetLength();
+	}
+	float MusicPlayer::GetCurrentPlayTimeMs()
+	{
+		return m_music->GetCurrentPlayTime() * 1000.f;
 	}
 }

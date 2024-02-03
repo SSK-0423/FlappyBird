@@ -3,6 +3,8 @@
 
 #include "Editor.h"
 
+#include "imgui.h"
+
 namespace Framework
 {
 	SoundClip::SoundClip(Object* owner) :
@@ -23,6 +25,15 @@ namespace Framework
 	}
 	void SoundClip::Draw()
 	{
+	}
+	void SoundClip::DrawInspector()
+	{
+		if (ImGui::CollapsingHeader("SoundClip"))
+		{
+			ImGui::Text("SoundName: %s", m_soundname);
+			ImGui::Text("IsPlaying: %s", m_isPlaying ? "true" : "false");
+			ImGui::Text("IsPaused: %s", m_isPaused ? "true" : "false");
+		}
 	}
 	void SoundClip::Play(float volume, bool wait)
 	{
@@ -73,7 +84,45 @@ namespace Framework
 	}
 	float SoundClip::GetLength()
 	{
-		// サウンドデータの長さを取得する
-		return SoundManager::GetSoundLength(m_soundname);
+		if (m_soundname == nullptr)
+		{
+			return 0.0f;
+		}
+
+		SoundData* soundData = SoundManager::GetSoundData(m_soundname);
+
+		if (soundData == nullptr)
+		{
+			return 0.0f;
+		}
+
+		// サンプルレートとサンプル数から長さを計算
+		DWORD sampleNum = soundData->waveData.audioBytes / soundData->waveData.wfx->nBlockAlign;
+		DWORD sampleRate = soundData->waveData.wfx->nSamplesPerSec;
+
+		return (float)sampleNum / sampleRate;
+	}
+	float SoundClip::GetCurrentPlayTime()
+	{
+		if (m_sourceVoice == nullptr)
+		{
+			return -1.f;
+		}
+
+		SoundData* soundData = SoundManager::GetSoundData(m_soundname);
+
+		if (soundData == nullptr)
+		{
+			return -1.f;
+		}
+
+		XAUDIO2_VOICE_STATE state;
+		m_sourceVoice->GetState(&state);
+
+		// 再生済みのサンプル数とサンプルレートから現在の再生位置を計算
+		UINT64 playedSampleNum = state.SamplesPlayed;
+		DWORD sampleRate = soundData->waveData.wfx->nSamplesPerSec;
+
+		return (float)playedSampleNum / sampleRate;
 	}
 }

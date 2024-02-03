@@ -8,7 +8,7 @@ namespace Framework
 	// 静的メンバ変数の実体化
 	IXAudio2* SoundManager::m_xAudio2 = nullptr;
 	IXAudio2MasteringVoice* SoundManager::m_masteringVoice = nullptr;
-	std::map<std::wstring, SoundManager::SoundData> SoundManager::m_soundDatas;
+	std::map<std::wstring, SoundData> SoundManager::m_soundDatas;
 	std::list<IXAudio2SourceVoice*> SoundManager::m_sourceVoices;
 
 	Utility::RESULT SoundManager::Init()
@@ -161,23 +161,14 @@ namespace Framework
 
 		return sourceVoice;
 	}
-	float SoundManager::GetSoundLength(const wchar_t* soundname)
+	SoundData* SoundManager::GetSoundData(const wchar_t* soundname)
 	{
 		// サウンドが読み込み済みかチェックする
 		if (m_soundDatas.find(soundname) == m_soundDatas.end())
 		{
-			return 0.0f;
+			return nullptr;
 		}
 
-		SoundData& data = m_soundDatas[soundname];
-
-		// サンプルレートとサンプル数から長さを計算
-		DWORD sampleNum = data.waveData.audioBytes / data.waveData.wfx->nBlockAlign;
-		DWORD sampleRate = data.waveData.wfx->nSamplesPerSec;
-
-		Editor::DebugLog("Sample Num : %d", sampleNum);
-		Editor::DebugLog("Sample Rate : %d", sampleRate);
-
-		return (float)sampleNum / sampleRate;
+		return &m_soundDatas[soundname];
 	}
 }

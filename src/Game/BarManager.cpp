@@ -1,32 +1,45 @@
 #include "pch.h"
 #include "BarManager.h"
 
+#include "MusicPlayer.h"
+
 using namespace Framework;
 
 namespace FlappyBird
 {
 	BarManager::BarManager(Framework::Object* owner) : IComponent(owner)
 	{
+		SoundClip* soundClip = m_owner->AddComponent<SoundClip>(m_owner);
+		soundClip->LoadWavSound(L"res/sound/clap.wav");
 	}
 	void BarManager::CreateBar(unsigned int barNum, float bpm, int beat)
 	{
+		m_musicPlayer = GameObjectManager::FindObject("MusicPlayer")->GetComponent<MusicPlayer>();
+
+		// 既存の小節線を削除
+		for (auto barLine : m_barLines)
+		{
+			m_owner->RemoveChild(barLine->GetOwner());
+		}
 		m_barLines.clear();
 		m_barLines.shrink_to_fit();
 
 		for (unsigned int i = 0; i < barNum; i++)
 		{
-			for (unsigned int j = 0; j < 1; j++)
+			for (unsigned int j = 0; j < 8; j++)
 			{
 				UIObject* barLineObj = new UIObject();
-				barLineObj->SetName("BarLine: " + std::to_string(i));
-				
+				barLineObj->SetName("BarLine: " + std::to_string(i) + "/" + std::to_string(j));
+				barLineObj->SetActive(false);
+
 				BarLine* barLine = barLineObj->AddComponent<BarLine>(barLineObj);
 
 				// 判定タイミングを計算
 				// 1小節の長さ = 1分(60秒) / bpm * 拍子
 				float barTimeLength = 60.0f * 1000.f / bpm * beat;
 				// 小節内のタイミングを計算
-				float timing = barTimeLength * i + (barTimeLength / 16.f) * j;
+				float timing = barTimeLength * i + (barTimeLength / 8.f) * j;
+
 				// 判定ラインのタイミングを設定
 				barLine->SetTiming(timing);
 
@@ -38,6 +51,38 @@ namespace FlappyBird
 	}
 	void BarManager::Update(float deltaTime)
 	{
+		for (auto barLine : m_barLines)
+		{
+			float timing = barLine->GetTiming();
+
+			// ノーツのタイミングと判定ラインのタイミングの差を計算
+			float diff = timing - m_musicPlayer->GetCurrentPlayTimeMs();
+
+			// 1000ms以内の場合、アクティブにする
+			if (0.f < diff && diff < 2000.f)
+			{
+				barLine->GetOwner()->SetActive(true);
+			}
+			// 判定タイミングを超えたらSEを再生
+			else if (diff <= 0.f)
+			{
+				// 以下の条件に合致する場合、SEを再生
+				// アクティブである
+				// かつ、SEが再生可能である
+				if (barLine->GetOwner()->GetActive() &&
+					barLine->CanPlaySE())
+				{
+					m_owner->GetComponent<SoundClip>()->Play();
+					barLine->SetCanPlaySE(false);	// 複数回再生できないようにする
+				}
+			}
+
+			// アクティブであるオブジェクトには、現在の再生時間を設定
+			if (barLine->GetOwner()->GetActive())
+			{
+				barLine->SetCurrentPlayTime(m_musicPlayer->GetCurrentPlayTimeMs());
+			}
+		}
 	}
 	void BarManager::Draw()
 	{

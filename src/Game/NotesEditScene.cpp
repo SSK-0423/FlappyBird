@@ -48,10 +48,6 @@ namespace FlappyBird
 		barManagerObj->SetName("BarManager");
 		BarManager* barManager = barManagerObj->AddComponent<BarManager>(barManagerObj);
 
-		//// レーンの管理オブジェクト
-		//UIObject* laneManagerObj = UIObjectManager::CreateObject();
-		//laneManagerObj->SetName("LaneManager");
-
 		// ノーツの管理オブジェクト
 		GameObject* notesManagerObj = GameObjectManager::CreateObject();
 		notesManagerObj->SetName("NotesManager");

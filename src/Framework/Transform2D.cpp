@@ -36,13 +36,14 @@ namespace Framework
 	}
 	void Transform2D::DrawInspector()
 	{
-		ImGui::SeparatorText("Transform2D");
-
-		// Transform2Dの値を表示
-		ImGui::PushItemWidth(200);
-		ImGui::InputFloat2("Position", &position.x);
-		ImGui::InputFloat("Rotation", &angle);
-		ImGui::InputFloat2("Scale   ", &scale.x);
+		if (ImGui::CollapsingHeader("Transform2D"))
+		{
+			// Transform2Dの値を表示
+			ImGui::PushItemWidth(200);
+			ImGui::InputFloat2("Position", &position.x);
+			ImGui::InputFloat("Rotation", &angle);
+			ImGui::InputFloat2("Scale   ", &scale.x);
+		}
 	}
 	DirectX::XMMATRIX Transform2D::GetTransformMatrix()
 	{

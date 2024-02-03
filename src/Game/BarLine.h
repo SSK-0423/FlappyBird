@@ -15,8 +15,17 @@ namespace FlappyBird
 		void DrawInspector() override;
 
 		void SetTiming(float timing);
+		float GetTiming();
+
+		void SetCurrentPlayTime(float currentPlayTime);
+
+		bool CanPlaySE();
+		void SetCanPlaySE(bool canPlaySE);
 
 	private:
+		Framework::Transform2D* m_transform = nullptr;
 		float m_timing = 0.0f;
+		float m_currentPlayTime = 0.0f;
+		bool m_canPlaySE = true;
 	};
 }
