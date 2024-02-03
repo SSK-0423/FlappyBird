@@ -14,10 +14,12 @@ namespace FlappyBird
 		void Update(float deltaTime) override;
 		void Draw() override;
 
-		Framework::Subject<FumenData> OnSave;
-		Framework::Subject<FumenData> OnLoad;
+		// 各ボタン押下時のイベント
+		Framework::Subject<const std::string&, const FumenData&> OnSave;
+		Framework::Subject<const std::string&, FumenData&> OnLoad;
 		Framework::Subject<Framework::NotificationEvent> OnPlay;
 		Framework::Subject<Framework::NotificationEvent> OnStop;
+		Framework::Subject<const std::string&> OnLoadMusic;
 
 	private:
 		FumenData m_fumenData;

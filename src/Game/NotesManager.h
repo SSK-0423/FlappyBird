@@ -15,12 +15,15 @@ namespace FlappyBird
 	{
 	public:
 		NotesManager(Framework::Object* owner);
-		~NotesManager() = default;
+		~NotesManager();
 
 		void Update(float deltaTime) override;
 		void Draw() override;
 
-		static void CreateNotes(float x, float y, Note data);
-		static void DeleteNotes(Note data) {};
+		void CreateNotes(float x, float y, Note data);
+		void DeleteNotes(Note data);
+
+	private:
+		std::vector<Note> m_notes;
 	};
 }

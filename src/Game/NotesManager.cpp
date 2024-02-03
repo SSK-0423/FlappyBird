@@ -6,6 +6,9 @@ namespace FlappyBird
 	NotesManager::NotesManager(Framework::Object* owner) : IComponent(owner)
 	{
 	}
+	NotesManager::~NotesManager()
+	{
+	}
 	void NotesManager::Update(float deltaTime)
 	{
 	}
@@ -15,5 +18,8 @@ namespace FlappyBird
 	void NotesManager::CreateNotes(float x, float y, Note data)
 	{
 		// 指定位置にノーツを生成
+	}
+	void NotesManager::DeleteNotes(Note data)
+	{
 	}
 }

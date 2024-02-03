@@ -25,10 +25,12 @@ namespace Framework
 		/// <param name="wait">‰¹‚ÌÄ¶‚ªI—¹‚·‚é‚Ü‚Å‘Ò‚Â‚©</param>
 		void Play(float volume = 0.1f, bool wait = false);
 
-		void Stop();
+		void Stop(bool isPause = false);
 
 	private:
 		const wchar_t* m_soundname;
 		IXAudio2SourceVoice* m_sourceVoice;
+		bool m_isPaused;
+		bool m_isPlaying;
 	};
 }

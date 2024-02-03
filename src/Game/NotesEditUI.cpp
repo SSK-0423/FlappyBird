@@ -32,7 +32,7 @@ namespace FlappyBird
 		ImGui::Begin("Fumen Data");
 		ImGui::InputText("Music Name", &m_fumenData.musicName, 0);
 
-		std::filesystem::path soundPath = "res\\sound";
+		std::filesystem::path soundPath = "res/sound";
 		// "res/sound"以下の音楽ファイルパスの一覧を取得する
 		auto musicFilePaths = GetFilePathsInDirectoryWithExtension(soundPath.string(), ".wav");
 
@@ -42,12 +42,27 @@ namespace FlappyBird
 			for (int i = 0; i < musicFilePaths.size(); i++)
 			{
 				bool is_selected = (m_selectedMusicPath == musicFilePaths[i]);
+
 				if (ImGui::Selectable(musicFilePaths[i].c_str(), is_selected))
+				{
 					m_selectedMusicPath = musicFilePaths[i].c_str();
+				}
+
+				// 選択された音楽ファイルパスにフォーカスを当てる
 				if (is_selected)
+				{
 					ImGui::SetItemDefaultFocus();
+				}
 			}
 			ImGui::EndCombo();
+		}
+
+		ImGui::SameLine();
+
+		if (ImGui::Button("Load Music"))
+		{
+			// 音楽ファイルを読み込む
+			OnLoadMusic.Notify(m_selectedMusicPath);
 		}
 
 		// 選択された音楽ファイルパスを譜面データに設定
@@ -70,10 +85,11 @@ namespace FlappyBird
 		// 譜面情報をJson形式で保存
 		if (ImGui::Button("Save"))
 		{
-			std::string filePath = "res/fumen/" + m_fumenData.musicName + ".json";
-			FumenJsonReadWriter::Write(filePath, m_fumenData);
+			std::string savePath = "res\\fumen\\" + m_fumenData.musicName + ".json";
+			OnSave.Notify(savePath, m_fumenData);
 
-			openedFumenPath = filePath;
+			// 保存した譜面ファイルのパスを表示
+			openedFumenPath = savePath;
 			actionLog = "Saved";
 		}
 		ImGui::SameLine();
@@ -81,12 +97,13 @@ namespace FlappyBird
 		// 譜面情報をJson形式で読み込み
 		if (ImGui::Button("Load"))
 		{
-			FumenJsonReadWriter::Read(selectedJsonPath, m_fumenData);
+			OnLoad.Notify(selectedJsonPath, m_fumenData);
 
 			// 音楽ファイルパスを読み込まれたものに設定
 			m_selectedMusicPath = m_fumenData.musicFilePath;
 			openedFumenPath = selectedJsonPath;
 			actionLog = "Loaded";
+
 		}
 
 		// 譜面ファイルのパス一覧をドロップダウン形式で表示
@@ -120,11 +137,13 @@ namespace FlappyBird
 		if (ImGui::Button("Play"))
 		{
 			// 曲を再生
+			OnPlay.Notify(NotificationEvent());
 		}
 		ImGui::SameLine();
 		if (ImGui::Button("Stop"))
 		{
 			// 曲を停止
+			OnStop.Notify(NotificationEvent());
 		}
 
 		ImGui::End();

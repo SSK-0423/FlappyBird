@@ -321,6 +321,12 @@
     <ClCompile Include="src\Game\BarManager.cpp">
       <Filter>ソース ファイル\Game\NotesEditorScene\NotesEditor\Bar</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\NotesEditor.cpp">
+      <Filter>ソース ファイル\Game\NotesEditorScene\NotesEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\MusicPlayer.cpp">
+      <Filter>ソース ファイル\Game\NotesEditorScene\NotesEditor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\pch.h">
@@ -592,6 +598,12 @@
     </ClInclude>
     <ClInclude Include="src\Game\BarManager.h">
       <Filter>ソース ファイル\Game\NotesEditorScene\NotesEditor\Bar</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\NotesEditor.h">
+      <Filter>ソース ファイル\Game\NotesEditorScene\NotesEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\MusicPlayer.h">
+      <Filter>ソース ファイル\Game\NotesEditorScene\NotesEditor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

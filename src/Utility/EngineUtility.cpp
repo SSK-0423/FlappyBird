@@ -82,6 +82,11 @@ namespace Utility
 			}
 		}
 
+		// '\\'‚ð'/'‚É’uŠ·
+		for (auto& path : filePaths) {
+			path = ReplaceString(path, "\\", "/");
+		}
+
 		return filePaths;
 	}
 }

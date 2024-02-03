@@ -129,6 +129,7 @@ namespace Framework
 		}
 
 		IXAudio2SourceVoice* sourceVoice = nullptr;
+
 		// 使用可能なソースボイスを探す
 		for (auto source : m_sourceVoices)
 		{

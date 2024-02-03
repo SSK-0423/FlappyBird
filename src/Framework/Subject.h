@@ -2,27 +2,27 @@
 
 namespace Framework
 {
-	template<typename T>
+	template<class... Args>
 	class Subject
 	{
 	public:
 		Subject() = default;
 		~Subject() {};
 
-		void Subscribe(std::function<void(T)> function)
+		void Subscribe(std::function<void(Args... args)> function)
 		{
 			m_functions.push_back(function);
 		}
 
-		void Notify(T data)
+		void Notify(Args... args)
 		{
 			for (auto& function : m_functions)
 			{
-				function(data);
+				function(args...);
 			}
 		}
 
 	private:
-		std::vector<std::function<void(T)>> m_functions;
+		std::vector<std::function<void(Args... args)>> m_functions;
 	};
 }

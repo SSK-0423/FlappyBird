@@ -1,10 +1,12 @@
 #include "SoundClip.h"
 #include "SoundManager.h"
 
+#include "Editor.h"
+
 namespace Framework
 {
 	SoundClip::SoundClip(Object* owner) :
-		IComponent(owner), m_soundname(nullptr), m_sourceVoice(nullptr)
+		IComponent(owner), m_soundname(nullptr), m_sourceVoice(nullptr), m_isPaused(false), m_isPlaying(false)
 	{
 	}
 	SoundClip::~SoundClip()
@@ -24,7 +26,11 @@ namespace Framework
 	}
 	void SoundClip::Play(float volume, bool wait)
 	{
-		m_sourceVoice = SoundManager::Play(m_soundname);
+		// ˆêŽž’âŽ~’†‚Å‚È‚¢ê‡‚ÍV‹K‚ÉSourceVoice‚ðŽæ“¾‚·‚é
+		if (m_isPaused == false)
+		{
+			m_sourceVoice = SoundManager::Play(m_soundname);
+		}
 
 		if (m_sourceVoice == nullptr)
 		{
@@ -49,11 +55,20 @@ namespace Framework
 
 		//Utility::DebugLog("Ä¶I—¹\n");
 	}
-	void SoundClip::Stop()
+	void SoundClip::Stop(bool isPause)
 	{
 		if (m_sourceVoice != nullptr)
 		{
-			m_sourceVoice->Stop();
+			if (isPause)
+			{
+				m_sourceVoice->Stop(XAUDIO2_PLAY_TAILS);
+				m_isPaused = true;
+			}
+			else
+			{
+				m_sourceVoice->Stop();
+				m_isPaused = false;
+			}
 		}
 	}
 }

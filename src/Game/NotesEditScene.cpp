@@ -1,6 +1,12 @@
 #include "pch.h"
 #include "NotesEditScene.h"
 #include "NotesEditUI.h"
+#include "NotesEditor.h"
+
+#include "BarManager.h"
+#include "NotesManager.h"
+#include "MusicPlayer.h"
+
 #include "FlappyBird.h"
 
 #include "../Framework/GameFramework.h"
@@ -34,8 +40,35 @@ namespace FlappyBird
 
 		// UI
 		UIObject* editWindow = UIObjectManager::CreateObject();
+		editWindow->SetName("NotesEditUI");
 		editWindow->AddComponent<NotesEditUI>(editWindow);
+
+		// 小節線の管理オブジェクト
+		UIObject* barManagerObj = UIObjectManager::CreateObject();
+		barManagerObj->SetName("BarManager");
+		BarManager* barManager = barManagerObj->AddComponent<BarManager>(barManagerObj);
+
+		//// レーンの管理オブジェクト
+		//UIObject* laneManagerObj = UIObjectManager::CreateObject();
+		//laneManagerObj->SetName("LaneManager");
+
+		// ノーツの管理オブジェクト
+		GameObject* notesManagerObj = GameObjectManager::CreateObject();
+		notesManagerObj->SetName("NotesManager");
+		NotesManager* notesManager = notesManagerObj->AddComponent<NotesManager>(notesManagerObj);
+
+		// 曲再生管理オブジェクト
+		GameObject* musicPlayerObj = GameObjectManager::CreateObject();
+		musicPlayerObj->SetName("MusicPlayer");
+		MusicPlayer* musicPlayer = musicPlayerObj->AddComponent<MusicPlayer>(musicPlayerObj);
+
+		// ノーツエディターの管理オブジェクト
+		GameObject* notesEditorObj = GameObjectManager::CreateObject();
+		notesEditorObj->SetName("NotesEditor");
+		NotesEditor* notesEditor = notesEditorObj->AddComponent<NotesEditor>(notesEditorObj);
+		notesEditor->Init();
 	}
+
 	void NotesEditScene::Final()
 	{
 #ifdef _DEBUG
