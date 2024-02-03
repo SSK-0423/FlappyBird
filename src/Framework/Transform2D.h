@@ -17,6 +17,7 @@ namespace Framework
 
 		void Update(float deltaTime) override;
 		void Draw() override {};
+		void DrawInspector() override;
 
 		DirectX::XMFLOAT2 position;
 		DirectX::XMFLOAT2 scale;

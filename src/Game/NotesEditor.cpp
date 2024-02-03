@@ -52,18 +52,13 @@ namespace FlappyBird
 	}
 	void NotesEditor::SaveFumen(const std::string& savePath, const FumenData& data)
 	{
-		Editor::DebugLog("Save Fumen %s", savePath.c_str());
-
 		// ノーツデータを書き込み
-
 
 		// Json形式で保存
 		FumenJsonReadWriter::Write(savePath, data);
 	}
 	void NotesEditor::LoadFumen(const std::string& loadPath, FumenData& data)
 	{
-		Editor::DebugLog("Load Fumen");
-
 		// Json形式で読み込み
 		FumenJsonReadWriter::Read(loadPath, data);
 
@@ -74,20 +69,14 @@ namespace FlappyBird
 	}
 	void NotesEditor::Play()
 	{
-		Editor::DebugLog("Play");
-
 		m_musicPlayer->Play();
 	}
 	void NotesEditor::Stop()
 	{
-		Editor::DebugLog("Stop");
-
 		m_musicPlayer->Stop();
 	}
 	void NotesEditor::LoadMusic(const std::string& musicPath)
 	{
-		Editor::DebugLog("Load Music : %s", musicPath.c_str());
-
 		// 音楽ファイルを読み込み
 		m_musicPlayer->Load(musicPath.c_str());
 	}
@@ -97,29 +86,30 @@ namespace FlappyBird
 		float musicLength = m_musicPlayer->GetMusicLength();
 
 		// 小節数 = 曲の再生時間(sec) * bpm / (60 * beat)
-		float barCount = musicLength * data.bpm / (60.f * data.beat);
+		unsigned int barNum = std::ceil(musicLength * data.bpm / (60.f * data.beat));
 
 		// 小節線を生成する
-		m_barManager->CreateBarLine();
+		m_barManager->CreateBar(barNum, data.bpm, data.beat);
 
 		Editor::DebugLog("Music Length : %f", musicLength);
+		Editor::DebugLog("Bar Count : %ud", barNum);
 	}
 	void NotesEditor::PutNotes()
 	{
-		// ノーツ設置
-		Editor::DebugLog("Put Notes");
+		//// ノーツ設置
+		//Editor::DebugLog("Put Notes");
 
-		// ノーツの設置場所は到達時間に合わせる
+		//// ノーツの設置場所は到達時間に合わせる
 
-		// マウス座標を元に到達時間を取得
-		POINT mousePos = InputSystem::GetMousePosition();
+		//// マウス座標を元に到達時間を取得
+		//POINT mousePos = InputSystem::GetMousePosition();
 
-		// ノーツは時間を元に描画位置を決定する
-		// 1. 
+		//// ノーツは時間を元に描画位置を決定する
+		//// 1. 
 	}
 	void NotesEditor::DeleteNotes()
 	{
 		// ノーツ削除
-		Editor::DebugLog("Delete Notes");
+		//Editor::DebugLog("Delete Notes");
 	}
 }

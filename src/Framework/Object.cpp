@@ -3,6 +3,8 @@
 #include "Transform2D.h"
 #include "GameObjectManager.h"
 
+#include "imgui.h"
+
 namespace Framework
 {
 	Object::Object()
@@ -52,6 +54,24 @@ namespace Framework
 		{
 			if (child->GetActive())
 				child->Draw();
+		}
+	}
+	void Object::DrawInspector()
+	{
+		// オブジェクトの名前とUUIDを表示
+		ImGui::SeparatorText("Object Data");
+		ImGui::Text("Name: %s", m_name.c_str());
+		ImGui::SameLine();
+		ImGui::Checkbox("Active", &m_isActive);
+
+		for (auto& component : m_components)
+		{
+			component->DrawInspector();
+		}
+
+		for (auto& child : m_children)
+		{
+			child->DrawInspector();
 		}
 	}
 	void Object::SetActive(bool isActive)

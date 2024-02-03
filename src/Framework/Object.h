@@ -39,6 +39,7 @@ namespace Framework
 		void Update(float deltaTime);
 		void FixedUpdate(float inverval);
 		void Draw();
+		void DrawInspector();
 
 		void SetActive(bool isActive);
 		bool GetActive();

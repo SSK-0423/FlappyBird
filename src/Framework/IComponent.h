@@ -12,6 +12,7 @@ namespace Framework
 		virtual void Update(float deltaTime) = 0;
 		virtual void FixedUpdate(float interval) {};
 		virtual void Draw() = 0;
+		virtual void DrawInspector() {};
 
 		Object* GetOwner() { return m_owner; }
 		void SetActive(bool isActive) { m_isActive = isActive; }

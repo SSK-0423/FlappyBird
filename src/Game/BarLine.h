@@ -12,5 +12,11 @@ namespace FlappyBird
 
 		void Update(float deltaTime) override;
 		void Draw() override;
+		void DrawInspector() override;
+
+		void SetTiming(float timing);
+
+	private:
+		float m_timing = 0.0f;
 	};
 }

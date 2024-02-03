@@ -5,6 +5,10 @@
 
 #include "Framework/Window.h"
 
+#include "Object.h"
+
+#include "imgui.h"
+
 using namespace DX12Wrapper;
 using namespace Utility;
 using namespace DirectX;
@@ -29,6 +33,16 @@ namespace Framework
 	{
 		m_bufferData.model = GetTransformMatrix();
 		m_transformBuffer->UpdateData(&m_bufferData);
+	}
+	void Transform2D::DrawInspector()
+	{
+		ImGui::SeparatorText("Transform2D");
+
+		// Transform2D‚Ì’l‚ð•\Ž¦
+		ImGui::PushItemWidth(200);
+		ImGui::InputFloat2("Position", &position.x);
+		ImGui::InputFloat("Rotation", &angle);
+		ImGui::InputFloat2("Scale   ", &scale.x);
 	}
 	DirectX::XMMATRIX Transform2D::GetTransformMatrix()
 	{

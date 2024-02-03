@@ -10,13 +10,12 @@ namespace FlappyBird
 		BarManager(Framework::Object* owner);
 		~BarManager() = default;
 
-		void CreateBarLine();
+		void CreateBar(unsigned int barNum, float bpm, int beat);
 		void Update(float deltaTime) override;
 		void Draw() override;
 
-
 	private:
 		// ¬ßü‚Ìˆê——
-		std::vector<BarLine> m_barLines;
+		std::vector<BarLine*> m_barLines;
 	};
 }

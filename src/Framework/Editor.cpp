@@ -223,24 +223,9 @@ namespace Framework
 		if (flags & ImGuiTreeNodeFlags_Selected)
 		{
 			ImGui::Begin("Inspector");
-			ImGui::Text(object.GetName().c_str());
-			ImGui::Text(object.GetUUID().c_str());
 
-			Transform2D* transform = object.GetComponent<Transform2D>();
-			DirectX::XMFLOAT2 position = transform->position;
-			DirectX::XMFLOAT2 scale = transform->scale;
-			float rotation = transform->angle;
-
-			// Transform2Dの値を表示
-			ImGui::PushItemWidth(200);
-			ImGui::InputFloat2("Position", &position.x);
-			ImGui::InputFloat("Rotation", &rotation);
-			ImGui::InputFloat2("Scale   ", &scale.x);
-
-			// 変更した値を反映
-			transform->position = position;
-			transform->scale = scale;
-			transform->angle = rotation;
+			// 各コンポーネントのインスペクターを表示
+			object.DrawInspector();
 
 			ImGui::End();
 		}
