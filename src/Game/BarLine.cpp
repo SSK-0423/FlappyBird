@@ -35,7 +35,7 @@ namespace FlappyBird
 	}
 	void BarLine::Update(float deltaTime)
 	{
-		if (m_timing <= 0.0f)
+		if (m_timing < 0.0f)
 		{
 			return;
 		}

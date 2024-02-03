@@ -14,8 +14,11 @@ namespace FlappyBird
 
 		void Update(float deltaTime) override;
 		void Draw() override;
+		void DrawInspector() override;
 
 		void CreateBar(unsigned int barNum, float bpm, int beat);
+
+		float GetNearBarLineTiming(float timing);
 	private:
 		// ¬ßü‚Ìˆê——
 		std::vector<BarLine*> m_barLines;

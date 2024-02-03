@@ -9,6 +9,9 @@ namespace FlappyBird
 		int lane;
 		int barNum;
 		int lineNum;
+
+		Note() : timing(0.0f), lane(0), barNum(0), lineNum(0) {}
+		Note(float timing) : timing(timing), lane(0), barNum(0), lineNum(0) {}
 	};
 
 	class NotesManager : public Framework::IComponent
@@ -19,8 +22,9 @@ namespace FlappyBird
 
 		void Update(float deltaTime) override;
 		void Draw() override;
+		void DrawInspector() override;
 
-		void CreateNotes(float x, float y, Note data);
+		void CreateNotes(Note data);
 		void DeleteNotes(Note data);
 
 	private:

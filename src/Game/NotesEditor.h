@@ -31,6 +31,8 @@ namespace FlappyBird
 		void PutNotes();
 		void DeleteNotes();
 
+		float CalcNotesTiming(float mouseX, float viewportWidth);
+
 		BarManager* m_barManager = nullptr;
 		LaneManager* m_laneManager = nullptr;
 		NotesManager* m_notesManager = nullptr;

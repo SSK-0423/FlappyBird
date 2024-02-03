@@ -3,6 +3,8 @@
 
 #include "MusicPlayer.h"
 
+#include "imgui.h"
+
 using namespace Framework;
 
 namespace FlappyBird
@@ -52,6 +54,28 @@ namespace FlappyBird
 			}
 		}
 	}
+	float BarManager::GetNearBarLineTiming(float timing)
+	{
+		float nearTiming = 0.f;
+
+		float minDiff = 100000.f;
+
+		for (auto barLine : m_barLines)
+		{
+			// アクティブである小節線のタイミングを取得
+			if (barLine->GetOwner()->GetActive())
+			{
+				float diff = std::abs(barLine->GetTiming() - timing);
+				if (diff < minDiff)
+				{
+					minDiff = diff;
+					nearTiming = barLine->GetTiming();
+				}
+			}
+		}
+
+		return nearTiming;
+	}
 	void BarManager::Update(float deltaTime)
 	{
 		// 現在の再生位置を更新
@@ -62,6 +86,21 @@ namespace FlappyBird
 	}
 	void BarManager::Draw()
 	{
+	}
+	void BarManager::DrawInspector()
+	{
+		if (ImGui::CollapsingHeader("BarManager"))
+		{
+			// アクティブ状態の小節線
+			for (auto barLine : m_barLines)
+			{
+				if (barLine->GetOwner()->GetActive())
+				{
+					ImGui::Text("Timing: %f", barLine->GetTiming());
+					ImGui::Separator();
+				}
+			}
+		}
 	}
 	void BarManager::UpdateCurrentPlayTime()
 	{

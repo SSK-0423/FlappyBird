@@ -7,6 +7,9 @@
 #include "NotesManager.h"
 #include "MusicPlayer.h"
 
+#include "DX12Wrapper/Dx12GraphicsEngine.h"
+
+using namespace DX12Wrapper;
 using namespace Framework;
 
 namespace FlappyBird
@@ -90,26 +93,43 @@ namespace FlappyBird
 
 		// 小節線を生成する
 		m_barManager->CreateBar(barNum, data.bpm, data.beat);
-
-		Editor::DebugLog("Music Length : %f", musicLength);
-		Editor::DebugLog("Bar Count : %ud", barNum);
 	}
 	void NotesEditor::PutNotes()
 	{
-		//// ノーツ設置
-		//Editor::DebugLog("Put Notes");
+		POINT mousePos = InputSystem::GetMousePosition();
+		auto viewportSize = Dx12GraphicsEngine::GetViewport();
 
-		//// ノーツの設置場所は到達時間に合わせる
-
-		//// マウス座標を元に到達時間を取得
-		//POINT mousePos = InputSystem::GetMousePosition();
-
-		//// ノーツは時間を元に描画位置を決定する
-		//// 1. 
+		// GameWindow内でのみノーツを設置できるようにする
+		if (viewportSize.TopLeftX < mousePos.x && mousePos.x < viewportSize.Width && // x座標
+			viewportSize.TopLeftY < mousePos.y && mousePos.y < viewportSize.Height)  // y座標
+		{
+			float timing = CalcNotesTiming(mousePos.x, viewportSize.Width);
+			m_notesManager->CreateNotes(Note(timing));
+		}
 	}
 	void NotesEditor::DeleteNotes()
 	{
-		// ノーツ削除
-		//Editor::DebugLog("Delete Notes");
+		POINT mousePos = InputSystem::GetMousePosition();
+		auto viewportSize = Dx12GraphicsEngine::GetViewport();
+
+		// GameWindow内でのみノーツを設置できるようにする
+		if (viewportSize.TopLeftX < mousePos.x && mousePos.x < viewportSize.Width && // x座標
+			viewportSize.TopLeftY < mousePos.y && mousePos.y < viewportSize.Height)  // y座標
+		{
+			float timing = CalcNotesTiming(mousePos.x, viewportSize.Width);
+			m_notesManager->DeleteNotes(Note(timing));
+		}
+	}
+	float NotesEditor::CalcNotesTiming(float mouseX, float viewportWidth)
+	{
+		// マウス座標からタイミングを計算
+		float currentTime = m_musicPlayer->GetCurrentPlayTimeMs();
+		float judgeLineX = UIObjectManager::FindObject("JudgeLine")->GetComponent<Transform2D>()->position.x;
+		float distanceX = viewportWidth - judgeLineX;
+		float posX = (mouseX - judgeLineX) * 2.f;
+		float timing = posX / distanceX * 1000.f + currentTime;
+
+		// 最も近い小節線のタイミングを取得
+		return m_barManager->GetNearBarLineTiming(timing);
 	}
 }

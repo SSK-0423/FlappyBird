@@ -68,11 +68,10 @@ namespace Framework
 		{
 			component->DrawInspector();
 		}
-
-		for (auto& child : m_children)
-		{
-			child->DrawInspector();
-		}
+		//for (auto& child : m_children)
+		//{
+		//	child->DrawInspector();
+		//}
 	}
 	void Object::SetActive(bool isActive)
 	{
