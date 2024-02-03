@@ -21,5 +21,8 @@ namespace FlappyBird
 		std::vector<BarLine*> m_barLines;
 
 		MusicPlayer* m_musicPlayer = nullptr;
+
+		void UpdateCurrentPlayTime();
+		void UpdateBarLineActive();
 	};
 }

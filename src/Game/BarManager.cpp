@@ -22,7 +22,10 @@ namespace FlappyBird
 			m_owner->RemoveChild(barLine->GetOwner());
 		}
 		m_barLines.clear();
-		m_barLines.shrink_to_fit();
+
+		// 判定ラインのx座標を取得
+		float judgeLineX = UIObjectManager::FindObject("JudgeLine")->GetComponent<Transform2D>()->position.x;
+		BarLine::SetJudgeLineX(judgeLineX);
 
 		for (unsigned int i = 0; i < barNum; i++)
 		{
@@ -51,6 +54,26 @@ namespace FlappyBird
 	}
 	void BarManager::Update(float deltaTime)
 	{
+		// 現在の再生位置を更新
+		UpdateCurrentPlayTime();
+
+		// 小節線のアクティブ状態を更新
+		UpdateBarLineActive();
+	}
+	void BarManager::Draw()
+	{
+	}
+	void BarManager::UpdateCurrentPlayTime()
+	{
+		if (m_musicPlayer != nullptr)
+		{
+			// 小節線に現在の再生位置をセット
+			BarLine::SetCurrentPlayTime(m_musicPlayer->GetCurrentPlayTimeMs());
+		}
+	}
+	void BarManager::UpdateBarLineActive()
+	{
+		// 小節線のアクティブ状態を更新
 		for (auto barLine : m_barLines)
 		{
 			float timing = barLine->GetTiming();
@@ -63,7 +86,7 @@ namespace FlappyBird
 			{
 				barLine->GetOwner()->SetActive(true);
 			}
-			// 判定タイミングを超えたらSEを再生
+			// 判定タイミングを超えたらSEを再生　※デバッグ用
 			else if (diff <= 0.f)
 			{
 				// 以下の条件に合致する場合、SEを再生
@@ -76,15 +99,6 @@ namespace FlappyBird
 					barLine->SetCanPlaySE(false);	// 複数回再生できないようにする
 				}
 			}
-
-			// アクティブであるオブジェクトには、現在の再生時間を設定
-			if (barLine->GetOwner()->GetActive())
-			{
-				barLine->SetCurrentPlayTime(m_musicPlayer->GetCurrentPlayTimeMs());
-			}
 		}
-	}
-	void BarManager::Draw()
-	{
 	}
 }

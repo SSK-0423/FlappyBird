@@ -11,6 +11,10 @@ using namespace Framework;
 
 namespace FlappyBird
 {
+	// 静的メンバ変数の初期化
+	float BarLine::m_currentPlayTime = 0.0f;
+	float BarLine::m_judgeLineX = 0.0f;
+
 	BarLine::BarLine(Framework::Object* owner) : IComponent(owner)
 	{
 		// スプライト追加
@@ -51,11 +55,11 @@ namespace FlappyBird
 		auto viewportSize = Dx12GraphicsEngine::GetViewport();
 
 		// 画面の右端から判定ラインまでの距離
-		float distanceX = viewportSize.Width - 200.f;
+		float distanceX = viewportSize.Width - m_judgeLineX;
 
 		float x = (diff / 1000.f) * distanceX;
 
-		m_transform->position.x = 200.f + x / 2.f;
+		m_transform->position.x = m_judgeLineX + x / 2.f;
 	}
 	void BarLine::Draw()
 	{
@@ -76,6 +80,10 @@ namespace FlappyBird
 	void BarLine::SetCurrentPlayTime(float currentPlayTime)
 	{
 		m_currentPlayTime = currentPlayTime;
+	}
+	void BarLine::SetJudgeLineX(float judgeLineX)
+	{
+		m_judgeLineX = judgeLineX;
 	}
 	bool BarLine::CanPlaySE()
 	{

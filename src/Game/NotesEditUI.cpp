@@ -111,7 +111,6 @@ namespace FlappyBird
 			m_selectedMusicPath = m_fumenData.musicFilePath;
 			openedFumenPath = selectedJsonPath;
 			actionLog = "Loaded";
-
 		}
 
 		// 譜面ファイルのパス一覧をドロップダウン形式で表示

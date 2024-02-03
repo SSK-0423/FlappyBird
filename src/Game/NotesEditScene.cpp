@@ -48,6 +48,18 @@ namespace FlappyBird
 		barManagerObj->SetName("BarManager");
 		BarManager* barManager = barManagerObj->AddComponent<BarManager>(barManagerObj);
 
+		// 判定ラインの生成
+		UIObject* judgeLineObj = UIObjectManager::CreateObject();
+		judgeLineObj->SetName("JudgeLine");
+		Sprite* judgeLineSprite = new Sprite(L"res/texture/judge_line.png");
+		SpriteRenderer* judgeLineRenderer = judgeLineObj->AddComponent<SpriteRenderer>(judgeLineObj);
+		judgeLineRenderer->SetSprite(judgeLineSprite);
+		judgeLineRenderer->SetDrawMode(SPRITE_DRAW_MODE::GUI);
+		judgeLineRenderer->SetLayer(static_cast<UINT>(SPRITE_LAYER::UI));
+		Transform2D* judgeLineTransform = judgeLineObj->GetComponent<Transform2D>();
+		judgeLineTransform->position = { 200.f, viewportSize.Height / 2.f };
+		judgeLineTransform->scale = { 5.f, viewportSize.Height };
+
 		// ノーツの管理オブジェクト
 		GameObject* notesManagerObj = GameObjectManager::CreateObject();
 		notesManagerObj->SetName("NotesManager");
