@@ -14,6 +14,7 @@ namespace FlappyBird
 	// 静的メンバ変数の初期化
 	float Obstacle::m_judgeLineX = 0.0f;
 	float Obstacle::m_currentPlayTime = 0.0f;
+	const int Obstacle::SPACE = 255;
 
 	Obstacle::Obstacle(Framework::Object* owner)
 		: IComponent(owner)
@@ -23,21 +24,43 @@ namespace FlappyBird
 
 		auto viewportSize = Dx12GraphicsEngine::GetViewport();
 
-		m_transform = m_owner->GetComponent<Transform2D>();
-		m_transform->position = { viewportSize.Width / 2.f, viewportSize.Height / 2.f };
-		m_transform->scale = { 100.f, viewportSize.Height / 1.f };
+		// 障害物の生成
+		m_transforms.resize(2);
+		for (size_t i = 0; i < 2; i++)
+		{
+			GameObject* gameObject = new GameObject();
+			gameObject->SetName("Obstacle: " + std::to_string(i));
 
-		RectCollider* collider = m_owner->AddComponent<RectCollider>(m_owner);
-		collider->SetRectSize(m_transform->scale.x, m_transform->scale.y);
+			Transform2D* transform = gameObject->GetComponent<Transform2D>();
+			transform->scale = { 100.f, viewportSize.Height / 1.f };
+			if (i == 0)
+			{
+				transform->position = { viewportSize.Width / 2.f, transform->scale.y / 2.f + SPACE / 2.f };
+			}
+			else
+			{
+				transform->angle = 180.f;
+				transform->position = { viewportSize.Width / 2.f, transform->scale.y / 2.f - SPACE / 2.f };
+			}
 
-		Rigidbody2D* rigidbody = m_owner->AddComponent<Rigidbody2D>(m_owner);
-		rigidbody->useGravity = false;
+			m_transforms[i] = transform;
 
-		Sprite* sprite = new Sprite(L"res/texture/dokan_long.png");
-		SpriteRenderer* spriteRenderer = m_owner->AddComponent<SpriteRenderer>(m_owner);
-		spriteRenderer->SetSprite(sprite);
-		spriteRenderer->SetDrawMode(SPRITE_DRAW_MODE::GAMEOBJECT);
-		spriteRenderer->SetLayer(static_cast<UINT>(SPRITE_LAYER::OBSTACLE));
+			RectCollider* collider = gameObject->AddComponent<RectCollider>(gameObject);
+			collider->SetRectSize(transform->scale.x, transform->scale.y);
+
+			Rigidbody2D* rigidbody = gameObject->AddComponent<Rigidbody2D>(gameObject);
+			rigidbody->useGravity = false;
+
+			Sprite* sprite = new Sprite(L"res/texture/dokan_long.png");
+			SpriteRenderer* spriteRenderer = gameObject->AddComponent<SpriteRenderer>(gameObject);
+			spriteRenderer->SetSprite(sprite);
+			spriteRenderer->SetDrawMode(SPRITE_DRAW_MODE::GAMEOBJECT);
+			spriteRenderer->SetLayer(static_cast<UINT>(SPRITE_LAYER::OBSTACLE));
+
+			gameObject->AddComponent<Material>(gameObject);
+
+			m_owner->AddChild(gameObject);
+		}
 
 		m_timing = -1.0f;
 	}
@@ -46,19 +69,6 @@ namespace FlappyBird
 	}
 	void Obstacle::Update(float deltaTime)
 	{
-		//Transform2D* transform = m_owner->GetComponent<Transform2D>();
-		//transform->position.x += m_moveSpeedX * deltaTime;
-		//transform->position.y += m_moveSpeedY * deltaTime;
-
-		//// カメラの範囲外に出たら非アクティブにする
-		//// 1. カメラのレンダリング範囲内に入っているかどうかを判定する
-
-		//if (transform->position.x < -transform->scale.x)
-		//{
-		//	// 音を鳴らす
-		//	m_owner->SetActive(false);
-		//}
-
 		if (m_timing < 0.0f)
 		{
 			return;
@@ -74,7 +84,19 @@ namespace FlappyBird
 
 		float x = (diff / 1000.f) * distanceX;
 
-		m_transform->position.x = m_judgeLineX + x / 2.f;
+		// 障害物の移動
+		for (size_t i = 0; i < m_transforms.size(); i++)
+		{
+			m_transforms[i]->position.x = m_judgeLineX + x / 2.f;
+			if (i == 0)
+			{
+				m_transforms[i]->position.y = m_posY + m_transforms[i]->scale.y / 2.f + SPACE / 2.f;
+			}
+			else
+			{
+				m_transforms[i]->position.y = m_posY - m_transforms[i]->scale.y / 2.f - SPACE / 2.f;
+			}
+		}
 	}
 	void Obstacle::Draw()
 	{
@@ -87,6 +109,20 @@ namespace FlappyBird
 	void Obstacle::SetTiming(float timing)
 	{
 		m_timing = timing;
+	}
+	void Obstacle::SetPosY(float posY)
+	{
+		auto viewportSize = Dx12GraphicsEngine::GetViewport();
+		m_posY = std::clamp(posY, SPACE * 0.75f, viewportSize.Height - SPACE * 0.75f);
+	}
+	void Obstacle::SetMaterialColor(const DirectX::XMFLOAT4& color)
+	{
+		auto children = m_owner->GetChildren();
+		for (auto child : children)
+		{
+			auto material = child->GetComponent<Material>();
+			material->SetColor(color);
+		}
 	}
 	void Obstacle::SetCurrentPlayTime(float currentPlayTime)
 	{

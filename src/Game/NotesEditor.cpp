@@ -23,10 +23,8 @@ namespace FlappyBird
 		obstaceleObj->SetName("Obstacle");
 		obstaceleObj->SetActive(false);
 		m_obstacle = obstaceleObj->AddComponent<Obstacle>(obstaceleObj);
+		m_obstacle->SetMaterialColor({ 1.f, 1.f, 1.f, 0.8f });
 		m_owner->AddChild(obstaceleObj);
-
-		Material* material = obstaceleObj->AddComponent<Material>(obstaceleObj);
-		material->SetColor({ 1.f, 1.f, 1.f, 1.f });
 
 		float judgeLineX = UIObjectManager::FindObject("JudgeLine")->GetComponent<Transform2D>()->position.x;
 		Obstacle::SetJudgeLineX(judgeLineX);
@@ -63,16 +61,17 @@ namespace FlappyBird
 			// 設置用のオブジェクト描画
 			Obstacle::SetCurrentPlayTime(m_musicPlayer->GetCurrentPlayTimeMs());
 			m_obstacle->SetTiming(timing);
+			m_obstacle->SetPosY(static_cast<float>(mousePos.y));
 			m_obstacle->GetOwner()->SetActive(true);
 
 			// マウスクリック時の処理
 			if (InputSystem::GetMouseButtonDown(MOUSECODE::LEFT))
 			{
-				PutNotes(timing);
+				PutNotes(timing, static_cast<float>(mousePos.y));
 			}
 			if (InputSystem::GetMouseButtonDown(MOUSECODE::RIGHT))
 			{
-				DeleteNotes(timing);
+				DeleteNotes(timing, static_cast<float>(mousePos.y));
 			}
 		}
 		else
@@ -124,13 +123,13 @@ namespace FlappyBird
 		// 小節線を生成する
 		m_barManager->CreateBar(barNum, data.bpm, data.beat);
 	}
-	void NotesEditor::PutNotes(float timing)
+	void NotesEditor::PutNotes(float timing, float posY)
 	{
-		m_notesManager->CreateNotes(Note(timing));
+		m_notesManager->CreateNotes(Note(timing, posY));
 	}
-	void NotesEditor::DeleteNotes(float timing)
+	void NotesEditor::DeleteNotes(float timing, float posY)
 	{
-		m_notesManager->DeleteNotes(Note(timing));
+		m_notesManager->DeleteNotes(Note(timing, posY));
 	}
 	float NotesEditor::CalcNotesTiming(LONG mouseX, float viewportWidth)
 	{

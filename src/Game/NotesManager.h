@@ -6,12 +6,10 @@ namespace FlappyBird
 	struct Note
 	{
 		float timing;
-		int lane;
-		int barNum;
-		int lineNum;
+		float posY;
 
-		Note() : timing(0.0f), lane(0), barNum(0), lineNum(0) {}
-		Note(float timing) : timing(timing), lane(0), barNum(0), lineNum(0) {}
+		Note() : timing(0.f), posY(0.f) {}
+		Note(float timing, float posY) : timing(timing), posY(posY) {}
 	};
 
 	class NotesManager : public Framework::IComponent

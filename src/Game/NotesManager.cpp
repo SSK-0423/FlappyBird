@@ -24,6 +24,8 @@ namespace FlappyBird
 			for (auto& note : m_notes)
 			{
 				ImGui::Text("Timing: %f", note.timing);
+				ImGui::SameLine();
+				ImGui::Text("PosY: %f", note.posY);
 				ImGui::Separator();
 			}
 		}
