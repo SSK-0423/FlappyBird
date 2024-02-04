@@ -7,6 +7,8 @@
 #include "NotesManager.h"
 #include "MusicPlayer.h"
 
+#include "Obstacle.h"
+
 #include "DX12Wrapper/Dx12GraphicsEngine.h"
 
 using namespace DX12Wrapper;
@@ -34,20 +36,46 @@ namespace FlappyBird
 
 		// 各種コンポーネントの取得
 		m_barManager = UIObjectManager::FindObject("BarManager")->GetComponent<BarManager>();
-
 		m_notesManager = GameObjectManager::FindObject("NotesManager")->GetComponent<NotesManager>();
 		m_musicPlayer = GameObjectManager::FindObject("MusicPlayer")->GetComponent<MusicPlayer>();
+
+		// 障害物の取得
+		GameObject* obstaceleObj = new GameObject();
+		obstaceleObj->SetName("Obstacle");
+		obstaceleObj->SetActive(false);
+		m_obstacle = obstaceleObj->AddComponent<Obstacle>(obstaceleObj);
+		m_owner->AddChild(obstaceleObj);
+
+		float judgeLineX = UIObjectManager::FindObject("JudgeLine")->GetComponent<Transform2D>()->position.x;
+		Obstacle::SetJudgeLineX(judgeLineX);
 	}
 	void NotesEditor::Update(float deltaTime)
 	{
-		// マウスクリック時の処理
-		if (InputSystem::GetMouseButtonDown(MOUSECODE::LEFT))
+		auto viewport = Dx12GraphicsEngine::GetViewport();
+		POINT mousePos = InputSystem::GetMousePosition();
+
+		if (IsInsideViewport(mousePos, viewport))
 		{
-			PutNotes();
+			float timing = CalcNotesTiming(mousePos.x, viewport.Width);
+
+			// 設置用のオブジェクト描画
+			Obstacle::SetCurrentPlayTime(m_musicPlayer->GetCurrentPlayTimeMs());
+			m_obstacle->SetTiming(timing);
+			m_obstacle->GetOwner()->SetActive(true);
+
+			// マウスクリック時の処理
+			if (InputSystem::GetMouseButtonDown(MOUSECODE::LEFT))
+			{
+				PutNotes(timing);
+			}
+			if (InputSystem::GetMouseButtonDown(MOUSECODE::RIGHT))
+			{
+				DeleteNotes(timing);
+			}
 		}
-		if (InputSystem::GetMouseButtonDown(MOUSECODE::RIGHT))
+		else
 		{
-			DeleteNotes();
+			m_obstacle->GetOwner()->SetActive(false);
 		}
 	}
 	void NotesEditor::Draw()
@@ -94,33 +122,15 @@ namespace FlappyBird
 		// 小節線を生成する
 		m_barManager->CreateBar(barNum, data.bpm, data.beat);
 	}
-	void NotesEditor::PutNotes()
+	void NotesEditor::PutNotes(float timing)
 	{
-		POINT mousePos = InputSystem::GetMousePosition();
-		auto viewportSize = Dx12GraphicsEngine::GetViewport();
-
-		// GameWindow内でのみノーツを設置できるようにする
-		if (viewportSize.TopLeftX < mousePos.x && mousePos.x < viewportSize.Width && // x座標
-			viewportSize.TopLeftY < mousePos.y && mousePos.y < viewportSize.Height)  // y座標
-		{
-			float timing = CalcNotesTiming(mousePos.x, viewportSize.Width);
-			m_notesManager->CreateNotes(Note(timing));
-		}
+		m_notesManager->CreateNotes(Note(timing));
 	}
-	void NotesEditor::DeleteNotes()
+	void NotesEditor::DeleteNotes(float timing)
 	{
-		POINT mousePos = InputSystem::GetMousePosition();
-		auto viewportSize = Dx12GraphicsEngine::GetViewport();
-
-		// GameWindow内でのみノーツを設置できるようにする
-		if (viewportSize.TopLeftX < mousePos.x && mousePos.x < viewportSize.Width && // x座標
-			viewportSize.TopLeftY < mousePos.y && mousePos.y < viewportSize.Height)  // y座標
-		{
-			float timing = CalcNotesTiming(mousePos.x, viewportSize.Width);
-			m_notesManager->DeleteNotes(Note(timing));
-		}
+		m_notesManager->DeleteNotes(Note(timing));
 	}
-	float NotesEditor::CalcNotesTiming(float mouseX, float viewportWidth)
+	float NotesEditor::CalcNotesTiming(LONG mouseX, float viewportWidth)
 	{
 		// マウス座標からタイミングを計算
 		float currentTime = m_musicPlayer->GetCurrentPlayTimeMs();
@@ -131,5 +141,16 @@ namespace FlappyBird
 
 		// 最も近い小節線のタイミングを取得
 		return m_barManager->GetNearBarLineTiming(timing);
+	}
+	bool NotesEditor::IsInsideViewport(POINT mousePos, CD3DX12_VIEWPORT viewport)
+	{
+		// GameWindow内でのみノーツを設置できるようにする
+		if (viewport.TopLeftX < mousePos.x && mousePos.x < viewport.Width && // x座標
+			viewport.TopLeftY < mousePos.y && mousePos.y < viewport.Height)  // y座標
+		{
+			return true;
+		}
+
+		return false;
 	}
 }

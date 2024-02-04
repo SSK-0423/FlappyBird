@@ -10,6 +10,8 @@ namespace FlappyBird
 	class NotesManager;
 	class MusicPlayer;
 
+	class Obstacle;
+
 	class NotesEditor : public Framework::IComponent
 	{
 	public:
@@ -28,14 +30,18 @@ namespace FlappyBird
 		void LoadMusic(const std::string& musicPath);
 		void StartEdit(const FumenData& data);
 
-		void PutNotes();
-		void DeleteNotes();
+		void PutNotes(float timing);
+		void DeleteNotes(float timing);
 
-		float CalcNotesTiming(float mouseX, float viewportWidth);
+		float CalcNotesTiming(LONG mouseX, float viewportWidth);
+
+		bool IsInsideViewport(POINT mousePos, CD3DX12_VIEWPORT viewport);
 
 		BarManager* m_barManager = nullptr;
 		LaneManager* m_laneManager = nullptr;
 		NotesManager* m_notesManager = nullptr;
 		MusicPlayer* m_musicPlayer = nullptr;
+
+		Obstacle* m_obstacle = nullptr;
 	};
 }

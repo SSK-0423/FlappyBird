@@ -22,7 +22,7 @@ namespace FlappyBird
 		SpriteRenderer* spriteRenderer = owner->AddComponent<SpriteRenderer>(m_owner);
 		spriteRenderer->SetSprite(sprite);
 		spriteRenderer->SetDrawMode(SPRITE_DRAW_MODE::GUI);
-		spriteRenderer->SetLayer(SPRITE_LAYER::UI);
+		spriteRenderer->SetLayer(SPRITE_LAYER::BARLINE);
 
 		// テスト用のTransform2D
 		auto viewportSize = Dx12GraphicsEngine::GetViewport();

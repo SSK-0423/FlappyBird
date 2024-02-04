@@ -7,9 +7,11 @@ namespace FlappyBird
 	{
 		UI = 0,
 		GAMEOBJECT = 1,
-		BACKGROUND = 2,
+		OBSTACLE = 2,
+		BARLINE = 3,
+		BACKGROUND = 4,
 	};
-	
+
 	class FlappyBird : public Framework::GameImpl
 	{
 	public:
