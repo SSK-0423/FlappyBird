@@ -327,6 +327,9 @@
     <ClCompile Include="src\Game\MusicPlayer.cpp">
       <Filter>ソース ファイル\Game\NotesEditorScene\NotesEditor</Filter>
     </ClCompile>
+    <ClCompile Include="src\Framework\Material.cpp">
+      <Filter>ソース ファイル\Framework\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\pch.h">
@@ -604,6 +607,9 @@
     </ClInclude>
     <ClInclude Include="src\Game\MusicPlayer.h">
       <Filter>ソース ファイル\Game\NotesEditorScene\NotesEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Material.h">
+      <Filter>ソース ファイル\Framework\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

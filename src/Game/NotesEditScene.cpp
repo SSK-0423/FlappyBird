@@ -73,8 +73,7 @@ namespace FlappyBird
 		// ノーツエディターの管理オブジェクト
 		GameObject* notesEditorObj = GameObjectManager::CreateObject();
 		notesEditorObj->SetName("NotesEditor");
-		NotesEditor* notesEditor = notesEditorObj->AddComponent<NotesEditor>(notesEditorObj);
-		notesEditor->Init();
+		notesEditorObj->AddComponent<NotesEditor>(notesEditorObj);
 	}
 
 	void NotesEditScene::Final()

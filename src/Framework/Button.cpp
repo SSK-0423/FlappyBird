@@ -11,7 +11,8 @@ namespace Framework
 {
 	Button::Button(Object* owner) : IComponent(owner)
 	{
-		m_spriteRenderer = std::make_unique<SpriteRenderer>(m_owner);
+		m_spriteRenderer = m_owner->AddComponent<SpriteRenderer>(m_owner);
+		//m_spriteRenderer = std::make_unique<SpriteRenderer>(m_owner);
 		m_spriteRenderer->SetDrawMode(SPRITE_DRAW_MODE::GUI);
 	}
 	bool Button::CheckClick()
@@ -45,8 +46,8 @@ namespace Framework
 	}
 	void Button::Draw()
 	{
-		if (m_spriteRenderer != nullptr)
-			m_spriteRenderer->Draw();
+		//if (m_spriteRenderer != nullptr)
+		//	m_spriteRenderer->Draw();
 		if (m_text != nullptr)
 			m_text->Draw();
 	}

@@ -9,6 +9,7 @@ namespace Framework
 	public:
 		IComponent(Object* owner) : m_owner(owner), m_isActive(true) {};
 		virtual ~IComponent() {};
+		virtual void Start() {};
 		virtual void Update(float deltaTime) = 0;
 		virtual void FixedUpdate(float interval) {};
 		virtual void Draw() = 0;

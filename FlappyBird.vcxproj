@@ -182,6 +182,7 @@
     <ClCompile Include="src\Framework\Game.cpp" />
     <ClCompile Include="src\Framework\InputSystem.cpp" />
     <ClCompile Include="src\Framework\IRenderer.cpp" />
+    <ClCompile Include="src\Framework\Material.cpp" />
     <ClCompile Include="src\Framework\Object.cpp" />
     <ClCompile Include="src\Framework\RectCollider.cpp" />
     <ClCompile Include="src\Framework\Rigidbody2D.cpp" />
@@ -269,6 +270,7 @@
     <ClInclude Include="src\Framework\Collider.h" />
     <ClInclude Include="src\Framework\CollisionSystem.h" />
     <ClInclude Include="src\Framework\Editor.h" />
+    <ClInclude Include="src\Framework\Material.h" />
     <ClInclude Include="src\Framework\NotificationEvent.h" />
     <ClInclude Include="src\Framework\Game.h" />
     <ClInclude Include="src\Framework\GameFramework.h" />

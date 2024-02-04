@@ -21,6 +21,15 @@ namespace FlappyBird
 	private:
 		GameMaster* m_gameMaster;
 
+		enum class STATE
+		{
+			FALL,
+			JUMP,
+			DEAD
+		};
+
+		std::unordered_map<STATE, std::shared_ptr<Framework::Sprite>> m_stateSprites;
+
 		std::shared_ptr<Framework::Sprite> m_jumpSprite;
 		std::shared_ptr<Framework::Sprite> m_fallSprite;
 		std::shared_ptr<Framework::Sprite> m_deadSprite;

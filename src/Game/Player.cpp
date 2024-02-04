@@ -19,18 +19,20 @@ namespace FlappyBird
 	{
 		m_gameMaster = GameObjectManager::FindObject("GameMaster")->GetComponent<GameMaster>();
 
-		m_jumpSprite = std::make_shared<Sprite>(L"res/texture/player_jump.png");
-		m_fallSprite = std::make_shared<Sprite>(L"res/texture/player_fall.png");
-		m_deadSprite = std::make_shared<Sprite>(L"res/texture/player_dead.png");
+		m_stateSprites[STATE::JUMP] = std::make_shared<Sprite>(L"res/texture/player_jump.png");
+		m_stateSprites[STATE::FALL] = std::make_shared<Sprite>(L"res/texture/player_fall.png");
+		m_stateSprites[STATE::DEAD] = std::make_shared<Sprite>(L"res/texture/player_dead.png");
 
 		m_owner->SetName("Player");
 		m_owner->SetTag("Player");
 
 		// スプライト追加
 		SpriteRenderer* spriteRenderer = m_owner->AddComponent<SpriteRenderer>(m_owner);
-		spriteRenderer->SetSprite(m_fallSprite);
 		spriteRenderer->SetDrawMode(SPRITE_DRAW_MODE::GAMEOBJECT);
 		spriteRenderer->SetLayer(static_cast<UINT>(GAME_SCENE_LAYER::GAMEOBJECT));
+		spriteRenderer->AddSprite(m_stateSprites[STATE::JUMP]);
+		spriteRenderer->AddSprite(m_stateSprites[STATE::FALL]);
+		spriteRenderer->AddSprite(m_stateSprites[STATE::DEAD]);
 
 		// プレイヤーの位置を設定
 		auto viewportSize = Dx12GraphicsEngine::GetViewport();
@@ -87,12 +89,12 @@ namespace FlappyBird
 		// 落下中は落下スプライトを表示
 		if (m_owner->GetComponent<Rigidbody2D>()->velocity.y >= 0.f)
 		{
-			m_owner->GetComponent<SpriteRenderer>()->SetSprite(m_fallSprite);
+			m_owner->GetComponent<SpriteRenderer>()->ChangeRenderSprite(static_cast<size_t>(STATE::FALL));
 		}
 		// 上昇中は上昇スプライトを表示
 		else
 		{
-			m_owner->GetComponent<SpriteRenderer>()->SetSprite(m_jumpSprite);
+			m_owner->GetComponent<SpriteRenderer>()->ChangeRenderSprite(static_cast<size_t>(STATE::JUMP));
 		}
 	}
 	void Player::Move(float deltaTime)
@@ -149,7 +151,7 @@ namespace FlappyBird
 	void Player::GameOverAnimation(float deltaTime)
 	{
 		// ゲームオーバー演出
-		m_owner->GetComponent<SpriteRenderer>()->SetSprite(m_deadSprite);
+		m_owner->GetComponent<SpriteRenderer>()->ChangeRenderSprite(static_cast<size_t>(STATE::DEAD));
 
 		Transform2D* transform = m_owner->GetComponent<Transform2D>();
 		transform->position.y += 2.5f;

@@ -18,11 +18,23 @@ namespace FlappyBird
 {
 	NotesEditor::NotesEditor(Framework::Object* owner) : IComponent(owner)
 	{
+		// áŠQ•¨‚ÌŽæ“¾
+		GameObject* obstaceleObj = new GameObject();
+		obstaceleObj->SetName("Obstacle");
+		obstaceleObj->SetActive(false);
+		m_obstacle = obstaceleObj->AddComponent<Obstacle>(obstaceleObj);
+		m_owner->AddChild(obstaceleObj);
+
+		Material* material = obstaceleObj->AddComponent<Material>(obstaceleObj);
+		material->SetColor({ 1.f, 1.f, 1.f, 1.f });
+
+		float judgeLineX = UIObjectManager::FindObject("JudgeLine")->GetComponent<Transform2D>()->position.x;
+		Obstacle::SetJudgeLineX(judgeLineX);
 	}
 	NotesEditor::~NotesEditor()
 	{
 	}
-	void NotesEditor::Init()
+	void NotesEditor::Start()
 	{
 		// UI‚ÌŠeŽíƒ{ƒ^ƒ“‘€ìŽž‚Ìˆ—‚ð“o˜^
 		NotesEditUI* notesEditUI = UIObjectManager::FindObject("NotesEditUI")->GetComponent<NotesEditUI>();
@@ -38,16 +50,6 @@ namespace FlappyBird
 		m_barManager = UIObjectManager::FindObject("BarManager")->GetComponent<BarManager>();
 		m_notesManager = GameObjectManager::FindObject("NotesManager")->GetComponent<NotesManager>();
 		m_musicPlayer = GameObjectManager::FindObject("MusicPlayer")->GetComponent<MusicPlayer>();
-
-		// áŠQ•¨‚ÌŽæ“¾
-		GameObject* obstaceleObj = new GameObject();
-		obstaceleObj->SetName("Obstacle");
-		obstaceleObj->SetActive(false);
-		m_obstacle = obstaceleObj->AddComponent<Obstacle>(obstaceleObj);
-		m_owner->AddChild(obstaceleObj);
-
-		float judgeLineX = UIObjectManager::FindObject("JudgeLine")->GetComponent<Transform2D>()->position.x;
-		Obstacle::SetJudgeLineX(judgeLineX);
 	}
 	void NotesEditor::Update(float deltaTime)
 	{

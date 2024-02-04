@@ -18,7 +18,7 @@ namespace FlappyBird
 		NotesEditor(Framework::Object* owner);
 		~NotesEditor();
 
-		void Init();
+		void Start();
 		void Update(float deltaTime) override;
 		void Draw() override;
 

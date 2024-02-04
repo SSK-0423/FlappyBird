@@ -14,8 +14,34 @@ namespace Framework
 		// UUIDを生成
 		m_uuid = Utility::GenerateUUID();
 	}
+	void Object::Start()
+	{
+		// 既にStartされていたら何もしない
+		if (m_isStarted)
+		{
+			return;
+		}
+
+		for (auto& component : m_components)
+		{
+			component->Start();
+		}
+
+		for (auto& child : m_children)
+		{
+			child->Start();
+		}
+
+		m_isStarted = true;
+	}
 	void Object::Update(float deltaTime)
 	{
+		// 動的に生成されたオブジェクトはStartが呼ばれていないのでここでStartを呼ぶ
+		if (!m_isStarted)
+		{
+			Start();
+		}
+
 		for (auto& component : m_components)
 		{
 			if (component->GetActive())
@@ -68,10 +94,6 @@ namespace Framework
 		{
 			component->DrawInspector();
 		}
-		//for (auto& child : m_children)
-		//{
-		//	child->DrawInspector();
-		//}
 	}
 	void Object::SetActive(bool isActive)
 	{

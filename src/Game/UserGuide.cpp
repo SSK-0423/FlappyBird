@@ -18,9 +18,13 @@ namespace FlappyBird
 		auto viewportSize = Dx12GraphicsEngine::GetViewport();
 
 		SpriteRenderer* spriteRenderer = m_owner->AddComponent<SpriteRenderer>(m_owner);
-		spriteRenderer->SetSprite(m_mouseSprites[m_currentSpriteIndex]);
 		spriteRenderer->SetDrawMode(SPRITE_DRAW_MODE::GUI);
 		spriteRenderer->SetLayer(static_cast<UINT>(GAME_SCENE_LAYER::UI));
+		
+		for (auto& sprite : m_mouseSprites)
+		{
+			spriteRenderer->AddSprite(sprite);
+		}
 
 		Transform2D* transform = m_owner->GetComponent<Transform2D>();
 		transform->position = { viewportSize.Width / 2.f + 100.f, viewportSize.Height / 2.f };
@@ -34,7 +38,7 @@ namespace FlappyBird
 		if (m_elapsedTime >= m_animationInverval)
 		{
 			m_elapsedTime = 0.f;
-			m_owner->GetComponent<SpriteRenderer>()->SetSprite(m_mouseSprites[m_currentSpriteIndex]);
+			m_owner->GetComponent<SpriteRenderer>()->ChangeRenderSprite(m_currentSpriteIndex);
 			m_currentSpriteIndex = (m_currentSpriteIndex + 1) % m_mouseSprites.size();
 		}
 	}

@@ -20,6 +20,14 @@ namespace Framework
 			m_cameraObject->AddComponent<Camera>(m_cameraObject.get());
 		}
 	}
+	void Scene::Start()
+	{
+		// オブジェクト全体の開始
+		GameObjectManager::Start();
+
+		// UIの開始
+		UIObjectManager::Start();
+	}
 	void Scene::Update(float deltaTime)
 	{
 		// オブジェクト全体の更新

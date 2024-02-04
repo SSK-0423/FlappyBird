@@ -11,6 +11,7 @@
 #include "Framework/Transform2D.h"
 #include "Framework/Rigidbody2D.h"
 #include "Framework/SpriteRenderer.h"
+#include "Framework/Material.h"
 #include "Framework/Text.h"
 #include "Framework/Collider.h"
 #include "Framework/RectCollider.h"

@@ -27,9 +27,6 @@ namespace FlappyBird
 
 		// ビューポートとシザー矩形の設定
 #ifdef _DEBUG
-		//m_viewport = CD3DX12_VIEWPORT(
-		//	0.f, 0.f, static_cast<float>(1024), static_cast<float>(768));
-		//m_scissorRect = CD3DX12_RECT(0, 0, 1024, 768);
 		m_viewport = CD3DX12_VIEWPORT(
 			0.f, 0.f, static_cast<float>(1920), static_cast<float>(1080));
 		m_scissorRect = CD3DX12_RECT(0, 0, 1920, 1080);

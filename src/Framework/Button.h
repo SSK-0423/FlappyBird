@@ -4,6 +4,8 @@
 
 namespace Framework
 {
+	class SpriteRenderer;
+
 	class Button : public IComponent
 	{
 	public:
@@ -11,7 +13,7 @@ namespace Framework
 		~Button() = default;
 
 	private:
-		std::unique_ptr<class SpriteRenderer> m_spriteRenderer = nullptr;
+		SpriteRenderer* m_spriteRenderer = nullptr;
 		std::unique_ptr<class Text> m_text = nullptr;
 		std::function<void()> m_onClick = nullptr;
 

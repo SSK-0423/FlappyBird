@@ -7,6 +7,7 @@ namespace Framework
 	class ObjectManager
 	{
 	public:
+		static void Start();
 		static void Update(float deltaTime);
 		static void FixedUpdate(float interval);
 
@@ -30,6 +31,16 @@ namespace Framework
 		// static std::list<std::unique_ptr<T>> m_objects;
 		static std::list<T*> m_objects;
 	};
+
+
+	template<class T>
+	inline void ObjectManager<T>::Start()
+	{
+		for (auto& object : m_objects)
+		{
+			object->Start();
+		}
+	}
 
 	template<class T>
 	inline void ObjectManager<T>::Update(float deltaTime)

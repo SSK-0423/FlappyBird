@@ -28,9 +28,6 @@ namespace FlappyBird
 
 		// ビューポートとシザー矩形の設定
 #ifdef _DEBUG
-		//m_viewport = CD3DX12_VIEWPORT(
-		//	0.f, 0.f, static_cast<float>(1024), static_cast<float>(768));
-		//m_scissorRect = CD3DX12_RECT(0, 0, 1024, 768);
 		m_viewport = CD3DX12_VIEWPORT(
 			0.f, 0.f, static_cast<float>(1024), static_cast<float>(768));
 		m_scissorRect = CD3DX12_RECT(0, 0, 1920, 1080);
@@ -38,18 +35,6 @@ namespace FlappyBird
 		m_viewport = Dx12GraphicsEngine::GetViewport();
 		m_scissorRect = Dx12GraphicsEngine::GetScissorRect();
 #endif // _DEBUG
-
-		// オブジェクトのレンダリング結果を背景として表示するスプライト
-		UIObject* objectRenderSprite = UIObjectManager::CreateObject();
-		objectRenderSprite->SetName("RenderSprite");
-
-		SpriteRenderer* spriteRenderer = objectRenderSprite->AddComponent<SpriteRenderer>(objectRenderSprite);
-		spriteRenderer->SetDrawMode(SPRITE_DRAW_MODE::GUI);
-		spriteRenderer->SetLayer(static_cast<UINT>(SPRITE_LAYER::BACKGROUND));
-
-		Transform2D* transform = objectRenderSprite->GetComponent<Transform2D>();
-		transform->position = { m_viewport.Width / 2.f, m_viewport.Height / 2.f };
-		transform->scale = { m_viewport.Width * 1.f, m_viewport.Height * 1.f };
 
 		return RESULT::SUCCESS;
 	}

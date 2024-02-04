@@ -20,6 +20,11 @@ cbuffer DrawMode : register(b2)
     uint drawMode;
 };
 
+cbuffer Material : register(b3)
+{
+    float4 color;
+};
+
 struct VertexInput
 {
     float3 position : POSITION;
@@ -49,5 +54,6 @@ VertexOutput VSMain(VertexInput input)
 float4 PSMain(VertexOutput input) : SV_Target0
 {
     float4 texColor = tex.Sample(smp, input.uv);
+    texColor *= color;
     return texColor;
 }

@@ -4,8 +4,11 @@
 #include "Sprite.h"
 #include "ShaderLibrary.h"
 #include "Transform2D.h"
+#include "Material.h"
 #include "Camera.h"
 #include "Scene.h"
+#include "Editor.h"
+#include "imgui.h"
 
 #include "DX12Wrapper/Dx12GraphicsEngine.h"
 #include "DX12Wrapper/VertexBuffer.h"
@@ -27,7 +30,6 @@ namespace Framework
 	SpriteRenderer::SpriteRenderer(Framework::Object* owner)
 		: IComponent(owner)
 	{
-		m_sprite = std::make_shared<Sprite>(L"");
 		m_rootSignature = std::make_shared<RootSignature>();
 		m_pipelineState = std::make_shared<GraphicsPipelineState>();
 		m_drawModeBuffer = std::make_shared<ConstantBuffer>();
@@ -48,55 +50,42 @@ namespace Framework
 	}
 	SpriteRenderer::~SpriteRenderer()
 	{
-		OutputDebugStringA("SpriteRenderer::~SpriteRenderer()\n");
 	}
 	void SpriteRenderer::SetSprite(Sprite* sprite)
 	{
-		m_sprite.reset(sprite);
-		ID3D12Device& device = Dx12GraphicsEngine::Device();
-
-		// モデル行列をセット
-		m_sprite->GetDescriptorHeap().RegistConstantBuffer(
-			device,
-			m_owner->GetComponent<Transform2D>()->GetConstantBuffer(),
-			static_cast<UINT>(CONSTANT_BUFFER_INDEX::TRANSFORM));
-
-		// ビュープロジェクション行列をセット
-		auto& camera = Scene::GetCamera();
-		m_sprite->GetDescriptorHeap().RegistConstantBuffer(
-			device,
-			camera.GetConstantBuffer(),
-			static_cast<UINT>(CONSTANT_BUFFER_INDEX::CAMERA));
-
-		// 描画モードをセット
-		m_sprite->GetDescriptorHeap().RegistConstantBuffer(
-			device,
-			*m_drawModeBuffer.get(),
-			static_cast<UINT>(CONSTANT_BUFFER_INDEX::DRAW_MODE));
+		if (m_sprites.size() > 0)
+		{
+			m_sprites[0] = std::shared_ptr<Sprite>(sprite);
+		}
+		else
+		{
+			m_sprites.push_back(std::shared_ptr<Sprite>(sprite));
+		}
 	}
 	void SpriteRenderer::SetSprite(std::shared_ptr<class Sprite> sprite)
 	{
-		m_sprite = sprite;
-		ID3D12Device& device = Dx12GraphicsEngine::Device();
+		if (m_sprites.size() > 0)
+		{
+			m_sprites[0] = sprite;
+		}
+		else
+		{
+			m_sprites.push_back(sprite);
+		}
+	}
+	void SpriteRenderer::AddSprite(Sprite* sprite)
+	{
+		m_sprites.push_back(std::shared_ptr<Sprite>(sprite));
+	}
+	void SpriteRenderer::AddSprite(std::shared_ptr<class Sprite> sprite)
+	{
+		m_sprites.push_back(sprite);
+	}
+	void SpriteRenderer::ChangeRenderSprite(size_t index)
+	{
+		assert(index < m_sprites.size());
 
-		// モデル行列をセット
-		m_sprite->GetDescriptorHeap().RegistConstantBuffer(
-			device,
-			m_owner->GetComponent<Transform2D>()->GetConstantBuffer(),
-			static_cast<UINT>(CONSTANT_BUFFER_INDEX::TRANSFORM));
-
-		// ビュープロジェクション行列をセット
-		auto& camera = Scene::GetCamera();
-		m_sprite->GetDescriptorHeap().RegistConstantBuffer(
-			device,
-			camera.GetConstantBuffer(),
-			static_cast<UINT>(CONSTANT_BUFFER_INDEX::CAMERA));
-
-		// 描画モードをセット
-		m_sprite->GetDescriptorHeap().RegistConstantBuffer(
-			device,
-			*m_drawModeBuffer.get(),
-			static_cast<UINT>(CONSTANT_BUFFER_INDEX::DRAW_MODE));
+		m_currentSpriteIndex = index;
 	}
 	void SpriteRenderer::SetDrawMode(SPRITE_DRAW_MODE drawMode)
 	{
@@ -108,20 +97,82 @@ namespace Framework
 		// レイヤーが小さい程手前に描画される
 		m_owner->GetComponent<Transform2D>()->depth = static_cast<float>(layer) / SPRITE_LAYER_MAX;
 	}
+	void SpriteRenderer::Start()
+	{
+		ID3D12Device& device = Dx12GraphicsEngine::Device();
+
+		// マテリアルがない場合はマテリアルを生成
+		Material* material = m_owner->GetComponent<Material>();
+
+		// マテリアルがない場合はマテリアルを生成
+		if (material == nullptr)
+		{
+			material = m_owner->AddComponent<Material>(m_owner);
+		}
+
+		// 全スプライトのディスクリプタヒープにレンダリングに必要なデータを登録
+		for (auto sprite : m_sprites)
+		{
+			// モデル行列をセット
+			sprite->GetDescriptorHeap().RegistConstantBuffer(
+				device,
+				m_owner->GetComponent<Transform2D>()->GetConstantBuffer(),
+				static_cast<UINT>(CONSTANT_BUFFER_INDEX::TRANSFORM));
+
+			// ビュープロジェクション行列をセット
+			sprite->GetDescriptorHeap().RegistConstantBuffer(
+				device,
+				Scene::GetCamera().GetConstantBuffer(),
+				static_cast<UINT>(CONSTANT_BUFFER_INDEX::CAMERA));
+
+			// 描画モードをセット
+			sprite->GetDescriptorHeap().RegistConstantBuffer(
+				device,
+				*m_drawModeBuffer.get(),
+				static_cast<UINT>(CONSTANT_BUFFER_INDEX::DRAW_MODE));
+
+			// マテリアルをセット
+			sprite->GetDescriptorHeap().RegistConstantBuffer(
+				Dx12GraphicsEngine::Device(),
+				material->GetConstantBuffer(),
+				static_cast<UINT>(CONSTANT_BUFFER_INDEX::MATERIAL));
+		}
+
+		// 0番目のスプライトをセット
+		if (m_sprites.size() > 0)
+		{
+			m_currentSpriteIndex = 0;
+		}
+	}
 	void SpriteRenderer::Update(float deltaTime)
 	{
 	}
 	void SpriteRenderer::Draw()
 	{
+		// 描画対象のスプライトがない場合は描画しない
+		if (m_sprites.size() == 0)
+		{
+			return;
+		}
+
 		RenderingContext renderingContext = Dx12GraphicsEngine::GetRenderingContext();
+
+		auto& renderSprite = m_sprites[m_currentSpriteIndex];
 
 		renderingContext.SetGraphicsRootSignature(*m_rootSignature);
 		renderingContext.SetPipelineState(*m_pipelineState);
-		renderingContext.SetDescriptorHeap(m_sprite->GetDescriptorHeap());
-		renderingContext.SetVertexBuffer(0, m_sprite->GetVertexBuffer());
-		renderingContext.SetIndexBuffer(m_sprite->GetIndexBuffer());
+		renderingContext.SetDescriptorHeap(renderSprite->GetDescriptorHeap());
+		renderingContext.SetVertexBuffer(0, renderSprite->GetVertexBuffer());
+		renderingContext.SetIndexBuffer(renderSprite->GetIndexBuffer());
 		renderingContext.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-		renderingContext.DrawIndexedInstanced(m_sprite->GetIndexBuffer().GetIndexNum(), 1);
+		renderingContext.DrawIndexedInstanced(renderSprite->GetIndexBuffer().GetIndexNum(), 1);
+	}
+
+	void SpriteRenderer::DrawInspector()
+	{
+		if (ImGui::CollapsingHeader("SpriteRenderer"))
+		{
+		}
 	}
 
 	Utility::RESULT SpriteRenderer::CreateGraphicsPipelineState(ID3D12Device& device)

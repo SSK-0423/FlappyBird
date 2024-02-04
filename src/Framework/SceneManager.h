@@ -8,6 +8,8 @@ namespace Framework
 	public:
 		static void Init();
 
+		static void Start();
+
 		static void Update(float deltaTime);
 
 		static void Draw(class IRenderer& renderer);

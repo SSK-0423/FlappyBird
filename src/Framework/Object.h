@@ -36,6 +36,7 @@ namespace Framework
 			return static_cast<T*>(m_components.back().get());
 		}
 
+		void Start();
 		void Update(float deltaTime);
 		void FixedUpdate(float inverval);
 		void Draw();
@@ -64,6 +65,7 @@ namespace Framework
 		std::string m_tag = "None";
 		std::string m_uuid;
 		bool m_isActive = true;
+		bool m_isStarted = false;
 	};
 
 	// templateで実装してあるオブジェクトマネージャーを
