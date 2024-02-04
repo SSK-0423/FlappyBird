@@ -36,7 +36,12 @@ namespace FlappyBird
 
 		bool m_canPlaySE = true;
 
-		std::vector<Framework::Transform2D*> m_transforms;
+		Framework::Transform2D* m_overObstacleTransform = nullptr;
+		Framework::Transform2D* m_underObstacleTransform = nullptr;
+
+		bool IsOutsideViewport();
+		void UpdatePosition();
+		void Reset();
 
 		static const int SPACE;
 		static float m_judgeLineX;

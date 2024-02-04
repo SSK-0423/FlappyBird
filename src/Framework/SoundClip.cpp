@@ -123,6 +123,9 @@ namespace Framework
 		UINT64 playedSampleNum = state.SamplesPlayed;
 		DWORD sampleRate = soundData->waveData.wfx->nSamplesPerSec;
 
+		// ループ再生時の再生位置を計算
+		playedSampleNum %= soundData->waveData.audioBytes / soundData->waveData.wfx->nBlockAlign;
+
 		return (float)playedSampleNum / sampleRate;
 	}
 }

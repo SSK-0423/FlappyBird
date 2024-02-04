@@ -307,6 +307,7 @@
     <ClInclude Include="src\Game\GameReadyUI.h" />
     <ClInclude Include="src\Game\GameScene.h" />
     <ClInclude Include="src\Game\MusicPlayer.h" />
+    <ClInclude Include="src\Game\NoteData.h" />
     <ClInclude Include="src\Game\NotesEditor.h" />
     <ClInclude Include="src\Game\NotesEditScene.h" />
     <ClInclude Include="src\Game\NotesEditUI.h" />

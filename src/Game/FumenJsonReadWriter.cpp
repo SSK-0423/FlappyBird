@@ -19,16 +19,15 @@ namespace FlappyBird
 		rootObject.insert(std::make_pair("MusicInfo", picojson::value(musicInfo)));
 
 		// ノーツの情報
-		//picojson::array notesArray;
-		//for (auto& noteTime : notesTimes)
-		//{
-		//	picojson::object noteObject;
-		//	noteObject.insert(std::make_pair("time", picojson::value(noteTime)));
-		//	notesArray.push_back(picojson::value(noteObject));
-		//}
-		//rootObject.insert(std::make_pair("notes", picojson::value(notesArray)));
-
-		Editor::DebugLog("Write: %s", filePath.c_str());
+		picojson::array notesArray;
+		for (auto& data : data.noteDatas)
+		{
+			picojson::object noteObject;
+			noteObject.insert(std::make_pair("time", picojson::value(data.timing)));
+			noteObject.insert(std::make_pair("posY", picojson::value(data.posY)));
+			notesArray.push_back(picojson::value(noteObject));
+		}
+		rootObject.insert(std::make_pair("notes", picojson::value(notesArray)));
 
 		// Jsonファイルに書き込む
 		std::ofstream ofs(filePath);
@@ -57,5 +56,13 @@ namespace FlappyBird
 		data.beat = static_cast<int>(fumen.get("MusicInfo").get("beat").get<double>());
 
 		// ノーツの情報
+		picojson::array notesArray = fumen.get("notes").get<picojson::array>();
+		for (auto& note : notesArray)
+		{
+			NoteData noteData;
+			noteData.timing = note.get("time").get<double>();
+			noteData.posY = static_cast<float>(note.get("posY").get<double>());
+			data.noteDatas.push_back(noteData);
+		}
 	}
 }

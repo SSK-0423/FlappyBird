@@ -45,17 +45,7 @@ namespace FlappyBird
 			m_owner->SetActive(false);
 		}
 
-		// ノーツのタイミングと判定ラインのタイミングの差を計算
-		float diff = m_timing - m_currentPlayTime;
-
-		auto viewportSize = Dx12GraphicsEngine::GetViewport();
-
-		// 画面の右端から判定ラインまでの距離
-		float distanceX = viewportSize.Width - m_judgeLineX;
-
-		float x = (diff / 1000.f) * distanceX;
-
-		m_transform->position.x = m_judgeLineX + x / 2.f;
+		UpdatePosition();
 	}
 	void BarLine::Draw()
 	{
@@ -80,6 +70,20 @@ namespace FlappyBird
 	void BarLine::SetJudgeLineX(float judgeLineX)
 	{
 		m_judgeLineX = judgeLineX;
+	}
+	void BarLine::UpdatePosition()
+	{
+		// ノーツのタイミングと判定ラインのタイミングの差を計算
+		float diff = m_timing - m_currentPlayTime;
+
+		auto viewportSize = Dx12GraphicsEngine::GetViewport();
+
+		// 画面の右端から判定ラインまでの距離
+		float distanceX = viewportSize.Width - m_judgeLineX;
+
+		float x = (diff / 1000.f) * distanceX;
+
+		m_transform->position.x = m_judgeLineX + x / 2.f;
 	}
 	bool BarLine::CanPlaySE()
 	{

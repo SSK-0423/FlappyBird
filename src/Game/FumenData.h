@@ -1,4 +1,5 @@
 #pragma once
+#include "NoteData.h"
 
 namespace FlappyBird
 {
@@ -10,6 +11,6 @@ namespace FlappyBird
 		float bpm = 120;
 		int beat = 4;
 
-		std::vector<float> notesTiming;
+		std::vector<NoteData> noteDatas;
 	};
 }

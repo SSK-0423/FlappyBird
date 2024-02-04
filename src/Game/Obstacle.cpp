@@ -24,43 +24,52 @@ namespace FlappyBird
 
 		auto viewportSize = Dx12GraphicsEngine::GetViewport();
 
-		// 障害物の生成
-		m_transforms.resize(2);
-		for (size_t i = 0; i < 2; i++)
-		{
-			GameObject* gameObject = new GameObject();
-			gameObject->SetName("Obstacle: " + std::to_string(i));
+		// 上側の障害物生成
+		GameObject* underObstacle = new GameObject();
+		underObstacle->SetName("UnderObstacle");
+		m_underObstacleTransform = underObstacle->GetComponent<Transform2D>();
+		m_underObstacleTransform->scale = { 100.f, viewportSize.Height / 1.f };
+		m_underObstacleTransform->position = { viewportSize.Width / 2.f, m_underObstacleTransform->scale.y / 2.f + SPACE / 2.f };
 
-			Transform2D* transform = gameObject->GetComponent<Transform2D>();
-			transform->scale = { 100.f, viewportSize.Height / 1.f };
-			if (i == 0)
-			{
-				transform->position = { viewportSize.Width / 2.f, transform->scale.y / 2.f + SPACE / 2.f };
-			}
-			else
-			{
-				transform->angle = 180.f;
-				transform->position = { viewportSize.Width / 2.f, transform->scale.y / 2.f - SPACE / 2.f };
-			}
+		RectCollider* collider = underObstacle->AddComponent<RectCollider>(underObstacle);
+		collider->SetRectSize(m_underObstacleTransform->scale.x, m_underObstacleTransform->scale.y);
 
-			m_transforms[i] = transform;
+		Rigidbody2D* rigidbody = underObstacle->AddComponent<Rigidbody2D>(underObstacle);
+		rigidbody->useGravity = false;
 
-			RectCollider* collider = gameObject->AddComponent<RectCollider>(gameObject);
-			collider->SetRectSize(transform->scale.x, transform->scale.y);
+		Sprite* sprite = new Sprite(L"res/texture/dokan_long.png");
+		SpriteRenderer* spriteRenderer = underObstacle->AddComponent<SpriteRenderer>(underObstacle);
+		spriteRenderer->SetSprite(sprite);
+		spriteRenderer->SetDrawMode(SPRITE_DRAW_MODE::GAMEOBJECT);
+		spriteRenderer->SetLayer(static_cast<UINT>(SPRITE_LAYER::OBSTACLE));
 
-			Rigidbody2D* rigidbody = gameObject->AddComponent<Rigidbody2D>(gameObject);
-			rigidbody->useGravity = false;
+		underObstacle->AddComponent<Material>(underObstacle);
 
-			Sprite* sprite = new Sprite(L"res/texture/dokan_long.png");
-			SpriteRenderer* spriteRenderer = gameObject->AddComponent<SpriteRenderer>(gameObject);
-			spriteRenderer->SetSprite(sprite);
-			spriteRenderer->SetDrawMode(SPRITE_DRAW_MODE::GAMEOBJECT);
-			spriteRenderer->SetLayer(static_cast<UINT>(SPRITE_LAYER::OBSTACLE));
+		m_owner->AddChild(underObstacle);
 
-			gameObject->AddComponent<Material>(gameObject);
+		// 下側の障害物生成
+		GameObject* overObstacle = new GameObject();
+		overObstacle->SetName("OverObstacle");
+		m_overObstacleTransform = overObstacle->GetComponent<Transform2D>();
+		m_overObstacleTransform->scale = { 100.f, viewportSize.Height / 1.f };
+		m_overObstacleTransform->position = { viewportSize.Width / 2.f, m_overObstacleTransform->scale.y / 2.f - SPACE / 2.f };
+		m_overObstacleTransform->angle = 180.f;
 
-			m_owner->AddChild(gameObject);
-		}
+		collider = overObstacle->AddComponent<RectCollider>(overObstacle);
+		collider->SetRectSize(m_overObstacleTransform->scale.x, m_overObstacleTransform->scale.y);
+
+		rigidbody = overObstacle->AddComponent<Rigidbody2D>(overObstacle);
+		rigidbody->useGravity = false;
+
+		sprite = new Sprite(L"res/texture/dokan_long.png");
+		spriteRenderer = overObstacle->AddComponent<SpriteRenderer>(overObstacle);
+		spriteRenderer->SetSprite(sprite);
+		spriteRenderer->SetDrawMode(SPRITE_DRAW_MODE::GAMEOBJECT);
+		spriteRenderer->SetLayer(static_cast<UINT>(SPRITE_LAYER::OBSTACLE));
+
+		overObstacle->AddComponent<Material>(overObstacle);
+
+		m_owner->AddChild(overObstacle);
 
 		m_timing = -1.0f;
 	}
@@ -74,36 +83,13 @@ namespace FlappyBird
 			return;
 		}
 
-		// 画面外に出たら非アクティブにする
-		if (m_transforms[0]->position.x < -m_transforms[0]->scale.x / 2.f)
+		// 画面外に出たらノーツの状態をリセット
+		if (IsOutsideViewport())
 		{
-			m_owner->SetActive(false);
-			m_canPlaySE = true;
+			Reset();
 		}
 
-		// ノーツのタイミングと判定ラインのタイミングの差を計算
-		float diff = m_timing - m_currentPlayTime;
-
-		auto viewportSize = Dx12GraphicsEngine::GetViewport();
-
-		// 画面の右端から判定ラインまでの距離
-		float distanceX = viewportSize.Width - m_judgeLineX;
-
-		float x = (diff / 1000.f) * distanceX;
-
-		// 障害物の移動
-		for (size_t i = 0; i < m_transforms.size(); i++)
-		{
-			m_transforms[i]->position.x = m_judgeLineX + x / 2.f;
-			if (i == 0)
-			{
-				m_transforms[i]->position.y = m_posY + m_transforms[i]->scale.y / 2.f + SPACE / 2.f;
-			}
-			else
-			{
-				m_transforms[i]->position.y = m_posY - m_transforms[i]->scale.y / 2.f - SPACE / 2.f;
-			}
-		}
+		UpdatePosition();
 	}
 	void Obstacle::Draw()
 	{
@@ -146,6 +132,52 @@ namespace FlappyBird
 	void Obstacle::SetCurrentPlayTime(float currentPlayTime)
 	{
 		m_currentPlayTime = currentPlayTime;
+	}
+	bool Obstacle::IsOutsideViewport()
+	{
+		// 画面外に出たら非アクティブにする
+		// 画面外に出たかどうかの判定は、障害物の右端の座標で行う
+		if (m_overObstacleTransform->position.x + m_overObstacleTransform->scale.x / 2.f < 0.f)
+		{
+			return true;
+		}
+
+		return false;
+	}
+	void Obstacle::UpdatePosition()
+	{
+		// ノーツのタイミングと判定ラインのタイミングの差を計算
+		float diff = m_timing - m_currentPlayTime;
+
+		auto viewportSize = Dx12GraphicsEngine::GetViewport();
+
+		// 画面の右端から判定ラインまでの距離
+		float distanceX = viewportSize.Width - m_judgeLineX;
+
+		float x = (diff / 1000.f) * distanceX;
+
+		// 障害物の移動
+		float obstacleNewPosX = m_judgeLineX + x / 2.f;
+		float halfObstacleScaleY = m_overObstacleTransform->scale.y / 2.f;
+		float halfSpace = SPACE / 2.f;
+
+		m_underObstacleTransform->position.x = obstacleNewPosX;
+		m_underObstacleTransform->position.y = m_posY + halfObstacleScaleY + halfSpace;
+
+		m_overObstacleTransform->position.x = obstacleNewPosX;
+		m_overObstacleTransform->position.y = m_posY - halfObstacleScaleY - halfSpace;
+	}
+	void Obstacle::Reset()
+	{
+		m_owner->SetActive(false);
+		m_canPlaySE = true;
+
+		//auto viewportSize = Dx12GraphicsEngine::GetViewport();
+
+		//float resetPosX = viewportSize.Width + m_overObstacleTransform->scale.x / 2.f;
+
+		//m_overObstacleTransform->position.x = resetPosX;
+		//m_underObstacleTransform->position.x = resetPosX;
 	}
 	void Obstacle::SetJudgeLineX(float judgeLineX)
 	{

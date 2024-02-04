@@ -53,6 +53,7 @@ namespace Framework
 
 		void AddChild(Object* child);
 		void RemoveChild(Object* child);
+		void RemoveAllChildren();
 		const std::list<Object*>& GetChildren();
 
 		const std::string GetUUID();

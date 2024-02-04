@@ -37,8 +37,19 @@ namespace FlappyBird
 		// UIの各種ボタン操作時の処理を登録
 		NotesEditUI* notesEditUI = UIObjectManager::FindObject("NotesEditUI")->GetComponent<NotesEditUI>();
 
-		notesEditUI->OnSave.Subscribe([this](const std::string& savePath, const FumenData& data) { SaveFumen(savePath, data); });
-		notesEditUI->OnLoad.Subscribe([this](const std::string& loadPath, FumenData& data) { LoadFumen(loadPath, data); });
+		notesEditUI->OnSave.Subscribe([this](const std::string& savePath, FumenData& data)
+			{
+				// ノーツデータを取得
+				data.noteDatas = m_notesManager->GetNotes();
+				SaveFumen(savePath, data);
+			});
+
+		notesEditUI->OnLoad.Subscribe([this](const std::string& loadPath, FumenData& data)
+			{
+				LoadFumen(loadPath, data);
+				m_notesManager->SetNotes(data.noteDatas);
+			});
+
 		notesEditUI->OnPlay.Subscribe([this](NotificationEvent e) { Play(); });
 		notesEditUI->OnStop.Subscribe([this](NotificationEvent e) { Stop(); });
 		notesEditUI->OnLoadMusic.Subscribe([this](const std::string& musicPath) { LoadMusic(musicPath); });
@@ -128,11 +139,11 @@ namespace FlappyBird
 	}
 	void NotesEditor::PutNotes(float timing, float posY)
 	{
-		m_notesManager->CreateNotes(Note(timing, posY));
+		m_notesManager->CreateNotes(NoteData(timing, posY));
 	}
 	void NotesEditor::DeleteNotes(float timing, float posY)
 	{
-		m_notesManager->DeleteNotes(Note(timing, posY));
+		m_notesManager->DeleteNotes(NoteData(timing, posY));
 	}
 	float NotesEditor::CalcNotesTiming(LONG mouseX, float viewportWidth)
 	{

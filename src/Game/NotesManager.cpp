@@ -46,7 +46,7 @@ namespace FlappyBird
 			}
 		}
 	}
-	void NotesManager::CreateNotes(Note data)
+	void NotesManager::CreateNotes(NoteData data)
 	{
 		// 既に同じタイミングのノーツが存在する場合は追加しない
 		for (auto& note : m_notes)
@@ -68,7 +68,7 @@ namespace FlappyBird
 
 		m_owner->AddChild(noteObstacle);
 	}
-	void NotesManager::DeleteNotes(Note data)
+	void NotesManager::DeleteNotes(NoteData data)
 	{
 		for (auto it = m_notes.begin(); it != m_notes.end(); ++it)
 		{
@@ -79,12 +79,29 @@ namespace FlappyBird
 			}
 		}
 	}
+	std::vector<NoteData>& NotesManager::GetNotes()
+	{
+		return m_notes;
+	}
+	void NotesManager::SetNotes(const std::vector<NoteData>& notes)
+	{
+		// 既存のノーツを削除
+		m_notes.clear();
+		m_notes.shrink_to_fit();
+		m_noteObstacles.clear();
+		m_owner->RemoveAllChildren();
+
+		for (auto& note : notes)
+		{
+			CreateNotes(note);
+		}
+	}
 	void NotesManager::UpdateCurrentPlayTime()
 	{
 		if (m_musicPlayer != nullptr)
 		{
 			// 小節線に現在の再生位置をセット
-			m_currentPlayTime = m_musicPlayer->GetCurrentPlayTimeMs();
+			Obstacle::SetCurrentPlayTime(m_musicPlayer->GetCurrentPlayTimeMs());
 		}
 	}
 	void NotesManager::UpdateNoteActive()
@@ -95,7 +112,7 @@ namespace FlappyBird
 			float timing = note->GetTiming();
 
 			// ノーツのタイミングと判定ラインのタイミングの差を計算
-			float diff = timing - m_currentPlayTime;
+			float diff = timing - m_musicPlayer->GetCurrentPlayTimeMs();
 
 			// 2000ms以内の場合、アクティブにする
 			if (0.f < diff && diff < 2000.f)

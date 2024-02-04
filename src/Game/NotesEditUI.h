@@ -15,7 +15,7 @@ namespace FlappyBird
 		void Draw() override;
 
 		// 各ボタン押下時のイベント
-		Framework::Subject<const std::string&, const FumenData&> OnSave;
+		Framework::Subject<const std::string&, FumenData&> OnSave;
 		Framework::Subject<const std::string&, FumenData&> OnLoad;
 		Framework::Subject<const std::string&> OnLoadMusic;
 		Framework::Subject<const FumenData&> OnEditStart;

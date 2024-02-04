@@ -28,6 +28,8 @@ namespace FlappyBird
 		float m_timing = 0.0f;
 		bool m_canPlaySE = true;
 
+		void UpdatePosition();
+
 		static float m_judgeLineX;
 		static float m_currentPlayTime;
 	};
