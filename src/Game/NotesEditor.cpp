@@ -51,15 +51,18 @@ namespace FlappyBird
 	}
 	void NotesEditor::Update(float deltaTime)
 	{
+		// 障害物の位置を更新
+		Obstacle::SetCurrentPlayTime(m_musicPlayer->GetCurrentPlayTimeMs());
+
 		auto viewport = Dx12GraphicsEngine::GetViewport();
 		POINT mousePos = InputSystem::GetMousePosition();
 
+		// マウス座標がGameWindow内であればマウスクリックでの処理を行う
 		if (IsInsideViewport(mousePos, viewport))
 		{
 			float timing = CalcNotesTiming(mousePos.x, viewport.Width);
 
 			// 設置用のオブジェクト描画
-			Obstacle::SetCurrentPlayTime(m_musicPlayer->GetCurrentPlayTimeMs());
 			m_obstacle->SetTiming(timing);
 			m_obstacle->SetPosY(static_cast<float>(mousePos.y));
 			m_obstacle->GetOwner()->SetActive(true);

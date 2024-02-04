@@ -3,6 +3,9 @@
 
 namespace FlappyBird
 {
+	class Obstacle;
+	class MusicPlayer;
+
 	struct Note
 	{
 		float timing;
@@ -18,14 +21,22 @@ namespace FlappyBird
 		NotesManager(Framework::Object* owner);
 		~NotesManager();
 
+		void Start();
 		void Update(float deltaTime) override;
 		void Draw() override;
 		void DrawInspector() override;
 
 		void CreateNotes(Note data);
 		void DeleteNotes(Note data);
-
 	private:
 		std::vector<Note> m_notes;
+		std::vector<Obstacle*> m_noteObstacles;
+
+		MusicPlayer* m_musicPlayer = nullptr;
+
+		float m_currentPlayTime = 0.0f;
+
+		void UpdateCurrentPlayTime();
+		void UpdateNoteActive();
 	};
 }

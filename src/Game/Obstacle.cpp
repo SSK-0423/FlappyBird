@@ -74,6 +74,13 @@ namespace FlappyBird
 			return;
 		}
 
+		// 画面外に出たら非アクティブにする
+		if (m_transforms[0]->position.x < -m_transforms[0]->scale.x / 2.f)
+		{
+			m_owner->SetActive(false);
+			m_canPlaySE = true;
+		}
+
 		// ノーツのタイミングと判定ラインのタイミングの差を計算
 		float diff = m_timing - m_currentPlayTime;
 
@@ -110,6 +117,10 @@ namespace FlappyBird
 	{
 		m_timing = timing;
 	}
+	float Obstacle::GetTiming()
+	{
+		return m_timing;
+	}
 	void Obstacle::SetPosY(float posY)
 	{
 		auto viewportSize = Dx12GraphicsEngine::GetViewport();
@@ -123,6 +134,14 @@ namespace FlappyBird
 			auto material = child->GetComponent<Material>();
 			material->SetColor(color);
 		}
+	}
+	bool Obstacle::CanPlaySE()
+	{
+		return m_canPlaySE;
+	}
+	void Obstacle::SetCanPlaySE(bool canPlaySE)
+	{
+		m_canPlaySE = canPlaySE;
 	}
 	void Obstacle::SetCurrentPlayTime(float currentPlayTime)
 	{

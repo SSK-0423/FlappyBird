@@ -16,8 +16,13 @@ namespace FlappyBird
 		void SetMoveSpeed(float moveSpeedX, float moveSpeedY);
 
 		void SetTiming(float timing);
+		float GetTiming();
+
 		void SetPosY(float posY);
 		void SetMaterialColor(const DirectX::XMFLOAT4& color);
+
+		bool CanPlaySE();
+		void SetCanPlaySE(bool canPlaySE);
 
 		static void SetJudgeLineX(float judgeLineX);
 		static void SetCurrentPlayTime(float currentPlayTime);
@@ -28,6 +33,8 @@ namespace FlappyBird
 
 		float m_timing = 0.0f;
 		float m_posY = 0.0f;
+
+		bool m_canPlaySE = true;
 
 		std::vector<Framework::Transform2D*> m_transforms;
 

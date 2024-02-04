@@ -12,6 +12,7 @@ namespace FlappyBird
 		BarManager(Framework::Object* owner);
 		~BarManager() = default;
 
+		void Start();
 		void Update(float deltaTime) override;
 		void Draw() override;
 		void DrawInspector() override;

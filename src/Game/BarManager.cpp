@@ -14,10 +14,38 @@ namespace FlappyBird
 		SoundClip* soundClip = m_owner->AddComponent<SoundClip>(m_owner);
 		soundClip->LoadWavSound(L"res/sound/clap.wav");
 	}
-	void BarManager::CreateBar(unsigned int barNum, float bpm, int beat)
+	void BarManager::Start()
 	{
 		m_musicPlayer = GameObjectManager::FindObject("MusicPlayer")->GetComponent<MusicPlayer>();
+	}
+	void BarManager::Update(float deltaTime)
+	{
+		// 現在の再生位置を更新
+		UpdateCurrentPlayTime();
 
+		// 小節線のアクティブ状態を更新
+		UpdateBarLineActive();
+	}
+	void BarManager::Draw()
+	{
+	}
+	void BarManager::DrawInspector()
+	{
+		if (ImGui::CollapsingHeader("BarManager"))
+		{
+			// アクティブ状態の小節線
+			for (auto barLine : m_barLines)
+			{
+				if (barLine->GetOwner()->GetActive())
+				{
+					ImGui::Text("Timing: %f", barLine->GetTiming());
+					ImGui::Separator();
+				}
+			}
+		}
+	}
+	void BarManager::CreateBar(unsigned int barNum, float bpm, int beat)
+	{
 		// 既存の小節線を削除
 		for (auto barLine : m_barLines)
 		{
@@ -76,32 +104,6 @@ namespace FlappyBird
 
 		return nearTiming;
 	}
-	void BarManager::Update(float deltaTime)
-	{
-		// 現在の再生位置を更新
-		UpdateCurrentPlayTime();
-
-		// 小節線のアクティブ状態を更新
-		UpdateBarLineActive();
-	}
-	void BarManager::Draw()
-	{
-	}
-	void BarManager::DrawInspector()
-	{
-		if (ImGui::CollapsingHeader("BarManager"))
-		{
-			// アクティブ状態の小節線
-			for (auto barLine : m_barLines)
-			{
-				if (barLine->GetOwner()->GetActive())
-				{
-					ImGui::Text("Timing: %f", barLine->GetTiming());
-					ImGui::Separator();
-				}
-			}
-		}
-	}
 	void BarManager::UpdateCurrentPlayTime()
 	{
 		if (m_musicPlayer != nullptr)
@@ -124,19 +126,6 @@ namespace FlappyBird
 			if (0.f < diff && diff < 2000.f)
 			{
 				barLine->GetOwner()->SetActive(true);
-			}
-			// 判定タイミングを超えたらSEを再生　※デバッグ用
-			else if (diff <= 0.f)
-			{
-				// 以下の条件に合致する場合、SEを再生
-				// アクティブである
-				// かつ、SEが再生可能である
-				if (barLine->GetOwner()->GetActive() &&
-					barLine->CanPlaySE())
-				{
-					m_owner->GetComponent<SoundClip>()->Play();
-					barLine->SetCanPlaySE(false);	// 複数回再生できないようにする
-				}
 			}
 		}
 	}

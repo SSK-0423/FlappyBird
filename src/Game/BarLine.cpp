@@ -43,10 +43,6 @@ namespace FlappyBird
 		if (m_transform->position.x < 0.f)
 		{
 			m_owner->SetActive(false);
-			m_canPlaySE = true;
-
-			// 位置初期化
-			m_transform->position.x = Dx12GraphicsEngine::GetViewport().Width;
 		}
 
 		// ノーツのタイミングと判定ラインのタイミングの差を計算

@@ -86,9 +86,9 @@ namespace Framework
 	{
 		// オブジェクトの名前とUUIDを表示
 		ImGui::SeparatorText("Object Data");
-		ImGui::Text("Name: %s", m_name.c_str());
-		ImGui::SameLine();
 		ImGui::Checkbox("Active", &m_isActive);
+		ImGui::Text("Name: %s", m_name.c_str());
+		ImGui::Text("UUID: %s", m_uuid.c_str());
 
 		for (auto& component : m_components)
 		{

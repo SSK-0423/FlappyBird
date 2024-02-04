@@ -1,18 +1,34 @@
 #include "pch.h"
 #include "NotesManager.h"
 
+#include "Obstacle.h"
+#include "MusicPlayer.h"
+
 #include "imgui.h"
+
+using namespace Framework;
 
 namespace FlappyBird
 {
 	NotesManager::NotesManager(Framework::Object* owner) : IComponent(owner)
 	{
+		SoundClip* soundClip = m_owner->AddComponent<SoundClip>(m_owner);
+		soundClip->LoadWavSound(L"res/sound/clap.wav");
 	}
 	NotesManager::~NotesManager()
 	{
 	}
+	void NotesManager::Start()
+	{
+		m_musicPlayer = GameObjectManager::FindObject("MusicPlayer")->GetComponent<MusicPlayer>();
+	}
 	void NotesManager::Update(float deltaTime)
 	{
+		// 現在の再生位置を更新
+		UpdateCurrentPlayTime();
+
+		// ノーツのアクティブ状態を更新
+		UpdateNoteActive();
 	}
 	void NotesManager::Draw()
 	{
@@ -40,8 +56,17 @@ namespace FlappyBird
 				return;
 			}
 		}
-
 		m_notes.push_back(data);
+
+		// ノーツの生成
+		GameObject* noteObstacle = new GameObject();
+		noteObstacle->SetName("NoteObstacle");
+		Obstacle* obstacle = noteObstacle->AddComponent<Obstacle>(noteObstacle);
+		obstacle->SetTiming(data.timing);
+		obstacle->SetPosY(data.posY);
+		m_noteObstacles.push_back(obstacle);
+
+		m_owner->AddChild(noteObstacle);
 	}
 	void NotesManager::DeleteNotes(Note data)
 	{
@@ -51,6 +76,44 @@ namespace FlappyBird
 			{
 				m_notes.erase(it);
 				break;
+			}
+		}
+	}
+	void NotesManager::UpdateCurrentPlayTime()
+	{
+		if (m_musicPlayer != nullptr)
+		{
+			// 小節線に現在の再生位置をセット
+			m_currentPlayTime = m_musicPlayer->GetCurrentPlayTimeMs();
+		}
+	}
+	void NotesManager::UpdateNoteActive()
+	{
+		// ノーツのアクティブ状態を更新
+		for (auto note : m_noteObstacles)
+		{
+			float timing = note->GetTiming();
+
+			// ノーツのタイミングと判定ラインのタイミングの差を計算
+			float diff = timing - m_currentPlayTime;
+
+			// 2000ms以内の場合、アクティブにする
+			if (0.f < diff && diff < 2000.f)
+			{
+				note->GetOwner()->SetActive(true);
+			}
+			// 判定タイミングを超えたらSEを再生
+			else if (diff <= 0.f)
+			{
+				// 以下の条件に合致する場合、SEを再生
+				// アクティブである
+				// かつ、SEが再生可能である
+				if (note->GetOwner()->GetActive() &&
+					note->CanPlaySE())
+				{
+					m_owner->GetComponent<SoundClip>()->Play(0.5f);
+					note->SetCanPlaySE(false);	// 複数回再生できないようにする
+				}
 			}
 		}
 	}
