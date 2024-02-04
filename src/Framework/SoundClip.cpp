@@ -5,20 +5,33 @@
 
 #include "imgui.h"
 
+using namespace Utility;
+
 namespace Framework
 {
 	SoundClip::SoundClip(Object* owner) :
-		IComponent(owner), m_soundname(nullptr), m_sourceVoice(nullptr), m_isPaused(false), m_isPlaying(false)
+		IComponent(owner), m_soundname(nullptr), m_sourceVoice(nullptr), m_isPaused(false)
 	{
 	}
 	SoundClip::~SoundClip()
 	{
-		Utility::DebugLog("SoundClip::~SoundClip()\n");
 	}
 	Utility::RESULT SoundClip::LoadWavSound(const wchar_t* filename, bool isLoop)
 	{
+		if (SoundManager::LoadWavSound(filename, isLoop) == RESULT::FAILED)
+		{
+			return RESULT::FAILED;
+		}
+
+		if (m_sourceVoice != nullptr)
+		{
+			m_sourceVoice->Stop();
+		}
+
 		m_soundname = filename;
-		return SoundManager::LoadWavSound(filename, isLoop);
+		m_isPaused = false;
+
+		return RESULT::SUCCESS;
 	}
 	void SoundClip::Update(float deltaTime)
 	{
@@ -31,7 +44,6 @@ namespace Framework
 		if (ImGui::CollapsingHeader("SoundClip"))
 		{
 			ImGui::Text("SoundName: %s", m_soundname);
-			ImGui::Text("IsPlaying: %s", m_isPlaying ? "true" : "false");
 			ImGui::Text("IsPaused: %s", m_isPaused ? "true" : "false");
 		}
 	}
@@ -63,8 +75,6 @@ namespace Framework
 				m_sourceVoice->GetState(&state, XAUDIO2_VOICE_NOSAMPLESPLAYED);
 			}
 		}
-
-		//Utility::DebugLog("çƒê∂èIóπ\n");
 	}
 	void SoundClip::Stop(bool isPause)
 	{

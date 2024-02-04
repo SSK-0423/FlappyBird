@@ -23,7 +23,7 @@ namespace FlappyBird
 		void Draw() override;
 
 	private:
-		void SaveFumen(const std::string& savePath, const FumenData& data);
+		void SaveFumen(const std::string& savePath, FumenData& data);
 		void LoadFumen(const std::string& loadPath, FumenData& data);
 		void Play();
 		void Stop();

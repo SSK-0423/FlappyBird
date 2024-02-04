@@ -35,6 +35,5 @@ namespace Framework
 		const wchar_t* m_soundname;
 		IXAudio2SourceVoice* m_sourceVoice;
 		bool m_isPaused;
-		bool m_isPlaying;
 	};
 }

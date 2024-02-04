@@ -56,6 +56,10 @@ namespace FlappyBird
 		data.beat = static_cast<int>(fumen.get("MusicInfo").get("beat").get<double>());
 
 		// ノーツの情報
+		// 既存のノーツデータをクリア
+		data.noteDatas.clear();
+		data.noteDatas.shrink_to_fit();
+		// ノーツデータを読み込み
 		picojson::array notesArray = fumen.get("notes").get<picojson::array>();
 		for (auto& note : notesArray)
 		{

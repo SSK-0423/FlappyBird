@@ -85,9 +85,6 @@
     <Filter Include="ソース ファイル\Game\NotesEditorScene\NotesEditor\Bar">
       <UniqueIdentifier>{af944520-4fb8-41ec-8376-356edeeccffe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Game\NotesEditorScene\NotesEditor\Lane">
-      <UniqueIdentifier>{2388c0b8-3fb8-4122-b39e-e4df21fbb90b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Game\NotesEditorScene\NotesEditor\Notes">
       <UniqueIdentifier>{8d0659e7-332c-4216-ab5c-1973856c5ab2}</UniqueIdentifier>
     </Filter>

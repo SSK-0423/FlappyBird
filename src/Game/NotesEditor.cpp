@@ -40,14 +40,14 @@ namespace FlappyBird
 		notesEditUI->OnSave.Subscribe([this](const std::string& savePath, FumenData& data)
 			{
 				// ノーツデータを取得
-				data.noteDatas = m_notesManager->GetNotes();
 				SaveFumen(savePath, data);
 			});
 
 		notesEditUI->OnLoad.Subscribe([this](const std::string& loadPath, FumenData& data)
 			{
 				LoadFumen(loadPath, data);
-				m_notesManager->SetNotes(data.noteDatas);
+				LoadMusic(data.musicFilePath);
+				StartEdit(data);
 			});
 
 		notesEditUI->OnPlay.Subscribe([this](NotificationEvent e) { Play(); });
@@ -96,9 +96,10 @@ namespace FlappyBird
 	void NotesEditor::Draw()
 	{
 	}
-	void NotesEditor::SaveFumen(const std::string& savePath, const FumenData& data)
+	void NotesEditor::SaveFumen(const std::string& savePath, FumenData& data)
 	{
 		// ノーツデータを書き込み
+		data.noteDatas = m_notesManager->GetNotes();
 
 		// Json形式で保存
 		FumenJsonReadWriter::Write(savePath, data);
@@ -108,10 +109,8 @@ namespace FlappyBird
 		// Json形式で読み込み
 		FumenJsonReadWriter::Read(loadPath, data);
 
-		// 曲読み込み
-		m_musicPlayer->Load(data.musicFilePath.c_str());
-
 		// ノーツデータを書き込み
+		m_notesManager->SetNotes(data.noteDatas);
 	}
 	void NotesEditor::Play()
 	{

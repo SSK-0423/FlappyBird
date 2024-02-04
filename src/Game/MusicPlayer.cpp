@@ -35,11 +35,11 @@ namespace FlappyBird
 	}
 	void MusicPlayer::Load(const char* musicPath)
 	{
+		m_music->Stop();
+
 		Utility::charToWchar(musicPath, m_musicPath, _countof(m_musicPath));
 
 		m_music->LoadWavSound(m_musicPath, true);
-
-		m_isPlaying = false;
 	}
 	void MusicPlayer::Play()
 	{

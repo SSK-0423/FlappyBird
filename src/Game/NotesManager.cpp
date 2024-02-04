@@ -88,8 +88,9 @@ namespace FlappyBird
 		// Šù‘¶‚Ìƒm[ƒc‚ðíœ
 		m_notes.clear();
 		m_notes.shrink_to_fit();
-		m_noteObstacles.clear();
 		m_owner->RemoveAllChildren();
+		m_noteObstacles.clear();
+		m_noteObstacles.shrink_to_fit();
 
 		for (auto& note : notes)
 		{
