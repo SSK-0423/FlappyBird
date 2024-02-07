@@ -29,7 +29,7 @@ namespace FlappyBird
 		DrawSaveLoadButton();
 
 		ImGui::SeparatorText("Music Play/Stop");
-		DrawPlayStopButton();
+		DrawPlayStopRestartButton();
 
 		ImGui::SeparatorText("Edit Start");
 		DrawEditStartButton();
@@ -135,7 +135,7 @@ namespace FlappyBird
 
 		ImGui::Text(actionLog.c_str());
 	}
-	void NotesEditUI::DrawPlayStopButton()
+	void NotesEditUI::DrawPlayStopRestartButton()
 	{
 		if (ImGui::Button("Play"))
 		{
@@ -147,6 +147,12 @@ namespace FlappyBird
 		{
 			// ã»Çí‚é~
 			OnStop.Notify(NotificationEvent());
+		}
+		ImGui::SameLine();
+		if (ImGui::Button("Restart"))
+		{
+			// ã»Çç≈èâÇ©ÇÁçƒê∂
+			OnRestart.Notify(NotificationEvent());
 		}
 	}
 	void NotesEditUI::DrawEditStartButton()

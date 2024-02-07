@@ -21,13 +21,14 @@ namespace FlappyBird
 		Framework::Subject<const FumenData&> OnEditStart;
 		Framework::Subject<Framework::NotificationEvent> OnPlay;
 		Framework::Subject<Framework::NotificationEvent> OnStop;
+		Framework::Subject<Framework::NotificationEvent> OnRestart;
 
 	private:
 		FumenData m_fumenData;
 
 		void DrawFumenData();
 		void DrawSaveLoadButton();
-		void DrawPlayStopButton();
+		void DrawPlayStopRestartButton();
 		void DrawEditStartButton();
 
 		static std::string m_selectedMusicPath;

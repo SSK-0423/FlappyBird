@@ -10,7 +10,8 @@ using namespace Utility;
 namespace Framework
 {
 	SoundClip::SoundClip(Object* owner) :
-		IComponent(owner), m_soundname(nullptr), m_sourceVoice(nullptr), m_isPaused(false)
+		IComponent(owner), m_soundname(nullptr), m_sourceVoice(nullptr), m_isPaused(false),
+		m_restartSamplesPlayed(0)
 	{
 	}
 	SoundClip::~SoundClip()
@@ -21,11 +22,6 @@ namespace Framework
 		if (SoundManager::LoadWavSound(filename, isLoop) == RESULT::FAILED)
 		{
 			return RESULT::FAILED;
-		}
-
-		if (m_sourceVoice != nullptr)
-		{
-			m_sourceVoice->Stop();
 		}
 
 		m_soundname = filename;
@@ -47,7 +43,7 @@ namespace Framework
 			ImGui::Text("IsPaused: %s", m_isPaused ? "true" : "false");
 		}
 	}
-	void SoundClip::Play(float volume, bool wait)
+	void SoundClip::Play(float volume, float startTimeSec, bool wait)
 	{
 		// 一時停止中でない場合は新規にSourceVoiceを取得する
 		if (m_isPaused == false)
@@ -59,10 +55,25 @@ namespace Framework
 		{
 			return;
 		}
+
+		// 音源をリスタートした際にSamplesPlayedがリセットされないため
+		// 再生開始時のSamplesPlayedを記録し、リスタート後でも現在の再生位置を正しく取得できるようにする。
+		if (startTimeSec == 0.f)
+		{
+			XAUDIO2_VOICE_STATE state;
+			m_sourceVoice->GetState(&state);
+			m_restartSamplesPlayed = state.SamplesPlayed;
+		}
+
+		// 再生位置を設定
+		SoundData* soundData = SoundManager::GetSoundData(m_soundname);
+		soundData->buffer.PlayBegin = static_cast<UINT32>(soundData->waveData.wfx->nSamplesPerSec * startTimeSec);
+		m_sourceVoice->SubmitSourceBuffer(&soundData->buffer);
+
+		// 音量を設定
 		m_sourceVoice->SetVolume(volume);
 
-		// 再生中かどうかを判定する必要がある
-		// 直ぐにデリートされては困るので、一度再生が終わるまで待つ
+		// サウンドを再生
 		m_sourceVoice->Start();
 
 		// サウンド管理クラスを作成して、再生中かどうかを判定、管理した方がよいのでは
@@ -90,6 +101,12 @@ namespace Framework
 				m_sourceVoice->Stop();
 				m_isPaused = false;
 			}
+			m_sourceVoice->FlushSourceBuffers();
+
+			// 状態を取得して表示
+			XAUDIO2_VOICE_STATE state;
+			m_sourceVoice->GetState(&state);
+			Editor::DebugLog("SamplesPlayed: %d", state.SamplesPlayed);
 		}
 	}
 	float SoundClip::GetLength()
@@ -130,7 +147,8 @@ namespace Framework
 		m_sourceVoice->GetState(&state);
 
 		// 再生済みのサンプル数とサンプルレートから現在の再生位置を計算
-		UINT64 playedSampleNum = state.SamplesPlayed;
+		// リスタートした際の再生位置を考慮を減算することで、正確な再生位置を取得できるようにする。
+		UINT64 playedSampleNum = state.SamplesPlayed - m_restartSamplesPlayed;
 		DWORD sampleRate = soundData->waveData.wfx->nSamplesPerSec;
 
 		// ループ再生時の再生位置を計算

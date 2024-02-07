@@ -52,6 +52,7 @@ namespace FlappyBird
 
 		notesEditUI->OnPlay.Subscribe([this](NotificationEvent e) { Play(); });
 		notesEditUI->OnStop.Subscribe([this](NotificationEvent e) { Stop(); });
+		notesEditUI->OnRestart.Subscribe([this](NotificationEvent e) { Restart(); });
 		notesEditUI->OnLoadMusic.Subscribe([this](const std::string& musicPath) { LoadMusic(musicPath); });
 		notesEditUI->OnEditStart.Subscribe([this](const FumenData& data) { StartEdit(data); });
 
@@ -114,11 +115,20 @@ namespace FlappyBird
 	}
 	void NotesEditor::Play()
 	{
-		m_musicPlayer->Play();
+		// 判定ラインの位置から再生開始時間を取得
+		auto viewport = Dx12GraphicsEngine::GetViewport();
+		float judgeLineX = UIObjectManager::FindObject("JudgeLine")->GetComponent<Transform2D>()->position.x;
+		float startTimeSec = CalcNotesTiming(judgeLineX, viewport.Width) / 1000.f;
+
+		m_musicPlayer->Play(startTimeSec);
 	}
 	void NotesEditor::Stop()
 	{
 		m_musicPlayer->Stop();
+	}
+	void NotesEditor::Restart()
+	{
+		m_musicPlayer->Play(0.f);
 	}
 	void NotesEditor::LoadMusic(const std::string& musicPath)
 	{
@@ -144,13 +154,13 @@ namespace FlappyBird
 	{
 		m_notesManager->DeleteNotes(NoteData(timing, posY));
 	}
-	float NotesEditor::CalcNotesTiming(LONG mouseX, float viewportWidth)
+	float NotesEditor::CalcNotesTiming(LONG targetPosX, float viewportWidth)
 	{
 		// マウス座標からタイミングを計算
 		float currentTime = m_musicPlayer->GetCurrentPlayTimeMs();
 		float judgeLineX = UIObjectManager::FindObject("JudgeLine")->GetComponent<Transform2D>()->position.x;
 		float distanceX = viewportWidth - judgeLineX;
-		float posX = (mouseX - judgeLineX) * 2.f;
+		float posX = (targetPosX - judgeLineX) * 2.f;
 		float timing = posX / distanceX * 1000.f + currentTime;
 
 		// 最も近い小節線のタイミングを取得

@@ -40,8 +40,10 @@ namespace FlappyBird
 		Utility::charToWchar(musicPath, m_musicPath, _countof(m_musicPath));
 
 		m_music->LoadWavSound(m_musicPath, true);
+
+		Editor::DebugLog("Music Loaded: %s", musicPath);
 	}
-	void MusicPlayer::Play()
+	void MusicPlayer::Play(float startTimeSec)
 	{
 		// Ä¶’†‚Ìê‡‚Í‘½dÄ¶‚ð–h‚®‚½‚ß‚É‰½‚à‚µ‚È‚¢
 		if (m_isPlaying)
@@ -49,7 +51,8 @@ namespace FlappyBird
 			return;
 		}
 
-		m_music->Play();
+		float defaultVolume = 0.1f;
+		m_music->Play(defaultVolume, startTimeSec);
 		m_isPlaying = true;
 	}
 	void MusicPlayer::Stop()

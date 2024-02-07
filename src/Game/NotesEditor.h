@@ -27,13 +27,14 @@ namespace FlappyBird
 		void LoadFumen(const std::string& loadPath, FumenData& data);
 		void Play();
 		void Stop();
+		void Restart();
 		void LoadMusic(const std::string& musicPath);
 		void StartEdit(const FumenData& data);
 
 		void PutNotes(float timing, float posY);
 		void DeleteNotes(float timing, float posY);
 
-		float CalcNotesTiming(LONG mouseX, float viewportWidth);
+		float CalcNotesTiming(LONG targetPosX, float viewportWidth);
 		bool IsInsideViewport(POINT mousePos, CD3DX12_VIEWPORT viewport);
 
 		BarManager* m_barManager = nullptr;

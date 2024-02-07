@@ -15,7 +15,7 @@ namespace FlappyBird
 		void DrawInspector() override;
 
 		void Load(const char* musicPath);
-		void Play();
+		void Play(float startTime = 0.f);
 		void Stop();
 
 		float GetMusicLength();
