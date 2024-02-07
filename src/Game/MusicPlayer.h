@@ -20,6 +20,8 @@ namespace FlappyBird
 
 		float GetMusicLength();
 		float GetCurrentPlayTimeMs();
+		void Seek(float timeSec);
+		bool IsPlaying();
 
 	private:
 		Framework::SoundClip* m_music;

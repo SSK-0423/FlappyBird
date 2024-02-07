@@ -4,6 +4,13 @@
 
 namespace FlappyBird
 {
+	enum class BARLINETYPE
+	{
+		WHOLE,
+		QUARTER,
+		EIGHTH,
+	};
+
 	class BarLine : public Framework::IComponent
 	{
 	public:
@@ -14,12 +21,13 @@ namespace FlappyBird
 		void Draw() override;
 		void DrawInspector() override;
 
-
 		void SetTiming(float timing);
 		float GetTiming();
 
 		bool CanPlaySE();
 		void SetCanPlaySE(bool canPlaySE);
+
+		void SetBarLineType(BARLINETYPE type);
 
 		static void SetCurrentPlayTime(float currentPlayTime);
 		static void SetJudgeLineX(float judgeLineX);

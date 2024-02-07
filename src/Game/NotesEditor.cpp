@@ -88,6 +88,13 @@ namespace FlappyBird
 			{
 				DeleteNotes(timing, static_cast<float>(mousePos.y));
 			}
+			
+			// 曲が再生中でなければマウスホイールでの処理を行う
+			if (!m_musicPlayer->IsPlaying())
+			{
+				// マウスホイールで曲を進める
+				Scroll(InputSystem::GetMouseWheelMovement());
+			}
 		}
 		else
 		{
@@ -154,14 +161,32 @@ namespace FlappyBird
 	{
 		m_notesManager->DeleteNotes(NoteData(timing, posY));
 	}
-	float NotesEditor::CalcNotesTiming(LONG targetPosX, float viewportWidth)
+	void NotesEditor::Scroll(LONG mouseWheelMovement)
 	{
-		// マウス座標からタイミングを計算
+		if (mouseWheelMovement > 0)
+		{
+			// 曲を進める
+			//m_musicPlayer->Seek(1.f);
+		}
+		else if (mouseWheelMovement < 0)
+		{
+			// 曲を戻す
+			//m_musicPlayer->Seek(-1.f);
+		}
+	}
+	float NotesEditor::CalcTiming(float targetPosX, float viewportWidth)
+	{
 		float currentTime = m_musicPlayer->GetCurrentPlayTimeMs();
 		float judgeLineX = UIObjectManager::FindObject("JudgeLine")->GetComponent<Transform2D>()->position.x;
 		float distanceX = viewportWidth - judgeLineX;
 		float posX = (targetPosX - judgeLineX) * 2.f;
 		float timing = posX / distanceX * 1000.f + currentTime;
+
+		return timing;
+	}
+	float NotesEditor::CalcNotesTiming(LONG targetPosX, float viewportWidth)
+	{
+		float timing = CalcTiming(targetPosX, viewportWidth);
 
 		// 最も近い小節線のタイミングを取得
 		return m_barManager->GetNearBarLineTiming(timing);

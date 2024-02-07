@@ -162,8 +162,6 @@ namespace Framework
 			m_sourceVoices.push_back(sourceVoice);
 		}
 
-		//sourceVoice->SubmitSourceBuffer(&m_soundDatas[soundname].buffer);
-
 		return sourceVoice;
 	}
 	SoundData* SoundManager::GetSoundData(const wchar_t* soundname)

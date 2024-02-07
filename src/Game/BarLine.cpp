@@ -17,13 +17,6 @@ namespace FlappyBird
 
 	BarLine::BarLine(Framework::Object* owner) : IComponent(owner)
 	{
-		// スプライト追加
-		std::shared_ptr<Sprite> sprite = std::make_shared<Sprite>(L"res/texture/bar_line.png");
-		SpriteRenderer* spriteRenderer = owner->AddComponent<SpriteRenderer>(m_owner);
-		spriteRenderer->SetSprite(sprite);
-		spriteRenderer->SetDrawMode(SPRITE_DRAW_MODE::GUI);
-		spriteRenderer->SetLayer(SPRITE_LAYER::BARLINE);
-
 		// テスト用のTransform2D
 		auto viewportSize = Dx12GraphicsEngine::GetViewport();
 		m_transform = owner->GetComponent<Transform2D>();
@@ -92,5 +85,28 @@ namespace FlappyBird
 	void BarLine::SetCanPlaySE(bool canPlaySE)
 	{
 		m_canPlaySE = canPlaySE;
+	}
+	void BarLine::SetBarLineType(BARLINETYPE type)
+	{
+		// スプライト追加
+		std::shared_ptr<Sprite> sprite;
+
+		switch (type)
+		{
+		case BARLINETYPE::WHOLE:
+			sprite = std::make_shared<Sprite>(L"res/texture/bar_line_whole.png");
+			break;
+		case BARLINETYPE::QUARTER:
+			sprite = std::make_shared<Sprite>(L"res/texture/bar_line_quarter.png");
+			break;
+		case BARLINETYPE::EIGHTH:
+			sprite = std::make_shared<Sprite>(L"res/texture/bar_line_eighth.png");
+			break;
+		}
+
+		SpriteRenderer* spriteRenderer = m_owner->AddComponent<SpriteRenderer>(m_owner);
+		spriteRenderer->SetSprite(sprite);
+		spriteRenderer->SetDrawMode(SPRITE_DRAW_MODE::GUI);
+		spriteRenderer->SetLayer(SPRITE_LAYER::BARLINE);
 	}
 }

@@ -33,7 +33,9 @@ namespace FlappyBird
 
 		void PutNotes(float timing, float posY);
 		void DeleteNotes(float timing, float posY);
+		void Scroll(LONG mouseWheelMovement);
 
+		float CalcTiming(float targetPosY, float viewportHeight);
 		float CalcNotesTiming(LONG targetPosX, float viewportWidth);
 		bool IsInsideViewport(POINT mousePos, CD3DX12_VIEWPORT viewport);
 

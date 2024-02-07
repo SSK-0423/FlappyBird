@@ -27,6 +27,9 @@ namespace Framework
 		m_soundname = filename;
 		m_isPaused = false;
 
+		//m_sourceVoice = SoundManager::Play(m_soundname);
+		//m_sourceVoice->Stop();
+
 		return RESULT::SUCCESS;
 	}
 	void SoundClip::Update(float deltaTime)
@@ -41,6 +44,13 @@ namespace Framework
 		{
 			ImGui::Text("SoundName: %s", m_soundname);
 			ImGui::Text("IsPaused: %s", m_isPaused ? "true" : "false");
+
+			if (m_sourceVoice != nullptr)
+			{
+				XAUDIO2_VOICE_STATE state;
+				m_sourceVoice->GetState(&state);
+				ImGui::Text("SamplesPlayed: %d", state.SamplesPlayed);
+			}
 		}
 	}
 	void SoundClip::Play(float volume, float startTimeSec, bool wait)
@@ -155,5 +165,36 @@ namespace Framework
 		playedSampleNum %= soundData->waveData.audioBytes / soundData->waveData.wfx->nBlockAlign;
 
 		return (float)playedSampleNum / sampleRate;
+	}
+	void SoundClip::Seek(float timeSec)
+	{
+		if (m_sourceVoice == nullptr)
+		{
+			return;
+		}
+
+		SoundData* soundData = SoundManager::GetSoundData(m_soundname);
+
+		if (soundData == nullptr)
+		{
+			return;
+		}
+
+		// 現在の再生位置を設定
+		DWORD sampleRate = soundData->waveData.wfx->nSamplesPerSec;
+		INT64 displacement = sampleRate * timeSec;
+
+		XAUDIO2_VOICE_STATE state;
+		m_sourceVoice->GetState(&state);
+
+		// 曲を進める時は値をマイナスする
+		// 曲を戻す時は値をプラスする
+		INT64 newRestartSamplesPlayed = m_restartSamplesPlayed - displacement;
+		
+		// オーバーフローを防ぐ
+		if (state.SamplesPlayed > newRestartSamplesPlayed)
+		{
+			m_restartSamplesPlayed = newRestartSamplesPlayed;
+		}
 	}
 }

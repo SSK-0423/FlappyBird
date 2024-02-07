@@ -24,9 +24,9 @@ namespace Framework
 	DIMOUSESTATE InputSystem::m_prevMouse;
 	BUTTON_STATE InputSystem::m_mouseButtonState[MOUSE_BUTTON_NUM];
 
-	float InputSystem::m_mouseXMovement;
-	float InputSystem::m_mouseYMovement;
-	float InputSystem::m_mouseWheelMovement;
+	LONG InputSystem::m_mouseXMovement;
+	LONG InputSystem::m_mouseYMovement;
+	LONG InputSystem::m_mouseWheelMovement;
 
 	InputSystem::InputSystem()
 	{
@@ -191,6 +191,10 @@ namespace Framework
 		GetCursorPos(&point);
 		ScreenToClient(m_hwnd, &point);
 		return point;
+	}
+	LONG InputSystem::GetMouseWheelMovement()
+	{
+		return m_mouseWheelMovement;
 	}
 	void InputSystem::ViewMouseCursor()
 	{

@@ -30,6 +30,7 @@ namespace Framework
 
 		float GetLength();
 		float GetCurrentPlayTime();
+		void Seek(float timeMs);
 
 	private:
 		const wchar_t* m_soundname;
