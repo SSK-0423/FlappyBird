@@ -78,6 +78,16 @@ namespace FlappyBird
 				break;
 			}
 		}
+
+		for (auto it = m_noteObstacles.begin(); it != m_noteObstacles.end(); ++it)
+		{
+			if ((*it)->GetTiming() == data.timing)
+			{
+				m_owner->RemoveChild((*it)->GetOwner());
+				m_noteObstacles.erase(it);
+				break;
+			}
+		}
 	}
 	std::vector<NoteData>& NotesManager::GetNotes()
 	{

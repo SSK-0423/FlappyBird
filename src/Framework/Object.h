@@ -1,6 +1,8 @@
 #pragma once
 #include "IComponent.h"
 
+#include "Editor.h"
+
 namespace Framework
 {
 	class Object
@@ -10,6 +12,10 @@ namespace Framework
 		virtual ~Object()
 		{
 			m_components.clear();
+
+#ifdef _DEBUG
+			Editor::DebugLog("Object::Destructor");
+#endif // _DEBUG
 		}
 
 		template<class T>
