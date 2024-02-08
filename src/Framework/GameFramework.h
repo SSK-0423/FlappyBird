@@ -27,13 +27,16 @@
 #include "Framework/SoundManager.h"
 #include "Framework/SoundClip.h"
 
+
 #include "Framework/Game.h"
 #include "Framework/GameImpl.h"
 #include "Framework/Window.h"
 
 #include "Framework/IRenderer.h"
 #include "Framework/ShaderLibrary.h"
+
 #include "Framework/Sprite.h"
+#include "Framework/TextureManager.h"
 
 #include "Framework/Subject.h"
 #include "Framework/NotificationEvent.h"

@@ -112,11 +112,6 @@ namespace Framework
 				m_isPaused = false;
 			}
 			m_sourceVoice->FlushSourceBuffers();
-
-			// ó‘Ô‚ðŽæ“¾‚µ‚Ä•\Ž¦
-			XAUDIO2_VOICE_STATE state;
-			m_sourceVoice->GetState(&state);
-			Editor::DebugLog("SamplesPlayed: %d", state.SamplesPlayed);
 		}
 	}
 	float SoundClip::GetLength()

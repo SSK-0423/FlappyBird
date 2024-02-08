@@ -192,6 +192,7 @@
     <ClCompile Include="src\Framework\SoundClip.cpp" />
     <ClCompile Include="src\Framework\SoundManager.cpp" />
     <ClCompile Include="src\Framework\Sprite.cpp" />
+    <ClCompile Include="src\Framework\TextureManager.cpp" />
     <ClCompile Include="src\Framework\SpriteRenderer.cpp" />
     <ClCompile Include="src\Framework\Text.cpp" />
     <ClCompile Include="src\Framework\Transform2D.cpp" />
@@ -294,6 +295,7 @@
     <ClInclude Include="src\Framework\SpriteRenderer.h" />
     <ClInclude Include="src\Framework\Subject.h" />
     <ClInclude Include="src\Framework\Text.h" />
+    <ClInclude Include="src\Framework\TextureManager.h" />
     <ClInclude Include="src\Framework\Transform2D.h" />
     <ClInclude Include="src\Framework\UIObjectManager.h" />
     <ClInclude Include="src\Framework\WAVFileReader.h" />

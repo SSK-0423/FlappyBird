@@ -11,6 +11,7 @@
 
 #include "Framework/Object.h"
 #include "Framework/Transform2D.h"
+#include "Framework/TextureManager.h"
 
 using namespace Utility;
 using namespace DX12Wrapper;
@@ -64,10 +65,7 @@ namespace Framework
 
 	void Sprite::LoadTexture(const std::wstring& path)
 	{
-		if (m_texture == nullptr)
-		{
-			m_texture = std::make_shared<Texture>();
-		}
+		m_texture = TextureManager::LoadTexture(path);
 
 		RESULT result = m_texture->CreateTextureFromWIC(path);
 		if (result == RESULT::FAILED)

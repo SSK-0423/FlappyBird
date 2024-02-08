@@ -125,11 +125,6 @@ namespace Framework
 	}
 	IXAudio2SourceVoice* SoundManager::Play(const wchar_t* soundname)
 	{
-#ifdef _DEBUG
-		// ソースボイスの総数を表示
-		Editor::DebugLog("SourceVoice Count: %d", m_sourceVoices.size());
-#endif // _DEBUG
-
 		// サウンドが読み込み済みかチェックする
 		if (m_soundDatas.find(soundname) == m_soundDatas.end())
 		{
