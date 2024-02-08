@@ -126,7 +126,7 @@ namespace Framework
 	}
 	void Object::AddChild(Object* child)
 	{
-		m_children.push_back(std::make_shared<Object>(*child));
+		m_children.push_back(std::shared_ptr<Object>(child));
 	}
 	void Object::AddChild(const std::shared_ptr<Object>& child)
 	{
@@ -134,7 +134,7 @@ namespace Framework
 	}
 	void Object::RemoveChild(Object* child)
 	{
-		m_children.remove(std::make_shared<Object>(*child));
+		m_children.remove(std::shared_ptr<Object>(child));
 	}
 	void Object::RemoveChild(const std::shared_ptr<Object>& child)
 	{

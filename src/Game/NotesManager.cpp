@@ -59,9 +59,9 @@ namespace FlappyBird
 		m_notes.push_back(data);
 
 		// ÉmÅ[ÉcÇÃê∂ê¨
-		GameObject* noteObstacle = new GameObject();
+		std::shared_ptr<GameObject> noteObstacle = std::shared_ptr<GameObject>(new GameObject());
 		noteObstacle->SetName("NoteObstacle");
-		Obstacle* obstacle = noteObstacle->AddComponent<Obstacle>(noteObstacle);
+		Obstacle* obstacle = noteObstacle->AddComponent<Obstacle>(noteObstacle.get());
 		obstacle->SetTiming(data.timing);
 		obstacle->SetPosY(data.posY);
 		m_noteObstacles.push_back(obstacle);

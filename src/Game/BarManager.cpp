@@ -47,10 +47,7 @@ namespace FlappyBird
 	void BarManager::CreateBar(unsigned int barNum, float bpm, int beat)
 	{
 		// Šù‘¶‚Ì¬ßü‚ğíœ
-		for (auto barLine : m_barLines)
-		{
-			m_owner->RemoveChild(barLine->GetOwner());
-		}
+		m_owner->RemoveAllChildren();
 		m_barLines.clear();
 
 		// ”»’èƒ‰ƒCƒ“‚ÌxÀ•W‚ğæ“¾
