@@ -61,11 +61,11 @@ namespace FlappyBird
 		{
 			for (unsigned int j = 0; j < 8; j++)
 			{
-				UIObject* barLineObj = new UIObject();
+				std::shared_ptr<UIObject> barLineObj = std::shared_ptr<UIObject>(new UIObject());
 				barLineObj->SetName("BarLine: " + std::to_string(i) + "/" + std::to_string(j));
 				barLineObj->SetActive(false);
 
-				BarLine* barLine = barLineObj->AddComponent<BarLine>(barLineObj);
+				BarLine* barLine = barLineObj->AddComponent<BarLine>(barLineObj.get());
 
 				// 判定タイミングを計算
 				// 1小節の長さ = 1分(60秒) / bpm * 拍子

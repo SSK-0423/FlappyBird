@@ -126,9 +126,17 @@ namespace Framework
 	}
 	void Object::AddChild(Object* child)
 	{
+		m_children.push_back(std::make_shared<Object>(*child));
+	}
+	void Object::AddChild(const std::shared_ptr<Object>& child)
+	{
 		m_children.push_back(child);
 	}
 	void Object::RemoveChild(Object* child)
+	{
+		m_children.remove(std::make_shared<Object>(*child));
+	}
+	void Object::RemoveChild(const std::shared_ptr<Object>& child)
 	{
 		m_children.remove(child);
 	}
@@ -136,7 +144,7 @@ namespace Framework
 	{
 		m_children.clear();
 	}
-	const std::list<Object*>& Object::GetChildren()
+	const std::list<std::shared_ptr<Object>>& Object::GetChildren()
 	{
 		return m_children;
 	}

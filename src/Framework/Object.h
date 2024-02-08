@@ -58,15 +58,17 @@ namespace Framework
 		const std::string GetTag();
 
 		void AddChild(Object* child);
+		void AddChild(const std::shared_ptr<Object>& child);
 		void RemoveChild(Object* child);
+		void RemoveChild(const std::shared_ptr<Object>& child);
 		void RemoveAllChildren();
-		const std::list<Object*>& GetChildren();
+		const std::list<std::shared_ptr<Object>>& GetChildren();
 
 		const std::string GetUUID();
 
 	protected:
 		std::list<std::shared_ptr<IComponent>> m_components;
-		std::list<Object*> m_children;
+		std::list<std::shared_ptr<Object>> m_children;
 		Object* m_parent = nullptr;
 		std::string m_name = "Object";
 		std::string m_tag = "None";

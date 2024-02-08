@@ -123,7 +123,7 @@ namespace Framework
 	void Editor::DrawGameWindow()
 	{
 		ImGui::Begin("GameWindow");
-		auto viewport = Dx12GraphicsEngine::GetViewport();
+		auto& viewport = Dx12GraphicsEngine::GetViewport();
 		SIZE size = { viewport.Width, viewport.Height };
 		ImGui::Image(
 			(ImTextureID)m_imguiHeap.GetSRVHandle(static_cast<int>(EDITOR_SRV_INDEX::GAME_WINDOW)).ptr,
