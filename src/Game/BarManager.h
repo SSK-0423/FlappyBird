@@ -9,7 +9,7 @@ namespace FlappyBird
 	class BarManager : public Framework::IComponent
 	{
 	public:
-		BarManager(Framework::Object* owner);
+		BarManager(std::shared_ptr<Framework::Object> owner);
 		~BarManager() = default;
 
 		void Start();

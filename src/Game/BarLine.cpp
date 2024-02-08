@@ -15,7 +15,7 @@ namespace FlappyBird
 	float BarLine::m_currentPlayTime = 0.0f;
 	float BarLine::m_judgeLineX = 0.0f;
 
-	BarLine::BarLine(Framework::Object* owner) : IComponent(owner)
+	BarLine::BarLine(std::shared_ptr<Framework::Object> owner) : IComponent(owner)
 	{
 		// テスト用のTransform2D
 		auto viewportSize = Dx12GraphicsEngine::GetViewport();
@@ -35,7 +35,7 @@ namespace FlappyBird
 
 		if (m_transform->position.x < 0.f)
 		{
-			m_owner->SetActive(false);
+			m_owner.lock()->SetActive(false);
 		}
 
 		UpdatePosition();
@@ -104,7 +104,7 @@ namespace FlappyBird
 			break;
 		}
 
-		SpriteRenderer* spriteRenderer = m_owner->AddComponent<SpriteRenderer>(m_owner);
+		SpriteRenderer* spriteRenderer = m_owner.lock()->AddComponent<SpriteRenderer>(m_owner.lock());
 		spriteRenderer->SetSprite(sprite);
 		spriteRenderer->SetDrawMode(SPRITE_DRAW_MODE::GUI);
 		spriteRenderer->SetLayer(SPRITE_LAYER::BARLINE);

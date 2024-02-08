@@ -17,7 +17,7 @@ namespace FlappyBird
 
 		Utility::RESULT Init();
 
-		void Render(const std::list<Framework::GameObject*>& gameObjects);
+		void Render(const std::list<std::shared_ptr<Framework::GameObject>>& gameObjects);
 		DX12Wrapper::Texture& GetRenderTexture();
 
 	private:

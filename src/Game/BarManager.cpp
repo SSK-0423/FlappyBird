@@ -9,9 +9,9 @@ using namespace Framework;
 
 namespace FlappyBird
 {
-	BarManager::BarManager(Framework::Object* owner) : IComponent(owner)
+	BarManager::BarManager(std::shared_ptr<Object> owner) : IComponent(owner)
 	{
-		SoundClip* soundClip = m_owner->AddComponent<SoundClip>(m_owner);
+		SoundClip* soundClip = m_owner.lock()->AddComponent<SoundClip>(m_owner.lock());
 		soundClip->LoadWavSound(L"res/sound/clap.wav");
 	}
 	void BarManager::Start()
@@ -47,7 +47,7 @@ namespace FlappyBird
 	void BarManager::CreateBar(unsigned int barNum, float bpm, int beat)
 	{
 		// 既存の小節線を削除
-		m_owner->RemoveAllChildren();
+		m_owner.lock()->RemoveAllChildren();
 		m_barLines.clear();
 
 		// 判定ラインのx座標を取得
@@ -62,7 +62,7 @@ namespace FlappyBird
 				barLineObj->SetName("BarLine: " + std::to_string(i) + "/" + std::to_string(j));
 				barLineObj->SetActive(false);
 
-				BarLine* barLine = barLineObj->AddComponent<BarLine>(barLineObj.get());
+				BarLine* barLine = barLineObj->AddComponent<BarLine>(barLineObj);
 
 				// 判定タイミングを計算
 				// 1小節の長さ = 1分(60秒) / bpm * 拍子
@@ -90,7 +90,7 @@ namespace FlappyBird
 					barLine->SetBarLineType(BARLINETYPE::EIGHTH);
 				}
 
-				m_owner->AddChild(barLineObj);
+				m_owner.lock()->AddChild(barLineObj);
 
 				m_barLines.push_back(barLine);
 			}

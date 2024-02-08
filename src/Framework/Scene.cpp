@@ -16,8 +16,8 @@ namespace Framework
 		// シーンがインスタンス化されるたびにカメラが生成されるのを防ぐ
 		if (m_cameraObject == nullptr)
 		{
-			m_cameraObject = std::make_shared<GameObject>();
-			m_cameraObject->AddComponent<Camera>(m_cameraObject.get());
+			m_cameraObject = std::shared_ptr<GameObject>(new GameObject());
+			m_cameraObject->AddComponent<Camera>(m_cameraObject);
 		}
 	}
 	void Scene::Start()

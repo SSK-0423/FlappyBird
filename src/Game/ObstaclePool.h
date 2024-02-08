@@ -7,18 +7,18 @@ namespace FlappyBird
 	class ObstaclePool : public Framework::IComponent
 	{
 	public:
-		ObstaclePool(Framework::Object* owner);
+		ObstaclePool(std::shared_ptr<Framework::Object> owner);
 		~ObstaclePool();
 
 		void Update(float deltaTime) override;
 		void Draw() override;
 
 		// áŠQ•¨‚ğƒv[ƒ‹‚©‚çæ‚èo‚·
-		Framework::GameObject& GetObstacle();
+		std::shared_ptr<Framework::GameObject>& GetObstacle();
 
 	private:
 		const size_t POOL_SIZE = 20;
-		std::list<Framework::GameObject> m_obstaclePool;
+		std::list<std::shared_ptr<Framework::GameObject>> m_obstaclePool;
 
 		void InitObstaclePool();
 	};

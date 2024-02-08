@@ -15,7 +15,7 @@ namespace FlappyBird
 	// Ã“Iƒƒ“ƒo•Ï”‚Ì‰Šú‰»
 	std::string NotesEditUI::m_selectedMusicPath = "No Select";
 
-	NotesEditUI::NotesEditUI(Framework::Object* owner)
+	NotesEditUI::NotesEditUI(std::shared_ptr<Object> owner)
 		: Framework::IComponent(owner)
 	{}
 	void NotesEditUI::Update(float deltaTime)

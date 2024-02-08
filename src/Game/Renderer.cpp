@@ -55,12 +55,12 @@ namespace FlappyBird
 
 		return RESULT::SUCCESS;
 	}
-	void Renderer::RenderScene(const std::list<Framework::GameObject*>& gameObjects)
+	void Renderer::RenderScene(const std::list<std::shared_ptr<GameObject>>& gameObjects)
 	{
 		// オブジェクト描画
 		m_renderObjectPass->Render(gameObjects);
 	}
-	void Renderer::RenderUI(const std::list<Framework::UIObject*>& uiObjects)
+	void Renderer::RenderUI(const std::list<std::shared_ptr<UIObject>>& uiObjects)
 	{
 		// UI描画パス
 		m_renderUIPass->Render(uiObjects);

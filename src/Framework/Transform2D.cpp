@@ -15,7 +15,7 @@ using namespace DirectX;
 
 namespace Framework
 {
-	Transform2D::Transform2D(Object* owner)
+	Transform2D::Transform2D(std::shared_ptr<Object> owner)
 		: IComponent(owner), m_transformBuffer(std::make_shared<ConstantBuffer>()),
 		position(0.f, 0.f), scale(100.f, 100.f), angle(0.f), depth(0.f)
 	{

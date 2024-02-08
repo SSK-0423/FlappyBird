@@ -6,7 +6,7 @@ namespace FlappyBird
 	class PleaseClickText : public Framework::IComponent
 	{
 	public:
-		PleaseClickText(class Framework::Object* owner);
+		PleaseClickText(std::shared_ptr<Framework::Object> owner);
 		~PleaseClickText() = default;
 
 		void Update(float deltaTime) override;

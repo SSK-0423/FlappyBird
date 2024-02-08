@@ -16,16 +16,16 @@ namespace FlappyBird
 	float Obstacle::m_currentPlayTime = 0.0f;
 	const int Obstacle::SPACE = 255;
 
-	Obstacle::Obstacle(Framework::Object* owner)
+	Obstacle::Obstacle(std::shared_ptr<Framework::Object> owner)
 		: IComponent(owner)
 	{
-		m_owner->SetName("Obstacle");
-		m_owner->SetTag("Obstacle");
+		m_owner.lock()->SetName("Obstacle");
+		m_owner.lock()->SetTag("Obstacle");
 
 		auto viewportSize = Dx12GraphicsEngine::GetViewport();
 
 		// è„ë§ÇÃè·äQï®ê∂ê¨
-		GameObject* underObstacle = new GameObject();
+		std::shared_ptr<GameObject> underObstacle = std::shared_ptr<GameObject>(new GameObject());
 		underObstacle->SetName("UnderObstacle");
 		m_underObstacleTransform = underObstacle->GetComponent<Transform2D>();
 		m_underObstacleTransform->scale = { 100.f, viewportSize.Height / 1.f };
@@ -45,10 +45,10 @@ namespace FlappyBird
 
 		underObstacle->AddComponent<Material>(underObstacle);
 
-		m_owner->AddChild(underObstacle);
+		m_owner.lock()->AddChild(underObstacle);
 
 		// â∫ë§ÇÃè·äQï®ê∂ê¨
-		GameObject* overObstacle = new GameObject();
+		std::shared_ptr<GameObject> overObstacle = std::shared_ptr<GameObject>(new GameObject());
 		overObstacle->SetName("OverObstacle");
 		m_overObstacleTransform = overObstacle->GetComponent<Transform2D>();
 		m_overObstacleTransform->scale = { 100.f, viewportSize.Height / 1.f };
@@ -69,7 +69,7 @@ namespace FlappyBird
 
 		overObstacle->AddComponent<Material>(overObstacle);
 
-		m_owner->AddChild(overObstacle);
+		m_owner.lock()->AddChild(overObstacle);
 
 		m_timing = -1.0f;
 	}
@@ -114,7 +114,7 @@ namespace FlappyBird
 	}
 	void Obstacle::SetMaterialColor(const DirectX::XMFLOAT4& color)
 	{
-		auto children = m_owner->GetChildren();
+		auto children = m_owner.lock()->GetChildren();
 		for (auto child : children)
 		{
 			auto material = child->GetComponent<Material>();
@@ -169,7 +169,7 @@ namespace FlappyBird
 	}
 	void Obstacle::Reset()
 	{
-		m_owner->SetActive(false);
+		m_owner.lock()->SetActive(false);
 		m_canPlaySE = true;
 
 		//auto viewportSize = Dx12GraphicsEngine::GetViewport();

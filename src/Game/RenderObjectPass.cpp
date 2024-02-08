@@ -37,7 +37,7 @@ namespace FlappyBird
 
 		return RESULT::SUCCESS;
 	}
-	void RenderObjectPass::Render(const std::list<Framework::GameObject*>& gameObjects)
+	void RenderObjectPass::Render(const std::list<std::shared_ptr<Framework::GameObject>>& gameObjects)
 	{
 		m_renderTarget->BeginRendering(Dx12GraphicsEngine::GetRenderingContext(), m_viewport, m_scissorRect);
 		{

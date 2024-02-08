@@ -7,7 +7,7 @@ namespace FlappyBird
 	class Obstacle : public Framework::IComponent
 	{
 	public:
-		Obstacle(Framework::Object* owner);
+		Obstacle(std::shared_ptr<Framework::Object> owner);
 		~Obstacle();
 
 		void Update(float deltaTime) override;

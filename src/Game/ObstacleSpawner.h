@@ -10,7 +10,7 @@ namespace FlappyBird
 	class ObstacleSpawner : public Framework::IComponent
 	{
 	public:
-		ObstacleSpawner(Framework::Object* owner);
+		ObstacleSpawner(std::shared_ptr<Framework::Object> owner);
 		~ObstacleSpawner();
 
 		void Update(float deltaTime) override;

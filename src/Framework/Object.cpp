@@ -1,7 +1,9 @@
 #include "pch.h"
 #include "Object.h"
 #include "Transform2D.h"
+
 #include "GameObjectManager.h"
+#include "UIObjectManager.h"
 
 #include "imgui.h"
 
@@ -9,10 +11,22 @@ namespace Framework
 {
 	Object::Object()
 	{
-		m_components.push_back(std::make_shared<Transform2D>(this));
+		// 一時オブジェクトが生成されてしまう
+		// それがデリートされることでデストラクタが呼ばれ、メモリアクセス違反が発生する
+		//this->AddComponent<Transform2D>(std::shared_ptr<Object>(this));
 
 		// UUIDを生成
 		m_uuid = Utility::GenerateUUID();
+
+		// 自分を取得する
+		std::shared_ptr<Object> self = GameObjectManager::FindObjectWithUUID(m_uuid);
+
+		if (self == nullptr)
+		{
+			self = UIObjectManager::FindObjectWithUUID(m_uuid);
+		}
+
+		this->AddComponent<Transform2D>(self);
 	}
 	void Object::Start()
 	{

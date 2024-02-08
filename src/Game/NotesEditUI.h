@@ -8,7 +8,7 @@ namespace FlappyBird
 	class NotesEditUI : public Framework::IComponent
 	{
 	public:
-		NotesEditUI(Framework::Object* owner);
+		NotesEditUI(std::shared_ptr<Framework::Object> owner);
 		~NotesEditUI() = default;
 
 		void Update(float deltaTime) override;

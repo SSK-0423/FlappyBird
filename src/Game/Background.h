@@ -7,7 +7,7 @@ namespace FlappyBird
 	class Background : public Framework::IComponent
 	{
 	public:
-		Background(Framework::Object* owner);
+		Background(std::shared_ptr<Framework::Object> owner);
 		~Background();
 
 		void Update(float deltaTime) override;

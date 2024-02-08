@@ -8,16 +8,16 @@ using namespace Framework;
 
 namespace FlappyBird
 {
-	GameMaster::GameMaster(Framework::Object* owner) :
+	GameMaster::GameMaster(std::shared_ptr<Framework::Object> owner) :
 		IComponent(owner), m_gameState(GAME_STATE::READY), m_elapsedTime(0.0f), m_gameStartTime(4.0f)
 	{
 		m_gameOverUI = UIObjectManager::FindObject("GameOverUI");
 		m_gameReadyUI = UIObjectManager::FindObject("GameReadyUI");
 
-		m_owner->SetName("GameMaster");
+		m_owner.lock()->SetName("GameMaster");
 
 		// BGM追加
-		SoundClip* sound = m_owner->AddComponent<SoundClip>(m_owner);
+		SoundClip* sound = m_owner.lock()->AddComponent<SoundClip>(m_owner.lock());
 		sound->LoadWavSound(L"res/sound/game_bgm.wav", true);
 		sound->Play();
 	}
@@ -75,7 +75,7 @@ namespace FlappyBird
 	}
 	void GameMaster::GameOver(float deltaTime)
 	{
-		m_owner->GetComponent<SoundClip>()->Stop();
+		m_owner.lock()->GetComponent<SoundClip>()->Stop();
 
 		// ゲームオーバーUIを表示
 	}

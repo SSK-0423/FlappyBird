@@ -1,6 +1,5 @@
 #pragma once
 #include "IComponent.h"
-
 #include "Editor.h"
 
 namespace Framework
@@ -12,7 +11,7 @@ namespace Framework
 		virtual ~Object()
 		{
 			m_components.clear();
-
+			m_children.clear();
 #ifdef _DEBUG
 			Editor::DebugLog("Object::Destructor");
 #endif // _DEBUG
@@ -31,7 +30,7 @@ namespace Framework
 		}
 
 		template<class T>
-		T* AddComponent(Object* owner)
+		T* AddComponent(const std::shared_ptr<Object>& owner)
 		{
 			for (auto& comp : m_components) {
 				if (typeid(*comp.get()) == typeid(T))

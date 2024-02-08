@@ -27,7 +27,7 @@ namespace FlappyBird
 		auto viewportSize = Dx12GraphicsEngine::GetViewport();
 
 		// 背景
-		GameObject* background = GameObjectManager::CreateObject();
+		std::shared_ptr<GameObject> background = GameObjectManager::CreateObject();
 		background->SetName("Background");
 		Sprite* backgroundSprite = new Sprite(L"res/texture/sky.png");
 		SpriteRenderer* backgroundRenderer = background->AddComponent<SpriteRenderer>(background);
@@ -39,7 +39,7 @@ namespace FlappyBird
 		backgroundTransform->scale = { viewportSize.Width * 1.f, viewportSize.Height * 1.f };
 
 		// タイトル画面へ戻るボタン
-		UIObject* backToTitleButton = UIObjectManager::CreateObject();
+		std::shared_ptr<UIObject> backToTitleButton = UIObjectManager::CreateObject();
 		backToTitleButton->SetName("BackToTitleButton");
 		Button* backButton = backToTitleButton->AddComponent<Button>(backToTitleButton);
 		backButton->SetTexture(L"res/texture/back_to_title_button.png");
@@ -49,17 +49,17 @@ namespace FlappyBird
 		backButton->SetOnClick([]() {SceneManager::SetNextScene("Title"); });
 
 		// ノーツ編集関連のUI
-		UIObject* editWindow = UIObjectManager::CreateObject();
+		std::shared_ptr<UIObject> editWindow = UIObjectManager::CreateObject();
 		editWindow->SetName("NotesEditUI");
 		editWindow->AddComponent<NotesEditUI>(editWindow);
 
 		// 小節線の管理オブジェクト
-		UIObject* barManagerObj = UIObjectManager::CreateObject();
+		std::shared_ptr<UIObject> barManagerObj = UIObjectManager::CreateObject();
 		barManagerObj->SetName("BarManager");
 		BarManager* barManager = barManagerObj->AddComponent<BarManager>(barManagerObj);
 
 		// 判定ラインの生成
-		UIObject* judgeLineObj = UIObjectManager::CreateObject();
+		std::shared_ptr<UIObject> judgeLineObj = UIObjectManager::CreateObject();
 		judgeLineObj->SetName("JudgeLine");
 		Sprite* judgeLineSprite = new Sprite(L"res/texture/judge_line.png");
 		SpriteRenderer* judgeLineRenderer = judgeLineObj->AddComponent<SpriteRenderer>(judgeLineObj);
@@ -71,17 +71,17 @@ namespace FlappyBird
 		judgeLineTransform->scale = { 5.f, viewportSize.Height };
 
 		// ノーツの管理オブジェクト
-		GameObject* notesManagerObj = GameObjectManager::CreateObject();
+		std::shared_ptr<GameObject> notesManagerObj = GameObjectManager::CreateObject();
 		notesManagerObj->SetName("NotesManager");
 		NotesManager* notesManager = notesManagerObj->AddComponent<NotesManager>(notesManagerObj);
 
 		// 曲再生管理オブジェクト
-		GameObject* musicPlayerObj = GameObjectManager::CreateObject();
+		std::shared_ptr<GameObject> musicPlayerObj = GameObjectManager::CreateObject();
 		musicPlayerObj->SetName("MusicPlayer");
 		MusicPlayer* musicPlayer = musicPlayerObj->AddComponent<MusicPlayer>(musicPlayerObj);
 
 		// ノーツエディターの管理オブジェクト
-		GameObject* notesEditorObj = GameObjectManager::CreateObject();
+		std::shared_ptr<GameObject> notesEditorObj = GameObjectManager::CreateObject();
 		notesEditorObj->SetName("NotesEditor");
 		notesEditorObj->AddComponent<NotesEditor>(notesEditorObj);
 	}

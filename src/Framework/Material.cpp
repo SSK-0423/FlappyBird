@@ -11,7 +11,7 @@ using namespace Utility;
 
 namespace Framework
 {
-	Material::Material(Object* owner) : IComponent(owner), m_materialData()
+	Material::Material(std::shared_ptr<Object> owner) : IComponent(owner), m_materialData()
 	{
 		m_constantBuffer = std::make_shared<ConstantBuffer>();
 

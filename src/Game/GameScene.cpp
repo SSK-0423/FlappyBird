@@ -28,35 +28,35 @@ namespace FlappyBird
 		// シーンの最初のフレームが実行される前に一斉に初期化処理を行うようにする
 
 		// ゲームオーバーUI
-		UIObject* gameOverUI = UIObjectManager::CreateObject();
+		std::shared_ptr<Framework::UIObject> gameOverUI = UIObjectManager::CreateObject();
 		gameOverUI->AddComponent<GameOverUI>(gameOverUI);
 
 		// ゲーム開始準備UI
-		UIObject* gameReadyUI = UIObjectManager::CreateObject();
+		std::shared_ptr<Framework::UIObject> gameReadyUI = UIObjectManager::CreateObject();
 		gameReadyUI->AddComponent<GameReadyUI>(gameReadyUI);
 
 		// ゲームマスター
-		GameObject* gameMaster = GameObjectManager::CreateObject();
+		std::shared_ptr<Framework::GameObject> gameMaster = GameObjectManager::CreateObject();
 		gameMaster->AddComponent<GameMaster>(gameMaster);
 
 		// 背景
-		GameObject* background = GameObjectManager::CreateObject();
+		std::shared_ptr<Framework::GameObject> background = GameObjectManager::CreateObject();
 		background->AddComponent<Background>(background);
 
 		// プレイヤー
-		GameObject* player = GameObjectManager::CreateObject();
+		std::shared_ptr<Framework::GameObject> player = GameObjectManager::CreateObject();
 		player->AddComponent<Player>(player);
 
 		// 障害物を設置するオブジェクト
-		GameObject* obstacleSpawner = GameObjectManager::CreateObject();
+		std::shared_ptr<Framework::GameObject> obstacleSpawner = GameObjectManager::CreateObject();
 		obstacleSpawner->AddComponent<ObstacleSpawner>(obstacleSpawner);
 
 		// UI
-		UIObject* scoreFrame = UIObjectManager::CreateObject();
+		std::shared_ptr<Framework::UIObject> scoreFrame = UIObjectManager::CreateObject();
 		scoreFrame->AddComponent<ScoreFrame>(scoreFrame);
 
 		// スコア
-		UIObject* score = UIObjectManager::CreateObject();
+		std::shared_ptr<Framework::UIObject> score = UIObjectManager::CreateObject();
 		score->AddComponent<Score>(score);
 	}
 	void GameScene::Final()

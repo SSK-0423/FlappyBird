@@ -9,7 +9,7 @@ namespace FlappyBird
 	class Player : public Framework::IComponent
 	{
 	public:
-		Player(Framework::Object* owner);
+		Player(std::shared_ptr<Framework::Object> owner);
 		~Player() = default;
 
 		void Update(float deltaTime) override;

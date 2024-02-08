@@ -8,7 +8,7 @@
 
 namespace Framework
 {
-	RectCollider::RectCollider(Object* owner)
+	RectCollider::RectCollider(std::shared_ptr<Object> owner)
 		: Collider(owner), m_rect(0, 0, 1, 1, false)
 	{
 		m_colliderType = COLLIDER_TYPE::RECT;
@@ -19,8 +19,8 @@ namespace Framework
 	void RectCollider::Update(float deltaTime)
 	{
 		// コンポーネントの所有者の座標を取得して更新
-		m_rect.x = m_owner->GetComponent<Transform2D>()->position.x;
-		m_rect.y = m_owner->GetComponent<Transform2D>()->position.y;
+		m_rect.x = m_owner.lock()->GetComponent<Transform2D>()->position.x;
+		m_rect.y = m_owner.lock()->GetComponent<Transform2D>()->position.y;
 	}
 	void RectCollider::Draw()
 	{

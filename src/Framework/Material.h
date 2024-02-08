@@ -13,7 +13,7 @@ namespace Framework
 	class Material : public IComponent
 	{
 	public:
-		Material(Object* owner);
+		Material(std::shared_ptr<Object> owner);
 		~Material() = default;
 
 		void Update(float deltaTime) override;

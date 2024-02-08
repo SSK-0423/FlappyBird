@@ -13,8 +13,8 @@ namespace Framework
 	class Collider : public IComponent
 	{
 	public:
-		Collider(Object* owner);
-		virtual ~Collider() = default;
+		Collider(std::shared_ptr<Object> owner);
+		virtual ~Collider();
 
 		virtual void Update(float deltaTime) = 0;
 		virtual void Draw() = 0;

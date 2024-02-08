@@ -9,7 +9,7 @@ using namespace Utility;
 
 namespace Framework
 {
-	SoundClip::SoundClip(Object* owner) :
+	SoundClip::SoundClip(std::shared_ptr<Object> owner) :
 		IComponent(owner), m_soundname(nullptr), m_sourceVoice(nullptr), m_isPaused(false),
 		m_restartSamplesPlayed(0)
 	{

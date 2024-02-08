@@ -9,7 +9,7 @@ namespace Framework
 	class SoundClip : public IComponent
 	{
 	public:
-		SoundClip(Object* owner);
+		SoundClip(std::shared_ptr<Object> owner);
 		~SoundClip();
 
 	public:

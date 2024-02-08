@@ -6,7 +6,7 @@ using namespace Framework;
 
 namespace FlappyBird
 {
-	ObstaclePool::ObstaclePool(Object* owner) : IComponent(owner)
+	ObstaclePool::ObstaclePool(std::shared_ptr<Object> owner) : IComponent(owner)
 	{
 		InitObstaclePool();
 	}
@@ -20,21 +20,22 @@ namespace FlappyBird
 	void ObstaclePool::Draw()
 	{
 	}
-	Framework::GameObject& ObstaclePool::GetObstacle()
+	std::shared_ptr<GameObject>& ObstaclePool::GetObstacle()
 	{
 		// 使用可能な障害物を探して参照を返す
 		for (auto& obstacle : m_obstaclePool)
 		{
-			if (!obstacle.GetActive())
+			if (!obstacle->GetActive())
 			{
-				obstacle.SetActive(true);
+				obstacle->SetActive(true);
 				return obstacle;
 			}
 		}
 
 		// 使用可能な障害物がない場合は新たに生成する
-		m_obstaclePool.push_back(GameObject());
-		m_obstaclePool.back().AddComponent<Obstacle>(&m_obstaclePool.back());
+		m_obstaclePool.push_back(std::shared_ptr<GameObject>(new GameObject()));
+		m_obstaclePool.back()->AddComponent<Obstacle>(m_obstaclePool.back());
+		m_owner.lock()->AddChild(m_obstaclePool.back());
 
 		return m_obstaclePool.back();
 	}
@@ -44,9 +45,10 @@ namespace FlappyBird
 		m_obstaclePool.resize(POOL_SIZE);
 		for (auto& obstacle : m_obstaclePool)
 		{
-			obstacle.AddComponent<Obstacle>(&obstacle);
-			obstacle.SetActive(false);
-			m_owner->AddChild(&obstacle);
+			obstacle = std::shared_ptr<GameObject>(new GameObject());
+			obstacle->AddComponent<Obstacle>(obstacle);
+			obstacle->SetActive(false);
+			m_owner.lock()->AddChild(obstacle);
 		}
 	}
 }

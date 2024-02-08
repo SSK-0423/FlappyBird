@@ -37,7 +37,7 @@ namespace Framework
 	class RectCollider : public Collider
 	{
 	public:
-		RectCollider(Object* owner);
+		RectCollider(std::shared_ptr<Object> owner);
 		~RectCollider();
 
 		void Update(float deltaTime) override;

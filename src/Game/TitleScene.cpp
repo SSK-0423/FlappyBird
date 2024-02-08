@@ -25,7 +25,7 @@ namespace FlappyBird
 		auto viewportSize = Dx12GraphicsEngine::GetViewport();
 
 		// îwåi
-		GameObject* background = GameObjectManager::CreateObject();
+		std::shared_ptr<GameObject> background = GameObjectManager::CreateObject();
 		background->SetName("Background");
 		Sprite* backgroundSprite = new Sprite(L"res/texture/sky.png");
 		SpriteRenderer* backgroundRenderer = background->AddComponent<SpriteRenderer>(background);
@@ -37,13 +37,13 @@ namespace FlappyBird
 		backgroundTransform->scale = { viewportSize.Width * 1.f, viewportSize.Height * 1.f };
 
 		// BGM
-		GameObject* bgm = GameObjectManager::CreateObject();
+		std::shared_ptr<GameObject> bgm = GameObjectManager::CreateObject();
 		SoundClip* bgmSound = bgm->AddComponent<SoundClip>(bgm);
 		bgmSound->LoadWavSound(L"res/sound/title_bgm.wav", true);
 		bgmSound->Play();
 
 		// UI
-		UIObject* titleSceneUI = UIObjectManager::CreateObject();
+		std::shared_ptr<UIObject> titleSceneUI = UIObjectManager::CreateObject();
 		titleSceneUI->SetName("TitleSceneUI");
 		titleSceneUI->AddComponent<TitleSceneUI>(titleSceneUI);
 

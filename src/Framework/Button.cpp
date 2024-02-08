@@ -9,17 +9,16 @@
 
 namespace Framework
 {
-	Button::Button(Object* owner) : IComponent(owner)
+	Button::Button(std::shared_ptr<Object> owner) : IComponent(owner)
 	{
-		m_spriteRenderer = m_owner->AddComponent<SpriteRenderer>(m_owner);
-		//m_spriteRenderer = std::make_unique<SpriteRenderer>(m_owner);
+		m_spriteRenderer = m_owner.lock()->AddComponent<SpriteRenderer>(m_owner.lock());
 		m_spriteRenderer->SetDrawMode(SPRITE_DRAW_MODE::GUI);
 	}
 	bool Button::CheckClick()
 	{
 		POINT mousePos = InputSystem::GetMousePosition();
 
-		Transform2D* transform = m_owner->GetComponent<Transform2D>();
+		Transform2D* transform = m_owner.lock()->GetComponent<Transform2D>();
 		float left = transform->position.x - transform->scale.x / 2;
 		float right = transform->position.x + transform->scale.x / 2;
 		float top = transform->position.y - transform->scale.y / 2;
@@ -53,11 +52,11 @@ namespace Framework
 	}
 	void Button::SetPosition(const DirectX::XMFLOAT2& position)
 	{
-		m_owner->GetComponent<Transform2D>()->position = position;
+		m_owner.lock()->GetComponent<Transform2D>()->position = position;
 	}
 	void Button::SetScale(const DirectX::XMFLOAT2& scale)
 	{
-		m_owner->GetComponent<Transform2D>()->scale = scale;
+		m_owner.lock()->GetComponent<Transform2D>()->scale = scale;
 	}
 	void Button::SetTexture(const std::wstring& path)
 	{
@@ -67,7 +66,7 @@ namespace Framework
 	{
 		if (m_text == nullptr)
 		{
-			m_text = std::make_unique<Text>(m_owner);
+			m_text = std::make_unique<Text>(m_owner.lock());
 		}
 		m_text->SetText(text);
 	}

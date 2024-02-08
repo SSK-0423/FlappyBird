@@ -16,7 +16,7 @@ namespace Framework
 	class Rigidbody2D : public IComponent
 	{
 	public:
-		Rigidbody2D(Object* owner);
+		Rigidbody2D(std::shared_ptr<Object> owner);
 		~Rigidbody2D();
 
 		void Update(float deltaTime) override;

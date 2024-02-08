@@ -27,7 +27,7 @@ constexpr int SPRITE_LAYER_MAX = 32;
 
 namespace Framework
 {
-	SpriteRenderer::SpriteRenderer(Framework::Object* owner)
+	SpriteRenderer::SpriteRenderer(std::shared_ptr<Object> owner)
 		: IComponent(owner)
 	{
 		m_rootSignature = std::make_shared<RootSignature>();
@@ -95,19 +95,19 @@ namespace Framework
 	void SpriteRenderer::SetLayer(UINT layer)
 	{
 		// レイヤーが小さい程手前に描画される
-		m_owner->GetComponent<Transform2D>()->depth = static_cast<float>(layer) / SPRITE_LAYER_MAX;
+		m_owner.lock()->GetComponent<Transform2D>()->depth = static_cast<float>(layer) / SPRITE_LAYER_MAX;
 	}
 	void SpriteRenderer::Start()
 	{
 		ID3D12Device& device = Dx12GraphicsEngine::Device();
 
 		// マテリアルがない場合はマテリアルを生成
-		Material* material = m_owner->GetComponent<Material>();
+		Material* material = m_owner.lock()->GetComponent<Material>();
 
 		// マテリアルがない場合はマテリアルを生成
 		if (material == nullptr)
 		{
-			material = m_owner->AddComponent<Material>(m_owner);
+			material = m_owner.lock()->AddComponent<Material>(m_owner.lock());
 		}
 
 		// 全スプライトのディスクリプタヒープにレンダリングに必要なデータを登録
@@ -116,7 +116,7 @@ namespace Framework
 			// モデル行列をセット
 			sprite->GetDescriptorHeap().RegistConstantBuffer(
 				device,
-				m_owner->GetComponent<Transform2D>()->GetConstantBuffer(),
+				m_owner.lock()->GetComponent<Transform2D>()->GetConstantBuffer(),
 				static_cast<UINT>(CONSTANT_BUFFER_INDEX::TRANSFORM));
 
 			// ビュープロジェクション行列をセット

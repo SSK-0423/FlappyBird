@@ -10,11 +10,11 @@ using namespace DX12Wrapper;
 
 namespace FlappyBird
 {
-	ObstacleSpawner::ObstacleSpawner(Framework::Object* owner) : IComponent(owner)
+	ObstacleSpawner::ObstacleSpawner(std::shared_ptr<Framework::Object> owner) : IComponent(owner)
 	{
-		m_owner->SetName("ObstacleSpawner");
+		m_owner.lock()->SetName("ObstacleSpawner");
 
-		m_obstaclePool = m_owner->AddComponent<ObstaclePool>(m_owner);
+		m_obstaclePool = m_owner.lock()->AddComponent<ObstaclePool>(m_owner.lock());
 		m_gameMaster = GameObjectManager::FindObject("GameMaster")->GetComponent<GameMaster>();
 
 		// 現在時刻(ms)をシード値として乱数生成器を初期化
@@ -81,21 +81,21 @@ namespace FlappyBird
 
 		// 土管を設置
 		auto& overObstacle = m_obstaclePool->GetObstacle();
-		Transform2D* overObstacleTransform = overObstacle.GetComponent<Transform2D>();
+		Transform2D* overObstacleTransform = overObstacle->GetComponent<Transform2D>();
 		overObstacleTransform->position = {
 			static_cast<float>(viewportSize.Width) + overObstacleTransform->scale.x / 2.f,
 			randomY - overObstacleTransform->scale.y / 2.f - SPACE / 2.f };
 		overObstacleTransform->angle = 180.f;
 
 		auto& underObstacle = m_obstaclePool->GetObstacle();
-		Transform2D* underObstacleTransform = underObstacle.GetComponent<Transform2D>();
+		Transform2D* underObstacleTransform = underObstacle->GetComponent<Transform2D>();
 		underObstacleTransform->position = {
 			static_cast<float>(viewportSize.Width) + underObstacleTransform->scale.x / 2.f,
 			randomY + overObstacleTransform->scale.y / 2.f + SPACE / 2.f };
 
 		// 土管の移動速度を設定
-		overObstacle.GetComponent<Obstacle>()->SetMoveSpeed(-m_obstacleSpeed, 0.f);
-		underObstacle.GetComponent<Obstacle>()->SetMoveSpeed(-m_obstacleSpeed, 0.f);
+		overObstacle->GetComponent<Obstacle>()->SetMoveSpeed(-m_obstacleSpeed, 0.f);
+		underObstacle->GetComponent<Obstacle>()->SetMoveSpeed(-m_obstacleSpeed, 0.f);
 
 		m_lastSpawnY = randomY;
 

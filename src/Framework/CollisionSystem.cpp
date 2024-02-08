@@ -54,6 +54,11 @@ namespace Framework
 		m_colliders.push_back(collider);
 	}
 
+	void CollisionSystem::RemoveCollider(Collider* collider)
+	{
+		m_colliders.remove(collider);
+	}
+
 	void CollisionSystem::Reset()
 	{
 		// std::list‚Ìclear‚Å‚Ídelete‚ÍŒÄ‚Î‚ê‚È‚¢‚ªA

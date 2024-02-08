@@ -13,7 +13,7 @@ namespace Framework
 	class Camera : public IComponent
 	{
 	public:
-		Camera(Object* owner);
+		Camera(std::shared_ptr<Object> owner);
 		~Camera();
 
 		void Update(float deltaTime) override;

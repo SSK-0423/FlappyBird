@@ -17,7 +17,7 @@ namespace FlappyBird
 	class GameMaster : public Framework::IComponent
 	{
 	public:
-		GameMaster(Framework::Object* owner);
+		GameMaster(std::shared_ptr<Framework::Object> owner);
 		~GameMaster() = default;
 
 		void Update(float deltaTime) override;
@@ -27,8 +27,8 @@ namespace FlappyBird
 		GAME_STATE GetGameState();
 	private:
 		GAME_STATE m_gameState;
-		Framework::UIObject* m_gameOverUI;
-		Framework::UIObject* m_gameReadyUI;
+		std::shared_ptr<Framework::UIObject> m_gameOverUI;
+		std::shared_ptr<Framework::UIObject> m_gameReadyUI;
 
 		float m_elapsedTime;
 		float m_gameStartTime;

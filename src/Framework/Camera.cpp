@@ -14,7 +14,7 @@ using namespace DirectX;
 
 namespace Framework
 {
-	Camera::Camera(Object* owner) : IComponent(owner)
+	Camera::Camera(std::shared_ptr<Object> owner) : IComponent(owner)
 	{
 		m_cameraBuffer = std::make_unique<ConstantBuffer>();
 
@@ -24,7 +24,7 @@ namespace Framework
 		// World変換後の数値をそのまま出力するためにプロジェクション行列のXYスケール成分は2にする
 		m_bufferData.projection = XMMatrixOrthographicLH(2.f, 2.f, m_near, m_far);
 
-		auto transform = m_owner->GetComponent<Transform2D>();
+		auto transform = m_owner.lock()->GetComponent<Transform2D>();
 		// カメラを画面の中心に配置
 		transform->position = { viewportSize.Width / 2.f, viewportSize.Height / 2.f };
 		transform->angle = 0.f;
@@ -47,7 +47,7 @@ namespace Framework
 	}
 	void Camera::Update(float deltaTime)
 	{
-		m_bufferData.view = m_owner->GetComponent<Transform2D>()->GetTransformMatrix();
+		m_bufferData.view = m_owner.lock()->GetComponent<Transform2D>()->GetTransformMatrix();
 		m_cameraBuffer->UpdateData(&m_bufferData);
 	}
 	void Camera::Draw()

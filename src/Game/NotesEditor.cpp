@@ -16,15 +16,15 @@ using namespace Framework;
 
 namespace FlappyBird
 {
-	NotesEditor::NotesEditor(Framework::Object* owner) : IComponent(owner)
+	NotesEditor::NotesEditor(std::shared_ptr<Object> owner) : IComponent(owner)
 	{
 		// 障害物の取得
-		GameObject* obstaceleObj = new GameObject();
+		std::shared_ptr<GameObject> obstaceleObj = std::shared_ptr<GameObject>(new GameObject());
 		obstaceleObj->SetName("Obstacle");
 		obstaceleObj->SetActive(false);
 		m_obstacle = obstaceleObj->AddComponent<Obstacle>(obstaceleObj);
 		m_obstacle->SetMaterialColor({ 1.f, 1.f, 1.f, 0.8f });
-		m_owner->AddChild(obstaceleObj);
+		m_owner.lock()->AddChild(obstaceleObj);
 
 		float judgeLineX = UIObjectManager::FindObject("JudgeLine")->GetComponent<Transform2D>()->position.x;
 		Obstacle::SetJudgeLineX(judgeLineX);
@@ -88,7 +88,7 @@ namespace FlappyBird
 			{
 				DeleteNotes(timing, static_cast<float>(mousePos.y));
 			}
-			
+
 			// 曲が再生中でなければマウスホイールでの処理を行う
 			if (!m_musicPlayer->IsPlaying())
 			{

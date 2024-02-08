@@ -22,7 +22,7 @@ namespace Framework
 	class SpriteRenderer : public IComponent
 	{
 	public:
-		SpriteRenderer(Framework::Object* owner);
+		SpriteRenderer(std::shared_ptr<Object> owner);
 		~SpriteRenderer();
 
 		void Start() override;

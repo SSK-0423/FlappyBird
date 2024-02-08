@@ -8,11 +8,11 @@ using namespace Utility;
 
 namespace FlappyBird
 {
-	MusicPlayer::MusicPlayer(Framework::Object* owner)
+	MusicPlayer::MusicPlayer(std::shared_ptr<Object> owner)
 		: Framework::IComponent(owner), m_musicPath(L""), m_isPlaying(false)
 	{
 		// SoundClip’Ç‰Á
-		m_music = m_owner->AddComponent<SoundClip>(m_owner);
+		m_music = m_owner.lock()->AddComponent<SoundClip>(m_owner.lock());
 	}
 	MusicPlayer::~MusicPlayer()
 	{

@@ -14,7 +14,7 @@ namespace FlappyBird
 	class BarLine : public Framework::IComponent
 	{
 	public:
-		BarLine(Framework::Object* owner);
+		BarLine(std::shared_ptr<Framework::Object> owner);
 		~BarLine();
 
 		void Update(float deltaTime) override;

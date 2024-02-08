@@ -7,7 +7,7 @@ namespace FlappyBird
 	class MusicPlayer : public Framework::IComponent
 	{
 	public:
-		MusicPlayer(Framework::Object* owner);
+		MusicPlayer(std::shared_ptr<Framework::Object> owner);
 		~MusicPlayer();
 
 		void Update(float deltaTime) override;

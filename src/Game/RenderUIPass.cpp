@@ -38,7 +38,7 @@ namespace FlappyBird
 
 		return RESULT::SUCCESS;
 	}
-	void RenderUIPass::Render(const std::list<Framework::UIObject*>& uiObjects)
+	void RenderUIPass::Render(const std::list<std::shared_ptr<Framework::UIObject>>& uiObjects)
 	{
 		//m_renderTarget->BeginRendering(Dx12GraphicsEngine::GetRenderingContext(), m_viewport, m_scissorRect);
 		{

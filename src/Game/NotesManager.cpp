@@ -10,9 +10,9 @@ using namespace Framework;
 
 namespace FlappyBird
 {
-	NotesManager::NotesManager(Framework::Object* owner) : IComponent(owner)
+	NotesManager::NotesManager(std::shared_ptr<Object> owner) : IComponent(owner)
 	{
-		SoundClip* soundClip = m_owner->AddComponent<SoundClip>(m_owner);
+		SoundClip* soundClip = m_owner.lock()->AddComponent<SoundClip>(m_owner.lock());
 		soundClip->LoadWavSound(L"res/sound/clap.wav");
 	}
 	NotesManager::~NotesManager()
@@ -61,12 +61,12 @@ namespace FlappyBird
 		// ノーツの生成
 		std::shared_ptr<GameObject> noteObstacle = std::shared_ptr<GameObject>(new GameObject());
 		noteObstacle->SetName("NoteObstacle");
-		Obstacle* obstacle = noteObstacle->AddComponent<Obstacle>(noteObstacle.get());
+		Obstacle* obstacle = noteObstacle->AddComponent<Obstacle>(noteObstacle);
 		obstacle->SetTiming(data.timing);
 		obstacle->SetPosY(data.posY);
 		m_noteObstacles.push_back(obstacle);
 
-		m_owner->AddChild(noteObstacle);
+		m_owner.lock()->AddChild(noteObstacle);
 	}
 	void NotesManager::DeleteNotes(NoteData data)
 	{
@@ -83,7 +83,7 @@ namespace FlappyBird
 		{
 			if ((*it)->GetTiming() == data.timing)
 			{
-				m_owner->RemoveChild((*it)->GetOwner());
+				m_owner.lock()->RemoveChild((*it)->GetOwner());
 				m_noteObstacles.erase(it);
 				break;
 			}
@@ -98,7 +98,7 @@ namespace FlappyBird
 		// 既存のノーツを削除
 		m_notes.clear();
 		m_notes.shrink_to_fit();
-		m_owner->RemoveAllChildren();
+		m_owner.lock()->RemoveAllChildren();
 		m_noteObstacles.clear();
 		m_noteObstacles.shrink_to_fit();
 
@@ -126,7 +126,7 @@ namespace FlappyBird
 			float diff = timing - m_musicPlayer->GetCurrentPlayTimeMs();
 
 			// 2000ms以内の場合、アクティブにする
-			if (0.f < diff && diff < 2000.f)
+			if (0.f < diff && diff < 2100.f)
 			{
 				note->GetOwner()->SetActive(true);
 			}
@@ -139,7 +139,7 @@ namespace FlappyBird
 				if (note->GetOwner()->GetActive() &&
 					note->CanPlaySE())
 				{
-					m_owner->GetComponent<SoundClip>()->Play(0.5f);
+					m_owner.lock()->GetComponent<SoundClip>()->Play(0.5f);
 					note->SetCanPlaySE(false);	// 複数回再生できないようにする
 				}
 			}

@@ -9,7 +9,7 @@ namespace Framework
 	class Button : public IComponent
 	{
 	public:
-		Button(Object* owner);
+		Button(std::shared_ptr<Object> owner);
 		~Button() = default;
 
 	private:

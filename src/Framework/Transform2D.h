@@ -12,7 +12,7 @@ namespace Framework
 	class Transform2D : public IComponent
 	{
 	public:
-		Transform2D(Object* owner);
+		Transform2D(std::shared_ptr<Object> owner);
 		~Transform2D();
 
 		void Update(float deltaTime) override;

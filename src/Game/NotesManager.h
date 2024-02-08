@@ -10,7 +10,7 @@ namespace FlappyBird
 	class NotesManager : public Framework::IComponent
 	{
 	public:
-		NotesManager(Framework::Object* owner);
+		NotesManager(std::shared_ptr<Framework::Object> owner);
 		~NotesManager();
 
 		void Start();

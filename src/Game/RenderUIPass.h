@@ -17,7 +17,7 @@ namespace FlappyBird
 
 		Utility::RESULT Init();
 
-		void Render(const std::list<Framework::UIObject*>& uiObjects);
+		void Render(const std::list<std::shared_ptr<Framework::UIObject>>& uiObjects);
 		void SetRenderTexture(DX12Wrapper::Texture& texture);
 		DX12Wrapper::Texture& GetRenderTexture();
 

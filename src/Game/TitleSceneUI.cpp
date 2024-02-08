@@ -9,9 +9,9 @@ using namespace Framework;
 
 namespace FlappyBird
 {
-	TitleSceneUI::TitleSceneUI(Framework::Object* owner) : IComponent(owner)
+	TitleSceneUI::TitleSceneUI(std::shared_ptr<Object> owner) : IComponent(owner)
 	{
-		m_owner->SetName("TitleSceneUI");
+		m_owner.lock()->SetName("TitleSceneUI");
 
 		auto viewport = DX12Wrapper::Dx12GraphicsEngine::GetViewport();
 		auto scissorRect = DX12Wrapper::Dx12GraphicsEngine::GetScissorRect();
@@ -22,7 +22,7 @@ namespace FlappyBird
 		Editor::DebugLog("Window Size: %d, %d", windowSize.cx, windowSize.cy);
 
 		// タイトルテキストの輪郭線
-		UIObject* outline = UIObjectManager::CreateObject();
+		std::shared_ptr<UIObject> outline = UIObjectManager::CreateObject();
 		//GameObject* outline = GameObjectManager::CreateObject();
 		Text* outlineText = outline->AddComponent<Text>(outline);
 		outlineText->SetText(L"Flappy Bird");
@@ -31,7 +31,7 @@ namespace FlappyBird
 		outlineText->SetColor(DirectX::Colors::White);
 
 		// タイトルテキスト
-		UIObject* title = UIObjectManager::CreateObject();
+		std::shared_ptr<UIObject> title = UIObjectManager::CreateObject();
 		Text* titleText = title->AddComponent<Text>(title);
 		titleText->SetText(L"Flappy Bird");
 		titleText->SetPosition({ windowSize.cx / 6.f, windowSize.cy / 7.f });
@@ -39,13 +39,13 @@ namespace FlappyBird
 		titleText->SetColor(DirectX::Colors::Green);
 
 		// スタートテキスト
-		UIObject* pleaseClick = UIObjectManager::CreateObject();
+		std::shared_ptr<UIObject> pleaseClick = UIObjectManager::CreateObject();
 		PleaseClickText* pleaseClickText = pleaseClick->AddComponent<PleaseClickText>(pleaseClick);
 		pleaseClickText->OnClicked.Subscribe(std::bind(&TitleSceneUI::ShowGameModeButtons, this, std::placeholders::_1));
 
 		// ゲームモード選択ボタン
 		// 1人プレイボタン
-		UIObject* singlePlay = UIObjectManager::CreateObject();
+		std::shared_ptr<UIObject> singlePlay = UIObjectManager::CreateObject();
 		singlePlay->SetName("GameStartButton");
 		Button* singlePlayButton = singlePlay->AddComponent<Button>(singlePlay);
 		singlePlayButton->SetTexture(L"res/texture/game_start_button.png");
@@ -56,7 +56,7 @@ namespace FlappyBird
 		m_gameModeButtons.push_back(singlePlay);
 
 		// ノーツエディットボタン
-		UIObject* notesEdit = UIObjectManager::CreateObject();
+		std::shared_ptr<UIObject> notesEdit = UIObjectManager::CreateObject();
 		notesEdit->SetName("NotesEditButton");
 		Button* notesEditButton = notesEdit->AddComponent<Button>(notesEdit);
 		notesEditButton->SetTexture(L"res/texture/notes_edit_button.png");
