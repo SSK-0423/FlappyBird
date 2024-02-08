@@ -7,7 +7,7 @@ namespace FlappyBird
 	class GameReadyUI : public Framework::IComponent
 	{
 	public:
-		GameReadyUI(Framework::Object* owner);
+		GameReadyUI(std::shared_ptr<Framework::Object> owner);
 		~GameReadyUI() = default;
 
 		void Update(float deltaTime) override;

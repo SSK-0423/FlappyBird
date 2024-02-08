@@ -149,4 +149,8 @@ namespace Utility
 		sprintf_s(buff, format, t...);
 		OutputDebugStringA(buff);
 	}
+
+	std::string GenerateUUID();
+
+	std::vector<std::string> GetFilePathsInDirectoryWithExtension(const std::string& directoryPath, const std::string& extension);
 }

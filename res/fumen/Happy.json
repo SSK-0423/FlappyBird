@@ -1,0 +1,14 @@
+{
+  "MusicInfo": {
+    "beat": 4,
+    "bpm": 175,
+    "musicFilePath": "res\/sound\/HappyHardcore.wav",
+    "musicName": "Happy"
+  },
+  "notes": [
+    {
+      "posY": 407,
+      "time": 1371.4285888671875
+    }
+  ]
+}

@@ -86,7 +86,7 @@ namespace DX12Wrapper
 			auto cpuHandle = m_descriptorHeap->GetCPUDescriptorHandleForHeapStart();
 			cpuHandle.ptr += m_handleIncrimentSize * m_MAX_CBV_DESCRIPTOR_NUM;
 
-			return CD3DX12_GPU_DESCRIPTOR_HANDLE(gpuHandle, m_MAX_CBV_DESCRIPTOR_NUM, m_handleIncrimentSize);
+			return CD3DX12_GPU_DESCRIPTOR_HANDLE(gpuHandle, m_MAX_CBV_DESCRIPTOR_NUM, static_cast<UINT>(m_handleIncrimentSize));
 		}
 
 		/// <summary>

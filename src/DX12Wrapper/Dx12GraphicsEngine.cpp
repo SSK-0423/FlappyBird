@@ -43,7 +43,10 @@ namespace DX12Wrapper
 	CD3DX12_RECT Dx12GraphicsEngine::m_scissorRect;
 
 	Utility::RESULT Dx12GraphicsEngine::Init(
-		const HWND& hwnd, const UINT& windowWidth, const UINT& windowHeight)
+		const HWND& hwnd,
+		const UINT& windowWidth, const UINT& windowHeight,
+		const UINT& viewportWidth, const UINT& viewportHeight,
+		const UINT& scissorRectWidth, const UINT& scissorRectHeight)
 	{
 		assert(windowWidth > 0 && windowHeight > 0);
 
@@ -64,7 +67,7 @@ namespace DX12Wrapper
 		if (FAILED(CreateCommandX())) { return Utility::RESULT::FAILED; }
 
 		// スワップチェーン生成(ダブルバッファリング用のバッファー生成)
-		if (FAILED(CreateSwapChain(hwnd, windowWidth, windowHeight, m_dxgiFactory))) { return Utility::RESULT::FAILED; }
+		if (FAILED(CreateSwapChain(hwnd, m_windowWidth, m_windowHeight, m_dxgiFactory))) { return Utility::RESULT::FAILED; }
 
 		// フェンス生成
 		if (FAILED(CreateFence())) { return Utility::RESULT::FAILED; }
@@ -82,8 +85,8 @@ namespace DX12Wrapper
 		m_graphicsMemory = new DirectX::GraphicsMemory(m_device.Get());
 
 		m_viewport = CD3DX12_VIEWPORT(
-			0.f, 0.f, static_cast<float>(windowWidth), static_cast<float>(windowHeight));
-		m_scissorRect = CD3DX12_RECT(0, 0, windowWidth, windowHeight);
+			0.f, 0.f, static_cast<float>(viewportWidth), static_cast<float>(viewportHeight));
+		m_scissorRect = CD3DX12_RECT(0, 0, scissorRectWidth, scissorRectHeight);
 
 		return Utility::RESULT::SUCCESS;
 	}
@@ -281,19 +284,12 @@ namespace DX12Wrapper
 		// ビューポートとシザー矩形セット
 		m_renderContext.SetViewport(m_viewport);
 		m_renderContext.SetScissorRect(m_scissorRect);
-
-		// Imgui描画前準備
-		//ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-		//ImGui_ImplDX12_NewFrame();
-		//ImGui_ImplWin32_NewFrame();
-		//ImGui::NewFrame();
 	}
 
 	void Dx12GraphicsEngine::EndDraw()
 	{
 		// Imguiの描画
 		m_renderContext.SetDescriptorHeap(m_imguiHeap);
-		//ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), m_cmdList.Get());
 
 		// 描画対象のバッファーを示すインデックス取得
 		auto bbIdx = m_swapchain->GetCurrentBackBufferIndex();
@@ -409,9 +405,19 @@ namespace DX12Wrapper
 	{
 		return m_frameHeap;
 	}
+	const SIZE Dx12GraphicsEngine::GetFrameRenderTargetSize()
+	{
+		DXGI_SWAP_CHAIN_DESC1 swapchainDesc = {};
+		m_swapchain->GetDesc1(&swapchainDesc);
+		return { static_cast<LONG>(swapchainDesc.Width), static_cast<LONG>(swapchainDesc.Height) };
+	}
 	const CD3DX12_VIEWPORT& Dx12GraphicsEngine::GetViewport()
 	{
 		return m_viewport;
+	}
+	const CD3DX12_RECT& Dx12GraphicsEngine::GetScissorRect()
+	{
+		return m_scissorRect;
 	}
 	Dx12GraphicsEngine::~Dx12GraphicsEngine()
 	{

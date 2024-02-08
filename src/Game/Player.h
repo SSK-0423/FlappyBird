@@ -9,7 +9,7 @@ namespace FlappyBird
 	class Player : public Framework::IComponent
 	{
 	public:
-		Player(Framework::Object* owner);
+		Player(std::shared_ptr<Framework::Object> owner);
 		~Player() = default;
 
 		void Update(float deltaTime) override;
@@ -20,6 +20,15 @@ namespace FlappyBird
 		bool IsDead();
 	private:
 		GameMaster* m_gameMaster;
+
+		enum class STATE
+		{
+			FALL,
+			JUMP,
+			DEAD
+		};
+
+		std::unordered_map<STATE, std::shared_ptr<Framework::Sprite>> m_stateSprites;
 
 		std::shared_ptr<Framework::Sprite> m_jumpSprite;
 		std::shared_ptr<Framework::Sprite> m_fallSprite;

@@ -1,0 +1,8 @@
+{
+  "MusicInfo": {
+    "beat": 4,
+    "bpm": 120,
+    "musicFilePath": "res\/sound\/game_bgm.wav",
+    "musicName": "game"
+  }
+}

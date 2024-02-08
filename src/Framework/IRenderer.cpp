@@ -17,9 +17,16 @@ namespace Framework
 		Dx12GraphicsEngine::BeginDraw();
 		{
 			Editor::BeginDraw();
+
+			// ゲーム内で動作するエディタでImGuiを使うためにBeginDraw()とEndDraw()の間に記述
 			RenderScene(GameObjectManager::GetAllObject());
 			RenderUI(UIObjectManager::GetAllObject());
-			Editor::TestDraw();
+
+			// デバッグログなどのエディタ描画 
+#ifdef _DEBUG
+			Editor::Draw();
+#endif
+
 			Editor::EndDraw();
 		}
 		Dx12GraphicsEngine::EndDraw();

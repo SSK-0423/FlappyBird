@@ -9,7 +9,7 @@ namespace Framework
 	class Text : public IComponent
 	{
 	public:
-		Text(Object* owner);
+		Text(std::shared_ptr<Object> owner);
 		~Text();
 
 		void Update(float deltaTime) override;

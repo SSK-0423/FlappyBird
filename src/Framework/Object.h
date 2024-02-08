@@ -1,5 +1,6 @@
 #pragma once
 #include "IComponent.h"
+#include "Editor.h"
 
 namespace Framework
 {
@@ -10,6 +11,7 @@ namespace Framework
 		virtual ~Object()
 		{
 			m_components.clear();
+			m_children.clear();
 		}
 
 		template<class T>
@@ -25,7 +27,7 @@ namespace Framework
 		}
 
 		template<class T>
-		T* AddComponent(Object* owner)
+		T* AddComponent(const std::shared_ptr<Object>& owner)
 		{
 			for (auto& comp : m_components) {
 				if (typeid(*comp.get()) == typeid(T))
@@ -36,28 +38,39 @@ namespace Framework
 			return static_cast<T*>(m_components.back().get());
 		}
 
+		void Start();
 		void Update(float deltaTime);
 		void FixedUpdate(float inverval);
 		void Draw();
+		void DrawInspector();
 
 		void SetActive(bool isActive);
 		bool GetActive();
 
 		void SetName(std::string name);
-		std::string GetName();
+		const std::string GetName();
 
 		void SetTag(std::string tag);
-		std::string GetTag();
+		const std::string GetTag();
 
 		void AddChild(Object* child);
+		void AddChild(const std::shared_ptr<Object>& child);
+		void RemoveChild(Object* child);
+		void RemoveChild(const std::shared_ptr<Object>& child);
+		void RemoveAllChildren();
+		const std::list<std::shared_ptr<Object>>& GetChildren();
+
+		const std::string GetUUID();
 
 	protected:
 		std::list<std::shared_ptr<IComponent>> m_components;
-		std::list<Object*> m_children;
+		std::list<std::shared_ptr<Object>> m_children;
 		Object* m_parent = nullptr;
 		std::string m_name = "Object";
 		std::string m_tag = "None";
+		std::string m_uuid;
 		bool m_isActive = true;
+		bool m_isStarted = false;
 	};
 
 	// templateで実装してあるオブジェクトマネージャーを

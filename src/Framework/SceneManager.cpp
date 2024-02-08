@@ -13,6 +13,13 @@ namespace Framework
 	{
 		// 一番最初に呼ばれるシーンの初期化
 		m_scenes[m_currentSceneName]->Init();
+		// 一番最初に呼ばれるシーンの開始
+		m_scenes[m_currentSceneName]->Start();
+	}
+
+	void SceneManager::Start()
+	{
+		m_scenes[m_currentSceneName]->Start();
 	}
 
 	void SceneManager::Update(float deltaTime)
@@ -40,6 +47,7 @@ namespace Framework
 			// 次フレームから次シーンを開始できるようにここで初期化する
 			m_currentSceneName = m_nextSceneName;
 			m_scenes[m_currentSceneName]->Init();
+			m_scenes[m_currentSceneName]->Start();
 			m_nextSceneName = nullptr;
 
 			Utility::DebugLog("Scene Change: %s -> %s\n", currentSceneName, nextSceneName);
@@ -62,8 +70,8 @@ namespace Framework
 	{
 		m_nextSceneName = name;
 	}
-	SceneManager::~SceneManager()
+	const std::unordered_map<const char*, std::unique_ptr<Scene>>& SceneManager::GetAllScene()
 	{
-		m_scenes.clear();
+		return m_scenes;
 	}
 }

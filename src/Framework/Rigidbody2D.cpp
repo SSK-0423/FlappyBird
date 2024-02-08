@@ -10,7 +10,7 @@ using namespace DirectX;
 
 namespace Framework
 {
-	Rigidbody2D::Rigidbody2D(Object* owner)
+	Rigidbody2D::Rigidbody2D(std::shared_ptr<Object> owner)
 		: IComponent(owner)
 	{
 	}
@@ -33,10 +33,10 @@ namespace Framework
 		}
 
 		// “K—p
-		XMFLOAT2 position = m_owner->GetComponent<Transform2D>()->position;
+		XMFLOAT2 position = m_owner.lock()->GetComponent<Transform2D>()->position;
 		position.x += velocity.x * interval;
 		position.y += velocity.y * interval;
-		m_owner->GetComponent<Transform2D>()->position = position;
+		m_owner.lock()->GetComponent<Transform2D>()->position = position;
 	}
 	void Rigidbody2D::Draw()
 	{

@@ -7,7 +7,7 @@ namespace FlappyBird
 	class UserGuide : public Framework::IComponent
 	{
 	public:
-		UserGuide(Framework::Object* owner);
+		UserGuide(std::shared_ptr<Framework::Object> owner);
 		~UserGuide() = default;
 
 		void Update(float deltaTime) override;

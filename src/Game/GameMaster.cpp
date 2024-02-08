@@ -4,22 +4,37 @@
 #include "GameOverUI.h"
 #include "GameReadyUI.h"
 
+#include "FumenJsonReadWriter.h"
+#include "NotesManager.h"
+
 using namespace Framework;
 
 namespace FlappyBird
 {
-	GameMaster::GameMaster(Framework::Object* owner) :
+	GameMaster::GameMaster(std::shared_ptr<Framework::Object> owner) :
 		IComponent(owner), m_gameState(GAME_STATE::READY), m_elapsedTime(0.0f), m_gameStartTime(4.0f)
 	{
 		m_gameOverUI = UIObjectManager::FindObject("GameOverUI");
 		m_gameReadyUI = UIObjectManager::FindObject("GameReadyUI");
 
-		m_owner->SetName("GameMaster");
+		m_owner.lock()->SetName("GameMaster");
 
 		// BGM追加
-		SoundClip* sound = m_owner->AddComponent<SoundClip>(m_owner);
+		SoundClip* sound = m_owner.lock()->AddComponent<SoundClip>(m_owner.lock());
 		sound->LoadWavSound(L"res/sound/game_bgm.wav", true);
 		sound->Play();
+	}
+	void GameMaster::Start()
+	{
+		// 譜面読み込み
+		FumenData fumenData;
+
+		// 曲選択シーンで選択された曲の譜面を読み込む
+		FumenJsonReadWriter::Read("res/fumen/HappyHardCore.json", fumenData);
+
+		// ノーツの生成
+		std::shared_ptr<Framework::GameObject> notesManagerObj = GameObjectManager::FindObject("NotesManager");
+		notesManagerObj->GetComponent<NotesManager>()->SetNotes(fumenData.noteDatas);
 	}
 	void GameMaster::Update(float deltaTime)
 	{
@@ -72,13 +87,10 @@ namespace FlappyBird
 			// コールバックを呼ぶために直接代入ではなく関数を呼ぶ
 			ChangeState(GAME_STATE::PLAYING);
 		}
-
-		//Utility::DebugLog("%f\n", deltaTime);
-		//Utility::DebugLog("Game Ready\n");
 	}
 	void GameMaster::GameOver(float deltaTime)
 	{
-		m_owner->GetComponent<SoundClip>()->Stop();
+		m_owner.lock()->GetComponent<SoundClip>()->Stop();
 
 		// ゲームオーバーUIを表示
 	}
@@ -91,6 +103,9 @@ namespace FlappyBird
 	{
 		// ゲーム開始UIを非表示
 		m_gameReadyUI->SetActive(false);
+		
+		// 曲の再生を開始
+
 	}
 	void GameMaster::OnGameOver()
 	{

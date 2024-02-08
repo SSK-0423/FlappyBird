@@ -4,6 +4,13 @@
 
 namespace Framework
 {
+	struct SoundData
+	{
+		std::unique_ptr<uint8_t[]> waveFile;
+		DirectX::WAVData waveData;
+		XAUDIO2_BUFFER buffer;
+	};
+
 	// XAudio2Buffer‚ğ•Û‚·‚é
 	// SouncClip‚©‚çÄ¶‚ğ—v‹‚³‚ê‚½‚çASourceVoice‚ğ¶¬‚µ‚ÄÄ¶‚·‚é
 	class SoundManager
@@ -14,6 +21,7 @@ namespace Framework
 		static void Final();
 		static Utility::RESULT LoadWavSound(const wchar_t* filename, bool isLoop);
 		static IXAudio2SourceVoice* Play(const wchar_t* soundname);
+		static SoundData* GetSoundData(const wchar_t* soundname);
 
 	private:
 		SoundManager() = default;
@@ -24,12 +32,6 @@ namespace Framework
 		static HRESULT CreateXAudio2();
 		static HRESULT CreateMasteringVoice();
 
-		struct SoundData
-		{
-			std::unique_ptr<uint8_t[]> waveFile;
-			DirectX::WAVData waveData;
-			XAUDIO2_BUFFER buffer;
-		};
 		static std::map<std::wstring, SoundData> m_soundDatas;
 		static std::list<IXAudio2SourceVoice*> m_sourceVoices;
 	};

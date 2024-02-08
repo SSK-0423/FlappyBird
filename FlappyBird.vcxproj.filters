@@ -70,6 +70,27 @@
     <Filter Include="ソース ファイル\Framework\System\Editor">
       <UniqueIdentifier>{0d1142a2-46f0-49b6-97bf-0dee06101188}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\NotesEditorScene">
+      <UniqueIdentifier>{f8dc4534-0874-4376-bb2a-71e09c6e94fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Shaders">
+      <UniqueIdentifier>{e9b22ef7-1f80-4443-9cb2-64e1b0f8e963}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\NotesEditorScene\NotesEditor">
+      <UniqueIdentifier>{55714da1-bdff-40ff-9a2c-97118993972f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\NotesEditorScene\Fumen">
+      <UniqueIdentifier>{a8285cc8-89c3-41a6-86bd-9fcd68bcc3fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\NotesEditorScene\NotesEditor\Bar">
+      <UniqueIdentifier>{af944520-4fb8-41ec-8376-356edeeccffe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\MusicSelectScene">
+      <UniqueIdentifier>{e1995478-9281-40d1-bbfb-16822b7453b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Notes">
+      <UniqueIdentifier>{63051279-c9d1-45cd-9cf4-1f1920ea3295}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Game\main.cpp">
@@ -216,9 +237,6 @@
     <ClCompile Include="src\Game\GameMaster.cpp">
       <Filter>ソース ファイル\Game\GameScene</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\Obstacle.cpp">
-      <Filter>ソース ファイル\Game\GameScene\Obstacle</Filter>
-    </ClCompile>
     <ClCompile Include="src\Game\ObstaclePool.cpp">
       <Filter>ソース ファイル\Game\GameScene\Obstacle</Filter>
     </ClCompile>
@@ -272,6 +290,54 @@
     </ClCompile>
     <ClCompile Include="src\Framework\Editor.cpp">
       <Filter>ソース ファイル\Framework\System\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\NotesEditScene.cpp">
+      <Filter>ソース ファイル\Game\NotesEditorScene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\NotesEditUI.cpp">
+      <Filter>ソース ファイル\Game\NotesEditorScene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\RenderObjectPass.cpp">
+      <Filter>ソース ファイル\Game\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\RenderScreenPass.cpp">
+      <Filter>ソース ファイル\Game\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\RenderUIPass.cpp">
+      <Filter>ソース ファイル\Game\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\FumenJsonReadWriter.cpp">
+      <Filter>ソース ファイル\Game\NotesEditorScene\Fumen</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_stdlib.cpp">
+      <Filter>ソース ファイル\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\BarLine.cpp">
+      <Filter>ソース ファイル\Game\NotesEditorScene\NotesEditor\Bar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\BarManager.cpp">
+      <Filter>ソース ファイル\Game\NotesEditorScene\NotesEditor\Bar</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\NotesEditor.cpp">
+      <Filter>ソース ファイル\Game\NotesEditorScene\NotesEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Material.cpp">
+      <Filter>ソース ファイル\Framework\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\MusicSelectScene.cpp">
+      <Filter>ソース ファイル\Game\MusicSelectScene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\MusicSelectSceneUI.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Obstacle.cpp">
+      <Filter>ソース ファイル\Game\Notes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\NotesManager.cpp">
+      <Filter>ソース ファイル\Game\Notes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\MusicPlayer.cpp">
+      <Filter>ソース ファイル\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -443,9 +509,6 @@
     <ClInclude Include="src\Game\GameMaster.h">
       <Filter>ソース ファイル\Game\GameScene</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\Obstacle.h">
-      <Filter>ソース ファイル\Game\GameScene\Obstacle</Filter>
-    </ClInclude>
     <ClInclude Include="src\Game\ObstaclePool.h">
       <Filter>ソース ファイル\Game\GameScene\Obstacle</Filter>
     </ClInclude>
@@ -509,6 +572,63 @@
     <ClInclude Include="src\Framework\Editor.h">
       <Filter>ソース ファイル\Framework\System\Editor</Filter>
     </ClInclude>
+    <ClInclude Include="src\Game\NotesEditScene.h">
+      <Filter>ソース ファイル\Game\NotesEditorScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\NotesEditUI.h">
+      <Filter>ソース ファイル\Game\NotesEditorScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\RenderObjectPass.h">
+      <Filter>ソース ファイル\Game\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\RenderScreenPass.h">
+      <Filter>ソース ファイル\Game\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\FumenData.h">
+      <Filter>ソース ファイル\Game\NotesEditorScene\Fumen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\FumenJsonReadWriter.h">
+      <Filter>ソース ファイル\Game\NotesEditorScene\Fumen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\picojson.h">
+      <Filter>ソース ファイル\Game\NotesEditorScene\Fumen</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui_stdlib.h">
+      <Filter>ソース ファイル\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\BarLine.h">
+      <Filter>ソース ファイル\Game\NotesEditorScene\NotesEditor\Bar</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\BarManager.h">
+      <Filter>ソース ファイル\Game\NotesEditorScene\NotesEditor\Bar</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\NotesEditor.h">
+      <Filter>ソース ファイル\Game\NotesEditorScene\NotesEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Material.h">
+      <Filter>ソース ファイル\Framework\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\RenderUIPass.h">
+      <Filter>ソース ファイル\Game\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\MusicSelectScene.h">
+      <Filter>ソース ファイル\Game\MusicSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\MusicSelectSceneUI.h">
+      <Filter>ソース ファイル\Game\MusicSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Obstacle.h">
+      <Filter>ソース ファイル\Game\Notes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\NoteData.h">
+      <Filter>ソース ファイル\Game\Notes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\NotesManager.h">
+      <Filter>ソース ファイル\Game\Notes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\MusicPlayer.h">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="FlappyBird.rc">
@@ -519,5 +639,16 @@
     <Image Include="res\FlappyBird.ico">
       <Filter>リソース ファイル</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="shaders\FullScreen.hlsl">
+      <Filter>ソース ファイル\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\Button.hlsl">
+      <Filter>ソース ファイル\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\Sprite.hlsl">
+      <Filter>ソース ファイル\Shaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

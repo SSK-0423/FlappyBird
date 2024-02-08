@@ -4,9 +4,13 @@
 
 namespace Framework
 {
-	Collider::Collider(Object* owner) : IComponent(owner)
+	Collider::Collider(std::shared_ptr<Object> owner) : IComponent(owner)
 	{
 		CollisionSystem::AddCollider(this);
+	}
+	Collider::~Collider()
+	{
+		CollisionSystem::RemoveCollider(this);
 	}
 	void Collider::SetOnCollisionCallBack(std::function<void(Collider*)> func)
 	{

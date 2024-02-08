@@ -7,8 +7,7 @@ using namespace DX12Wrapper;
 
 namespace Framework
 {
-	Text::Text(Object* owner)
-		: IComponent(owner)
+	Text::Text(std::shared_ptr<Object> owner) : IComponent(owner)
 	{
 	}
 	Text::~Text()
@@ -20,7 +19,7 @@ namespace Framework
 	}
 	void Text::Draw()
 	{
-		auto transform = m_owner->GetComponent<Transform2D>();
+		auto transform = m_owner.lock()->GetComponent<Transform2D>();
 		FontRenderer::DrawString(m_text, transform->position, transform->scale.x, m_color);
 	}
 	void Text::SetText(const std::wstring& text)
@@ -33,14 +32,14 @@ namespace Framework
 	}
 	void Text::SetPosition(const DirectX::XMFLOAT2& position)
 	{
-		m_owner->GetComponent<Transform2D>()->position = position;
+		m_owner.lock()->GetComponent<Transform2D>()->position = position;
 	}
 	void Text::SetScale(const float& scale)
 	{
-		m_owner->GetComponent<Transform2D>()->scale = { scale, scale };
+		m_owner.lock()->GetComponent<Transform2D>()->scale = { scale, scale };
 	}
 	void Text::SetRotation(float angle)
 	{
-		m_owner->GetComponent<Transform2D>()->angle = angle;
+		m_owner.lock()->GetComponent<Transform2D>()->angle = angle;
 	}
 }

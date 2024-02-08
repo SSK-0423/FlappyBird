@@ -1,11 +1,14 @@
 #include "pch.h"
 #include "PleaseClickText.h"
+#include "DX12Wrapper/Dx12GraphicsEngine.h"
+
 
 using namespace Framework;
+using namespace DX12Wrapper;
 
 namespace FlappyBird
 {
-	PleaseClickText::PleaseClickText(Object* owner)
+	PleaseClickText::PleaseClickText(std::shared_ptr<Object> owner)
 		: IComponent(owner), m_isClicked(false), m_elapsedBlinkTime(0.f), m_elapsedWaitTime(0.f),
 		m_waitSoundTime(2.5f), m_blinkAnimationInterval(0.5f), m_backgroundSound(nullptr), m_currentColorIndex(0)
 	{
@@ -13,17 +16,18 @@ namespace FlappyBird
 		m_colors[0] = DirectX::Colors::Black;
 		m_colors[1] = DirectX::Colors::Transparent;
 
-		auto windowSize = Window::GetWindowSize();
+		auto viewport = Dx12GraphicsEngine::GetViewport();
+		SIZE windowSize = { viewport.Width, viewport.Height };
 
 		// テキスト追加
-		Text* text = m_owner->AddComponent<Text>(m_owner);
+		Text* text = m_owner.lock()->AddComponent<Text>(m_owner.lock());
 		text->SetText(L"Please Click");
 		text->SetColor(m_colors[0]);
 		text->SetPosition({ windowSize.cx / 3.f, windowSize.cy * 2.5f / 4.f });
 		text->SetScale(0.5f);
 
 		// 効果音追加
-		SoundClip* sound = m_owner->AddComponent<SoundClip>(m_owner);
+		SoundClip* sound = m_owner.lock()->AddComponent<SoundClip>(m_owner.lock());
 		sound->LoadWavSound(L"res/sound/decide.wav");
 	}
 	void PleaseClickText::Update(float deltaTime)
@@ -36,7 +40,7 @@ namespace FlappyBird
 			if (m_elapsedWaitTime >= m_waitSoundTime)
 			{
 				OnClicked.Notify(NotificationEvent());
-				m_owner->SetActive(false);
+				m_owner.lock()->SetActive(false);
 			}
 		}
 		else
@@ -48,7 +52,7 @@ namespace FlappyBird
 			{
 				m_isClicked = true;
 				m_blinkAnimationInterval /= 4.f;
-				m_owner->GetComponent<SoundClip>()->Play();
+				m_owner.lock()->GetComponent<SoundClip>()->Play();
 			}
 		}
 
@@ -63,7 +67,7 @@ namespace FlappyBird
 		if (m_elapsedBlinkTime >= m_blinkAnimationInterval)
 		{
 			m_elapsedBlinkTime = 0.f;
-			m_owner->GetComponent<Text>()->SetColor(m_colors[m_currentColorIndex]);
+			m_owner.lock()->GetComponent<Text>()->SetColor(m_colors[m_currentColorIndex]);
 			m_currentColorIndex = (m_currentColorIndex + 1) % m_colors.size();
 		}
 	}

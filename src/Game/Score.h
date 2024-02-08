@@ -9,7 +9,7 @@ namespace FlappyBird
 	class Score : public Framework::IComponent
 	{
 	public:
-		Score(Framework::Object* owner);
+		Score(std::shared_ptr<Framework::Object> owner);
 		~Score() = default;
 
 		void Update(float deltaTime) override;

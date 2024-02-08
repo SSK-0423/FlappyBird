@@ -38,6 +38,7 @@ namespace Framework
 		static bool GetKey(KEYCODE keyCode);
 		static bool GetMouseButtonDown(MOUSECODE mouseCode);
 		static POINT GetMousePosition();
+		static LONG GetMouseWheelMovement();
 		static void ViewMouseCursor();
 
 	private:
@@ -66,8 +67,8 @@ namespace Framework
 		static DIMOUSESTATE m_currentMouse;
 		static DIMOUSESTATE m_prevMouse;
 		static BUTTON_STATE m_mouseButtonState[MOUSE_BUTTON_NUM];
-		static float m_mouseXMovement;
-		static float m_mouseYMovement;
-		static float m_mouseWheelMovement;
+		static LONG m_mouseXMovement;
+		static LONG m_mouseYMovement;
+		static LONG m_mouseWheelMovement;
 	};
 }

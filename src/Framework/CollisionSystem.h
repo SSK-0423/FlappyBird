@@ -9,6 +9,7 @@ namespace Framework
 	public:
 		static void Update(float deltaTime);
 		static void AddCollider(Collider* collider);
+		static void RemoveCollider(Collider* collider);
 		static void Reset();
 
 	private:

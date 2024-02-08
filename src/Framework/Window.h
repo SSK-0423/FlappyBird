@@ -5,7 +5,7 @@ namespace Framework
 	class Window
 	{
 	public:
-		static void Create(const TCHAR* windowName, LONG width, LONG height);
+		static void Create(const TCHAR* windowName, LONG width, LONG height, LONG gameWidth = 0, LONG gameHeight = 0);
 
 		/// <summary>
 		/// メッセージをディスパッチしてアプリを続行するか判断する
@@ -21,10 +21,17 @@ namespace Framework
 		/// <returns>成功: ウィンドウサイズ 失敗: 縦横0のサイズを返す</returns>
 		static SIZE GetWindowSize();
 
+		/// <summary>
+		/// デバッグ用のゲームウィンドウサイズ取得
+		/// </summary>
+		/// <returns></returns>
+		static SIZE GetGameWindowSize();
+
 	private:
 		Window() = default;
 		~Window() = default;
 		static HWND m_hwnd;
 		static WNDCLASSEX m_wndClassEx;
+		static SIZE m_gameWindowSize;
 	};
 }

@@ -7,7 +7,7 @@ namespace FlappyBird
 	class ScoreFrame : public Framework::IComponent
 	{
 	public:
-		ScoreFrame(Framework::Object* owner);
+		ScoreFrame(std::shared_ptr<Framework::Object> owner);
 		~ScoreFrame() = default;
 
 		void Update(float deltaTime) override;

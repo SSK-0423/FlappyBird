@@ -22,15 +22,22 @@ namespace Framework
 	class SpriteRenderer : public IComponent
 	{
 	public:
-		SpriteRenderer(Framework::Object* owner);
+		SpriteRenderer(std::shared_ptr<Object> owner);
 		~SpriteRenderer();
 
+		void Start() override;
 		void Update(float deltaTime) override;
 		void Draw() override;
-		
-		void SetSprite(class Sprite* sprite);
+		void DrawInspector() override;
+
 		// TODO: スプライトアニメーションを実装する
+		void SetSprite(class Sprite* sprite);
 		void SetSprite(std::shared_ptr<class Sprite> sprite);
+
+		void AddSprite(class Sprite* sprite);
+		void AddSprite(std::shared_ptr<class Sprite> sprite);
+
+		void ChangeRenderSprite(size_t index);
 
 		void SetDrawMode(SPRITE_DRAW_MODE drawMode);
 
@@ -50,13 +57,17 @@ namespace Framework
 			TRANSFORM = 0,
 			CAMERA = 1,
 			DRAW_MODE = 2,
+			MATERIAL = 3,
 			BUFFER_COUNT
 		};
 
 		std::shared_ptr<DX12Wrapper::RootSignature> m_rootSignature = nullptr;
 		std::shared_ptr<DX12Wrapper::GraphicsPipelineState> m_pipelineState = nullptr;
 		std::shared_ptr<DX12Wrapper::ConstantBuffer> m_drawModeBuffer = nullptr;
-		std::shared_ptr<class Sprite> m_sprite = nullptr;
+		std::vector<std::shared_ptr<class Sprite>> m_sprites;
+
+		size_t m_currentSpriteIndex = 0;
+
 		SPRITE_DRAW_MODE m_drawMode = SPRITE_DRAW_MODE::GAMEOBJECT;
 	};
 }

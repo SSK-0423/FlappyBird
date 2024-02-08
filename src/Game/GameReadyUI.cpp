@@ -6,14 +6,14 @@ using namespace Framework;
 
 namespace FlappyBird
 {
-	GameReadyUI::GameReadyUI(Framework::Object* owner) :
+	GameReadyUI::GameReadyUI(std::shared_ptr<Framework::Object> owner) :
 		Framework::IComponent(owner)
 	{
-		m_owner->SetName("GameReadyUI");
+		m_owner.lock()->SetName("GameReadyUI");
 
-		UIObject* userGuide = UIObjectManager::CreateObject();
+		std::shared_ptr<UIObject> userGuide = UIObjectManager::CreateObject();
 		userGuide->AddComponent<UserGuide>(userGuide);
-		m_owner->AddChild(userGuide);
+		m_owner.lock()->AddChild(userGuide);
 	}
 
 	void GameReadyUI::Update(float deltaTime)

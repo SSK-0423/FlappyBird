@@ -1,11 +1,14 @@
 #include "SoundManager.h"
 
+
+#include "Editor.h"
+
 namespace Framework
 {
 	// 静的メンバ変数の実体化
 	IXAudio2* SoundManager::m_xAudio2 = nullptr;
 	IXAudio2MasteringVoice* SoundManager::m_masteringVoice = nullptr;
-	std::map<std::wstring, SoundManager::SoundData> SoundManager::m_soundDatas;
+	std::map<std::wstring, SoundData> SoundManager::m_soundDatas;
 	std::list<IXAudio2SourceVoice*> SoundManager::m_sourceVoices;
 
 	Utility::RESULT SoundManager::Init()
@@ -122,6 +125,11 @@ namespace Framework
 	}
 	IXAudio2SourceVoice* SoundManager::Play(const wchar_t* soundname)
 	{
+#ifdef _DEBUG
+		// ソースボイスの総数を表示
+		Editor::DebugLog("SourceVoice Count: %d", m_sourceVoices.size());
+#endif // _DEBUG
+
 		// サウンドが読み込み済みかチェックする
 		if (m_soundDatas.find(soundname) == m_soundDatas.end())
 		{
@@ -129,6 +137,7 @@ namespace Framework
 		}
 
 		IXAudio2SourceVoice* sourceVoice = nullptr;
+
 		// 使用可能なソースボイスを探す
 		for (auto source : m_sourceVoices)
 		{
@@ -153,8 +162,16 @@ namespace Framework
 			m_sourceVoices.push_back(sourceVoice);
 		}
 
-		sourceVoice->SubmitSourceBuffer(&m_soundDatas[soundname].buffer);
-
 		return sourceVoice;
+	}
+	SoundData* SoundManager::GetSoundData(const wchar_t* soundname)
+	{
+		// サウンドが読み込み済みかチェックする
+		if (m_soundDatas.find(soundname) == m_soundDatas.end())
+		{
+			return nullptr;
+		}
+
+		return &m_soundDatas[soundname];
 	}
 }

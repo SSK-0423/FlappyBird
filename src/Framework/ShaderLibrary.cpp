@@ -32,6 +32,10 @@ namespace Framework
 			return RESULT::FAILED;
 		if (RegistShader(L"Button", "ButtonPS", SHADERTYPE::PIXEL, "PSMain") == RESULT::FAILED)
 			return RESULT::FAILED;
+		if (RegistShader(L"FullScreen", "FullScreenVS", SHADERTYPE::VERTEX, "VSMain") == RESULT::FAILED)
+			return RESULT::FAILED;
+		if (RegistShader(L"FullScreen", "FullScreenPS", SHADERTYPE::PIXEL, "PSMain") == RESULT::FAILED)
+			return RESULT::FAILED;
 
 		return RESULT::SUCCESS;
 	}

@@ -153,6 +153,7 @@
     <ClCompile Include="imgui\imgui_draw.cpp" />
     <ClCompile Include="imgui\imgui_impl_dx12.cpp" />
     <ClCompile Include="imgui\imgui_impl_win32.cpp" />
+    <ClCompile Include="imgui\imgui_stdlib.cpp" />
     <ClCompile Include="imgui\imgui_tables.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\DX12Wrapper\ConstantBuffer.cpp" />
@@ -181,6 +182,7 @@
     <ClCompile Include="src\Framework\Game.cpp" />
     <ClCompile Include="src\Framework\InputSystem.cpp" />
     <ClCompile Include="src\Framework\IRenderer.cpp" />
+    <ClCompile Include="src\Framework\Material.cpp" />
     <ClCompile Include="src\Framework\Object.cpp" />
     <ClCompile Include="src\Framework\RectCollider.cpp" />
     <ClCompile Include="src\Framework\Rigidbody2D.cpp" />
@@ -196,12 +198,22 @@
     <ClCompile Include="src\Framework\WAVFileReader.cpp" />
     <ClCompile Include="src\Framework\Window.cpp" />
     <ClCompile Include="src\Game\Background.cpp" />
+    <ClCompile Include="src\Game\BarLine.cpp" />
+    <ClCompile Include="src\Game\BarManager.cpp" />
     <ClCompile Include="src\Game\FlappyBird.cpp" />
+    <ClCompile Include="src\Game\FumenJsonReadWriter.cpp" />
     <ClCompile Include="src\Game\GameMaster.cpp" />
     <ClCompile Include="src\Game\GameOverUI.cpp" />
     <ClCompile Include="src\Game\GameReadyUI.cpp" />
     <ClCompile Include="src\Game\GameScene.cpp" />
     <ClCompile Include="src\Game\main.cpp" />
+    <ClCompile Include="src\Game\MusicPlayer.cpp" />
+    <ClCompile Include="src\Game\MusicSelectScene.cpp" />
+    <ClCompile Include="src\Game\MusicSelectSceneUI.cpp" />
+    <ClCompile Include="src\Game\NotesEditor.cpp" />
+    <ClCompile Include="src\Game\NotesEditScene.cpp" />
+    <ClCompile Include="src\Game\NotesEditUI.cpp" />
+    <ClCompile Include="src\Game\NotesManager.cpp" />
     <ClCompile Include="src\Game\Obstacle.cpp" />
     <ClCompile Include="src\Game\ObstaclePool.cpp" />
     <ClCompile Include="src\Game\ObstacleSpawner.cpp" />
@@ -211,6 +223,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\Game\RenderObjectPass.cpp" />
+    <ClCompile Include="src\Game\RenderScreenPass.cpp" />
+    <ClCompile Include="src\Game\RenderUIPass.cpp" />
     <ClCompile Include="src\Game\Score.cpp" />
     <ClCompile Include="src\Game\ScoreFrame.cpp" />
     <ClCompile Include="src\Game\TitleScene.cpp" />
@@ -228,6 +243,7 @@
     <ClInclude Include="imgui\imgui_impl_dx12.h" />
     <ClInclude Include="imgui\imgui_impl_win32.h" />
     <ClInclude Include="imgui\imgui_internal.h" />
+    <ClInclude Include="imgui\imgui_stdlib.h" />
     <ClInclude Include="imgui\imstb_rectpack.h" />
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
@@ -256,6 +272,7 @@
     <ClInclude Include="src\Framework\Collider.h" />
     <ClInclude Include="src\Framework\CollisionSystem.h" />
     <ClInclude Include="src\Framework\Editor.h" />
+    <ClInclude Include="src\Framework\Material.h" />
     <ClInclude Include="src\Framework\NotificationEvent.h" />
     <ClInclude Include="src\Framework\Game.h" />
     <ClInclude Include="src\Framework\GameFramework.h" />
@@ -282,17 +299,33 @@
     <ClInclude Include="src\Framework\WAVFileReader.h" />
     <ClInclude Include="src\Framework\Window.h" />
     <ClInclude Include="src\Game\Background.h" />
+    <ClInclude Include="src\Game\BarLine.h" />
+    <ClInclude Include="src\Game\BarManager.h" />
     <ClInclude Include="src\Game\FlappyBird.h" />
+    <ClInclude Include="src\Game\FumenData.h" />
+    <ClInclude Include="src\Game\FumenJsonReadWriter.h" />
     <ClInclude Include="src\Game\GameMaster.h" />
     <ClInclude Include="src\Game\GameOverUI.h" />
     <ClInclude Include="src\Game\GameReadyUI.h" />
     <ClInclude Include="src\Game\GameScene.h" />
+    <ClInclude Include="src\Game\MusicPlayer.h" />
+    <ClInclude Include="src\Game\MusicSelectScene.h" />
+    <ClInclude Include="src\Game\MusicSelectSceneUI.h" />
+    <ClInclude Include="src\Game\NoteData.h" />
+    <ClInclude Include="src\Game\NotesEditor.h" />
+    <ClInclude Include="src\Game\NotesEditScene.h" />
+    <ClInclude Include="src\Game\NotesEditUI.h" />
+    <ClInclude Include="src\Game\NotesManager.h" />
     <ClInclude Include="src\Game\Obstacle.h" />
     <ClInclude Include="src\Game\ObstaclePool.h" />
     <ClInclude Include="src\Game\ObstacleSpawner.h" />
+    <ClInclude Include="src\Game\picojson.h" />
     <ClInclude Include="src\Game\Player.h" />
     <ClInclude Include="src\Game\PleaseClickText.h" />
     <ClInclude Include="src\Game\Renderer.h" />
+    <ClInclude Include="src\Game\RenderObjectPass.h" />
+    <ClInclude Include="src\Game\RenderScreenPass.h" />
+    <ClInclude Include="src\Game\RenderUIPass.h" />
     <ClInclude Include="src\Game\Score.h" />
     <ClInclude Include="src\Game\ScoreFrame.h" />
     <ClInclude Include="src\Game\TitleScene.h" />
@@ -307,6 +340,32 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\FlappyBird.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="shaders\Button.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VSMain</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VSMain</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="shaders\FullScreen.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VSMain</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VSMain</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="shaders\Sprite.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VSMain</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VSMain</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
