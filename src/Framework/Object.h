@@ -12,9 +12,6 @@ namespace Framework
 		{
 			m_components.clear();
 			m_children.clear();
-#ifdef _DEBUG
-			Editor::DebugLog("Object::Destructor");
-#endif // _DEBUG
 		}
 
 		template<class T>

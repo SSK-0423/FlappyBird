@@ -23,7 +23,6 @@ namespace FlappyBird
 
 		// タイトルテキストの輪郭線
 		std::shared_ptr<UIObject> outline = UIObjectManager::CreateObject();
-		//GameObject* outline = GameObjectManager::CreateObject();
 		Text* outlineText = outline->AddComponent<Text>(outline);
 		outlineText->SetText(L"Flappy Bird");
 		outlineText->SetPosition({ windowSize.cx / 6.f + 5.f, windowSize.cy / 7.f + 5.f });
@@ -44,7 +43,7 @@ namespace FlappyBird
 		pleaseClickText->OnClicked.Subscribe(std::bind(&TitleSceneUI::ShowGameModeButtons, this, std::placeholders::_1));
 
 		// ゲームモード選択ボタン
-		// 1人プレイボタン
+		// ゲームスタートボタン
 		std::shared_ptr<UIObject> singlePlay = UIObjectManager::CreateObject();
 		singlePlay->SetName("GameStartButton");
 		Button* singlePlayButton = singlePlay->AddComponent<Button>(singlePlay);
@@ -52,7 +51,7 @@ namespace FlappyBird
 		singlePlayButton->SetPosition({ windowSize.cx / 2.f, windowSize.cy / 2.f });
 		singlePlayButton->SetScale({ 300.f, 300.f / 4.f });
 		singlePlayButton->SetLayer(static_cast<UINT>(TITLE_SCENE_LAYER::UI));
-		singlePlayButton->SetOnClick([]() {SceneManager::SetNextScene("Game"); });
+		singlePlayButton->SetOnClick([]() {SceneManager::SetNextScene("MusicSelect"); });
 		m_gameModeButtons.push_back(singlePlay);
 
 		// ノーツエディットボタン

@@ -118,7 +118,7 @@ namespace FlappyBird
 	void Player::LimitPosition()
 	{
 		// プレイヤーの移動制限
-		auto windowSize = Window::GetWindowSize();
+		auto& viewport = Dx12GraphicsEngine::GetViewport();
 		Transform2D* transform = m_owner.lock()->GetComponent<Transform2D>();
 
 		// 上端制限
@@ -128,9 +128,9 @@ namespace FlappyBird
 			m_owner.lock()->GetComponent<Rigidbody2D>()->velocity = { 0.f, 0.f };
 		}
 		// 下端制限
-		else if (transform->position.y > windowSize.cy)
+		else if (transform->position.y > viewport.Height)
 		{
-			transform->position.y = windowSize.cy;
+			transform->position.y = viewport.Height;
 			m_owner.lock()->GetComponent<Rigidbody2D>()->velocity = { 0.f, 0.f };
 		}
 	}

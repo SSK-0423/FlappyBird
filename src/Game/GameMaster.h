@@ -20,6 +20,7 @@ namespace FlappyBird
 		GameMaster(std::shared_ptr<Framework::Object> owner);
 		~GameMaster() = default;
 
+		void Start() override;
 		void Update(float deltaTime) override;
 		void Draw() override;
 

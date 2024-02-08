@@ -85,11 +85,11 @@
     <Filter Include="ソース ファイル\Game\NotesEditorScene\NotesEditor\Bar">
       <UniqueIdentifier>{af944520-4fb8-41ec-8376-356edeeccffe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Game\NotesEditorScene\NotesEditor\Notes">
-      <UniqueIdentifier>{8d0659e7-332c-4216-ab5c-1973856c5ab2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Game\StageSelect">
+    <Filter Include="ソース ファイル\Game\MusicSelectScene">
       <UniqueIdentifier>{e1995478-9281-40d1-bbfb-16822b7453b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Game\Notes">
+      <UniqueIdentifier>{63051279-c9d1-45cd-9cf4-1f1920ea3295}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -237,9 +237,6 @@
     <ClCompile Include="src\Game\GameMaster.cpp">
       <Filter>ソース ファイル\Game\GameScene</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\Obstacle.cpp">
-      <Filter>ソース ファイル\Game\GameScene\Obstacle</Filter>
-    </ClCompile>
     <ClCompile Include="src\Game\ObstaclePool.cpp">
       <Filter>ソース ファイル\Game\GameScene\Obstacle</Filter>
     </ClCompile>
@@ -324,14 +321,23 @@
     <ClCompile Include="src\Game\NotesEditor.cpp">
       <Filter>ソース ファイル\Game\NotesEditorScene\NotesEditor</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\MusicPlayer.cpp">
-      <Filter>ソース ファイル\Game\NotesEditorScene\NotesEditor</Filter>
-    </ClCompile>
     <ClCompile Include="src\Framework\Material.cpp">
       <Filter>ソース ファイル\Framework\Component</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\MusicSelectScene.cpp">
+      <Filter>ソース ファイル\Game\MusicSelectScene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\MusicSelectSceneUI.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Obstacle.cpp">
+      <Filter>ソース ファイル\Game\Notes</Filter>
+    </ClCompile>
     <ClCompile Include="src\Game\NotesManager.cpp">
-      <Filter>ソース ファイル\Game\NotesEditorScene\NotesEditor\Notes</Filter>
+      <Filter>ソース ファイル\Game\Notes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\MusicPlayer.cpp">
+      <Filter>ソース ファイル\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -503,9 +509,6 @@
     <ClInclude Include="src\Game\GameMaster.h">
       <Filter>ソース ファイル\Game\GameScene</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\Obstacle.h">
-      <Filter>ソース ファイル\Game\GameScene\Obstacle</Filter>
-    </ClInclude>
     <ClInclude Include="src\Game\ObstaclePool.h">
       <Filter>ソース ファイル\Game\GameScene\Obstacle</Filter>
     </ClInclude>
@@ -602,20 +605,29 @@
     <ClInclude Include="src\Game\NotesEditor.h">
       <Filter>ソース ファイル\Game\NotesEditorScene\NotesEditor</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\MusicPlayer.h">
-      <Filter>ソース ファイル\Game\NotesEditorScene\NotesEditor</Filter>
-    </ClInclude>
     <ClInclude Include="src\Framework\Material.h">
       <Filter>ソース ファイル\Framework\Component</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\NoteData.h">
-      <Filter>ソース ファイル\Game\NotesEditorScene\NotesEditor\Notes</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Game\NotesManager.h">
-      <Filter>ソース ファイル\Game\NotesEditorScene\NotesEditor\Notes</Filter>
-    </ClInclude>
     <ClInclude Include="src\Game\RenderUIPass.h">
       <Filter>ソース ファイル\Game\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\MusicSelectScene.h">
+      <Filter>ソース ファイル\Game\MusicSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\MusicSelectSceneUI.h">
+      <Filter>ソース ファイル\Game\MusicSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Obstacle.h">
+      <Filter>ソース ファイル\Game\Notes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\NoteData.h">
+      <Filter>ソース ファイル\Game\Notes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\NotesManager.h">
+      <Filter>ソース ファイル\Game\Notes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\MusicPlayer.h">
+      <Filter>ソース ファイル\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
