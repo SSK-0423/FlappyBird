@@ -75,8 +75,9 @@ namespace FlappyBird
 
 				// 判定ラインのタイミングを設定
 				barLine->SetTiming(timing);
+
 				// 小節線のタイプを設定
-				// 小節頭
+				// 全音符(小節頭)
 				if (j == 0)
 				{
 					barLine->SetBarLineType(BARLINETYPE::WHOLE);

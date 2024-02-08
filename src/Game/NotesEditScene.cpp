@@ -38,7 +38,17 @@ namespace FlappyBird
 		backgroundTransform->position = { viewportSize.Width / 2.f, viewportSize.Height / 2.f };
 		backgroundTransform->scale = { viewportSize.Width * 1.f, viewportSize.Height * 1.f };
 
-		// UI
+		// タイトル画面へ戻るボタン
+		UIObject* backToTitleButton = UIObjectManager::CreateObject();
+		backToTitleButton->SetName("BackToTitleButton");
+		Button* backButton = backToTitleButton->AddComponent<Button>(backToTitleButton);
+		backButton->SetTexture(L"res/texture/back_to_title_button.png");
+		backButton->SetPosition({ viewportSize.Width - 100.f, 25.f });
+		backButton->SetScale({ 200.f, 200.f / 4.f });
+		backButton->SetLayer(static_cast<UINT>(SPRITE_LAYER::UI));
+		backButton->SetOnClick([]() {SceneManager::SetNextScene("Title"); });
+
+		// ノーツ編集関連のUI
 		UIObject* editWindow = UIObjectManager::CreateObject();
 		editWindow->SetName("NotesEditUI");
 		editWindow->AddComponent<NotesEditUI>(editWindow);

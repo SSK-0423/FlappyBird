@@ -88,6 +88,9 @@
     <Filter Include="ソース ファイル\Game\NotesEditorScene\NotesEditor\Notes">
       <UniqueIdentifier>{8d0659e7-332c-4216-ab5c-1973856c5ab2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\StageSelect">
+      <UniqueIdentifier>{e1995478-9281-40d1-bbfb-16822b7453b3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Game\main.cpp">
