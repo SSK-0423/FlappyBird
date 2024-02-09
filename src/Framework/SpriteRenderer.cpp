@@ -114,6 +114,7 @@ namespace Framework
 	}
 	void SpriteRenderer::SetLayer(UINT layer)
 	{
+		m_layer = layer;
 		// レイヤーが小さい程手前に描画される
 		m_owner.lock()->GetComponent<Transform2D>()->depth = static_cast<float>(layer) / SPRITE_LAYER_MAX;
 	}
@@ -192,8 +193,11 @@ namespace Framework
 	{
 		if (ImGui::CollapsingHeader("SpriteRenderer"))
 		{
+			// 描画レイヤーの表示
+			ImGui::Text("Draw Layer: %u", m_layer);
+
+			// セットされているスプライトの表示
 			ImGui::Text("Sprites");
-			// 描画中の画像を表示
 			for (size_t i = 0; i < m_sprites.size(); i++)
 			{
 				ImGui::Text("Sprite Index: %d", i);

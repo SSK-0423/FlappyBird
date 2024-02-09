@@ -67,6 +67,7 @@ namespace Framework
 		std::vector<std::shared_ptr<class Sprite>> m_sprites;
 
 		size_t m_currentSpriteIndex = 0;
+		UINT m_layer = 0;
 
 		SPRITE_DRAW_MODE m_drawMode = SPRITE_DRAW_MODE::GAMEOBJECT;
 	};
