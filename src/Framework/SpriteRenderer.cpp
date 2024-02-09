@@ -67,7 +67,7 @@ namespace Framework
 		Editor::SetTexture(m_sprites.back()->GetTexture());
 #endif // _DEBUG
 	}
-	void SpriteRenderer::SetSprite(std::shared_ptr<class Sprite> sprite)
+	void SpriteRenderer::SetSprite(std::shared_ptr<Sprite> sprite)
 	{
 		if (m_sprites.size() > 0)
 		{

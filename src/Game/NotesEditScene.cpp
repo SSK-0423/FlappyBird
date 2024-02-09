@@ -82,6 +82,7 @@ namespace FlappyBird
 
 	void NotesEditScene::Final()
 	{
+		Scene::Final();
 #ifdef _DEBUG
 		Editor::DebugLog("NotesEditScene::Final");
 #endif // _DEBUG

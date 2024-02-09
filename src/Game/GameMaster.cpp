@@ -19,11 +19,6 @@ namespace FlappyBird
 		m_gameReadyUI = UIObjectManager::FindObject("GameReadyUI");
 
 		m_owner.lock()->SetName("GameMaster");
-
-		// BGM追加
-		//SoundClip* sound = m_owner.lock()->AddComponent<SoundClip>(m_owner.lock());
-		//sound->LoadWavSound(L"res/sound/game_bgm.wav", true);
-		//sound->Play();
 	}
 	void GameMaster::Start()
 	{
@@ -116,6 +111,9 @@ namespace FlappyBird
 	{
 		// ゲームオーバーUIを表示
 		m_gameOverUI->SetActive(true);
+
+		// 曲の再生を停止
+		GameObjectManager::FindObject("MusicPlayer")->GetComponent<MusicPlayer>()->Stop();
 	}
 }
 

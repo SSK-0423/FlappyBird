@@ -1,0 +1,14 @@
+{
+  "MusicInfo": {
+    "beat": 4,
+    "bpm": 120,
+    "musicFilePath": "No Select",
+    "musicName": "None"
+  },
+  "notes": [
+    {
+      "posY": 682,
+      "time": 0
+    }
+  ]
+}

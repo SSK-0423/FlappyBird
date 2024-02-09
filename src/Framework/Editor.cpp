@@ -120,23 +120,22 @@ namespace Framework
 		// const char*を引数にすると文字化けしたのでstd::stringに変換している
 		m_debugLog.emplace_back(buf);
 	}
-	int Editor::SetTexture(DX12Wrapper::Texture& texture, int index)
+	void Editor::SetTexture(DX12Wrapper::Texture& texture, int index)
 	{
-		ID3D12Device& device = Dx12GraphicsEngine::Device();
-		ShaderResourceViewDesc srvDesc(texture);
-
-		// ImGui::Imageでテクスチャを表示する際に必要なインデックスを返す
-		int textureIndex = m_imguiHeap.RegistShaderResource(device, texture, srvDesc, index);
-		ImTextureID id = (ImTextureID)m_imguiHeap.GetSRVHandle(textureIndex).ptr;
-
-		// テクスチャデータを登録
-		// 登録されていないていない場合のみ登録
+		// 新規のテクスチャの場合はヒープとテクスチャデータへ登録
 		if (GetTextureID(texture) == nullptr)
 		{
+			// ImGuiヒープにテクスチャを登録
+			ID3D12Device& device = Dx12GraphicsEngine::Device();
+			ShaderResourceViewDesc srvDesc(texture);
+			int textureIndex = m_imguiHeap.RegistShaderResource(device, texture, srvDesc, index);
+
+			// ImGui::Imageで使用するためのIDを取得
+			ImTextureID id = (ImTextureID)m_imguiHeap.GetSRVHandle(textureIndex).ptr;
+
+			// テクスチャデータを登録
 			m_textureDatas.emplace_back(TextureData{ texture, id });
 		}
-
-		return textureIndex;
 	}
 	ImTextureID Editor::GetTextureID(DX12Wrapper::Texture& texture)
 	{

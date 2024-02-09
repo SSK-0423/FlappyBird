@@ -1,8 +1,6 @@
 #include "pch.h"
 #include "Player.h"
 
-#include "Framework/GameFramework.h"
-
 #include "GameScene.h"
 #include "GameMaster.h"
 
@@ -80,8 +78,8 @@ namespace FlappyBird
 		// 生存中かつ障害物に当たったらゲームオーバー
 		if (m_isAlive && other->GetOwner()->GetTag() == "Obstacle")
 		{
-			Utility::DebugLog("Game Over\n");
-			OnDead();
+			Editor::DebugLog("Game Over");
+			//OnDead();
 		}
 	}
 	void Player::ChangeSprite()
@@ -175,11 +173,11 @@ namespace FlappyBird
 		// ダメージ音声再生
 		std::unique_ptr<SoundClip> damageSound = std::make_unique<SoundClip>(nullptr);
 		damageSound->LoadWavSound(L"res/sound/damage.wav");
-		damageSound->Play(0.1f, true);
+		damageSound->Play(0.1f, 0.0f, true);
 
 		// 落下音声再生
 		std::unique_ptr<SoundClip> sound = std::make_unique<SoundClip>(nullptr);
 		sound->LoadWavSound(L"res/sound/fall.wav");
-		sound->Play();
+		sound->Play(0.1f, 0.0f);
 	}
 }

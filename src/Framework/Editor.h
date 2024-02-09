@@ -34,7 +34,7 @@ namespace Framework
 		static void Draw();
 
 		static void DebugLog(const char* fmt, ...);
-		static int SetTexture(DX12Wrapper::Texture& texture, int index = DX12Wrapper::DescriptorHeapCBV_SRV_UAV::NEXT_REGISTER);
+		static void SetTexture(DX12Wrapper::Texture& texture, int index = DX12Wrapper::DescriptorHeapCBV_SRV_UAV::NEXT_REGISTER);
 		static ImTextureID GetTextureID(DX12Wrapper::Texture& texture);
 
 		static DX12Wrapper::DescriptorHeapCBV_SRV_UAV& GetImGuiHeap();

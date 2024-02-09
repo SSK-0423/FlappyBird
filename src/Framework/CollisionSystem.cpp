@@ -5,6 +5,8 @@
 #include "RectCollider.h"
 #include "Object.h"
 
+#include "Editor.h"
+
 #include <DirectXMath.h>
 
 using namespace DirectX;
@@ -38,10 +40,15 @@ namespace Framework
 					continue;
 				}
 
+				// “¯‚¶ƒ^ƒO“¯Žm‚Í”»’è‚µ‚È‚¢
+				if (collider1->GetOwner()->GetTag() == collider2->GetOwner()->GetTag())
+				{
+					continue;
+				}
+
 				// “–‚½‚è”»’èŒŸo
 				if (CollisionDetection(*collider1, *collider2))
 				{
-					//Utility::DebugLog("CollisionDetection: true\n");
 					collider1->OnCollision(collider2);
 					collider2->OnCollision(collider1);
 				}

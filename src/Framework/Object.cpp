@@ -103,6 +103,7 @@ namespace Framework
 		ImGui::Checkbox("Active", &m_isActive);
 		ImGui::Text("Name: %s", m_name.c_str());
 		ImGui::Text("UUID: %s", m_uuid.c_str());
+		ImGui::Text("Tag: %s", m_tag.c_str());
 
 		for (auto& component : m_components)
 		{

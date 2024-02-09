@@ -24,12 +24,13 @@ namespace FlappyBird
 		m_owner.lock()->SetTag("Obstacle");
 
 		m_obstacleCount++;
-		
+
 		auto viewportSize = Dx12GraphicsEngine::GetViewport();
 
 		// è„ë§ÇÃè·äQï®ê∂ê¨
 		std::shared_ptr<GameObject> underObstacle = std::shared_ptr<GameObject>(new GameObject());
 		underObstacle->SetName("UnderObstacle");
+		underObstacle->SetTag("Obstacle");
 		m_underObstacleTransform = underObstacle->GetComponent<Transform2D>();
 		m_underObstacleTransform->scale = { 100.f, viewportSize.Height / 1.f };
 		m_underObstacleTransform->position = { viewportSize.Width / 2.f, m_underObstacleTransform->scale.y / 2.f + SPACE / 2.f };
@@ -53,6 +54,7 @@ namespace FlappyBird
 		// â∫ë§ÇÃè·äQï®ê∂ê¨
 		std::shared_ptr<GameObject> overObstacle = std::shared_ptr<GameObject>(new GameObject());
 		overObstacle->SetName("OverObstacle");
+		overObstacle->SetTag("Obstacle");
 		m_overObstacleTransform = overObstacle->GetComponent<Transform2D>();
 		m_overObstacleTransform->scale = { 100.f, viewportSize.Height / 1.f };
 		m_overObstacleTransform->position = { viewportSize.Width / 2.f, m_overObstacleTransform->scale.y / 2.f - SPACE / 2.f };

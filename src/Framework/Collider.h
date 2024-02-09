@@ -18,6 +18,7 @@ namespace Framework
 
 		virtual void Update(float deltaTime) = 0;
 		virtual void Draw() = 0;
+		virtual void DrawInspector() {};
 
 		virtual void* GetColliderShape() const = 0;
 		COLLIDER_TYPE GetColliderType() const { return m_colliderType; };

@@ -42,6 +42,7 @@ namespace Framework
 
 		void Update(float deltaTime) override;
 		void Draw() override;
+		void DrawInspector() override;
 		void* GetColliderShape() const override;
 
 		void SetRectSize(float width, float height);
