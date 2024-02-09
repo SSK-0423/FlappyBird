@@ -140,7 +140,7 @@ namespace FlappyBird
 	void NotesEditor::LoadMusic(const std::string& musicPath)
 	{
 		// 音楽ファイルを読み込み
-		m_musicPlayer->Load(musicPath.c_str());
+		m_musicPlayer->Load(musicPath);
 	}
 	void NotesEditor::StartEdit(const FumenData& data)
 	{

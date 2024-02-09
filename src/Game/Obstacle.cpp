@@ -15,13 +15,16 @@ namespace FlappyBird
 	float Obstacle::m_judgeLineX = 0.0f;
 	float Obstacle::m_currentPlayTime = 0.0f;
 	const int Obstacle::SPACE = 255;
+	UINT Obstacle::m_obstacleCount = 0;
 
 	Obstacle::Obstacle(std::shared_ptr<Framework::Object> owner)
 		: IComponent(owner)
 	{
-		m_owner.lock()->SetName("Obstacle");
+		m_owner.lock()->SetName("Obstacle " + std::to_string(m_obstacleCount));
 		m_owner.lock()->SetTag("Obstacle");
 
+		m_obstacleCount++;
+		
 		auto viewportSize = Dx12GraphicsEngine::GetViewport();
 
 		// è„ë§ÇÃè·äQï®ê∂ê¨

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "NotesManager.h"
 
+#include "Player.h"
 #include "Obstacle.h"
 #include "MusicPlayer.h"
 
@@ -21,6 +22,10 @@ namespace FlappyBird
 	void NotesManager::Start()
 	{
 		m_musicPlayer = GameObjectManager::FindObject("MusicPlayer")->GetComponent<MusicPlayer>();
+
+		//// プレイヤーのX座標を判定ラインとして設定
+		//float playerPosX = GameObjectManager::FindObject("Player")->GetComponent<Transform2D>()->position.x;
+		//Obstacle::SetJudgeLineX(playerPosX);
 	}
 	void NotesManager::Update(float deltaTime)
 	{

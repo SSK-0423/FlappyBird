@@ -53,10 +53,12 @@ namespace FlappyBird
 
 		// 障害物を設置するオブジェクト
 		std::shared_ptr<Framework::GameObject> notesManagerObj = GameObjectManager::CreateObject();
+		notesManagerObj->SetName("NotesManager");
 		notesManagerObj->AddComponent<NotesManager>(notesManagerObj);
 
 		// 曲再生オブジェクト
 		std::shared_ptr<Framework::GameObject> musicPlayerObj = GameObjectManager::CreateObject();
+		musicPlayerObj->SetName("MusicPlayer");
 		musicPlayerObj->AddComponent<MusicPlayer>(musicPlayerObj);
 
 		// UI

@@ -192,11 +192,29 @@ namespace Framework
 			flags |= ImGuiTreeNodeFlags_Selected;
 		}
 
+		if (object.GetActive())
+		{
+			ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 1.0f, 1.0f, 1.0f));
+		}
+		else
+		{
+			ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.5f, 0.5f, 0.5f, 1.0f));
+		}
+
 		// 子オブジェクトがある場合はツリーを開閉できるようにする
 		if (object.GetChildren().size() > 0)
 		{
-			if (ImGui::TreeNodeEx(object.GetName().c_str(), flags))
+			bool isOpen = ImGui::TreeNodeEx(object.GetName().c_str(), flags);
+			ImGui::PopStyleColor();
+
+			if (isOpen)
 			{
+				// クリックされたら選択中のオブジェクトを変更
+				if (ImGui::IsItemClicked())
+				{
+					selectedObjectUUID = object.GetUUID();
+				}
+
 				// ルートオブジェクトの場合はTreePopする
 				for (auto child : object.GetChildren())
 				{
@@ -210,14 +228,17 @@ namespace Framework
 		{
 			flags |= ImGuiTreeNodeFlags_Leaf;
 			ImGui::TreeNodeEx(object.GetName().c_str(), flags);
+			ImGui::PopStyleColor();
+
+			// クリックされたら選択中のオブジェクトを変更
+			if (ImGui::IsItemClicked())
+			{
+				selectedObjectUUID = object.GetUUID();
+			}
+
 			ImGui::TreePop();
 		}
 
-		// クリックされたら選択中のオブジェクトを変更
-		if (ImGui::IsItemClicked())
-		{
-			selectedObjectUUID = object.GetUUID();
-		}
 
 		// 選択中のオブジェクトのみインスペクターを表示
 		if (flags & ImGuiTreeNodeFlags_Selected)

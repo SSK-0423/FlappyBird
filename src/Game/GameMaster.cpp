@@ -6,6 +6,7 @@
 
 #include "FumenJsonReadWriter.h"
 #include "NotesManager.h"
+#include "MusicPlayer.h"
 
 using namespace Framework;
 
@@ -20,9 +21,9 @@ namespace FlappyBird
 		m_owner.lock()->SetName("GameMaster");
 
 		// BGM追加
-		SoundClip* sound = m_owner.lock()->AddComponent<SoundClip>(m_owner.lock());
-		sound->LoadWavSound(L"res/sound/game_bgm.wav", true);
-		sound->Play();
+		//SoundClip* sound = m_owner.lock()->AddComponent<SoundClip>(m_owner.lock());
+		//sound->LoadWavSound(L"res/sound/game_bgm.wav", true);
+		//sound->Play();
 	}
 	void GameMaster::Start()
 	{
@@ -30,11 +31,15 @@ namespace FlappyBird
 		FumenData fumenData;
 
 		// 曲選択シーンで選択された曲の譜面を読み込む
-		FumenJsonReadWriter::Read("res/fumen/HappyHardCore.json", fumenData);
+		FumenJsonReadWriter::Read("res/fumen/House.json", fumenData);
 
 		// ノーツの生成
 		std::shared_ptr<Framework::GameObject> notesManagerObj = GameObjectManager::FindObject("NotesManager");
 		notesManagerObj->GetComponent<NotesManager>()->SetNotes(fumenData.noteDatas);
+
+		// 曲読み込み
+		std::shared_ptr<Framework::GameObject> musicPlayerObj = GameObjectManager::FindObject("MusicPlayer");
+		musicPlayerObj->GetComponent<MusicPlayer>()->Load(fumenData.musicFilePath);
 	}
 	void GameMaster::Update(float deltaTime)
 	{
@@ -103,9 +108,9 @@ namespace FlappyBird
 	{
 		// ゲーム開始UIを非表示
 		m_gameReadyUI->SetActive(false);
-		
-		// 曲の再生を開始
 
+		// 曲の再生を開始
+		GameObjectManager::FindObject("MusicPlayer")->GetComponent<MusicPlayer>()->Play();
 	}
 	void GameMaster::OnGameOver()
 	{

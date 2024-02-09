@@ -14,7 +14,7 @@ namespace FlappyBird
 		void Draw() override;
 		void DrawInspector() override;
 
-		void Load(const char* musicPath);
+		void Load(const std::string& musicPath);
 		void Play(float startTime = 0.f);
 		void Stop();
 

@@ -46,5 +46,6 @@ namespace FlappyBird
 		static const int SPACE;
 		static float m_judgeLineX;
 		static float m_currentPlayTime;
+		static UINT m_obstacleCount;
 	};
 }

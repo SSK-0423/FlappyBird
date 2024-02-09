@@ -33,11 +33,11 @@ namespace FlappyBird
 			ImGui::Text("CurrentTime: %.2f", m_music->GetCurrentPlayTime());
 		}
 	}
-	void MusicPlayer::Load(const char* musicPath)
+	void MusicPlayer::Load(const std::string& musicPath)
 	{
 		m_music->Stop();
 
-		Utility::charToWchar(musicPath, m_musicPath, _countof(m_musicPath));
+		Utility::charToWchar(musicPath.c_str(), m_musicPath, _countof(m_musicPath));
 
 		m_music->LoadWavSound(m_musicPath, true);
 
