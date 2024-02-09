@@ -26,7 +26,7 @@ namespace FlappyBird
 		Editor::DebugLog("NotesEditScene::Init");
 #endif // _DEBUG
 
-		auto viewportSize = Dx12GraphicsEngine::GetViewport();
+		auto& viewportSize = Dx12GraphicsEngine::GetViewport();
 
 		// îwåi
 		std::shared_ptr<GameObject> background = GameObjectManager::CreateObject();

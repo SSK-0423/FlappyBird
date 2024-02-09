@@ -67,5 +67,9 @@ namespace DX12Wrapper
 		ID3D12Resource& GetBuffer() {
 			return *m_rtvBuffer.Get();
 		}
+
+		void Release() {
+			m_rtvBuffer.Reset();
+		}
 	};
 }

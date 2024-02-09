@@ -1,6 +1,7 @@
 #pragma once
 #include "IComponent.h"
 #include "Editor.h"
+#include "Utility/EngineUtility.h"
 
 namespace Framework
 {

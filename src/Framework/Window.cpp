@@ -2,10 +2,13 @@
 #include "../resource.h"
 #include "imgui_impl_win32.h"
 
+#include "DX12Wrapper/Dx12GraphicsEngine.h"
 #include "Editor.h"
 
 // ImGuiのウィンドウプロシージャ
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND, UINT, WPARAM, LPARAM);
+
+using namespace DX12Wrapper;
 
 namespace Framework
 {
@@ -27,10 +30,18 @@ namespace Framework
 		case WM_SIZE:
 			Editor::DebugLog("WM_SIZE");
 			Editor::DebugLog("%d %d", LOWORD(lparam), HIWORD(lparam));
-			return 0;
+
+			// レンダーターゲットをリサイズ
+			Dx12GraphicsEngine::Resize(LOWORD(lparam), HIWORD(lparam));
+
+			// Editorのウィンドウサイズを変更
+			Editor::Resize(LOWORD(lparam), HIWORD(lparam));
+			
+			break;
 		default:
 			break;
 		}
+
 		// ImgGuiのウィンドウサイズ変更などを可能にする
 		ImGui_ImplWin32_WndProcHandler(hwnd, msg, wparam, lparam);
 		return DefWindowProc(hwnd, msg, wparam, lparam);
@@ -54,7 +65,7 @@ namespace Framework
 		//ウィンドウオブジェクトの生成
 		m_hwnd = CreateWindow(m_wndClassEx.lpszClassName,
 			name,	// タイトルバーの文字
-			WS_OVERLAPPEDWINDOW,	// タイトルバーと境界線があるウィンドウ
+			WS_OVERLAPPEDWINDOW | WS_MAXIMIZE,	// タイトルバーと境界線があるウィンドウ
 			CW_USEDEFAULT,			// 表示X座標はOSにお任せ
 			CW_USEDEFAULT,			// 表示Y座標はOSにお任せ
 			rect.right - rect.left,	// ウィンドウ幅

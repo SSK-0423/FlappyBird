@@ -48,10 +48,18 @@ namespace DX12Wrapper
 	}
 
 	void DescriptorHeapRTV::RegistDescriptor(
-		ID3D12Device& device, RenderTargetBuffer& buffer, DXGI_FORMAT format, bool isCubeMap)
+		ID3D12Device& device, RenderTargetBuffer& buffer, DXGI_FORMAT format, bool isCubeMap, int registerNo)
 	{
 		auto handle = m_rtvHeap->GetCPUDescriptorHandleForHeapStart();
-		handle.ptr += m_registedRTVNum * m_handleIncrimentSize;
+
+		if (registerNo == NEXT_REGISTER)
+		{
+			handle.ptr += m_registedRTVNum * m_handleIncrimentSize;
+		}
+		else
+		{
+			handle.ptr += registerNo * m_handleIncrimentSize;
+		}
 
 		if (isCubeMap) {
 			for (size_t index = 0; index < 6; index++) {
@@ -61,9 +69,8 @@ namespace DX12Wrapper
 				rtvDesc.Texture2DArray.FirstArraySlice = index;
 				rtvDesc.Texture2DArray.ArraySize = 1;
 
-				// ん？？？
 				// 登録済みのディスクリプタ数をインクリメント
-				m_registedRTVNum++;
+				//m_registedRTVNum++;
 			}
 		}
 		else {
@@ -74,6 +81,11 @@ namespace DX12Wrapper
 
 			// レンダーターゲットビュー生成
 			device.CreateRenderTargetView(&buffer.GetBuffer(), &rtvDesc, handle);
+		}
+
+		// 次のレジスタを指定した場合は登録されたリソース数をインクリメント
+		if (registerNo == NEXT_REGISTER)
+		{
 			// 登録済みのディスクリプタ数をインクリメント
 			m_registedRTVNum++;
 		}

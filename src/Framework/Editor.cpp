@@ -153,6 +153,17 @@ namespace Framework
 	{
 		return m_imguiHeap;
 	}
+	void Editor::Resize(WORD width, WORD height)
+	{
+		// 初期化されていない場合は何もしない
+		if (ImGui::GetCurrentContext() == nullptr)
+		{
+			return;
+		}
+		// ImGuiのウィンドウサイズを変更
+		ImGui::GetIO().DisplaySize.x = width;
+		ImGui::GetIO().DisplaySize.y = height;
+	}
 	void Editor::DrawGameWindow()
 	{
 		ImGui::Begin("GameWindow");

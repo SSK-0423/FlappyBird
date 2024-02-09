@@ -45,6 +45,13 @@ namespace Framework
 		result = DX12Wrapper::Dx12GraphicsEngine::Init(hwnd,
 			WINDOW_WIDTH, WINDOW_HEIGHT,
 			GAME_WIDTH, GAME_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+		// ウィンドウが最大化した状態でスタートするので、
+		// WINDOW_WIDTH, WINDOW_HEIGHTと異なる可能性がある
+		// そこで、ウィンドウサイズを取得して一度リサイズしておく
+		RECT rect;
+		GetClientRect(hwnd, &rect);
+		DX12Wrapper::Dx12GraphicsEngine::Resize(rect.right, rect.bottom);
 #else
 		result = DX12Wrapper::Dx12GraphicsEngine::Init(hwnd,
 			WINDOW_WIDTH, WINDOW_HEIGHT,

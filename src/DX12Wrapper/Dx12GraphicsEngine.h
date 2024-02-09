@@ -90,6 +90,8 @@ namespace DX12Wrapper
 		static const CD3DX12_VIEWPORT& GetViewport();
 		static const CD3DX12_RECT& GetScissorRect();
 
+		static void Resize(const UINT& width, const UINT& height);
+
 	private:
 		Dx12GraphicsEngine() = default;
 		~Dx12GraphicsEngine();
@@ -172,7 +174,5 @@ namespace DX12Wrapper
 		static Utility::RESULT CreateFrameRenderTarget();
 
 		static Utility::RESULT CreateImguiDescriptorHeap();
-
-		static DescriptorHeapCBV_SRV_UAV& GetImguiDescriptorHeap();
 	};
 }

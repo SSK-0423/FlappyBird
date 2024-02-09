@@ -32,11 +32,19 @@ namespace DX12Wrapper
 		return RESULT::SUCCESS;
 	}
 
-	void DescriptorHeapDSV::RegistDescriptor(ID3D12Device& device, DepthStencilBuffer& buffer)
+	void DescriptorHeapDSV::RegistDescriptor(ID3D12Device& device, DepthStencilBuffer& buffer, int registerNo)
 	{
 		// ハンドル取得
 		auto handle = m_dsvHeap->GetCPUDescriptorHandleForHeapStart();
-		handle.ptr += m_registedDSVNum * m_handleIncrimentSize;
+
+		if (registerNo == NEXT_REGISTER)
+		{
+			handle.ptr += m_registedDSVNum * m_handleIncrimentSize;
+		}
+		else
+		{
+			handle.ptr += registerNo * m_handleIncrimentSize;
+		}
 
 		// デプスステンシルビュー設定
 		D3D12_DEPTH_STENCIL_VIEW_DESC dsvDesc = {};
@@ -47,7 +55,11 @@ namespace DX12Wrapper
 		//デプスステンシルビュー生成
 		device.CreateDepthStencilView(&buffer.GetBuffer(), &dsvDesc, handle);
 
-		// 登録済みのディスクリプタ数をインクリメント
-		m_registedDSVNum++;
+		// 次のレジスタを指定した場合は登録されたリソース数をインクリメント
+		if (registerNo == NEXT_REGISTER)
+		{
+			// 登録済みのディスクリプタ数をインクリメント
+			m_registedDSVNum++;
+		}
 	}
 }

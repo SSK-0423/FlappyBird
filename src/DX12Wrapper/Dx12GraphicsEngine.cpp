@@ -373,7 +373,7 @@ namespace DX12Wrapper
 			result = m_frameBuffers[idx].Create(*m_device.Get(), *m_swapchain.Get(), idx);
 			if (result == Utility::RESULT::FAILED) { return result; }
 			// 登録
-			m_frameHeap.RegistDescriptor(*m_device.Get(), m_frameBuffers[idx], DXGI_FORMAT_R8G8B8A8_UNORM_SRGB);
+			m_frameHeap.RegistDescriptor(*m_device.Get(), m_frameBuffers[idx], DXGI_FORMAT_R8G8B8A8_UNORM_SRGB, false, idx);
 		}
 
 		// デプスステンシルバッファー生成
@@ -418,6 +418,54 @@ namespace DX12Wrapper
 	const CD3DX12_RECT& Dx12GraphicsEngine::GetScissorRect()
 	{
 		return m_scissorRect;
+	}
+	void Dx12GraphicsEngine::Resize(const UINT& width, const UINT& height)
+	{
+		// 初期化されていない場合は何もしない
+		if (m_device == nullptr) { return; }
+
+		// CPUとGPUの同期
+		m_cmdQueue->Signal(m_fence.Get(), ++m_fenceVal);
+		if (m_fence->GetCompletedValue() != m_fenceVal) {
+			// イベントハンドル取得
+			auto event = CreateEvent(nullptr, false, false, nullptr);
+
+			m_fence->SetEventOnCompletion(m_fenceVal, event);
+
+			// イベントが発生するまで待ち続ける
+			WaitForSingleObject(event, INFINITE);
+
+			// イベントハンドルを閉じる
+			CloseHandle(event);
+		}
+
+		// フレームバッファ―解放
+		for (size_t idx = 0; idx < DOUBLE_BUFFER; idx++) {
+			m_frameBuffers[idx].Release();
+		}
+
+		// ウィンドウサイズ更新
+		m_windowWidth = width;
+		m_windowHeight = height;
+
+		// デプスステンシルバッファー再生成
+		m_depthStencilBufferData.width = m_windowWidth;
+		m_depthStencilBufferData.height = m_windowHeight;
+		m_depthStencilBuffer.Create(*m_device.Get(), m_depthStencilBufferData);
+
+		// デプスステンシルビュー再生成
+		m_dsvHeap.RegistDescriptor(*m_device.Get(), m_depthStencilBuffer, 0);
+
+		// スワップチェーンのリサイズ
+		m_swapchain->ResizeBuffers(DOUBLE_BUFFER, m_windowWidth, m_windowHeight, DXGI_FORMAT_R8G8B8A8_UNORM, 0);
+
+		// フレームバッファ―(最終レンダリング先)再生成
+		for (size_t idx = 0; idx < DOUBLE_BUFFER; idx++) {
+			m_frameBuffers[idx].Create(*m_device.Get(), *m_swapchain.Get(), idx);
+			m_frameHeap.RegistDescriptor(*m_device.Get(), m_frameBuffers[idx], DXGI_FORMAT_R8G8B8A8_UNORM_SRGB, false, idx);
+		}
+
+		m_scissorRect = CD3DX12_RECT(0, 0, width, height);
 	}
 	Dx12GraphicsEngine::~Dx12GraphicsEngine()
 	{

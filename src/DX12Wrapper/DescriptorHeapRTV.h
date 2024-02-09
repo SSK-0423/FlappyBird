@@ -21,7 +21,7 @@ namespace DX12Wrapper
 		~DescriptorHeapRTV() = default;
 
 		static constexpr UINT MAXDESCRIPTORNUM = 8;							    // 登録可能なディスクリプタ数
-
+		static constexpr int NEXT_REGISTER = -1;
 	private:
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> m_rtvHeap = nullptr;	    // ディスクリプタヒープ
 		SIZE_T m_handleIncrimentSize = 0;										// ハンドルのインクリメントサイズ
@@ -90,6 +90,6 @@ namespace DX12Wrapper
 		/// <param name="format">レンダーターゲットのフォーマット デフォルト値: DXGI_FORMAT_R8G8B8A8_UNORM</param>
 		void RegistDescriptor(
 			ID3D12Device& device, RenderTargetBuffer& buffer, DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UNORM,
-			bool isCubeMap = false);
+			bool isCubeMap = false, int registerNo = NEXT_REGISTER);
 	};
 }

@@ -38,6 +38,8 @@ namespace Framework
 		static ImTextureID GetTextureID(DX12Wrapper::Texture& texture);
 
 		static DX12Wrapper::DescriptorHeapCBV_SRV_UAV& GetImGuiHeap();
+
+		static void Resize(WORD width, WORD height);
 	private:
 		static DX12Wrapper::DescriptorHeapCBV_SRV_UAV m_imguiHeap;
 

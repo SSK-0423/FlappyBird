@@ -36,6 +36,7 @@ namespace DX12Wrapper
 		return RESULT::SUCCESS;
 	}
 
+	// TODO: 未使用の領域がある場合はそれを使うようにする
 	int DescriptorHeapCBV_SRV_UAV::RegistShaderResource(
 		ID3D12Device& device, Texture& texture,
 		ShaderResourceViewDesc& desc, const int& registerNo)
@@ -70,7 +71,11 @@ namespace DX12Wrapper
 
 		device.CreateShaderResourceView(&texture.GetBuffer(), &desc.desc, cpuHandle);
 
+		//// 次のレジスタを指定した場合は登録されたリソース数をインクリメント
+		//if (registerNo == NEXT_REGISTER)
+		//{
 		m_registedSRVNum++;
+		//}
 
 		return retIndex;
 	}

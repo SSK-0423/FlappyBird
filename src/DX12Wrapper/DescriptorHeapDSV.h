@@ -18,6 +18,7 @@ namespace DX12Wrapper
 		DescriptorHeapDSV() = default;
 		~DescriptorHeapDSV() = default;
 
+		static constexpr int NEXT_REGISTER = -1;
 	private:
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> m_dsvHeap = nullptr;		// ディスクリプタヒープ
 		SIZE_T m_handleIncrimentSize = 0;										// ハンドルのインクリメントサイズ
@@ -59,7 +60,7 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <param name="device">デバイス</param>
 		/// <param name="buffer">デプスステンシルバッファー</param>
-		void RegistDescriptor(ID3D12Device& device, DepthStencilBuffer& buffer);
+		void RegistDescriptor(ID3D12Device& device, DepthStencilBuffer& buffer, int registerNo = NEXT_REGISTER);
 
 		/// <summary>
 		/// CPUのディスクリプタヒープの先頭ハンドルを取得
