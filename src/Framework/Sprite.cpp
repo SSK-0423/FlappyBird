@@ -86,6 +86,14 @@ namespace Framework
 		m_descriptorHeap->RegistShaderResource(device, *m_texture, desc, 0);
 
 	}
+	D3D12_GPU_DESCRIPTOR_HANDLE Sprite::GetTextureHandle() const
+	{
+		return m_descriptorHeap->GetSRVHandle(0);
+	}
+	Texture& Sprite::GetTexture() const
+	{
+		return *m_texture.get();
+	}
 	DescriptorHeapCBV_SRV_UAV& Sprite::GetDescriptorHeap() const
 	{
 		return *m_descriptorHeap.get();
@@ -94,7 +102,7 @@ namespace Framework
 	{
 		return *m_vertexBuffer.get();
 	}
-	DX12Wrapper::IndexBuffer& Sprite::GetIndexBuffer() const
+	IndexBuffer& Sprite::GetIndexBuffer() const
 	{
 		return *m_indexBuffer.get();
 	}

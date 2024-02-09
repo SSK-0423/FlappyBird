@@ -5,9 +5,9 @@
 namespace Framework
 {
 	// static変数の実体化
-	const char* SceneManager::m_currentSceneName = "";
-	const char* SceneManager::m_nextSceneName = nullptr;
-	std::unordered_map<const char*, std::unique_ptr<Scene>> SceneManager::m_scenes;
+	std::string SceneManager::m_currentSceneName = "";
+	std::string SceneManager::m_nextSceneName = "";
+	std::unordered_map<std::string, std::unique_ptr<Scene>> SceneManager::m_scenes;
 
 	void SceneManager::Init()
 	{
@@ -35,10 +35,10 @@ namespace Framework
 		m_scenes[m_currentSceneName]->LateUpdate(deltaTime);
 
 		// 次シーンが設定されている場合はシーンを切り替える
-		if (m_nextSceneName != nullptr)
+		if (!m_nextSceneName.empty())
 		{
-			const char* nextSceneName = m_nextSceneName;
-			const char* currentSceneName = m_currentSceneName;
+			std::string nextSceneName = m_nextSceneName;
+			std::string currentSceneName = m_currentSceneName;
 			int currentObjectCount = GameObjectManager::GetAllObject().size();
 
 			// 現在のシーンの終了処理
@@ -48,7 +48,7 @@ namespace Framework
 			m_currentSceneName = m_nextSceneName;
 			m_scenes[m_currentSceneName]->Init();
 			m_scenes[m_currentSceneName]->Start();
-			m_nextSceneName = nullptr;
+			m_nextSceneName = "";
 
 			Utility::DebugLog("Scene Change: %s -> %s\n", currentSceneName, nextSceneName);
 			Utility::DebugLog("%s Object Count: %d\n", currentSceneName, currentObjectCount);
@@ -62,15 +62,19 @@ namespace Framework
 			m_scenes[m_currentSceneName]->Final();
 		}
 	}
-	void SceneManager::SetFirstScene(const char* name)
+	void SceneManager::SetFirstScene(std::string name)
 	{
 		m_currentSceneName = name;
 	}
-	void SceneManager::SetNextScene(const char* name)
+	void SceneManager::SetNextScene(std::string name)
 	{
 		m_nextSceneName = name;
 	}
-	const std::unordered_map<const char*, std::unique_ptr<Scene>>& SceneManager::GetAllScene()
+	std::string SceneManager::GetCurrentSceneName()
+	{
+		return m_currentSceneName;
+	}
+	const std::unordered_map<std::string, std::unique_ptr<Scene>>& SceneManager::GetAllScene()
 	{
 		return m_scenes;
 	}

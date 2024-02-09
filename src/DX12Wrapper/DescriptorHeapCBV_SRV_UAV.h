@@ -127,7 +127,7 @@ namespace DX12Wrapper
 		/// <param name="registerNo">
 		/// 登録するレジスタ番号 デフォルト値:NEXT_REGISTER(-1) 現在登録されているリソース数の次のレジスタを使用
 		/// </param>
-		void RegistShaderResource(
+		int RegistShaderResource(
 			ID3D12Device& device, Texture& texture, ShaderResourceViewDesc& desc, const int& registerNo = NEXT_REGISTER);
 
 		/// <summary>

@@ -61,9 +61,6 @@
     <Filter Include="ソース ファイル\Game\GameScene\UI">
       <UniqueIdentifier>{05dd7cfe-b2b4-424f-9f6f-4d34d5f570da}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Framework\System\Observer">
-      <UniqueIdentifier>{955cb2e5-6075-43e1-a091-37cff863ab83}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\imgui">
       <UniqueIdentifier>{99296d26-8ef8-4fb8-b95b-3b913b7dd338}</UniqueIdentifier>
     </Filter>
@@ -90,6 +87,12 @@
     </Filter>
     <Filter Include="ソース ファイル\Game\Notes">
       <UniqueIdentifier>{63051279-c9d1-45cd-9cf4-1f1920ea3295}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Framework\System\Sprite">
+      <UniqueIdentifier>{19eeb523-1e85-4a4d-961d-6af02e68099a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Framework\System\Observer">
+      <UniqueIdentifier>{955cb2e5-6075-43e1-a091-37cff863ab83}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -197,9 +200,6 @@
     </ClCompile>
     <ClCompile Include="src\Framework\Window.cpp">
       <Filter>ソース ファイル\Framework\System</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Framework\Sprite.cpp">
-      <Filter>ソース ファイル\Framework</Filter>
     </ClCompile>
     <ClCompile Include="src\Game\GameScene.cpp">
       <Filter>ソース ファイル\Game\GameScene</Filter>
@@ -327,9 +327,6 @@
     <ClCompile Include="src\Game\MusicSelectScene.cpp">
       <Filter>ソース ファイル\Game\MusicSelectScene</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\MusicSelectSceneUI.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\Game\Obstacle.cpp">
       <Filter>ソース ファイル\Game\Notes</Filter>
     </ClCompile>
@@ -338,6 +335,15 @@
     </ClCompile>
     <ClCompile Include="src\Game\MusicPlayer.cpp">
       <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\TextureManager.cpp">
+      <Filter>ソース ファイル\Framework\System\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Framework\Sprite.cpp">
+      <Filter>ソース ファイル\Framework\System\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\MusicSelectSceneUI.cpp">
+      <Filter>ソース ファイル\Game\MusicSelectScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -454,9 +460,6 @@
     </ClInclude>
     <ClInclude Include="src\Framework\Window.h">
       <Filter>ソース ファイル\Framework\System</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Framework\Sprite.h">
-      <Filter>ソース ファイル\Framework</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\GameScene.h">
       <Filter>ソース ファイル\Game\GameScene</Filter>
@@ -628,6 +631,12 @@
     </ClInclude>
     <ClInclude Include="src\Game\MusicPlayer.h">
       <Filter>ソース ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\TextureManager.h">
+      <Filter>ソース ファイル\Framework\System\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\Sprite.h">
+      <Filter>ソース ファイル\Framework\System\Sprite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

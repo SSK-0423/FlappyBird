@@ -18,23 +18,25 @@ namespace Framework
 
 		static void Final();
 
-		static void SetFirstScene(const char* name);
+		static void SetFirstScene(std::string name);
 
-		static void SetNextScene(const char* name);
+		static void SetNextScene(std::string name);
+
+		static std::string GetCurrentSceneName();
 
 		template<class T>
-		static void RegistScene(const char* name)
+		static void RegistScene(std::string name)
 		{
 			m_scenes.insert(std::make_pair(name, std::make_unique<T>()));
 		}
 
-		static const std::unordered_map<const char*, std::unique_ptr<Scene>>& GetAllScene();
+		static const std::unordered_map<std::string, std::unique_ptr<Scene>>& GetAllScene();
 
 	private:
 		SceneManager() = default;
-		~SceneManager();
-		static const char* m_currentSceneName;
-		static const char* m_nextSceneName;
-		static std::unordered_map<const char*, std::unique_ptr<Scene>> m_scenes;
+		~SceneManager() = default;
+		static std::string m_currentSceneName;
+		static std::string m_nextSceneName;
+		static std::unordered_map<std::string, std::unique_ptr<Scene>> m_scenes;
 	};
 }

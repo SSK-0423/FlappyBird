@@ -26,8 +26,6 @@ namespace FlappyBird
 		m_obstacle->SetMaterialColor({ 1.f, 1.f, 1.f, 0.8f });
 		m_owner.lock()->AddChild(obstaceleObj);
 
-		float judgeLineX = UIObjectManager::FindObject("JudgeLine")->GetComponent<Transform2D>()->position.x;
-		Obstacle::SetJudgeLineX(judgeLineX);
 	}
 	NotesEditor::~NotesEditor()
 	{

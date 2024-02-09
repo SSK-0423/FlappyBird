@@ -6,6 +6,7 @@
 #include "BarManager.h"
 #include "NotesManager.h"
 #include "MusicPlayer.h"
+#include "Player.h"
 
 #include "FlappyBird.h"
 

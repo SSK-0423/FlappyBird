@@ -6,6 +6,7 @@
 #include "GameMaster.h"
 #include "Player.h"
 #include "Background.h"
+#include "Obstacle.h"
 
 #include "NotesManager.h"
 #include "MusicPlayer.h"
@@ -50,6 +51,10 @@ namespace FlappyBird
 		// プレイヤー
 		std::shared_ptr<Framework::GameObject> player = GameObjectManager::CreateObject();
 		player->AddComponent<Player>(player);
+
+		// 土管の描画テスト
+		std::shared_ptr<GameObject> obstacle = GameObjectManager::CreateObject();
+		obstacle->AddComponent<Obstacle>(obstacle);
 
 		// 障害物を設置するオブジェクト
 		std::shared_ptr<Framework::GameObject> notesManagerObj = GameObjectManager::CreateObject();

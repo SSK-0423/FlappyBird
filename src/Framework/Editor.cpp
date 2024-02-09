@@ -7,7 +7,10 @@
 
 #include "Window.h"
 #include "Game.h"
+
 #include "DX12Wrapper/Dx12GraphicsEngine.h"
+#include "DX12Wrapper/ShaderResourceViewDesc.h"
+#include "DX12Wrapper/Texture.h"
 
 #include "GameObjectManager.h"
 #include "UIObjectManager.h"
@@ -26,6 +29,7 @@ namespace Framework
 	DescriptorHeapCBV_SRV_UAV Editor::m_imguiHeap;
 	std::list<std::string> Editor::m_debugLog;
 	std::string Editor::selectedObjectUUID = "";
+	std::list<TextureData> Editor::m_textureDatas;
 
 	RESULT Editor::Init()
 	{
@@ -116,6 +120,36 @@ namespace Framework
 		// const char*を引数にすると文字化けしたのでstd::stringに変換している
 		m_debugLog.emplace_back(buf);
 	}
+	int Editor::SetTexture(DX12Wrapper::Texture& texture, int index)
+	{
+		ID3D12Device& device = Dx12GraphicsEngine::Device();
+		ShaderResourceViewDesc srvDesc(texture);
+
+		// ImGui::Imageでテクスチャを表示する際に必要なインデックスを返す
+		int textureIndex = m_imguiHeap.RegistShaderResource(device, texture, srvDesc, index);
+		ImTextureID id = (ImTextureID)m_imguiHeap.GetSRVHandle(textureIndex).ptr;
+
+		// テクスチャデータを登録
+		// 登録されていないていない場合のみ登録
+		if (GetTextureID(texture) == nullptr)
+		{
+			m_textureDatas.emplace_back(TextureData{ texture, id });
+		}
+
+		return textureIndex;
+	}
+	ImTextureID Editor::GetTextureID(DX12Wrapper::Texture& texture)
+	{
+		for (auto& textureData : m_textureDatas)
+		{
+			if (textureData.texture == texture)
+			{
+				return textureData.id;
+			}
+		}
+
+		return nullptr;
+	}
 	DX12Wrapper::DescriptorHeapCBV_SRV_UAV& Editor::GetImGuiHeap()
 	{
 		return m_imguiHeap;
@@ -124,13 +158,12 @@ namespace Framework
 	{
 		ImGui::Begin("GameWindow");
 		auto& viewport = Dx12GraphicsEngine::GetViewport();
-		SIZE size = { viewport.Width, viewport.Height };
 		ImGui::Image(
 			(ImTextureID)m_imguiHeap.GetSRVHandle(static_cast<int>(EDITOR_SRV_INDEX::GAME_WINDOW)).ptr,
-			ImVec2(size.cx, size.cy),
+			ImVec2(viewport.Width, viewport.Height),
 			ImVec2(0, 0),
 			ImVec2(1, 1));
-		ImGui::SetWindowSize("GameWindow", ImVec2(size.cx + DELTA / 4, size.cy + DELTA));
+		ImGui::SetWindowSize("GameWindow", ImVec2(viewport.Width + DELTA / 4, viewport.Height + DELTA));
 		ImGui::End();
 
 	}
@@ -264,7 +297,7 @@ namespace Framework
 		{
 			// 横並びにする
 			ImGui::SameLine();
-			if (ImGui::Button(scene.first))
+			if (ImGui::Button(scene.first.c_str()))
 			{
 				SceneManager::SetNextScene(scene.first);
 			}

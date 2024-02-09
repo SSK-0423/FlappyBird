@@ -61,6 +61,11 @@ namespace Framework
 		{
 			m_sprites.push_back(std::shared_ptr<Sprite>(sprite));
 		}
+
+#ifdef _DEBUG
+		// エディター上でスプライトを表示するために登録
+		Editor::SetTexture(m_sprites.back()->GetTexture());
+#endif // _DEBUG
 	}
 	void SpriteRenderer::SetSprite(std::shared_ptr<class Sprite> sprite)
 	{
@@ -72,14 +77,29 @@ namespace Framework
 		{
 			m_sprites.push_back(sprite);
 		}
+
+#ifdef _DEBUG
+		// エディター上でスプライトを表示するために登録
+		Editor::SetTexture(m_sprites.back()->GetTexture());
+#endif // _DEBUG
 	}
 	void SpriteRenderer::AddSprite(Sprite* sprite)
 	{
 		m_sprites.push_back(std::shared_ptr<Sprite>(sprite));
+
+#ifdef _DEBUG
+		// エディター上でスプライトを表示するために登録
+		Editor::SetTexture(m_sprites.back()->GetTexture());
+#endif // _DEBUG
 	}
 	void SpriteRenderer::AddSprite(std::shared_ptr<class Sprite> sprite)
 	{
 		m_sprites.push_back(sprite);
+
+#ifdef _DEBUG
+		// エディター上でスプライトを表示するために登録
+		Editor::SetTexture(m_sprites.back()->GetTexture());
+#endif // _DEBUG
 	}
 	void SpriteRenderer::ChangeRenderSprite(size_t index)
 	{
@@ -172,6 +192,13 @@ namespace Framework
 	{
 		if (ImGui::CollapsingHeader("SpriteRenderer"))
 		{
+			ImGui::Text("Sprites");
+			// 描画中の画像を表示
+			for (size_t i = 0; i < m_sprites.size(); i++)
+			{
+				ImGui::Text("Sprite Index: %d", i);
+				ImGui::Image(Editor::GetTextureID(m_sprites[i]->GetTexture()), ImVec2(100, 100));
+			}
 		}
 	}
 

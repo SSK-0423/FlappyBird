@@ -94,7 +94,7 @@ namespace FlappyBird
 		m_descriptorHeap->RegistShaderResource(Dx12GraphicsEngine::Device(), texture, desc, 0);
 #ifdef _DEBUG
 		// デバッグモード時はImGuiのディスクリプタヒープにも登録
-		Editor::GetImGuiHeap().RegistShaderResource(Dx12GraphicsEngine::Device(), texture, desc, 0);
+		Editor::SetTexture(texture, 0);
 #endif // _DEBUG
 	}
 	RESULT RenderScreenPass::CreateRootSignature()

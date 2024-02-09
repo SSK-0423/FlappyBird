@@ -23,9 +23,20 @@ namespace FlappyBird
 	{
 		m_musicPlayer = GameObjectManager::FindObject("MusicPlayer")->GetComponent<MusicPlayer>();
 
-		//// プレイヤーのX座標を判定ラインとして設定
-		//float playerPosX = GameObjectManager::FindObject("Player")->GetComponent<Transform2D>()->position.x;
-		//Obstacle::SetJudgeLineX(playerPosX);
+		// 現在のシーンを取得
+		std::string currentScene = SceneManager::GetCurrentSceneName();
+		if (currentScene == "Game")
+		{
+			// プレイヤーのX座標を判定ラインとして設定
+			float playerPosX = GameObjectManager::FindObject("Player")->GetComponent<Transform2D>()->position.x;
+			Obstacle::SetJudgeLineX(playerPosX);
+		}
+		else if (currentScene == "NotesEdit")
+		{
+			// エディターのX座標を判定ラインとして設定
+			float judgeLineX = UIObjectManager::FindObject("JudgeLine")->GetComponent<Transform2D>()->position.x;
+			Obstacle::SetJudgeLineX(judgeLineX);
+		}
 	}
 	void NotesManager::Update(float deltaTime)
 	{
@@ -66,6 +77,7 @@ namespace FlappyBird
 		// ノーツの生成
 		std::shared_ptr<GameObject> noteObstacle = std::shared_ptr<GameObject>(new GameObject());
 		noteObstacle->SetName("NoteObstacle");
+		noteObstacle->SetActive(false);
 		Obstacle* obstacle = noteObstacle->AddComponent<Obstacle>(noteObstacle);
 		obstacle->SetTiming(data.timing);
 		obstacle->SetPosY(data.posY);

@@ -36,7 +36,7 @@ namespace DX12Wrapper
 		return RESULT::SUCCESS;
 	}
 
-	void DescriptorHeapCBV_SRV_UAV::RegistShaderResource(
+	int DescriptorHeapCBV_SRV_UAV::RegistShaderResource(
 		ID3D12Device& device, Texture& texture,
 		ShaderResourceViewDesc& desc, const int& registerNo)
 	{
@@ -58,9 +58,21 @@ namespace DX12Wrapper
 			gpuHandle.ptr += m_handleIncrimentSize * (static_cast<SIZE_T>(registerNo) + m_MAX_CBV_DESCRIPTOR_NUM);
 		}
 
+		int retIndex = 0;
+		if (registerNo == NEXT_REGISTER)
+		{
+			retIndex = m_registedSRVNum;
+		}
+		else
+		{
+			retIndex = registerNo;
+		}
+
 		device.CreateShaderResourceView(&texture.GetBuffer(), &desc.desc, cpuHandle);
 
 		m_registedSRVNum++;
+
+		return retIndex;
 	}
 
 	void DescriptorHeapCBV_SRV_UAV::RegistConstantBuffer(

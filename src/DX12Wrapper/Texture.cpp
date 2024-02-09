@@ -35,6 +35,11 @@ namespace DX12Wrapper
 		return *this;
 	}
 
+	bool Texture::operator==(const Texture& inst) const
+	{
+		return this->m_textureBuffer.Get() == inst.m_textureBuffer.Get();
+	}
+
 	HRESULT Texture::LoadTextureFromWICFile(const std::wstring& texturePath)
 	{
 		// ƒtƒ@ƒCƒ‹“Ç‚İ‚İ

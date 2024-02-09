@@ -24,6 +24,12 @@ namespace DX12Wrapper
 
 		Texture(const Texture& inst);
 		Texture& operator=(const Texture& inst);
+
+		// std::unordered_mapのキーとして使用するため
+		bool operator==(const Texture& inst) const;
+
+		friend std::hash<Texture>;
+
 	private:
 		Microsoft::WRL::ComPtr<ID3D12Resource> m_uploadBuffer = nullptr;		// 中間バッファー(アップロード元)
 		Microsoft::WRL::ComPtr<ID3D12Resource> m_textureBuffer = nullptr;	// テクスチャバッファー(アップロード先)
@@ -147,6 +153,20 @@ namespace DX12Wrapper
 		/// <returns>テクスチャの生データ</returns>
 		const DirectX::Image& GetImage() {
 			return *m_image;
+		}
+	};
+}
+
+// std::unordered_mapのキーとして使用するためにハッシュ関数を定義
+namespace std
+{
+	template<>
+	class hash<DX12Wrapper::Texture>
+	{
+	public:
+		std::size_t operator()(const DX12Wrapper::Texture& inst) const
+		{
+			return std::hash<size_t>()((size_t)inst.m_textureBuffer.Get());
 		}
 	};
 }

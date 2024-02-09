@@ -1,5 +1,6 @@
 #pragma once
 #include "DX12Wrapper/DescriptorHeapCBV_SRV_UAV.h"
+#include "imgui.h"
 
 namespace Framework
 {
@@ -8,6 +9,16 @@ namespace Framework
 	enum class EDITOR_SRV_INDEX
 	{
 		GAME_WINDOW = 0,
+	};
+	
+	struct TextureData
+	{
+		DX12Wrapper::Texture& texture;
+		ImTextureID id;
+
+		TextureData(DX12Wrapper::Texture& texture, ImTextureID id)
+			: texture(texture), id(id)
+		{}
 	};
 
 	class Editor
@@ -23,6 +34,8 @@ namespace Framework
 		static void Draw();
 
 		static void DebugLog(const char* fmt, ...);
+		static int SetTexture(DX12Wrapper::Texture& texture, int index = DX12Wrapper::DescriptorHeapCBV_SRV_UAV::NEXT_REGISTER);
+		static ImTextureID GetTextureID(DX12Wrapper::Texture& texture);
 
 		static DX12Wrapper::DescriptorHeapCBV_SRV_UAV& GetImGuiHeap();
 	private:
@@ -38,5 +51,6 @@ namespace Framework
 		static void DrawPerformance();
 		static void DrawSceneButton();
 		static std::string selectedObjectUUID;
+		static std::list<TextureData> m_textureDatas;
 	};
 }
