@@ -35,7 +35,6 @@ namespace FlappyBird
 		void DeleteNotes(float timing, float posY);
 		void Scroll(LONG mouseWheelMovement);
 
-		float CalcTiming(float targetPosY, float viewportHeight);
 		float CalcNotesTiming(LONG targetPosX, float viewportWidth);
 		bool IsInsideViewport(POINT mousePos, CD3DX12_VIEWPORT viewport);
 
@@ -45,5 +44,7 @@ namespace FlappyBird
 		MusicPlayer* m_musicPlayer = nullptr;
 
 		Obstacle* m_obstacle = nullptr;
+
+		float m_judgeLineX;
 	};
 }

@@ -4,10 +4,14 @@
 #include "Player.h"
 #include "Obstacle.h"
 #include "MusicPlayer.h"
+#include "TimingCalculator.h"
+
+#include "DX12Wrapper/Dx12GraphicsEngine.h"
 
 #include "imgui.h"
 
 using namespace Framework;
+using namespace DX12Wrapper;
 
 namespace FlappyBird
 {
@@ -28,15 +32,14 @@ namespace FlappyBird
 		if (currentScene == "Game")
 		{
 			// プレイヤーのX座標を判定ラインとして設定
-			float playerPosX = GameObjectManager::FindObject("Player")->GetComponent<Transform2D>()->position.x;
-			Obstacle::SetJudgeLineX(playerPosX);
+			m_judgeLineX = GameObjectManager::FindObject("Player")->GetComponent<Transform2D>()->position.x;
 		}
 		else if (currentScene == "NotesEdit")
 		{
 			// エディターのX座標を判定ラインとして設定
-			float judgeLineX = UIObjectManager::FindObject("JudgeLine")->GetComponent<Transform2D>()->position.x;
-			Obstacle::SetJudgeLineX(judgeLineX);
+			m_judgeLineX = UIObjectManager::FindObject("JudgeLine")->GetComponent<Transform2D>()->position.x;
 		}
+		Obstacle::SetJudgeLineX(m_judgeLineX);
 	}
 	void NotesManager::Update(float deltaTime)
 	{
@@ -45,6 +48,9 @@ namespace FlappyBird
 
 		// ノーツのアクティブ状態を更新
 		UpdateNoteActive();
+
+		// ノーツのSEを再生
+		PlayNoteSound();
 	}
 	void NotesManager::Draw()
 	{
@@ -69,6 +75,9 @@ namespace FlappyBird
 		{
 			if (note.timing == data.timing)
 			{
+#ifdef _DEBUG
+				Editor::DebugLog("Same timing note already exists. Timing: %f", data.timing);
+#endif // _DEBUG
 				return;
 			}
 		}
@@ -134,7 +143,31 @@ namespace FlappyBird
 	}
 	void NotesManager::UpdateNoteActive()
 	{
+		// 現在の再生位置を取得
+		float currentPlayTime = m_musicPlayer->GetCurrentPlayTimeMs();
+
+		auto& viewport = Dx12GraphicsEngine::GetViewport();
+
+		float viewportLeftTime = TimingCalculator::CalcTiming(m_judgeLineX, viewport.TopLeftX, viewport.Width, currentPlayTime);
+		float viewportRightTime = TimingCalculator::CalcTiming(m_judgeLineX, viewport.TopLeftX + viewport.Width, viewport.Width, currentPlayTime);
+
 		// ノーツのアクティブ状態を更新
+		for (auto note : m_noteObstacles)
+		{
+			float noteTiming = note->GetTiming();
+
+			// ノーツのタイミングと判定ラインのタイミングの差を計算
+			//float diff = timing - currentPlayTime;
+
+			// 2000ms以内の場合、アクティブにする
+			if (viewportLeftTime < noteTiming && noteTiming < viewportRightTime)
+			{
+				note->GetOwner()->SetActive(true);
+			}
+		}
+	}
+	void NotesManager::PlayNoteSound()
+	{
 		for (auto note : m_noteObstacles)
 		{
 			float timing = note->GetTiming();
@@ -142,13 +175,8 @@ namespace FlappyBird
 			// ノーツのタイミングと判定ラインのタイミングの差を計算
 			float diff = timing - m_musicPlayer->GetCurrentPlayTimeMs();
 
-			// 2000ms以内の場合、アクティブにする
-			if (0.f < diff && diff < 2100.f)
-			{
-				note->GetOwner()->SetActive(true);
-			}
 			// 判定タイミングを超えたらSEを再生
-			else if (std::fabs(diff) <= 0.16f)
+			if (std::fabs(diff) <= 16.f)
 			{
 				// 以下の条件に合致する場合、SEを再生
 				// アクティブである

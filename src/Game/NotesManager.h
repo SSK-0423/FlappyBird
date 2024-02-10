@@ -30,8 +30,10 @@ namespace FlappyBird
 		MusicPlayer* m_musicPlayer = nullptr;
 
 		float m_currentPlayTime = 0.0f;
+		float m_judgeLineX = 0.0f;
 
 		void UpdateCurrentPlayTime();
 		void UpdateNoteActive();
+		void PlayNoteSound();
 	};
 }

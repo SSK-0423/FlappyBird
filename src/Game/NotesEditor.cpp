@@ -8,6 +8,7 @@
 #include "MusicPlayer.h"
 
 #include "Obstacle.h"
+#include "TimingCalculator.h"
 
 #include "DX12Wrapper/Dx12GraphicsEngine.h"
 
@@ -58,6 +59,9 @@ namespace FlappyBird
 		m_barManager = UIObjectManager::FindObject("BarManager")->GetComponent<BarManager>();
 		m_notesManager = GameObjectManager::FindObject("NotesManager")->GetComponent<NotesManager>();
 		m_musicPlayer = GameObjectManager::FindObject("MusicPlayer")->GetComponent<MusicPlayer>();
+
+		// 判定ラインの位置を取得
+		m_judgeLineX = UIObjectManager::FindObject("JudgeLine")->GetComponent<Transform2D>()->position.x;
 	}
 	void NotesEditor::Update(float deltaTime)
 	{
@@ -122,8 +126,7 @@ namespace FlappyBird
 	{
 		// 判定ラインの位置から再生開始時間を取得
 		auto viewport = Dx12GraphicsEngine::GetViewport();
-		float judgeLineX = UIObjectManager::FindObject("JudgeLine")->GetComponent<Transform2D>()->position.x;
-		float startTimeSec = CalcNotesTiming(judgeLineX, viewport.Width) / 1000.f;
+		float startTimeSec = CalcNotesTiming(m_judgeLineX, viewport.Width) / 1000.f;
 
 		m_musicPlayer->Play(startTimeSec);
 	}
@@ -146,13 +149,15 @@ namespace FlappyBird
 		float musicLength = m_musicPlayer->GetMusicLength();
 
 		// 小節数 = 曲の再生時間(sec) * bpm / (60 * beat)
-		unsigned int barNum = std::ceil(musicLength * data.bpm / (60.f * data.beat));
+		unsigned int barNum = musicLength * data.bpm / (60.f * data.beat);
 
 		// 小節線を生成する
 		m_barManager->CreateBar(barNum, data.bpm, data.beat);
 	}
 	void NotesEditor::PutNotes(float timing, float posY)
 	{
+		Editor::DebugLog("Timing: %f", timing);
+
 		m_notesManager->CreateNotes(NoteData(timing, posY));
 	}
 	void NotesEditor::DeleteNotes(float timing, float posY)
@@ -172,19 +177,20 @@ namespace FlappyBird
 			//m_musicPlayer->Seek(-1.f);
 		}
 	}
-	float NotesEditor::CalcTiming(float targetPosX, float viewportWidth)
-	{
-		float currentTime = m_musicPlayer->GetCurrentPlayTimeMs();
-		float judgeLineX = UIObjectManager::FindObject("JudgeLine")->GetComponent<Transform2D>()->position.x;
-		float distanceX = viewportWidth - judgeLineX;
-		float posX = (targetPosX - judgeLineX) * 2.f;
-		float timing = posX / distanceX * 1000.f + currentTime;
+	//float NotesEditor::CalcTiming(float targetPosX, float viewportWidth)
+	//{
+	//	float currentTime = m_musicPlayer->GetCurrentPlayTimeMs();
+	//	float judgeLineX = UIObjectManager::FindObject("JudgeLine")->GetComponent<Transform2D>()->position.x;
+	//	float distanceX = viewportWidth - judgeLineX;
+	//	float posX = (targetPosX - judgeLineX) * 2.f;
+	//	float timing = posX / distanceX * 1000.f + currentTime;
 
-		return timing;
-	}
+	//	return timing;
+	//}
 	float NotesEditor::CalcNotesTiming(LONG targetPosX, float viewportWidth)
 	{
-		float timing = CalcTiming(targetPosX, viewportWidth);
+		// ターゲット位置のタイミングを計算
+		float timing = TimingCalculator::CalcTiming(m_judgeLineX, targetPosX, viewportWidth, m_musicPlayer->GetCurrentPlayTimeMs());
 
 		// 最も近い小節線のタイミングを取得
 		return m_barManager->GetNearBarLineTiming(timing);

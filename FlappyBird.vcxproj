@@ -230,6 +230,7 @@
     <ClCompile Include="src\Game\RenderUIPass.cpp" />
     <ClCompile Include="src\Game\Score.cpp" />
     <ClCompile Include="src\Game\ScoreFrame.cpp" />
+    <ClCompile Include="src\Game\TimingCalculator.cpp" />
     <ClCompile Include="src\Game\TitleScene.cpp" />
     <ClCompile Include="src\Game\TitleSceneUI.cpp" />
     <ClCompile Include="src\Game\UserGuide.cpp" />
@@ -332,6 +333,7 @@
     <ClInclude Include="src\Game\RenderUIPass.h" />
     <ClInclude Include="src\Game\Score.h" />
     <ClInclude Include="src\Game\ScoreFrame.h" />
+    <ClInclude Include="src\Game\TimingCalculator.h" />
     <ClInclude Include="src\Game\TitleScene.h" />
     <ClInclude Include="src\Game\TitleSceneUI.h" />
     <ClInclude Include="src\Game\UserGuide.h" />

@@ -22,7 +22,6 @@ namespace FlappyBird
 	{
 		m_owner.lock()->SetName("Obstacle " + std::to_string(m_obstacleCount));
 		m_owner.lock()->SetTag("Obstacle");
-
 		m_obstacleCount++;
 
 		auto viewportSize = Dx12GraphicsEngine::GetViewport();
@@ -76,6 +75,8 @@ namespace FlappyBird
 
 		m_owner.lock()->AddChild(overObstacle);
 
+		m_owner.lock()->SetActive(false);
+
 		m_timing = -1.0f;
 	}
 	Obstacle::~Obstacle()
@@ -98,6 +99,13 @@ namespace FlappyBird
 	}
 	void Obstacle::Draw()
 	{
+	}
+	void Obstacle::DrawInspector()
+	{
+		if (ImGui::CollapsingHeader("Obstacle"))
+		{
+			ImGui::Text("Timing: %f", m_timing);
+		}
 	}
 	void Obstacle::SetMoveSpeed(float moveSpeedX, float moveSpeedY)
 	{
