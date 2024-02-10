@@ -12,6 +12,7 @@ namespace FlappyBird
 		Score(std::shared_ptr<Framework::Object> owner);
 		~Score() = default;
 
+		void Start() override;
 		void Update(float deltaTime) override;
 		void Draw() override;
 

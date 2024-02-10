@@ -26,7 +26,6 @@ namespace FlappyBird
 		m_obstacle = obstaceleObj->AddComponent<Obstacle>(obstaceleObj);
 		m_obstacle->SetMaterialColor({ 1.f, 1.f, 1.f, 0.8f });
 		m_owner.lock()->AddChild(obstaceleObj);
-
 	}
 	NotesEditor::~NotesEditor()
 	{
@@ -150,7 +149,6 @@ namespace FlappyBird
 	}
 	void NotesEditor::StartEdit(const FumenData& data)
 	{
-		// ‹È‚Ì’·‚³‚ğ•\¦
 		float musicLength = m_musicPlayer->GetMusicLength();
 
 		// ¬ß” = ‹È‚ÌÄ¶ŠÔ(sec) * bpm / (60 * beat)

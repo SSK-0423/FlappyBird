@@ -23,6 +23,9 @@ namespace FlappyBird
 
 		std::vector<NoteData>& GetNotes();
 		void SetNotes(const std::vector<NoteData>& notes);
+
+		Framework::Subject<Framework::NotificationEvent> OnReachedJudgeLine;
+
 	private:
 		std::vector<NoteData> m_notes;
 		std::vector<Obstacle*> m_noteObstacles;

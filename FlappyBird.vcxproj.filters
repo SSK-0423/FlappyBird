@@ -348,8 +348,11 @@
     <ClCompile Include="src\Game\GameClearUI.cpp">
       <Filter>ソース ファイル\Game\GameScene\UI</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\HiddenNotesManager.cpp">
+      <Filter>ソース ファイル\Game\GameScene</Filter>
+    </ClCompile>
     <ClCompile Include="src\Game\TimingCalculator.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Game\NotesEditorScene\NotesEditor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -649,6 +652,9 @@
     </ClInclude>
     <ClInclude Include="src\Game\TimingCalculator.h">
       <Filter>ソース ファイル\Game\NotesEditorScene\NotesEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\HiddenNotesManager.h">
+      <Filter>ソース ファイル\Game\GameScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

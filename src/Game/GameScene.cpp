@@ -9,6 +9,7 @@
 #include "Obstacle.h"
 
 #include "NotesManager.h"
+#include "HiddenNotesManager.h"
 #include "MusicPlayer.h"
 
 #include "Score.h"
@@ -61,6 +62,11 @@ namespace FlappyBird
 		std::shared_ptr<Framework::GameObject> musicPlayerObj = GameObjectManager::CreateObject();
 		musicPlayerObj->SetName("MusicPlayer");
 		musicPlayerObj->AddComponent<MusicPlayer>(musicPlayerObj);
+
+		// 隠しノーツを管理するオブジェクト
+		std::shared_ptr<Framework::GameObject> hiddenNotesManagerObj = GameObjectManager::CreateObject();
+		hiddenNotesManagerObj->SetName("HiddenNotesManager");
+		hiddenNotesManagerObj->AddComponent<HiddenNotesManager>(hiddenNotesManagerObj);
 
 		// UI
 		std::shared_ptr<Framework::UIObject> scoreFrame = UIObjectManager::CreateObject();

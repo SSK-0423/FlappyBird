@@ -165,13 +165,14 @@ namespace Framework
 	void Editor::DrawGameWindow()
 	{
 		ImGui::Begin("GameWindow");
+		auto& viewport = Dx12GraphicsEngine::GetViewport();
 		auto avil = ImGui::GetContentRegionAvail();
 		ImGui::Image(
 			(ImTextureID)m_imguiHeap.GetSRVHandle(static_cast<int>(EDITOR_SRV_INDEX::GAME_WINDOW)).ptr,
 			ImVec2(avil.x, avil.y),
 			ImVec2(0, 0),
 			ImVec2(1, 1));
-		ImGui::SetWindowSize("GameWindow", avil);
+		ImGui::SetWindowSize("GameWindow", { viewport.Width,viewport.Height });
 		ImGui::End();
 
 	}

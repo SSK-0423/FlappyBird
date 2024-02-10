@@ -194,7 +194,12 @@ namespace FlappyBird
 				{
 					m_owner.lock()->GetComponent<SoundClip>()->Play(0.5f);
 					note->SetCanPlaySE(false);	// •¡”‰ñÄ¶‚Å‚«‚È‚¢‚æ‚¤‚É‚·‚é
+					OnReachedJudgeLine.Notify(Framework::NotificationEvent());
 				}
+#ifdef _DEBUG
+				Editor::DebugLog("Note Timing: %f", note->GetTiming());
+				Editor::DebugLog("Diff: %f", diff);
+#endif // _DEBUG
 			}
 		}
 	}

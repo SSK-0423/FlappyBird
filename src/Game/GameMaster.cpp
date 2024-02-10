@@ -6,6 +6,7 @@
 
 #include "FumenJsonReadWriter.h"
 #include "NotesManager.h"
+#include "HiddenNotesManager.h"
 #include "MusicPlayer.h"
 
 using namespace Framework;
@@ -34,7 +35,15 @@ namespace FlappyBird
 
 		// ã»ì«Ç›çûÇ›
 		std::shared_ptr<Framework::GameObject> musicPlayerObj = GameObjectManager::FindObject("MusicPlayer");
-		musicPlayerObj->GetComponent<MusicPlayer>()->Load(fumenData.musicFilePath);
+		MusicPlayer* musicPlayer = musicPlayerObj->GetComponent<MusicPlayer>();
+		musicPlayer->Load(fumenData.musicFilePath);
+
+		// âBÇµÉmÅ[ÉcÇÃê∂ê¨
+		float musicLength = musicPlayer->GetMusicLength();
+		unsigned int barNum = musicLength * fumenData.bpm / (60.f * fumenData.beat);
+		std::shared_ptr<Framework::GameObject> hiddenNotesManagerObj = GameObjectManager::FindObject("HiddenNotesManager");
+		hiddenNotesManagerObj->GetComponent<HiddenNotesManager>()->CreateHiddenNotes(barNum, fumenData.bpm, fumenData.beat);
+
 	}
 	void GameMaster::Update(float deltaTime)
 	{

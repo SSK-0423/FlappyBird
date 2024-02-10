@@ -2,6 +2,7 @@
 #include "Score.h"
 #include "GameMaster.h"
 #include "GameScene.h"
+#include "NotesManager.h"
 #include "DX12Wrapper/Dx12GraphicsEngine.h"
 
 using namespace Framework;
@@ -24,17 +25,24 @@ namespace FlappyBird
 		m_gameMaster = GameObjectManager::FindObject("GameMaster")->GetComponent<GameMaster>();
 	}
 
+	void Score::Start()
+	{
+		// ƒm[ƒc‚ª”»’èƒ‰ƒCƒ“‚É“ž’B‚µ‚½‚Æ‚«‚ÉƒXƒRƒA‚ð‰ÁŽZ
+		auto notesManager = GameObjectManager::FindObject("NotesManager")->GetComponent<NotesManager>();
+		notesManager->OnReachedJudgeLine.Subscribe([this](NotificationEvent e) { AddScore(100); });
+	}
+
 	void Score::Update(float deltaTime)
 	{
 		if (m_gameMaster->GetGameState() == GAME_STATE::PLAYING)
 		{
-			// ˆê’èŽžŠÔŠÔŠu‚ÅƒXƒRƒA‚ð‰ÁŽZ
-			m_elapsedTime += deltaTime;
-			if (m_elapsedTime >= m_scoreAddInterval)
-			{
-				AddScore(1);
-				m_elapsedTime = 0.f;
-			}
+			//// ˆê’èŽžŠÔŠÔŠu‚ÅƒXƒRƒA‚ð‰ÁŽZ
+			//m_elapsedTime += deltaTime;
+			//if (m_elapsedTime >= m_scoreAddInterval)
+			//{
+			//	AddScore(1);
+			//	m_elapsedTime = 0.f;
+			//}
 			m_owner.lock()->GetComponent<Text>()->SetText(L"SCORE: " + std::to_wstring(m_score));
 		}
 	}
