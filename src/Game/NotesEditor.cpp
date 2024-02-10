@@ -124,9 +124,14 @@ namespace FlappyBird
 	}
 	void NotesEditor::Play()
 	{
-		// 判定ラインの位置から再生開始時間を取得
-		auto viewport = Dx12GraphicsEngine::GetViewport();
-		float startTimeSec = CalcNotesTiming(m_judgeLineX, viewport.Width) / 1000.f;
+		// 判定ラインの位置のタイミングを計算
+		float currentPlayTime = m_musicPlayer->GetCurrentPlayTimeMs();
+		float viewportWidth = Dx12GraphicsEngine::GetViewport().Width;
+		float timing = TimingCalculator::CalcTiming(m_judgeLineX, m_judgeLineX, viewportWidth, currentPlayTime);
+
+		// 再生開始時間を設定
+		// 負数や曲の長さを超える数値で再生するとエラーが発生するため、範囲を制限
+		float startTimeSec = std::clamp(timing / 1000.f, 0.f, m_musicPlayer->GetMusicLength());
 
 		m_musicPlayer->Play(startTimeSec);
 	}
