@@ -129,6 +129,8 @@ namespace FlappyBird
 		{
 			CreateNotes(note);
 		}
+
+		Editor::DebugLog("Notes Set Completed");
 	}
 	void NotesManager::UpdateCurrentPlayTime()
 	{

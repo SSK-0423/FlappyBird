@@ -24,7 +24,7 @@ namespace FlappyBird
 		m_owner.lock()->SetTag("Obstacle");
 		m_obstacleCount++;
 
-		auto viewportSize = Dx12GraphicsEngine::GetViewport();
+		auto& viewportSize = Dx12GraphicsEngine::GetViewport();
 
 		// è„ë§ÇÃè·äQï®ê∂ê¨
 		std::shared_ptr<GameObject> underObstacle = std::shared_ptr<GameObject>(new GameObject());
@@ -36,9 +36,6 @@ namespace FlappyBird
 
 		RectCollider* collider = underObstacle->AddComponent<RectCollider>(underObstacle);
 		collider->SetRectSize(m_underObstacleTransform->scale.x, m_underObstacleTransform->scale.y);
-
-		Rigidbody2D* rigidbody = underObstacle->AddComponent<Rigidbody2D>(underObstacle);
-		rigidbody->useGravity = false;
 
 		Sprite* sprite = new Sprite(L"res/texture/dokan_long.png");
 		SpriteRenderer* spriteRenderer = underObstacle->AddComponent<SpriteRenderer>(underObstacle);
@@ -61,9 +58,6 @@ namespace FlappyBird
 
 		collider = overObstacle->AddComponent<RectCollider>(overObstacle);
 		collider->SetRectSize(m_overObstacleTransform->scale.x, m_overObstacleTransform->scale.y);
-
-		rigidbody = overObstacle->AddComponent<Rigidbody2D>(overObstacle);
-		rigidbody->useGravity = false;
 
 		sprite = new Sprite(L"res/texture/dokan_long.png");
 		spriteRenderer = overObstacle->AddComponent<SpriteRenderer>(overObstacle);

@@ -67,12 +67,6 @@ namespace Framework
 	{
 		m_texture = TextureManager::LoadTexture(path);
 
-		RESULT result = m_texture->CreateTextureFromWIC(path);
-		if (result == RESULT::FAILED)
-		{
-			MessageBoxA(NULL, "テクスチャ読み込みに失敗しました。", "エラー", MB_OK);
-		}
-
 		ID3D12Device& device = Dx12GraphicsEngine::Device();
 		ShaderResourceViewDesc desc(*m_texture);
 		m_descriptorHeap->RegistShaderResource(device, *m_texture, desc, 0);

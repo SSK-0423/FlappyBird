@@ -172,12 +172,12 @@ namespace FlappyBird
 		if (mouseWheelMovement > 0)
 		{
 			// ‹È‚ði‚ß‚é
-			//m_musicPlayer->Seek(1.f);
+			m_musicPlayer->Seek(1.f);
 		}
 		else if (mouseWheelMovement < 0)
 		{
 			// ‹È‚ð–ß‚·
-			//m_musicPlayer->Seek(-1.f);
+			m_musicPlayer->Seek(-1.f);
 		}
 	}
 	float NotesEditor::CalcNotesTiming(LONG targetPosX, float viewportWidth)
