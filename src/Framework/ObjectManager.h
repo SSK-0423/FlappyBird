@@ -11,6 +11,7 @@ namespace Framework
 		static void Start();
 		static void Update(float deltaTime);
 		static void FixedUpdate(float interval);
+		static void LateUpdate(float deltaTime);
 
 		static std::shared_ptr<T> CreateObject();
 
@@ -57,6 +58,22 @@ namespace Framework
 			if (object->GetActive())
 				object->FixedUpdate(interval);
 		}
+	}
+
+	template<class T>
+	inline void ObjectManager<T>::LateUpdate(float deltaTime)
+	{
+		// 削除フラグが立っている子オブジェクトを削除
+		for (auto& object : m_objects)
+		{
+			if (object->ShouldDestroyChild())
+			{
+				object->LateUpdate(deltaTime);
+			}
+		}
+
+		// 削除フラグが立っているオブジェクトを削除
+		m_objects.remove_if([](std::shared_ptr<T> object) { return object->ShouldDestroy(); });
 	}
 
 	template<class T>

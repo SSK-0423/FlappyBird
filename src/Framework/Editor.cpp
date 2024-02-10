@@ -18,7 +18,6 @@
 
 #include "Transform2D.h"
 
-
 using namespace DX12Wrapper;
 using namespace Utility;
 

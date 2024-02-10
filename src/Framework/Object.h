@@ -42,11 +42,16 @@ namespace Framework
 		void Start();
 		void Update(float deltaTime);
 		void FixedUpdate(float inverval);
+		void LateUpdate(float deltaTime);
 		void Draw();
 		void DrawInspector();
 
 		void SetActive(bool isActive);
 		bool GetActive();
+
+		void Destroy();
+		bool ShouldDestroy();
+		bool ShouldDestroyChild();
 
 		void SetName(std::string name);
 		const std::string GetName();
@@ -72,6 +77,10 @@ namespace Framework
 		std::string m_uuid;
 		bool m_isActive = true;
 		bool m_isStarted = false;
+		bool m_isDestroy = false;
+		bool m_isDestroyChild = false;
+
+		void DestroyChild();
 	};
 
 	// templateで実装してあるオブジェクトマネージャーを

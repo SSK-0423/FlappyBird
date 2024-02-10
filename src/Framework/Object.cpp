@@ -82,6 +82,19 @@ namespace Framework
 				child->FixedUpdate(interval);
 		}
 	}
+	void Object::LateUpdate(float deltaTime)
+	{
+		// 削除フラグが立ってる子オブジェクトを削除
+		m_children.remove_if([](const std::shared_ptr<Object>& child) { return child->ShouldDestroy(); });
+
+		for (auto& child : m_children)
+		{
+			child->LateUpdate(deltaTime);
+		}
+
+		// 子オブジェクト削除フラグをリセット
+		m_isDestroyChild = false;
+	}
 	void Object::Draw()
 	{
 		for (auto& component : m_components)
@@ -123,6 +136,24 @@ namespace Framework
 	{
 		return m_isActive;
 	}
+	void Object::Destroy()
+	{
+		m_isDestroy = true;
+
+		// 親がいる場合は親の子オブジェクト削除フラグを立てる
+		if (m_parent != nullptr)
+		{
+			m_parent->DestroyChild();
+		}
+	}
+	bool Object::ShouldDestroy()
+	{
+		return m_isDestroy;
+	}
+	bool Object::ShouldDestroyChild()
+	{
+		return m_isDestroyChild;
+	}
 	void Object::SetName(std::string name)
 	{
 		m_name = name;
@@ -141,19 +172,21 @@ namespace Framework
 	}
 	void Object::AddChild(Object* child)
 	{
+		child->m_parent = this;
 		m_children.push_back(std::shared_ptr<Object>(child));
 	}
 	void Object::AddChild(const std::shared_ptr<Object>& child)
 	{
+		child->m_parent = this;
 		m_children.push_back(child);
 	}
 	void Object::RemoveChild(Object* child)
 	{
-		m_children.remove(std::shared_ptr<Object>(child));
+		child->Destroy();
 	}
 	void Object::RemoveChild(const std::shared_ptr<Object>& child)
 	{
-		m_children.remove(child);
+		child->Destroy();
 	}
 	void Object::RemoveAllChildren()
 	{
@@ -166,5 +199,15 @@ namespace Framework
 	const std::string Object::GetUUID()
 	{
 		return m_uuid;
+	}
+	void Object::DestroyChild()
+	{
+		m_isDestroyChild = true;
+
+		// 親がいる場合は親の子オブジェクト削除フラグを立てる
+		if (m_parent != nullptr)
+		{
+			m_parent->DestroyChild();
+		}
 	}
 }

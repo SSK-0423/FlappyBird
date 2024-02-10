@@ -83,12 +83,6 @@ namespace FlappyBird
 			return;
 		}
 
-		//// 画面外に出たらノーツの状態をリセット
-		//if (IsOutsideViewport())
-		//{
-		//	Reset();
-		//}
-
 		UpdatePosition();
 	}
 	void Obstacle::Draw()
@@ -167,13 +161,6 @@ namespace FlappyBird
 	{
 		m_owner.lock()->SetActive(false);
 		m_canPlaySE = true;
-
-		//auto viewportSize = Dx12GraphicsEngine::GetViewport();
-
-		//float resetPosX = viewportSize.Width + m_overObstacleTransform->scale.x / 2.f;
-
-		//m_overObstacleTransform->position.x = resetPosX;
-		//m_underObstacleTransform->position.x = resetPosX;
 	}
 	void Obstacle::SetJudgeLineX(float judgeLineX)
 	{

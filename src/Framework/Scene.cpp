@@ -50,6 +50,11 @@ namespace Framework
 	}
 	void Scene::LateUpdate(float deltaTime)
 	{
+		// オブジェクト全体の後更新
+		GameObjectManager::LateUpdate(deltaTime);
+
+		// UIの後更新
+		UIObjectManager::LateUpdate(deltaTime);
 	}
 	void Scene::Final()
 	{

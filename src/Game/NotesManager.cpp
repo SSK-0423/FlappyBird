@@ -93,6 +93,7 @@ namespace FlappyBird
 	}
 	void NotesManager::DeleteNotes(NoteData data)
 	{
+		// ノーツデータを削除
 		for (auto it = m_notes.begin(); it != m_notes.end(); ++it)
 		{
 			if (it->timing == data.timing)
@@ -102,6 +103,7 @@ namespace FlappyBird
 			}
 		}
 
+		// ノーツを削除
 		for (auto it = m_noteObstacles.begin(); it != m_noteObstacles.end(); ++it)
 		{
 			if ((*it)->GetTiming() == data.timing)
