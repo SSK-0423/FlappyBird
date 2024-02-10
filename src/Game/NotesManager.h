@@ -32,6 +32,8 @@ namespace FlappyBird
 		float m_currentPlayTime = 0.0f;
 		float m_judgeLineX = 0.0f;
 
+		const float TIMING_OFFSET = 100.0f;
+
 		void UpdateCurrentPlayTime();
 		void UpdateNoteActive();
 		void PlayNoteSound();

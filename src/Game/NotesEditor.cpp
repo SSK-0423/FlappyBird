@@ -156,8 +156,6 @@ namespace FlappyBird
 	}
 	void NotesEditor::PutNotes(float timing, float posY)
 	{
-		Editor::DebugLog("Timing: %f", timing);
-
 		m_notesManager->CreateNotes(NoteData(timing, posY));
 	}
 	void NotesEditor::DeleteNotes(float timing, float posY)
@@ -177,16 +175,6 @@ namespace FlappyBird
 			//m_musicPlayer->Seek(-1.f);
 		}
 	}
-	//float NotesEditor::CalcTiming(float targetPosX, float viewportWidth)
-	//{
-	//	float currentTime = m_musicPlayer->GetCurrentPlayTimeMs();
-	//	float judgeLineX = UIObjectManager::FindObject("JudgeLine")->GetComponent<Transform2D>()->position.x;
-	//	float distanceX = viewportWidth - judgeLineX;
-	//	float posX = (targetPosX - judgeLineX) * 2.f;
-	//	float timing = posX / distanceX * 1000.f + currentTime;
-
-	//	return timing;
-	//}
 	float NotesEditor::CalcNotesTiming(LONG targetPosX, float viewportWidth)
 	{
 		// ターゲット位置のタイミングを計算

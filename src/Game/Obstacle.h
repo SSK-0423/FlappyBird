@@ -24,6 +24,8 @@ namespace FlappyBird
 
 		bool CanPlaySE();
 		void SetCanPlaySE(bool canPlaySE);
+		
+		void Reset();
 
 		static void SetJudgeLineX(float judgeLineX);
 		static void SetCurrentPlayTime(float currentPlayTime);
@@ -40,9 +42,7 @@ namespace FlappyBird
 		Framework::Transform2D* m_overObstacleTransform = nullptr;
 		Framework::Transform2D* m_underObstacleTransform = nullptr;
 
-		bool IsOutsideViewport();
 		void UpdatePosition();
-		void Reset();
 
 		static const int SPACE;
 		static float m_judgeLineX;

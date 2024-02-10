@@ -18,7 +18,6 @@
 
 #include "Transform2D.h"
 
-static const LONG DELTA = 40;
 
 using namespace DX12Wrapper;
 using namespace Utility;

@@ -26,6 +26,10 @@ namespace FlappyBird
 
 		MusicPlayer* m_musicPlayer = nullptr;
 
+		float m_judgeLineX;
+
+		const float TIMING_OFFSET = 100.0f;
+
 		void UpdateCurrentPlayTime();
 		void UpdateBarLineActive();
 	};

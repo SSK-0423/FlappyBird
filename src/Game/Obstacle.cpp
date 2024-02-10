@@ -89,11 +89,11 @@ namespace FlappyBird
 			return;
 		}
 
-		// 画面外に出たらノーツの状態をリセット
-		if (IsOutsideViewport())
-		{
-			Reset();
-		}
+		//// 画面外に出たらノーツの状態をリセット
+		//if (IsOutsideViewport())
+		//{
+		//	Reset();
+		//}
 
 		UpdatePosition();
 	}
@@ -146,23 +146,12 @@ namespace FlappyBird
 	{
 		m_currentPlayTime = currentPlayTime;
 	}
-	bool Obstacle::IsOutsideViewport()
-	{
-		// 画面外に出たら非アクティブにする
-		// 画面外に出たかどうかの判定は、障害物の右端の座標で行う
-		if (m_overObstacleTransform->position.x + m_overObstacleTransform->scale.x / 2.f < 0.f)
-		{
-			return true;
-		}
-
-		return false;
-	}
 	void Obstacle::UpdatePosition()
 	{
 		// ノーツのタイミングと判定ラインのタイミングの差を計算
 		float diff = m_timing - m_currentPlayTime;
 
-		auto viewportSize = Dx12GraphicsEngine::GetViewport();
+		auto& viewportSize = Dx12GraphicsEngine::GetViewport();
 
 		// 画面の右端から判定ラインまでの距離
 		float distanceX = viewportSize.Width - m_judgeLineX;

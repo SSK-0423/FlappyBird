@@ -26,7 +26,7 @@ namespace FlappyBird
 		FumenData fumenData;
 
 		// TODO: 曲選択シーンで選択された曲の譜面を読み込む
-		FumenJsonReadWriter::Read("res/fumen/SaturnEbiMan.json", fumenData);
+		FumenJsonReadWriter::Read("res/fumen/Froggy's_Song.json", fumenData);
 
 		// ノーツの生成
 		std::shared_ptr<Framework::GameObject> notesManagerObj = GameObjectManager::FindObject("NotesManager");

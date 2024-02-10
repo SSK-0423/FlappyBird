@@ -2,10 +2,14 @@
 #include "BarManager.h"
 
 #include "MusicPlayer.h"
+#include "TimingCalculator.h"
+
+#include "DX12Wrapper/Dx12GraphicsEngine.h"
 
 #include "imgui.h"
 
 using namespace Framework;
+using namespace DX12Wrapper;
 
 namespace FlappyBird
 {
@@ -17,6 +21,8 @@ namespace FlappyBird
 	void BarManager::Start()
 	{
 		m_musicPlayer = GameObjectManager::FindObject("MusicPlayer")->GetComponent<MusicPlayer>();
+
+		m_judgeLineX = UIObjectManager::FindObject("JudgeLine")->GetComponent<Transform2D>()->position.x;
 	}
 	void BarManager::Update(float deltaTime)
 	{
@@ -128,18 +134,32 @@ namespace FlappyBird
 	}
 	void BarManager::UpdateBarLineActive()
 	{
+		// 現在の再生位置を取得
+		float currentPlayTime = m_musicPlayer->GetCurrentPlayTimeMs();
+
+		auto& viewport = Dx12GraphicsEngine::GetViewport();
+
+		// ビューポートの左端と右端のタイミングを計算
+		float viewportLeftTime = TimingCalculator::CalcTiming(m_judgeLineX, viewport.TopLeftX, viewport.Width, currentPlayTime);
+		float viewportRightTime = TimingCalculator::CalcTiming(m_judgeLineX, viewport.TopLeftX + viewport.Width, viewport.Width, currentPlayTime);
+
+		// 小節線がアクティブ・非アクティブになる瞬間を見せないようにするために、
+		// ビューポートの左端と右端のタイミングを少し広げる
+		viewportLeftTime -= TIMING_OFFSET;
+		viewportRightTime += TIMING_OFFSET;
+
 		// 小節線のアクティブ状態を更新
 		for (auto barLine : m_barLines)
 		{
-			float timing = barLine->GetTiming();
+			float barLineTiming = barLine->GetTiming();
 
-			// ノーツのタイミングと判定ラインのタイミングの差を計算
-			float diff = timing - m_musicPlayer->GetCurrentPlayTimeMs();
-
-			// 1000ms以内の場合、アクティブにする
-			if (0.f < diff && diff < 2000.f)
+			if (viewportLeftTime <= barLineTiming && barLineTiming <= viewportRightTime)
 			{
 				barLine->GetOwner()->SetActive(true);
+			}
+			else
+			{
+				barLine->GetOwner()->SetActive(false);
 			}
 		}
 	}

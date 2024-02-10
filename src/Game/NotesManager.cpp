@@ -75,9 +75,6 @@ namespace FlappyBird
 		{
 			if (note.timing == data.timing)
 			{
-#ifdef _DEBUG
-				Editor::DebugLog("Same timing note already exists. Timing: %f", data.timing);
-#endif // _DEBUG
 				return;
 			}
 		}
@@ -148,35 +145,42 @@ namespace FlappyBird
 
 		auto& viewport = Dx12GraphicsEngine::GetViewport();
 
+		// ビューポートの左端と右端のタイミングを計算
 		float viewportLeftTime = TimingCalculator::CalcTiming(m_judgeLineX, viewport.TopLeftX, viewport.Width, currentPlayTime);
 		float viewportRightTime = TimingCalculator::CalcTiming(m_judgeLineX, viewport.TopLeftX + viewport.Width, viewport.Width, currentPlayTime);
+
+		// ノーツがアクティブ・非アクティブになる瞬間を見せないようにするために、
+		// ビューポートの左端と右端のタイミングを少し広げる
+		viewportLeftTime -= TIMING_OFFSET;
+		viewportRightTime += TIMING_OFFSET;
 
 		// ノーツのアクティブ状態を更新
 		for (auto note : m_noteObstacles)
 		{
 			float noteTiming = note->GetTiming();
 
-			// ノーツのタイミングと判定ラインのタイミングの差を計算
-			//float diff = timing - currentPlayTime;
-
-			// 2000ms以内の場合、アクティブにする
-			if (viewportLeftTime < noteTiming && noteTiming < viewportRightTime)
+			if (viewportLeftTime <= noteTiming && noteTiming <= viewportRightTime)
 			{
 				note->GetOwner()->SetActive(true);
+			}
+			else
+			{
+				note->Reset();
+				note->GetOwner()->SetActive(false);
 			}
 		}
 	}
 	void NotesManager::PlayNoteSound()
 	{
+		float currentPlayTime = m_musicPlayer->GetCurrentPlayTimeMs();
+
 		for (auto note : m_noteObstacles)
 		{
-			float timing = note->GetTiming();
-
 			// ノーツのタイミングと判定ラインのタイミングの差を計算
-			float diff = timing - m_musicPlayer->GetCurrentPlayTimeMs();
+			float diff = note->GetTiming() - currentPlayTime;
 
 			// 判定タイミングを超えたらSEを再生
-			if (std::fabs(diff) <= 16.f)
+			if (std::abs(diff) <= 16.f)
 			{
 				// 以下の条件に合致する場合、SEを再生
 				// アクティブである
