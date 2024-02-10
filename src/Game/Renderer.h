@@ -12,7 +12,6 @@ namespace FlappyBird
 		~Renderer();
 
 		Utility::RESULT Init() override;
-
 	private:
 		void RenderScene(const std::list<std::shared_ptr<class Framework::GameObject>>& gameObjects) override;
 		void RenderUI(const std::list<std::shared_ptr<class Framework::UIObject>>& uiObjects) override;

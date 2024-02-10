@@ -307,20 +307,8 @@ namespace DX12Wrapper
 		ID3D12CommandList* cmdlists[] = { m_cmdList.Get() };
 		m_cmdQueue->ExecuteCommandLists(1, cmdlists);
 
-		// CPUとGPUの同期
-		m_cmdQueue->Signal(m_fence.Get(), ++m_fenceVal);
-		if (m_fence->GetCompletedValue() != m_fenceVal) {
-			// イベントハンドル取得
-			auto event = CreateEvent(nullptr, false, false, nullptr);
-
-			m_fence->SetEventOnCompletion(m_fenceVal, event);
-
-			// イベントが発生するまで待ち続ける
-			WaitForSingleObject(event, INFINITE);
-
-			// イベントハンドルを閉じる
-			CloseHandle(event);
-		}
+		// GPUの処理が終わるまで待機
+		WaitGPU();
 
 		m_cmdAllocator->Reset();	                        // キューをクリア
 		m_renderContext.Reset(*m_cmdAllocator.Get());	    // コマンドを受け付けられる状態にする
@@ -419,11 +407,8 @@ namespace DX12Wrapper
 	{
 		return m_scissorRect;
 	}
-	void Dx12GraphicsEngine::Resize(const UINT& width, const UINT& height)
+	void Dx12GraphicsEngine::WaitGPU()
 	{
-		// 初期化されていない場合は何もしない
-		if (m_device == nullptr) { return; }
-
 		// CPUとGPUの同期
 		m_cmdQueue->Signal(m_fence.Get(), ++m_fenceVal);
 		if (m_fence->GetCompletedValue() != m_fenceVal) {
@@ -438,11 +423,27 @@ namespace DX12Wrapper
 			// イベントハンドルを閉じる
 			CloseHandle(event);
 		}
+	}
+	void Dx12GraphicsEngine::Resize(const UINT& width, const UINT& height)
+	{
+		// 初期化されていない場合は何もしない
+		if (m_device == nullptr) { return; }
+
+		// GPUの処理が終わるまで待機
+		WaitGPU();
 
 		// フレームバッファ―解放
 		for (size_t idx = 0; idx < DOUBLE_BUFFER; idx++) {
 			m_frameBuffers[idx].Release();
 		}
+
+		// ビューポート更新
+		//float widthRatio = static_cast<float>(width) / m_windowWidth;
+		//float heightRatio = static_cast<float>(height) / m_windowHeight;
+		//m_viewport = CD3DX12_VIEWPORT(
+		//	0.f, 0.f,
+		//	static_cast<float>(m_viewport.Width * widthRatio),
+		//	static_cast<float>(m_viewport.Height * heightRatio));
 
 		// ウィンドウサイズ更新
 		m_windowWidth = width;
@@ -465,7 +466,7 @@ namespace DX12Wrapper
 			m_frameHeap.RegistDescriptor(*m_device.Get(), m_frameBuffers[idx], DXGI_FORMAT_R8G8B8A8_UNORM_SRGB, false, idx);
 		}
 
-		m_scissorRect = CD3DX12_RECT(0, 0, width, height);
+		//m_scissorRect = CD3DX12_RECT(0, 0, width, height);
 	}
 	Dx12GraphicsEngine::~Dx12GraphicsEngine()
 	{

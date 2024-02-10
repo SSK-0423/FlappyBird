@@ -28,15 +28,19 @@ namespace Framework
 			return 0;
 			// ウィンドウサイズが変更されたら呼ばれる
 		case WM_SIZE:
-			Editor::DebugLog("WM_SIZE");
-			Editor::DebugLog("%d %d", LOWORD(lparam), HIWORD(lparam));
-
 			// レンダーターゲットをリサイズ
 			Dx12GraphicsEngine::Resize(LOWORD(lparam), HIWORD(lparam));
 
 			// Editorのウィンドウサイズを変更
 			Editor::Resize(LOWORD(lparam), HIWORD(lparam));
-			
+
+#ifdef _DEBUG
+			Editor::DebugLog("WM_SIZE");
+			Editor::DebugLog("%d %d", LOWORD(lparam), HIWORD(lparam));
+			// ビューポートのサイズを出力
+			Editor::DebugLog("Viewport: %f %f", Dx12GraphicsEngine::GetViewport().Width, Dx12GraphicsEngine::GetViewport().Height);
+#endif // _DEBUG
+			return 0;
 			break;
 		default:
 			break;
@@ -62,6 +66,7 @@ namespace Framework
 
 		AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
 
+#ifdef _DEBUG
 		//ウィンドウオブジェクトの生成
 		m_hwnd = CreateWindow(m_wndClassEx.lpszClassName,
 			name,	// タイトルバーの文字
@@ -75,8 +80,21 @@ namespace Framework
 			m_wndClassEx.hInstance,	// 呼び出しアプリケーションハンドル
 			nullptr);	            // 追加パラメータ
 
-#ifdef _DEBUG
 #else
+		//ウィンドウオブジェクトの生成
+		m_hwnd = CreateWindow(m_wndClassEx.lpszClassName,
+			name,	// タイトルバーの文字
+			WS_OVERLAPPEDWINDOW,	// タイトルバーと境界線があるウィンドウ
+			CW_USEDEFAULT,			// 表示X座標はOSにお任せ
+			CW_USEDEFAULT,			// 表示Y座標はOSにお任せ
+			rect.right - rect.left,	// ウィンドウ幅
+			rect.bottom - rect.top,	// ウィンドウ高
+			nullptr,	            // 親ウィンドウハンドル
+			nullptr,	            // メニューハンドル
+			m_wndClassEx.hInstance,	// 呼び出しアプリケーションハンドル
+			nullptr);	            // 追加パラメータ
+
+
 		// 最大化ボタンを消す
 		LONG style = GetWindowLong(m_hwnd, GWL_STYLE);
 		style &= ~WS_MAXIMIZEBOX;

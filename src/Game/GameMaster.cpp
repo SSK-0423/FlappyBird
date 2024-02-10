@@ -25,8 +25,8 @@ namespace FlappyBird
 		// 譜面読み込み
 		FumenData fumenData;
 
-		// 曲選択シーンで選択された曲の譜面を読み込む
-		FumenJsonReadWriter::Read("res/fumen/House.json", fumenData);
+		// TODO: 曲選択シーンで選択された曲の譜面を読み込む
+		FumenJsonReadWriter::Read("res/fumen/SaturnEbiMan.json", fumenData);
 
 		// ノーツの生成
 		std::shared_ptr<Framework::GameObject> notesManagerObj = GameObjectManager::FindObject("NotesManager");
@@ -68,6 +68,9 @@ namespace FlappyBird
 		case GAME_STATE::PLAYING:
 			OnGameStart();
 			break;
+		case GAME_STATE::GAMECLEAR:
+			OnGameClear();
+			break;
 		case GAME_STATE::GAMEOVER:
 			OnGameOver();
 			break;
@@ -106,6 +109,14 @@ namespace FlappyBird
 
 		// 曲の再生を開始
 		GameObjectManager::FindObject("MusicPlayer")->GetComponent<MusicPlayer>()->Play();
+	}
+	void GameMaster::OnGameClear()
+	{
+		// ゲームクリアUIを表示
+		m_gameOverUI->SetActive(true);
+
+		// 曲の再生を停止
+		GameObjectManager::FindObject("MusicPlayer")->GetComponent<MusicPlayer>()->Stop();
 	}
 	void GameMaster::OnGameOver()
 	{

@@ -8,6 +8,7 @@ namespace FlappyBird
 	{
 		READY,
 		PLAYING,
+		GAMECLEAR,
 		GAMEOVER,
 	};
 
@@ -28,8 +29,9 @@ namespace FlappyBird
 		GAME_STATE GetGameState();
 	private:
 		GAME_STATE m_gameState;
-		std::shared_ptr<Framework::UIObject> m_gameOverUI;
 		std::shared_ptr<Framework::UIObject> m_gameReadyUI;
+		std::shared_ptr<Framework::UIObject> m_gameClearUI;
+		std::shared_ptr<Framework::UIObject> m_gameOverUI;
 
 		float m_elapsedTime;
 		float m_gameStartTime;
@@ -39,6 +41,7 @@ namespace FlappyBird
 
 		void OnGameReady();
 		void OnGameStart();
+		void OnGameClear();
 		void OnGameOver();
 	};
 }

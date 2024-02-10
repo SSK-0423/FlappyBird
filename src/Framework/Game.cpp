@@ -6,6 +6,7 @@
 #include "ShaderLibrary.h"
 #include "SoundManager.h"
 #include "Editor.h"
+#include "Window.h"
 
 #include "DX12Wrapper/Dx12GraphicsEngine.h"
 #include "DX12Wrapper/FontRenderer.h"
@@ -46,12 +47,6 @@ namespace Framework
 			WINDOW_WIDTH, WINDOW_HEIGHT,
 			GAME_WIDTH, GAME_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT);
 
-		// ウィンドウが最大化した状態でスタートするので、
-		// WINDOW_WIDTH, WINDOW_HEIGHTと異なる可能性がある
-		// そこで、ウィンドウサイズを取得して一度リサイズしておく
-		RECT rect;
-		GetClientRect(hwnd, &rect);
-		DX12Wrapper::Dx12GraphicsEngine::Resize(rect.right, rect.bottom);
 #else
 		result = DX12Wrapper::Dx12GraphicsEngine::Init(hwnd,
 			WINDOW_WIDTH, WINDOW_HEIGHT,
@@ -87,6 +82,16 @@ namespace Framework
 		{
 			MessageBoxA(hwnd, "Rendererの初期化に失敗", "エラー", MB_OK);
 		}
+
+#ifdef _DEBUG
+		// ウィンドウが最大化した状態でスタートするので、
+		// WINDOW_WIDTH, WINDOW_HEIGHTと異なる可能性がある
+		// そこで、ウィンドウサイズを取得して一度リサイズしておく
+		// また、Rendererがリサイズの影響を受けないように、Rendererの初期化後に行う
+		RECT rect;
+		GetClientRect(hwnd, &rect);
+		DX12Wrapper::Dx12GraphicsEngine::Resize(rect.right - rect.left, rect.bottom - rect.top);
+#endif // _DEBUG
 
 		m_gameImpl.Init();
 

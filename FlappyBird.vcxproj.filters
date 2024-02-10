@@ -345,6 +345,9 @@
     <ClCompile Include="src\Game\MusicSelectSceneUI.cpp">
       <Filter>ソース ファイル\Game\MusicSelectScene</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\GameClearUI.cpp">
+      <Filter>ソース ファイル\Game\GameScene\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\pch.h">
@@ -637,6 +640,9 @@
     </ClInclude>
     <ClInclude Include="src\Framework\Sprite.h">
       <Filter>ソース ファイル\Framework\System\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\GameClearUI.h">
+      <Filter>ソース ファイル\Game\GameScene\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

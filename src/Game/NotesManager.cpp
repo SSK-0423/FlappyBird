@@ -148,7 +148,7 @@ namespace FlappyBird
 				note->GetOwner()->SetActive(true);
 			}
 			// 判定タイミングを超えたらSEを再生
-			else if (diff <= 0.f)
+			else if (std::fabs(diff) <= 0.16f)
 			{
 				// 以下の条件に合致する場合、SEを再生
 				// アクティブである

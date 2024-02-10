@@ -90,6 +90,8 @@ namespace DX12Wrapper
 		static const CD3DX12_VIEWPORT& GetViewport();
 		static const CD3DX12_RECT& GetScissorRect();
 
+		static void WaitGPU();
+
 		static void Resize(const UINT& width, const UINT& height);
 
 	private:

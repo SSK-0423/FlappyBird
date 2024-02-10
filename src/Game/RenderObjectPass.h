@@ -16,6 +16,7 @@ namespace FlappyBird
 		~RenderObjectPass();
 
 		Utility::RESULT Init();
+		void Resize(UINT width, UINT height);
 
 		void Render(const std::list<std::shared_ptr<Framework::GameObject>>& gameObjects);
 		DX12Wrapper::Texture& GetRenderTexture();
