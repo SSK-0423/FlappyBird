@@ -12,7 +12,7 @@ using namespace DX12Wrapper;
 namespace FlappyBird
 {
 	Player::Player(std::shared_ptr<Framework::Object> owner)
-		: Framework::IComponent(owner), m_jumpVelocity(-750.f), // 左上原点なのでマイナス
+		: Framework::IComponent(owner), m_jumpVelocity(-512.5f), // 左上原点なのでマイナス
 		m_elapsedTime(0.f), m_gameReadyAnimationInterval(0.65f), m_isAlive(true)
 	{
 		m_gameMaster = GameObjectManager::FindObject("GameMaster")->GetComponent<GameMaster>();
@@ -73,12 +73,18 @@ namespace FlappyBird
 	void Player::Draw()
 	{
 	}
+	void Player::DrawInspector()
+	{
+		if (ImGui::CollapsingHeader("Player"))
+		{
+			ImGui::InputFloat("JumpVelocity", &m_jumpVelocity);
+		}
+	}
 	void Player::OnCollision(Framework::Collider* other)
 	{
 		// 生存中かつ障害物に当たったらゲームオーバー
 		if (m_isAlive && other->GetOwner()->GetTag() == "Obstacle")
 		{
-			Editor::DebugLog("Game Over");
 			//OnDead();
 		}
 	}

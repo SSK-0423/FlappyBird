@@ -41,6 +41,13 @@ namespace Framework
 	void Rigidbody2D::Draw()
 	{
 	}
+	void Rigidbody2D::DrawInspector()
+	{
+		if (ImGui::CollapsingHeader("Rigidbody2D"))
+		{
+			ImGui::InputFloat("GravityScale", &gravityScale);
+		}
+	}
 	void Rigidbody2D::AddForce(DirectX::XMFLOAT2 force, FORCE_MODE mode)
 	{
 		switch (mode)

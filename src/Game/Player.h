@@ -14,6 +14,7 @@ namespace FlappyBird
 
 		void Update(float deltaTime) override;
 		void Draw() override;
+		void DrawInspector() override;
 
 		void OnCollision(Framework::Collider* other);
 
