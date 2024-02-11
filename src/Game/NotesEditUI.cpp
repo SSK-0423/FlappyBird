@@ -14,6 +14,8 @@ namespace FlappyBird
 {
 	// 静的メンバ変数の初期化
 	std::string NotesEditUI::m_selectedMusicPath = "No Select";
+	const ImVec2 NotesEditUI::WINDOW_POS = ImVec2(0, 0);
+	const ImVec2 NotesEditUI::WINDOW_SIZE = ImVec2(300, 600);
 
 	NotesEditUI::NotesEditUI(std::shared_ptr<Object> owner)
 		: Framework::IComponent(owner)
@@ -23,6 +25,8 @@ namespace FlappyBird
 	}
 	void NotesEditUI::Draw()
 	{
+		ImGui::SetNextWindowPos(WINDOW_POS);
+		ImGui::SetNextWindowSize(WINDOW_SIZE);
 		ImGui::Begin("EditWindow");
 
 		ImGui::SeparatorText("Save/Load");
@@ -48,7 +52,7 @@ namespace FlappyBird
 		auto musicFilePaths = GetFilePathsInDirectoryWithExtension(soundPath.string(), ".wav");
 
 		// 音楽ファイルパスの一覧をドロップダウン形式で表示
-		if (ImGui::BeginCombo("Music File Path", m_selectedMusicPath.c_str()))
+		if (ImGui::BeginCombo("Music File", m_selectedMusicPath.c_str()))
 		{
 			for (int i = 0; i < musicFilePaths.size(); i++)
 			{
@@ -66,14 +70,6 @@ namespace FlappyBird
 				}
 			}
 			ImGui::EndCombo();
-		}
-
-		ImGui::SameLine();
-
-		if (ImGui::Button("Load Music"))
-		{
-			// 音楽ファイルを読み込む
-			OnLoadMusic.Notify(m_selectedMusicPath);
 		}
 
 		// 選択された音楽ファイルパスを譜面データに設定
@@ -120,7 +116,7 @@ namespace FlappyBird
 		auto fumenFilePaths = GetFilePathsInDirectoryWithExtension(fumenPath.string(), ".json");
 
 		// 譜面ファイルの一覧をドロップダウン形式で表示
-		if (ImGui::BeginCombo("Fumen File Path", selectedJsonPath.c_str()))
+		if (ImGui::BeginCombo("Fumen File", selectedJsonPath.c_str()))
 		{
 			for (int i = 0; i < fumenFilePaths.size(); i++)
 			{

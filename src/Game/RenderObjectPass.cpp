@@ -70,7 +70,7 @@ namespace FlappyBird
 		data.renderTargetBufferData.clearColor[1] = 0.f;
 		data.renderTargetBufferData.clearColor[2] = 0.f;
 		data.renderTargetBufferData.clearColor[3] = 1.f;
-		data.renderTargetBufferData.colorFormat = DXGI_FORMAT_R8G8B8A8_UNORM;
+		data.renderTargetBufferData.colorFormat = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;
 		data.renderTargetBufferData.width = renderTargetSize.cx;
 		data.renderTargetBufferData.height = renderTargetSize.cy;
 		data.useDepth = true;	// 深度は一つでよいのでカラー出力のレンダーターゲットのみで使用する

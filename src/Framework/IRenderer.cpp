@@ -28,7 +28,6 @@ namespace Framework
 			Editor::Draw();
 			SoundManager::DebugDraw();
 #endif
-
 			Editor::EndDraw();
 		}
 		Dx12GraphicsEngine::EndDraw();

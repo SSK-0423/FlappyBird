@@ -28,7 +28,6 @@ namespace FlappyBird
 		void Play();
 		void Stop();
 		void Restart();
-		void LoadMusic(const std::string& musicPath);
 		void StartEdit(const FumenData& data);
 
 		void PutNotes(float timing, float posY);
@@ -50,5 +49,6 @@ namespace FlappyBird
 		Framework::SoundClip* m_cannotPutNotesSound = nullptr;
 
 		float m_judgeLineX;
+		bool m_isStartedEdit = false;
 	};
 }

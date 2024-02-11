@@ -88,10 +88,10 @@ namespace Framework
 		// WINDOW_WIDTH, WINDOW_HEIGHTと異なる可能性がある
 		// そこで、ウィンドウサイズを取得して一度リサイズしておく
 		// また、Rendererがリサイズの影響を受けないように、Rendererの初期化後に行う
+#endif // _DEBUG
 		RECT rect;
 		GetClientRect(hwnd, &rect);
 		DX12Wrapper::Dx12GraphicsEngine::Resize(rect.right - rect.left, rect.bottom - rect.top);
-#endif // _DEBUG
 
 		m_gameImpl.Init();
 

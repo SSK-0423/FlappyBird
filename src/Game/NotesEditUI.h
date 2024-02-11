@@ -17,13 +17,15 @@ namespace FlappyBird
 		// 各ボタン押下時のイベント
 		Framework::Subject<const std::string&, FumenData&> OnSave;
 		Framework::Subject<const std::string&, FumenData&> OnLoad;
-		Framework::Subject<const std::string&> OnLoadMusic;
 		Framework::Subject<const FumenData&> OnEditStart;
 		Framework::Subject<Framework::NotificationEvent> OnPlay;
 		Framework::Subject<Framework::NotificationEvent> OnStop;
 		Framework::Subject<Framework::NotificationEvent> OnRestart;
 
 	private:
+		static const ImVec2 WINDOW_POS;
+		static const ImVec2 WINDOW_SIZE;
+
 		FumenData m_fumenData;
 
 		void DrawFumenData();

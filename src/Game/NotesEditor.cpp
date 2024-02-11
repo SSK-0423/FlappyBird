@@ -66,14 +66,12 @@ namespace FlappyBird
 		notesEditUI->OnLoad.Subscribe([this](const std::string& loadPath, FumenData& data)
 			{
 				LoadFumen(loadPath, data);
-				LoadMusic(data.musicFilePath);
 				StartEdit(data);
 			});
 
 		notesEditUI->OnPlay.Subscribe([this](NotificationEvent e) { Play(); });
 		notesEditUI->OnStop.Subscribe([this](NotificationEvent e) { Stop(); });
 		notesEditUI->OnRestart.Subscribe([this](NotificationEvent e) { Restart(); });
-		notesEditUI->OnLoadMusic.Subscribe([this](const std::string& musicPath) { LoadMusic(musicPath); });
 		notesEditUI->OnEditStart.Subscribe([this](const FumenData& data) { StartEdit(data); });
 
 		// 各種コンポーネントの取得
@@ -86,6 +84,18 @@ namespace FlappyBird
 	}
 	void NotesEditor::Update(float deltaTime)
 	{
+		// まだ編集が開始されていない場合は処理を行わない
+		if (!m_isStartedEdit)
+		{
+			return;
+		}
+
+		// 編集ウィンドウ上にマウスがあるかどうかを判定
+		if (ImGui::GetIO().WantCaptureMouse)
+		{
+			return;
+		}
+
 		// 障害物の位置を更新
 		Obstacle::SetCurrentPlayTime(m_musicPlayer->GetCurrentPlayTimeMs());
 
@@ -164,13 +174,13 @@ namespace FlappyBird
 	{
 		m_musicPlayer->Play(0.f);
 	}
-	void NotesEditor::LoadMusic(const std::string& musicPath)
-	{
-		// 音楽ファイルを読み込み
-		m_musicPlayer->Load(musicPath, true);
-	}
 	void NotesEditor::StartEdit(const FumenData& data)
 	{
+		m_isStartedEdit = true;
+
+		// 音楽ファイルを読み込み
+		m_musicPlayer->Load(data.musicFilePath, true);
+
 		float musicLength = m_musicPlayer->GetMusicLength();
 
 		// 小節数 = 曲の再生時間(sec) * bpm / (60 * beat)
