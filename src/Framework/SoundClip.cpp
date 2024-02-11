@@ -111,12 +111,13 @@ namespace Framework
 		// サウンド管理クラスを作成して、再生中かどうかを判定、管理した方がよいのでは
 		if (wait)
 		{
-			XAUDIO2_VOICE_STATE state;
-			m_sourceVoice->GetState(&state, XAUDIO2_VOICE_NOSAMPLESPLAYED);
-			while (state.BuffersQueued > 0)
-			{
-				m_sourceVoice->GetState(&state, XAUDIO2_VOICE_NOSAMPLESPLAYED);
-			}
+			//XAUDIO2_VOICE_STATE state;
+			//m_sourceVoice->GetState(&state, XAUDIO2_VOICE_NOSAMPLESPLAYED);
+			//while (state.BuffersQueued > 0)
+			//{
+			//	m_sourceVoice->GetState(&state, XAUDIO2_VOICE_NOSAMPLESPLAYED);
+			//}
+			while (!m_isEnd) {}
 		}
 	}
 	void SoundClip::Stop(bool isPause)
@@ -134,7 +135,7 @@ namespace Framework
 				m_isPaused = false;
 			}
 			m_sourceVoice->FlushSourceBuffers();
-			//m_sourceVoice = nullptr;
+			m_sourceVoice = nullptr;
 		}
 	}
 	void SoundClip::ExitLoop()
@@ -229,50 +230,28 @@ namespace Framework
 	}
 	STDMETHODIMP_(void __stdcall) SoundClip::OnVoiceProcessingPassStart(UINT32 BytesRequired)
 	{
-#ifdef _DEBUG
-		//Editor::DebugLog("OnVoiceProcessingPassStart: %ls", m_soundname);
-#endif // _DEBUG
 	}
 	STDMETHODIMP_(void __stdcall) SoundClip::OnVoiceProcessingPassEnd()
 	{
-#ifdef _DEBUG
-		//Editor::DebugLog("OnVoiceProcessingPassEnd: %ls", m_soundname);
-#endif // _DEBUG
-
 	}
 	STDMETHODIMP_(void __stdcall) SoundClip::OnStreamEnd()
 	{
 		if (m_sourceVoice != nullptr)
 		{
-			//m_sourceVoice->FlushSourceBuffers();
+			m_sourceVoice->FlushSourceBuffers();
 			m_sourceVoice = nullptr;
 			m_isEnd = true;
 			OnEnd.Notify(NotificationEvent());
 		}
-#ifdef _DEBUG
-		Editor::DebugLog("Owner Name: %s", m_owner.lock()->GetName().c_str());
-		Editor::DebugLog("OnStreamEnd: %ls", m_soundname);
-#endif // _DEBUG
 	}
 	STDMETHODIMP_(void __stdcall) SoundClip::OnBufferStart(void* pBufferContext)
 	{
-		#ifdef _DEBUG
-				Editor::DebugLog("OnBufferStart: %ls", m_soundname);
-		#endif // _DEBUG
 	}
 	STDMETHODIMP_(void __stdcall) SoundClip::OnBufferEnd(void* pBufferContext)
 	{
-		#ifdef _DEBUG
-				Editor::DebugLog("OnBufferEnd: %ls", m_soundname);
-		#endif // _DEBUG
 	}
 	STDMETHODIMP_(void __stdcall) SoundClip::OnLoopEnd(void* pBufferContext)
 	{
-		m_isEnd = true;
-#ifdef _DEBUG
-		Editor::DebugLog("Owner Name: %s", m_owner.lock()->GetName().c_str());
-		Editor::DebugLog("OnLoopEnd: %ls", m_soundname);
-#endif // _DEBUG
 	}
 	STDMETHODIMP_(void __stdcall) SoundClip::OnVoiceError(void* pBufferContext, HRESULT Error)
 	{

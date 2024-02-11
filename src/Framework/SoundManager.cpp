@@ -10,7 +10,6 @@ namespace Framework
 	IXAudio2MasteringVoice* SoundManager::m_masteringVoice = nullptr;
 	std::map<std::wstring, SoundData> SoundManager::m_soundDatas;
 	std::map<std::wstring, std::list<IXAudio2SourceVoice*>> SoundManager::m_sourceVoices;
-	//std::list<IXAudio2SourceVoice*> SoundManager::m_sourceVoices;
 
 	Utility::RESULT SoundManager::Init()
 	{

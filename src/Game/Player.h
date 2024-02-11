@@ -37,6 +37,13 @@ namespace FlappyBird
 		std::shared_ptr<Framework::Sprite> m_deadSprite;
 		void ChangeSprite();
 
+		Framework::SpriteRenderer* m_spriteRenderer;
+		Framework::Transform2D* m_transform;
+		Framework::Rigidbody2D* m_rigidbody;
+		Framework::SoundClip* m_jumpSound;
+		Framework::SoundClip* m_damageSound;
+		Framework::SoundClip* m_fallSound;
+
 		float m_jumpVelocity;
 		void Move(float deltaTime);
 		void Jump();

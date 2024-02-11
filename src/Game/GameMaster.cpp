@@ -106,8 +106,6 @@ namespace FlappyBird
 	}
 	void GameMaster::GameOver(float deltaTime)
 	{
-		m_owner.lock()->GetComponent<SoundClip>()->Stop();
-
 		// ƒQ[ƒ€ƒI[ƒo[UI‚ð•\Ž¦
 	}
 	void GameMaster::OnGameReady()
@@ -130,6 +128,9 @@ namespace FlappyBird
 
 		// ‹È‚ÌÄ¶‚ð’âŽ~
 		GameObjectManager::FindObject("MusicPlayer")->GetComponent<MusicPlayer>()->Stop();
+
+		// ƒm[ƒc‚Ì•`‰æ‚ð’âŽ~
+		GameObjectManager::FindObject("NotesManager")->GetComponent<NotesManager>()->SetActive(false);
 	}
 	void GameMaster::OnGameOver()
 	{
