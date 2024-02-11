@@ -354,6 +354,12 @@
     <ClCompile Include="src\Game\TimingCalculator.cpp">
       <Filter>ソース ファイル\Game\NotesEditorScene\NotesEditor</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\MusicSelect.cpp">
+      <Filter>ソース ファイル\Game\MusicSelectScene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\MusicDataFrame.cpp">
+      <Filter>ソース ファイル\Game\MusicSelectScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\pch.h">
@@ -655,6 +661,12 @@
     </ClInclude>
     <ClInclude Include="src\Game\HiddenNotesManager.h">
       <Filter>ソース ファイル\Game\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\MusicSelect.h">
+      <Filter>ソース ファイル\Game\MusicSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\MusicDataFrame.h">
+      <Filter>ソース ファイル\Game\MusicSelectScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -63,8 +63,11 @@ namespace Framework
 		void AddChild(const std::shared_ptr<Object>& child);
 		void RemoveChild(Object* child);
 		void RemoveChild(const std::shared_ptr<Object>& child);
-		void RemoveAllChildren();
+
+		std::shared_ptr<Object>& GetChild(size_t index);
+
 		const std::list<std::shared_ptr<Object>>& GetChildren();
+		void RemoveAllChildren();
 
 		const std::string GetUUID();
 

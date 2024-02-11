@@ -116,13 +116,22 @@ namespace Utility
 	std::wstring GetExtension(std::wstring fileName);
 
 	/// <summary>
-	/// char型⇒wchar_tへの変換
+	/// char型⇒wchar_t型への変換
 	/// </summary>
 	/// <param name="src">変換元文字列</param>
 	/// <param name="dst">変換後の文字列の格納先</param>
 	/// <param name="dstSize">変換後文字列のサイズ</param>
 	/// <returns>正常終了:0 失敗:エラーコード</returns>
 	errno_t charToWchar(const char* src, wchar_t* dst, const size_t dstSize);
+
+	/// <summary>
+	/// wchar_t型⇒char型への変換
+	/// </summary>
+	/// <param name="src">変換元文字列</param>
+	/// <param name="dst">変換後の文字列の格納先</param>
+	/// <param name="dstSize">変換後文字列のサイズ</param>
+	/// <returns>正常終了:0 失敗:エラーコード</returns>
+	errno_t wcharToChar(const wchar_t* src, char* dst, const size_t dstSize);
 
 	/// <summary>
 	/// nullptrチェックを行うdelete

@@ -14,6 +14,7 @@ namespace Framework
 
 		void Update(float deltaTime) override;
 		void Draw() override;
+		void DrawInspector() override;
 
 		void SetText(const std::wstring& text);
 		void SetColor(const DirectX::XMVECTORF32& color);

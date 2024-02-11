@@ -188,6 +188,12 @@ namespace Framework
 	{
 		child->Destroy();
 	}
+	std::shared_ptr<Object>& Object::GetChild(size_t index)
+	{
+		auto it = m_children.begin();
+		std::advance(it, index);
+		return *it;
+	}
 	void Object::RemoveAllChildren()
 	{
 		m_children.clear();

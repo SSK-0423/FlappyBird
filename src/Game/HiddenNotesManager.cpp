@@ -113,14 +113,14 @@ namespace FlappyBird
 		}
 
 #ifdef _DEBUG
-		Editor::DebugLog("Jump Timing: %f", jumpTiming);
-		Editor::DebugLog("NearestNote Timing: %f", nearestNote.timing);
-		Editor::DebugLog("MinDiff: %f", minDiff);
+		//Editor::DebugLog("Jump Timing: %f", jumpTiming);
+		//Editor::DebugLog("NearestNote Timing: %f", nearestNote.timing);
+		//Editor::DebugLog("MinDiff: %f", minDiff);
 #endif // _DEBUG
 
 		if (minDiff <= PERFECT_JUDGE_RANGE)
 		{
-			//m_seClip->Play(0.5f);
+			m_seClip->Play(0.5f);
 			nearestNote.isJudged = true;
 		}
 	}

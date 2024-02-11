@@ -210,7 +210,9 @@
     <ClCompile Include="src\Game\GameScene.cpp" />
     <ClCompile Include="src\Game\HiddenNotesManager.cpp" />
     <ClCompile Include="src\Game\main.cpp" />
+    <ClCompile Include="src\Game\MusicDataFrame.cpp" />
     <ClCompile Include="src\Game\MusicPlayer.cpp" />
+    <ClCompile Include="src\Game\MusicSelect.cpp" />
     <ClCompile Include="src\Game\MusicSelectScene.cpp" />
     <ClCompile Include="src\Game\MusicSelectSceneUI.cpp" />
     <ClCompile Include="src\Game\NotesEditor.cpp" />
@@ -315,7 +317,9 @@
     <ClInclude Include="src\Game\GameReadyUI.h" />
     <ClInclude Include="src\Game\GameScene.h" />
     <ClInclude Include="src\Game\HiddenNotesManager.h" />
+    <ClInclude Include="src\Game\MusicDataFrame.h" />
     <ClInclude Include="src\Game\MusicPlayer.h" />
+    <ClInclude Include="src\Game\MusicSelect.h" />
     <ClInclude Include="src\Game\MusicSelectScene.h" />
     <ClInclude Include="src\Game\MusicSelectSceneUI.h" />
     <ClInclude Include="src\Game\NoteData.h" />

@@ -80,11 +80,6 @@ namespace Framework
 
 					ImGui::Text("SampleNum: %d", sampleNum);
 					ImGui::Text("TotalSamples: %d", m_totalSamples);
-
-					//if (m_totalSamples != 0)
-					//{
-					//	ImGui::Text("SampleNum % TotalSamples: %d", samplesPlayed % m_totalSamples);
-					//}
 				}
 			}
 		}
@@ -283,11 +278,9 @@ namespace Framework
 	}
 	STDMETHODIMP_(void __stdcall) SoundClip::OnBufferStart(void* pBufferContext)
 	{
-		Editor::DebugLog("OnBufferStart");
 	}
 	STDMETHODIMP_(void __stdcall) SoundClip::OnBufferEnd(void* pBufferContext)
 	{
-		Editor::DebugLog("OnBufferEnd");
 	}
 	STDMETHODIMP_(void __stdcall) SoundClip::OnLoopEnd(void* pBufferContext)
 	{

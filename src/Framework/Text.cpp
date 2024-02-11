@@ -3,6 +3,7 @@
 #include "Object.h"
 #include "Transform2D.h"
 
+using namespace Utility;
 using namespace DX12Wrapper;
 
 namespace Framework
@@ -21,6 +22,16 @@ namespace Framework
 	{
 		auto transform = m_owner.lock()->GetComponent<Transform2D>();
 		FontRenderer::DrawString(m_text, transform->position, transform->scale.x, m_color);
+	}
+	void Text::DrawInspector()
+	{
+		char buffer[256];
+
+		if (ImGui::CollapsingHeader("Text"))
+		{
+			wcharToChar(m_text.c_str(), buffer, _countof(buffer));
+			ImGui::Text(buffer);
+		}
 	}
 	void Text::SetText(const std::wstring& text)
 	{

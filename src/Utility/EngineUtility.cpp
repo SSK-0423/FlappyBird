@@ -50,6 +50,17 @@ namespace Utility
 		errno_t err = mbstowcs_s(&convertedCount, dst, dstSize, src, _TRUNCATE);
 		return err;
 	}
+	errno_t wcharToChar(const wchar_t* src, char* dst, const size_t dstSize)
+	{
+		size_t convertedCount;
+
+		// “ú–{Œê‘Î‰
+		// ‚±‚ê‚ª‚È‚¢‚Æsrc‚É“ú–{Œê‚ªŠÜ‚Ü‚ê‚Ä‚¢‚éê‡‚É•ÏŠ·‚ª¸”s‚·‚é
+		setlocale(LC_ALL, "Japanese");
+
+		errno_t err = wcstombs_s(&convertedCount, dst, dstSize, src, _TRUNCATE);
+		return err;
+	}
 	std::string GenerateUUID()
 	{
 		// UUID‚ğ¶¬

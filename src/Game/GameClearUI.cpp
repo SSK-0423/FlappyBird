@@ -15,8 +15,6 @@ namespace FlappyBird
 
 		// ゲームクリアUIの画像を追加
 
-		// ここでスコアとか表示する
-
 		// リトライボタン
 		std::shared_ptr<Framework::UIObject> retry = UIObjectManager::CreateObject();
 		Button* retryButton = retry->AddComponent<Button>(retry);
@@ -43,6 +41,9 @@ namespace FlappyBird
 		gameClearText->SetScale(0.75f);
 		gameClearText->SetColor(DirectX::Colors::Yellow);
 		m_owner.lock()->AddChild(gameOver);
+
+		// ここでスコアとか表示する
+
 
 		m_owner.lock()->SetActive(false);
 	}
