@@ -32,8 +32,8 @@ namespace FlappyBird
 		// BGM
 		std::shared_ptr<GameObject> bgm = GameObjectManager::CreateObject();
 		SoundClip* bgmSound = bgm->AddComponent<SoundClip>(bgm);
-		bgmSound->LoadWavSound(L"res/sound/title_bgm.wav", true);
-		bgmSound->Play();
+		//bgmSound->LoadWavSound(L"res/sound/title_bgm.wav", true);
+		//bgmSound->Play();
 
 		// UI
 		std::shared_ptr<UIObject> titleSceneUI = UIObjectManager::CreateObject();

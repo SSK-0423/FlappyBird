@@ -9,16 +9,37 @@ using namespace Utility;
 namespace FlappyBird
 {
 	MusicPlayer::MusicPlayer(std::shared_ptr<Object> owner)
-		: Framework::IComponent(owner), m_musicPath(L""), m_isPlaying(false)
+		: Framework::IComponent(owner), m_musicPath(L""), m_isPlaying(false), m_beat(4.f), m_bpm(120.f)
 	{
 		// SoundClip’Ç‰Á
 		m_music = m_owner.lock()->AddComponent<SoundClip>(m_owner.lock());
+		m_music->OnEnd.Subscribe([this](NotificationEvent e)
+			{
+				m_isPlaying = false;
+				OnMusicEnd.Notify(NotificationEvent());
+			});
 	}
 	MusicPlayer::~MusicPlayer()
 	{
 	}
 	void MusicPlayer::Update(float deltaTime)
 	{
+		if (m_isPlaying)
+		{
+			//if (m_music->IsEnd())
+			//{
+			//	m_isPlaying = false;
+			//	m_music->Stop();
+			//	OnMusicEnd.Notify(NotificationEvent());
+			//}
+
+			if (InputSystem::GetKeyDown(DIK_SPACE))
+			{
+				m_music->Stop();
+				m_isPlaying = false;
+				OnMusicEnd.Notify(NotificationEvent());
+			}
+		}
 	}
 	void MusicPlayer::Draw()
 	{
@@ -31,17 +52,18 @@ namespace FlappyBird
 			ImGui::Text("IsPlaying: %s", m_isPlaying ? "true" : "false");
 			ImGui::Text("MusicLength: %.2f", m_music->GetLength());
 			ImGui::Text("CurrentTime: %.2f", m_music->GetCurrentPlayTime());
+			ImGui::Text("IsEnd: %s", m_music->IsEnd() ? "true" : "false");
 		}
 	}
-	void MusicPlayer::Load(const std::string& musicPath)
+	void MusicPlayer::Load(const std::string& musicPath, bool isLoop)
 	{
 		m_music->Stop();
 
 		Utility::charToWchar(musicPath.c_str(), m_musicPath, _countof(m_musicPath));
 
-		m_music->LoadWavSound(m_musicPath, true);
+		m_music->LoadWavSound(m_musicPath, isLoop);
 
-		Editor::DebugLog("Music Loaded: %s", musicPath);
+		Editor::DebugLog("Music Loaded: %s", musicPath.c_str());
 	}
 	void MusicPlayer::Play(float startTimeSec)
 	{
@@ -75,5 +97,21 @@ namespace FlappyBird
 	bool MusicPlayer::IsPlaying()
 	{
 		return m_isPlaying;
+	}
+	void MusicPlayer::SetBPM(float bpm)
+	{
+		m_bpm = bpm;
+	}
+	float MusicPlayer::GetBPM()
+	{
+		return m_bpm;
+	}
+	void MusicPlayer::SetBeat(float beat)
+	{
+		m_beat = beat;
+	}
+	float MusicPlayer::GetBeat()
+	{
+		return m_beat;
 	}
 }

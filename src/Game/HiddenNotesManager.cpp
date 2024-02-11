@@ -97,8 +97,6 @@ namespace FlappyBird
 	{
 		float jumpTiming = m_musicPlayer->GetCurrentPlayTimeMs();
 
-		Editor::DebugLog("Jump Timing: %f", jumpTiming);
-
 		// JumpTimingÇ…ç≈Ç‡ãﬂÇ¢âBÇµÉmÅ[ÉcÇíTÇ∑
 		float minDiff = FLT_MAX;
 		HiddenNote& nearestNote = m_hiddenNotes[0];
@@ -114,12 +112,15 @@ namespace FlappyBird
 			}
 		}
 
+#ifdef _DEBUG
+		Editor::DebugLog("Jump Timing: %f", jumpTiming);
 		Editor::DebugLog("NearestNote Timing: %f", nearestNote.timing);
 		Editor::DebugLog("MinDiff: %f", minDiff);
+#endif // _DEBUG
 
 		if (minDiff <= PERFECT_JUDGE_RANGE)
 		{
-			m_seClip->Play(0.5f);
+			//m_seClip->Play(0.5f);
 			nearestNote.isJudged = true;
 		}
 	}

@@ -58,6 +58,9 @@ namespace Framework
 	}
 	void Scene::Final()
 	{
+		// サウンドをリセット
+		SoundManager::Reset();
+
 		// 全てのゲームオブジェクトを削除
 		GameObjectManager::Reset();
 
@@ -66,9 +69,6 @@ namespace Framework
 
 		// コリジョンシステムをリセット
 		CollisionSystem::Reset();
-
-		// サウンドをリセット
-		SoundManager::Reset();
 	}
 	const Camera& Scene::GetCamera()
 	{

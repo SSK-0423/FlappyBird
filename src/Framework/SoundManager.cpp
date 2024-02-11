@@ -31,6 +31,7 @@ namespace Framework
 		for (auto source : m_sourceVoices)
 		{
 			source->Stop();
+			source->FlushSourceBuffers();
 			source->DestroyVoice();
 		}
 		m_sourceVoices.clear();
@@ -44,6 +45,7 @@ namespace Framework
 		for (auto source : m_sourceVoices)
 		{
 			source->Stop();
+			source->FlushSourceBuffers();
 			source->DestroyVoice();
 		}
 		m_sourceVoices.clear();
@@ -122,8 +124,10 @@ namespace Framework
 
 		// マップに追加
 		m_soundDatas[filename] = std::move(soundData);
+
+		return Utility::RESULT::SUCCESS;
 	}
-	IXAudio2SourceVoice* SoundManager::Play(const wchar_t* soundname)
+	IXAudio2SourceVoice* SoundManager::Play(const wchar_t* soundname, IXAudio2VoiceCallback* callback)
 	{
 		// サウンドが読み込み済みかチェックする
 		if (m_soundDatas.find(soundname) == m_soundDatas.end())
@@ -137,8 +141,8 @@ namespace Framework
 		for (auto source : m_sourceVoices)
 		{
 			XAUDIO2_VOICE_STATE state;
-			source->GetState(&state, XAUDIO2_VOICE_NOSAMPLESPLAYED);
-			if (state.BuffersQueued == 0)
+			source->GetState(&state);// , XAUDIO2_VOICE_NOSAMPLESPLAYED);
+			if (state.BuffersQueued == 0 && state.SamplesPlayed == 0)
 			{
 				sourceVoice = source;
 				break;
@@ -148,7 +152,7 @@ namespace Framework
 		// 使用可能なソースボイスがなければ作成する
 		if (sourceVoice == nullptr)
 		{
-			HRESULT result = m_xAudio2->CreateSourceVoice(&sourceVoice, m_soundDatas[soundname].waveData.wfx);
+			HRESULT result = m_xAudio2->CreateSourceVoice(&sourceVoice, m_soundDatas[soundname].waveData.wfx, 0, XAUDIO2_DEFAULT_FREQ_RATIO, callback);
 			if (FAILED(result))
 			{
 				MessageBoxA(NULL, "SourceVoiceの作成に失敗", "エラー", MB_OK);

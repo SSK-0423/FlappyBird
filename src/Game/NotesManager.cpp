@@ -59,6 +59,10 @@ namespace FlappyBird
 	{
 		if (ImGui::CollapsingHeader("NotesManager"))
 		{
+			// Œ»Ý‚ÌÄ¶ŽžŠÔ‚ðŽæ“¾
+			float currentPlayTime = m_musicPlayer->GetCurrentPlayTimeMs();
+			ImGui::Text("CurrentPlayTime: %f", currentPlayTime);
+
 			for (auto& note : m_notes)
 			{
 				ImGui::Text("Timing: %f", note.timing);
@@ -132,7 +136,10 @@ namespace FlappyBird
 			CreateNotes(note);
 		}
 
+#ifdef _DEBUG
 		Editor::DebugLog("Notes Set Completed");
+#endif // _DEBUG
+
 	}
 	void NotesManager::UpdateCurrentPlayTime()
 	{
@@ -197,8 +204,8 @@ namespace FlappyBird
 					OnReachedJudgeLine.Notify(Framework::NotificationEvent());
 				}
 #ifdef _DEBUG
-				Editor::DebugLog("Note Timing: %f", note->GetTiming());
-				Editor::DebugLog("Diff: %f", diff);
+				//Editor::DebugLog("Note Timing: %f", note->GetTiming());
+				//Editor::DebugLog("Diff: %f", diff);
 #endif // _DEBUG
 			}
 		}

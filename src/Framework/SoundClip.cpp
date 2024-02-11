@@ -2,8 +2,10 @@
 #include "SoundManager.h"
 
 #include "Editor.h"
-
+#include "Object.h"
 #include "imgui.h"
+
+#include "InputSystem.h"
 
 using namespace Utility;
 
@@ -11,7 +13,7 @@ namespace Framework
 {
 	SoundClip::SoundClip(std::shared_ptr<Object> owner) :
 		IComponent(owner), m_soundname(nullptr), m_sourceVoice(nullptr), m_isPaused(false),
-		m_restartSamplesPlayed(0)
+		m_restartSamplesPlayed(0), m_isEnd(false)
 	{
 	}
 	SoundClip::~SoundClip()
@@ -27,13 +29,20 @@ namespace Framework
 		m_soundname = filename;
 		m_isPaused = false;
 
-		//m_sourceVoice = SoundManager::Play(m_soundname);
-		//m_sourceVoice->Stop();
-
 		return RESULT::SUCCESS;
 	}
 	void SoundClip::Update(float deltaTime)
 	{
+		if (m_sourceVoice == nullptr)
+		{
+			return;
+		}
+
+		if (InputSystem::GetKeyDown(DIK_SPACE))
+		{
+			m_sourceVoice->ExitLoop();
+			Editor::DebugLog("ExitLoop");
+		}
 	}
 	void SoundClip::Draw()
 	{
@@ -42,14 +51,27 @@ namespace Framework
 	{
 		if (ImGui::CollapsingHeader("SoundClip"))
 		{
-			ImGui::Text("SoundName: %s", m_soundname);
-			ImGui::Text("IsPaused: %s", m_isPaused ? "true" : "false");
+			ImGui::Text("SoundName: %ls", m_soundname);
 
 			if (m_sourceVoice != nullptr)
 			{
 				XAUDIO2_VOICE_STATE state;
 				m_sourceVoice->GetState(&state);
 				ImGui::Text("SamplesPlayed: %d", state.SamplesPlayed);
+				ImGui::Text("BuffersQueued: %d", state.BuffersQueued);
+				ImGui::Text("CurrentPlayTime: %f", GetCurrentPlayTime());
+				ImGui::Text("IsPaused: %s", m_isPaused ? "true" : "false");
+				ImGui::Text("IsEnd: %s", m_isEnd ? "true" : "false");
+
+				SoundData* soundData = SoundManager::GetSoundData(m_soundname);
+
+				if (soundData != nullptr)
+				{
+					UINT64 samplesPlayed = state.SamplesPlayed;
+					DWORD sampleNum = soundData->waveData.audioBytes / soundData->waveData.wfx->nBlockAlign;
+
+					ImGui::Text("SampleNum: %d", sampleNum);
+				}
 			}
 		}
 	}
@@ -58,7 +80,7 @@ namespace Framework
 		// 一時停止中でない場合は新規にSourceVoiceを取得する
 		if (m_isPaused == false)
 		{
-			m_sourceVoice = SoundManager::Play(m_soundname);
+			m_sourceVoice = SoundManager::Play(m_soundname, this);
 		}
 
 		if (m_sourceVoice == nullptr)
@@ -112,6 +134,14 @@ namespace Framework
 				m_isPaused = false;
 			}
 			m_sourceVoice->FlushSourceBuffers();
+			//m_sourceVoice = nullptr;
+		}
+	}
+	void SoundClip::ExitLoop()
+	{
+		if (m_sourceVoice != nullptr)
+		{
+			m_sourceVoice->ExitLoop();
 		}
 	}
 	float SoundClip::GetLength()
@@ -157,6 +187,7 @@ namespace Framework
 		DWORD sampleRate = soundData->waveData.wfx->nSamplesPerSec;
 
 		// ループ再生時の再生位置を計算
+		// ループ再生時は再生位置がサンプル数を超えるたびに0に戻るため、再生位置をサンプル数で割った余りを取得する。
 		playedSampleNum %= soundData->waveData.audioBytes / soundData->waveData.wfx->nBlockAlign;
 
 		return (float)playedSampleNum / sampleRate;
@@ -185,11 +216,65 @@ namespace Framework
 		// 曲を進める時は値をマイナスする
 		// 曲を戻す時は値をプラスする
 		INT64 newRestartSamplesPlayed = m_restartSamplesPlayed - displacement;
-		
+
 		// オーバーフローを防ぐ
 		if (state.SamplesPlayed > newRestartSamplesPlayed)
 		{
 			m_restartSamplesPlayed = newRestartSamplesPlayed;
 		}
+	}
+	bool SoundClip::IsEnd()
+	{
+		return m_isEnd;
+	}
+	STDMETHODIMP_(void __stdcall) SoundClip::OnVoiceProcessingPassStart(UINT32 BytesRequired)
+	{
+#ifdef _DEBUG
+		Editor::DebugLog("OnVoiceProcessingPassStart: %ls", m_soundname);
+#endif // _DEBUG
+	}
+	STDMETHODIMP_(void __stdcall) SoundClip::OnVoiceProcessingPassEnd()
+	{
+#ifdef _DEBUG
+		Editor::DebugLog("OnVoiceProcessingPassEnd: %ls", m_soundname);
+#endif // _DEBUG
+
+	}
+	STDMETHODIMP_(void __stdcall) SoundClip::OnStreamEnd()
+	{
+		if (m_sourceVoice != nullptr)
+		{
+			//m_sourceVoice->FlushSourceBuffers();
+			m_sourceVoice = nullptr;
+			m_isEnd = true;
+			OnEnd.Notify(NotificationEvent());
+		}
+#ifdef _DEBUG
+		Editor::DebugLog("Owner Name: %s", m_owner.lock()->GetName().c_str());
+		Editor::DebugLog("OnStreamEnd: %ls", m_soundname);
+#endif // _DEBUG
+	}
+	STDMETHODIMP_(void __stdcall) SoundClip::OnBufferStart(void* pBufferContext)
+	{
+		#ifdef _DEBUG
+				Editor::DebugLog("OnBufferStart: %ls", m_soundname);
+		#endif // _DEBUG
+	}
+	STDMETHODIMP_(void __stdcall) SoundClip::OnBufferEnd(void* pBufferContext)
+	{
+		#ifdef _DEBUG
+				Editor::DebugLog("OnBufferEnd: %ls", m_soundname);
+		#endif // _DEBUG
+	}
+	STDMETHODIMP_(void __stdcall) SoundClip::OnLoopEnd(void* pBufferContext)
+	{
+		m_isEnd = true;
+#ifdef _DEBUG
+		Editor::DebugLog("Owner Name: %s", m_owner.lock()->GetName().c_str());
+		Editor::DebugLog("OnLoopEnd: %ls", m_soundname);
+#endif // _DEBUG
+	}
+	STDMETHODIMP_(void __stdcall) SoundClip::OnVoiceError(void* pBufferContext, HRESULT Error)
+	{
 	}
 }

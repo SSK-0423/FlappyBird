@@ -12,6 +12,7 @@ namespace FlappyBird
 		Player(std::shared_ptr<Framework::Object> owner);
 		~Player() = default;
 
+		void Start() override;
 		void Update(float deltaTime) override;
 		void Draw() override;
 		void DrawInspector() override;

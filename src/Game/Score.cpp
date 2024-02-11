@@ -36,13 +36,6 @@ namespace FlappyBird
 	{
 		if (m_gameMaster->GetGameState() == GAME_STATE::PLAYING)
 		{
-			//// ˆê’èŽžŠÔŠÔŠu‚ÅƒXƒRƒA‚ð‰ÁŽZ
-			//m_elapsedTime += deltaTime;
-			//if (m_elapsedTime >= m_scoreAddInterval)
-			//{
-			//	AddScore(1);
-			//	m_elapsedTime = 0.f;
-			//}
 			m_owner.lock()->GetComponent<Text>()->SetText(L"SCORE: " + std::to_wstring(m_score));
 		}
 	}

@@ -28,6 +28,8 @@ namespace FlappyBird
 
 		// TODO: 曲選択シーンで選択された曲の譜面を読み込む
 		FumenJsonReadWriter::Read("res/fumen/Froggy's_Song.json", fumenData);
+		//FumenJsonReadWriter::Read("res/fumen/SaturnEbiMan.json", fumenData);
+		//FumenJsonReadWriter::Read("res/fumen/LoopTest.json", fumenData);
 
 		// ノーツの生成
 		std::shared_ptr<Framework::GameObject> notesManagerObj = GameObjectManager::FindObject("NotesManager");
@@ -36,14 +38,16 @@ namespace FlappyBird
 		// 曲読み込み
 		std::shared_ptr<Framework::GameObject> musicPlayerObj = GameObjectManager::FindObject("MusicPlayer");
 		MusicPlayer* musicPlayer = musicPlayerObj->GetComponent<MusicPlayer>();
-		musicPlayer->Load(fumenData.musicFilePath);
+		musicPlayer->Load(fumenData.musicFilePath, false);
+		musicPlayer->SetBPM(fumenData.bpm);
+		musicPlayer->SetBeat(fumenData.beat);
+		musicPlayer->OnMusicEnd.Subscribe([this](NotificationEvent e) { ChangeState(GAME_STATE::GAMECLEAR); });
 
 		// 隠しノーツの生成
 		float musicLength = musicPlayer->GetMusicLength();
 		unsigned int barNum = musicLength * fumenData.bpm / (60.f * fumenData.beat);
 		std::shared_ptr<Framework::GameObject> hiddenNotesManagerObj = GameObjectManager::FindObject("HiddenNotesManager");
 		hiddenNotesManagerObj->GetComponent<HiddenNotesManager>()->CreateHiddenNotes(barNum, fumenData.bpm, fumenData.beat);
-
 	}
 	void GameMaster::Update(float deltaTime)
 	{

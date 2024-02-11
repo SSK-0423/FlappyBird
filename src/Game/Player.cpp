@@ -3,6 +3,7 @@
 
 #include "GameScene.h"
 #include "GameMaster.h"
+#include "MusicPlayer.h"
 
 #include "DX12Wrapper/Dx12GraphicsEngine.h"
 
@@ -12,7 +13,7 @@ using namespace DX12Wrapper;
 namespace FlappyBird
 {
 	Player::Player(std::shared_ptr<Framework::Object> owner)
-		: Framework::IComponent(owner), m_jumpVelocity(-512.5f), // 左上原点なのでマイナス
+		: Framework::IComponent(owner), m_jumpVelocity(-550.f), // 左上原点なのでマイナス
 		m_elapsedTime(0.f), m_gameReadyAnimationInterval(0.65f), m_isAlive(true)
 	{
 		m_gameMaster = GameObjectManager::FindObject("GameMaster")->GetComponent<GameMaster>();
@@ -50,6 +51,19 @@ namespace FlappyBird
 		// 効果音追加
 		SoundClip* sound = m_owner.lock()->AddComponent<SoundClip>(m_owner.lock());
 		sound->LoadWavSound(L"res/sound/jump.wav");
+	}
+	void Player::Start()
+	{
+		MusicPlayer* musicPlayer = GameObjectManager::FindObject("MusicPlayer")->GetComponent<MusicPlayer>();
+		float bpm = musicPlayer->GetBPM();
+		float beat = musicPlayer->GetBeat();
+
+		// 4分音符の間隔を計算
+		float barTimeLength = 60.f / bpm * beat;
+		m_gameReadyAnimationInterval = barTimeLength / 4.f;
+
+		// ジャンプ力設定
+		m_jumpVelocity = -550.f * 120.f / bpm;
 	}
 	void Player::Update(float deltaTime)
 	{

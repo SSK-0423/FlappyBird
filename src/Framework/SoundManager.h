@@ -20,7 +20,7 @@ namespace Framework
 		static void Reset();
 		static void Final();
 		static Utility::RESULT LoadWavSound(const wchar_t* filename, bool isLoop);
-		static IXAudio2SourceVoice* Play(const wchar_t* soundname);
+		static IXAudio2SourceVoice* Play(const wchar_t* soundname, IXAudio2VoiceCallback* callback);
 		static SoundData* GetSoundData(const wchar_t* soundname);
 
 	private:
