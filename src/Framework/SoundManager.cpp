@@ -9,7 +9,8 @@ namespace Framework
 	IXAudio2* SoundManager::m_xAudio2 = nullptr;
 	IXAudio2MasteringVoice* SoundManager::m_masteringVoice = nullptr;
 	std::map<std::wstring, SoundData> SoundManager::m_soundDatas;
-	std::list<IXAudio2SourceVoice*> SoundManager::m_sourceVoices;
+	std::map<std::wstring, std::list<IXAudio2SourceVoice*>> SoundManager::m_sourceVoices;
+	//std::list<IXAudio2SourceVoice*> SoundManager::m_sourceVoices;
 
 	Utility::RESULT SoundManager::Init()
 	{
@@ -26,13 +27,29 @@ namespace Framework
 
 		return Utility::RESULT::SUCCESS;
 	}
+	void SoundManager::DebugDraw()
+	{
+		ImGui::Begin("SoundManager");
+		{
+			ImGui::Text("SourceVoice Count : %d", m_sourceVoices.size());
+			for (auto source : m_sourceVoices)
+			{
+				ImGui::Text("SourceVoice Name : %ls", source.first.c_str());
+				ImGui::Text("SourceVoice Count : %d", source.second.size());
+			}
+		}
+		ImGui::End();
+	}
 	void SoundManager::Reset()
 	{
 		for (auto source : m_sourceVoices)
 		{
-			source->Stop();
-			source->FlushSourceBuffers();
-			source->DestroyVoice();
+			for (auto voice : source.second)
+			{
+				voice->Stop();
+				voice->FlushSourceBuffers();
+				voice->DestroyVoice();
+			}
 		}
 		m_sourceVoices.clear();
 
@@ -44,9 +61,12 @@ namespace Framework
 
 		for (auto source : m_sourceVoices)
 		{
-			source->Stop();
-			source->FlushSourceBuffers();
-			source->DestroyVoice();
+			for (auto voice : source.second)
+			{
+				voice->Stop();
+				voice->FlushSourceBuffers();
+				voice->DestroyVoice();
+			}
 		}
 		m_sourceVoices.clear();
 
@@ -140,12 +160,19 @@ namespace Framework
 		// 使用可能なソースボイスを探す
 		for (auto source : m_sourceVoices)
 		{
-			XAUDIO2_VOICE_STATE state;
-			source->GetState(&state);// , XAUDIO2_VOICE_NOSAMPLESPLAYED);
-			if (state.BuffersQueued == 0 && state.SamplesPlayed == 0)
+			// 同名のソースボイスがあれば未使用のものを探す
+			if (source.first == soundname)
 			{
-				sourceVoice = source;
-				break;
+				for (auto voice : source.second)
+				{
+					XAUDIO2_VOICE_STATE state;
+					voice->GetState(&state);// , XAUDIO2_VOICE_NOSAMPLESPLAYED);
+					if (state.BuffersQueued == 0 && state.SamplesPlayed == 0)
+					{
+						sourceVoice = voice;
+						break;
+					}
+				}
 			}
 		}
 
@@ -158,7 +185,7 @@ namespace Framework
 				MessageBoxA(NULL, "SourceVoiceの作成に失敗", "エラー", MB_OK);
 				return nullptr;
 			}
-			m_sourceVoices.push_back(sourceVoice);
+			m_sourceVoices[soundname].push_back(sourceVoice);
 		}
 
 		return sourceVoice;

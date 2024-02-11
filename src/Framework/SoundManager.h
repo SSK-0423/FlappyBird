@@ -17,6 +17,7 @@ namespace Framework
 	{
 	public:
 		static Utility::RESULT Init();
+		static void DebugDraw();
 		static void Reset();
 		static void Final();
 		static Utility::RESULT LoadWavSound(const wchar_t* filename, bool isLoop);
@@ -33,6 +34,6 @@ namespace Framework
 		static HRESULT CreateMasteringVoice();
 
 		static std::map<std::wstring, SoundData> m_soundDatas;
-		static std::list<IXAudio2SourceVoice*> m_sourceVoices;
+		static std::map<std::wstring, std::list<IXAudio2SourceVoice*>> m_sourceVoices;
 	};
 }

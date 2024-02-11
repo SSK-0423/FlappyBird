@@ -230,13 +230,13 @@ namespace Framework
 	STDMETHODIMP_(void __stdcall) SoundClip::OnVoiceProcessingPassStart(UINT32 BytesRequired)
 	{
 #ifdef _DEBUG
-		Editor::DebugLog("OnVoiceProcessingPassStart: %ls", m_soundname);
+		//Editor::DebugLog("OnVoiceProcessingPassStart: %ls", m_soundname);
 #endif // _DEBUG
 	}
 	STDMETHODIMP_(void __stdcall) SoundClip::OnVoiceProcessingPassEnd()
 	{
 #ifdef _DEBUG
-		Editor::DebugLog("OnVoiceProcessingPassEnd: %ls", m_soundname);
+		//Editor::DebugLog("OnVoiceProcessingPassEnd: %ls", m_soundname);
 #endif // _DEBUG
 
 	}

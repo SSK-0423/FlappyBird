@@ -6,6 +6,7 @@
 
 #include "GameObjectManager.h"
 #include "UIObjectManager.h"
+#include "SoundManager.h"
 #include "Editor.h"
 
 using namespace DX12Wrapper;
@@ -25,6 +26,7 @@ namespace Framework
 			// デバッグログなどのエディタ描画 
 #ifdef _DEBUG
 			Editor::Draw();
+			SoundManager::DebugDraw();
 #endif
 
 			Editor::EndDraw();
