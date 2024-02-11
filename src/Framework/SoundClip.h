@@ -32,6 +32,8 @@ namespace Framework
 
 		void ExitLoop();
 
+		void SetVolume(float volume);
+
 		float GetLength();
 		float GetCurrentPlayTime();
 		void Seek(float timeMs);
@@ -58,6 +60,10 @@ namespace Framework
 	private:
 		const wchar_t* m_soundname;
 		IXAudio2SourceVoice* m_sourceVoice;
+		INT64 m_samplesPlayed;
+		UINT64 m_totalSamples;
+		INT64 m_startSamplesPlayed;
+		INT64 m_endSamplesPlayed;
 		UINT64 m_restartSamplesPlayed;
 		bool m_isPaused;
 		bool m_isEnd;

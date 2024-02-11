@@ -17,6 +17,7 @@
 
 #include "GameReadyUI.h"
 #include "GameOverUI.h"
+#include "GameClearUI.h"
 
 using namespace Framework;
 
@@ -28,14 +29,13 @@ namespace FlappyBird
 		Editor::DebugLog("GameScene Init\n");
 #endif // _DEBUG
 
-		// 他オブジェクトをObjectManager::Findで取得する際に、
-		// コンストラクタで初期化処理を行うと、対象オブジェクトがまだ生成されていない可能性があるため、
-		// UnityのStart関数のようなものを用意し、
-		// シーンの最初のフレームが実行される前に一斉に初期化処理を行うようにする
-
 		// ゲームオーバーUI
 		std::shared_ptr<Framework::UIObject> gameOverUI = UIObjectManager::CreateObject();
 		gameOverUI->AddComponent<GameOverUI>(gameOverUI);
+
+		// ゲームクリアUI
+		std::shared_ptr<Framework::UIObject> gameClearUI = UIObjectManager::CreateObject();
+		gameClearUI->AddComponent<GameClearUI>(gameClearUI);
 
 		// ゲーム開始準備UI
 		std::shared_ptr<Framework::UIObject> gameReadyUI = UIObjectManager::CreateObject();

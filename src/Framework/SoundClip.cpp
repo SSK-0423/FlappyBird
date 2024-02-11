@@ -13,7 +13,7 @@ namespace Framework
 {
 	SoundClip::SoundClip(std::shared_ptr<Object> owner) :
 		IComponent(owner), m_soundname(nullptr), m_sourceVoice(nullptr), m_isPaused(false),
-		m_restartSamplesPlayed(0), m_isEnd(false)
+		m_restartSamplesPlayed(0), m_isEnd(false), m_samplesPlayed(0), m_totalSamples(0)
 	{
 	}
 	SoundClip::~SoundClip()
@@ -28,6 +28,11 @@ namespace Framework
 
 		m_soundname = filename;
 		m_isPaused = false;
+		m_isEnd = false;
+		m_samplesPlayed = 0;
+		m_restartSamplesPlayed = 0;
+		m_startSamplesPlayed = 0;
+		m_totalSamples = 0;
 
 		return RESULT::SUCCESS;
 	}
@@ -58,6 +63,9 @@ namespace Framework
 				XAUDIO2_VOICE_STATE state;
 				m_sourceVoice->GetState(&state);
 				ImGui::Text("SamplesPlayed: %d", state.SamplesPlayed);
+				ImGui::Text("My SamplesPlayed: %d", m_samplesPlayed);
+				ImGui::Text("StartSamplesPlayed: %d", m_startSamplesPlayed);
+				ImGui::Text("RestartSamplesPlayed: %d", m_restartSamplesPlayed);
 				ImGui::Text("BuffersQueued: %d", state.BuffersQueued);
 				ImGui::Text("CurrentPlayTime: %f", GetCurrentPlayTime());
 				ImGui::Text("IsPaused: %s", m_isPaused ? "true" : "false");
@@ -71,6 +79,12 @@ namespace Framework
 					DWORD sampleNum = soundData->waveData.audioBytes / soundData->waveData.wfx->nBlockAlign;
 
 					ImGui::Text("SampleNum: %d", sampleNum);
+					ImGui::Text("TotalSamples: %d", m_totalSamples);
+
+					//if (m_totalSamples != 0)
+					//{
+					//	ImGui::Text("SampleNum % TotalSamples: %d", samplesPlayed % m_totalSamples);
+					//}
 				}
 			}
 		}
@@ -90,17 +104,22 @@ namespace Framework
 
 		// 音源をリスタートした際にSamplesPlayedがリセットされないため
 		// 再生開始時のSamplesPlayedを記録し、リスタート後でも現在の再生位置を正しく取得できるようにする。
+		XAUDIO2_VOICE_STATE state;
+		m_sourceVoice->GetState(&state);
 		if (startTimeSec == 0.f)
 		{
-			XAUDIO2_VOICE_STATE state;
-			m_sourceVoice->GetState(&state);
+			m_samplesPlayed = 0;
 			m_restartSamplesPlayed = state.SamplesPlayed;
 		}
+		m_startSamplesPlayed = state.SamplesPlayed;
 
 		// 再生位置を設定
 		SoundData* soundData = SoundManager::GetSoundData(m_soundname);
 		soundData->buffer.PlayBegin = static_cast<UINT32>(soundData->waveData.wfx->nSamplesPerSec * startTimeSec);
 		m_sourceVoice->SubmitSourceBuffer(&soundData->buffer);
+
+		// 総サンプル数を記録
+		m_totalSamples = soundData->waveData.audioBytes / soundData->waveData.wfx->nBlockAlign;
 
 		// 音量を設定
 		m_sourceVoice->SetVolume(volume);
@@ -108,15 +127,11 @@ namespace Framework
 		// サウンドを再生
 		m_sourceVoice->Start();
 
+		m_isPaused = false;
+
 		// サウンド管理クラスを作成して、再生中かどうかを判定、管理した方がよいのでは
 		if (wait)
 		{
-			//XAUDIO2_VOICE_STATE state;
-			//m_sourceVoice->GetState(&state, XAUDIO2_VOICE_NOSAMPLESPLAYED);
-			//while (state.BuffersQueued > 0)
-			//{
-			//	m_sourceVoice->GetState(&state, XAUDIO2_VOICE_NOSAMPLESPLAYED);
-			//}
 			while (!m_isEnd) {}
 		}
 	}
@@ -128,6 +143,10 @@ namespace Framework
 			{
 				m_sourceVoice->Stop(XAUDIO2_PLAY_TAILS);
 				m_isPaused = true;
+
+				XAUDIO2_VOICE_STATE state;
+				m_sourceVoice->GetState(&state);
+				m_samplesPlayed = m_samplesPlayed + (state.SamplesPlayed - m_startSamplesPlayed);
 			}
 			else
 			{
@@ -135,7 +154,11 @@ namespace Framework
 				m_isPaused = false;
 			}
 			m_sourceVoice->FlushSourceBuffers();
-			m_sourceVoice = nullptr;
+
+			if (!isPause)
+			{
+				m_sourceVoice = nullptr;
+			}
 		}
 	}
 	void SoundClip::ExitLoop()
@@ -143,6 +166,13 @@ namespace Framework
 		if (m_sourceVoice != nullptr)
 		{
 			m_sourceVoice->ExitLoop();
+		}
+	}
+	void SoundClip::SetVolume(float volume)
+	{
+		if (m_sourceVoice != nullptr)
+		{
+			m_sourceVoice->SetVolume(volume);
 		}
 	}
 	float SoundClip::GetLength()
@@ -184,7 +214,16 @@ namespace Framework
 
 		// 再生済みのサンプル数とサンプルレートから現在の再生位置を計算
 		// リスタートした際の再生位置を考慮を減算することで、正確な再生位置を取得できるようにする。
-		UINT64 playedSampleNum = state.SamplesPlayed - m_restartSamplesPlayed;
+
+		INT64 playedSampleNum;
+		if (m_isPaused)
+		{
+			playedSampleNum = m_samplesPlayed;
+		}
+		else
+		{
+			playedSampleNum = m_samplesPlayed + (state.SamplesPlayed - m_startSamplesPlayed);// -m_restartSamplesPlayed; //state.SamplesPlayed - m_restartSamplesPlayed;
+		}
 		DWORD sampleRate = soundData->waveData.wfx->nSamplesPerSec;
 
 		// ループ再生時の再生位置を計算
@@ -211,18 +250,16 @@ namespace Framework
 		DWORD sampleRate = soundData->waveData.wfx->nSamplesPerSec;
 		INT64 displacement = sampleRate * timeSec;
 
-		XAUDIO2_VOICE_STATE state;
-		m_sourceVoice->GetState(&state);
+		// 再生位置を変更
+		m_samplesPlayed += displacement;
 
-		// 曲を進める時は値をマイナスする
-		// 曲を戻す時は値をプラスする
-		INT64 newRestartSamplesPlayed = m_restartSamplesPlayed - displacement;
+		// 余り算出の前に負の値にならないようにする
+		m_samplesPlayed = std::max(m_samplesPlayed, 0LL);
 
-		// オーバーフローを防ぐ
-		if (state.SamplesPlayed > newRestartSamplesPlayed)
-		{
-			m_restartSamplesPlayed = newRestartSamplesPlayed;
-		}
+		m_samplesPlayed %= m_totalSamples;
+
+		// 曲の再生範囲を超えないようにする
+		m_samplesPlayed = std::clamp(m_samplesPlayed, 0LL, static_cast<INT64>(soundData->waveData.audioBytes / soundData->waveData.wfx->nBlockAlign));
 	}
 	bool SoundClip::IsEnd()
 	{
@@ -246,12 +283,18 @@ namespace Framework
 	}
 	STDMETHODIMP_(void __stdcall) SoundClip::OnBufferStart(void* pBufferContext)
 	{
+		Editor::DebugLog("OnBufferStart");
 	}
 	STDMETHODIMP_(void __stdcall) SoundClip::OnBufferEnd(void* pBufferContext)
 	{
+		Editor::DebugLog("OnBufferEnd");
 	}
 	STDMETHODIMP_(void __stdcall) SoundClip::OnLoopEnd(void* pBufferContext)
 	{
+		Editor::DebugLog("OnLoopEnd");
+
+		// ループ再生時は再生位置をリスタート位置に戻す
+		m_samplesPlayed = 0;
 	}
 	STDMETHODIMP_(void __stdcall) SoundClip::OnVoiceError(void* pBufferContext, HRESULT Error)
 	{

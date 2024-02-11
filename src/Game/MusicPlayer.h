@@ -25,6 +25,8 @@ namespace FlappyBird
 
 		bool IsPlaying();
 
+		void SetVolume(float volume);
+		
 		void SetBPM(float bpm);
 		float GetBPM();
 

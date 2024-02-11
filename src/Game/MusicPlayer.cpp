@@ -24,22 +24,6 @@ namespace FlappyBird
 	}
 	void MusicPlayer::Update(float deltaTime)
 	{
-		if (m_isPlaying)
-		{
-			//if (m_music->IsEnd())
-			//{
-			//	m_isPlaying = false;
-			//	m_music->Stop();
-			//	OnMusicEnd.Notify(NotificationEvent());
-			//}
-
-			if (InputSystem::GetKeyDown(DIK_SPACE))
-			{
-				m_music->Stop();
-				m_isPlaying = false;
-				OnMusicEnd.Notify(NotificationEvent());
-			}
-		}
 	}
 	void MusicPlayer::Draw()
 	{
@@ -97,6 +81,10 @@ namespace FlappyBird
 	bool MusicPlayer::IsPlaying()
 	{
 		return m_isPlaying;
+	}
+	void MusicPlayer::SetVolume(float volume)
+	{
+		m_music->SetVolume(volume);
 	}
 	void MusicPlayer::SetBPM(float bpm)
 	{

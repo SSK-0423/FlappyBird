@@ -18,6 +18,7 @@ namespace FlappyBird
 	{
 		m_gameOverUI = UIObjectManager::FindObject("GameOverUI");
 		m_gameReadyUI = UIObjectManager::FindObject("GameReadyUI");
+		m_gameClearUI = UIObjectManager::FindObject("GameClearUI");
 
 		m_owner.lock()->SetName("GameMaster");
 	}
@@ -124,7 +125,7 @@ namespace FlappyBird
 	void GameMaster::OnGameClear()
 	{
 		// ƒQ[ƒ€ƒNƒŠƒAUI‚ð•\Ž¦
-		m_gameOverUI->SetActive(true);
+		m_gameClearUI->SetActive(true);
 
 		// ‹È‚ÌÄ¶‚ð’âŽ~
 		GameObjectManager::FindObject("MusicPlayer")->GetComponent<MusicPlayer>()->Stop();
@@ -139,6 +140,8 @@ namespace FlappyBird
 
 		// ‹È‚ÌÄ¶‚ð’âŽ~
 		GameObjectManager::FindObject("MusicPlayer")->GetComponent<MusicPlayer>()->Stop();
+
+		// ƒm[ƒc‚ÌˆÚ“®‚ð’âŽ~
+		GameObjectManager::FindObject("NotesManager")->GetComponent<NotesManager>()->SetActive(false);
 	}
 }
-

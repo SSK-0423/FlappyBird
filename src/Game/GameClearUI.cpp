@@ -17,6 +17,33 @@ namespace FlappyBird
 
 		// ここでスコアとか表示する
 
+		// リトライボタン
+		std::shared_ptr<Framework::UIObject> retry = UIObjectManager::CreateObject();
+		Button* retryButton = retry->AddComponent<Button>(retry);
+		retryButton->SetTexture(L"res/texture/retry_button.png");
+		retryButton->SetPosition({ viewportSize.Width / 2.f, viewportSize.Height / 2.f });
+		retryButton->SetScale({ 300.f, 300.f / 4.f });
+		retryButton->SetOnClick([]() { SceneManager::SetNextScene("Game"); });
+		m_owner.lock()->AddChild(retry);
+
+		// 辞めるボタン
+		std::shared_ptr<Framework::UIObject> title = UIObjectManager::CreateObject();
+		Button* titleButton = title->AddComponent<Button>(title);
+		titleButton->SetTexture(L"res/texture/quit_button.png");
+		titleButton->SetPosition({ viewportSize.Width / 2.f, viewportSize.Height / 2.f + 150.f });
+		titleButton->SetScale({ 300.f, 300.f / 4.f });
+		titleButton->SetOnClick([]() { SceneManager::SetNextScene("Title"); });
+		m_owner.lock()->AddChild(title);
+
+		// テキスト
+		std::shared_ptr<Framework::UIObject> gameOver = UIObjectManager::CreateObject();
+		Text* gameClearText = gameOver->AddComponent<Text>(gameOver);
+		gameClearText->SetText(L"Game Clear");
+		gameClearText->SetPosition({ viewportSize.Width / 2.f - 220.f, viewportSize.Height / 2.f - 150.f });
+		gameClearText->SetScale(0.75f);
+		gameClearText->SetColor(DirectX::Colors::Yellow);
+		m_owner.lock()->AddChild(gameOver);
+
 		m_owner.lock()->SetActive(false);
 	}
 	void GameClearUI::Update(float deltaTime)
