@@ -24,11 +24,20 @@ namespace FlappyBird
 		retryButton->SetOnClick([]() { SceneManager::SetNextScene("Game"); });
 		m_owner.lock()->AddChild(retry);
 
-		// 辞めるボタン
+		// 曲選択へ戻るボタン
+		std::shared_ptr<Framework::UIObject> musicSelect = UIObjectManager::CreateObject();
+		Button* selectMusicButton = musicSelect->AddComponent<Button>(musicSelect);
+		selectMusicButton->SetTexture(L"res/texture/music_select_button.png");
+		selectMusicButton->SetPosition({ viewportSize.Width / 2.f, viewportSize.Height / 2.f + 150.f });
+		selectMusicButton->SetScale({ 300.f, 300.f / 4.f });
+		selectMusicButton->SetOnClick([]() { SceneManager::SetNextScene("MusicSelect"); });
+		m_owner.lock()->AddChild(musicSelect);
+
+		// タイトルへ戻るボタン
 		std::shared_ptr<Framework::UIObject> title = UIObjectManager::CreateObject();
 		Button* titleButton = title->AddComponent<Button>(title);
-		titleButton->SetTexture(L"res/texture/quit_button.png");
-		titleButton->SetPosition({ viewportSize.Width / 2.f, viewportSize.Height / 2.f + 150.f });
+		titleButton->SetTexture(L"res/texture/back_to_title_button.png");
+		titleButton->SetPosition({ viewportSize.Width / 2.f, viewportSize.Height / 2.f + 300.f });
 		titleButton->SetScale({ 300.f, 300.f / 4.f });
 		titleButton->SetOnClick([]() { SceneManager::SetNextScene("Title"); });
 		m_owner.lock()->AddChild(title);
@@ -41,9 +50,6 @@ namespace FlappyBird
 		gameClearText->SetScale(0.75f);
 		gameClearText->SetColor(DirectX::Colors::Yellow);
 		m_owner.lock()->AddChild(gameOver);
-
-		// ここでスコアとか表示する
-
 
 		m_owner.lock()->SetActive(false);
 	}
