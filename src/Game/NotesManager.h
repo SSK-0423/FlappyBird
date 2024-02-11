@@ -18,8 +18,8 @@ namespace FlappyBird
 		void Draw() override;
 		void DrawInspector() override;
 
-		void CreateNotes(NoteData data);
-		void DeleteNotes(NoteData data);
+		bool CreateNotes(NoteData data);
+		bool DeleteNotes(NoteData data);
 
 		std::vector<NoteData>& GetNotes();
 		void SetNotes(const std::vector<NoteData>& notes);

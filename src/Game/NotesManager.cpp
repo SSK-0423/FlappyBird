@@ -72,14 +72,14 @@ namespace FlappyBird
 			}
 		}
 	}
-	void NotesManager::CreateNotes(NoteData data)
+	bool NotesManager::CreateNotes(NoteData data)
 	{
 		// 既に同じタイミングのノーツが存在する場合は追加しない
 		for (auto& note : m_notes)
 		{
 			if (note.timing == data.timing)
 			{
-				return;
+				return false;
 			}
 		}
 		m_notes.push_back(data);
@@ -94,15 +94,21 @@ namespace FlappyBird
 		m_noteObstacles.push_back(obstacle);
 
 		m_owner.lock()->AddChild(noteObstacle);
+
+		return true;
 	}
-	void NotesManager::DeleteNotes(NoteData data)
+	bool NotesManager::DeleteNotes(NoteData data)
 	{
+		bool couldDeleteData = false;
+		bool couldDeleteNote = false;
+
 		// ノーツデータを削除
 		for (auto it = m_notes.begin(); it != m_notes.end(); ++it)
 		{
 			if (it->timing == data.timing)
 			{
 				m_notes.erase(it);
+				couldDeleteData = true;
 				break;
 			}
 		}
@@ -114,9 +120,12 @@ namespace FlappyBird
 			{
 				m_owner.lock()->RemoveChild((*it)->GetOwner());
 				m_noteObstacles.erase(it);
+				couldDeleteNote = true;
 				break;
 			}
 		}
+
+		return couldDeleteData && couldDeleteNote;
 	}
 	std::vector<NoteData>& NotesManager::GetNotes()
 	{

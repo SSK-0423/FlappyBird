@@ -5,6 +5,7 @@
 namespace Framework
 {
 	class SpriteRenderer;
+	class Transform2D;
 
 	class Button : public IComponent
 	{
@@ -27,5 +28,7 @@ namespace Framework
 		void SetText(const std::wstring& text);
 		void SetLayer(int layer);
 		void SetOnClick(const std::function<void()>& onClick);
+
+
 	};
 }

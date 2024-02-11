@@ -26,6 +26,28 @@ namespace FlappyBird
 		m_obstacle = obstaceleObj->AddComponent<Obstacle>(obstaceleObj);
 		m_obstacle->SetMaterialColor({ 1.f, 1.f, 1.f, 0.8f });
 		m_owner.lock()->AddChild(obstaceleObj);
+
+		// ノーツ設置系のSEオブジェクト追加
+		// ノーツ設置時SE
+		std::shared_ptr<GameObject> putNotesSoundObj = std::shared_ptr<GameObject>(new GameObject());
+		putNotesSoundObj->SetName("PutNotesSound");
+		m_putNotesSound = putNotesSoundObj->AddComponent<SoundClip>(putNotesSoundObj);
+		m_putNotesSound->LoadWavSound(L"res/sound/put_notes.wav");
+		// ノーツ削除時SE
+		std::shared_ptr<GameObject> deleteNotesSoundObj = std::shared_ptr<GameObject>(new GameObject());
+		deleteNotesSoundObj->SetName("DeleteNotesSound");
+		m_deleteNotesSound = deleteNotesSoundObj->AddComponent<SoundClip>(deleteNotesSoundObj);
+		m_deleteNotesSound->LoadWavSound(L"res/sound/delete_notes.wav");
+		// ノーツが設置できなかった時のSE
+		std::shared_ptr<GameObject> cannotPutNotsSoundObj = std::shared_ptr<GameObject>(new GameObject());
+		cannotPutNotsSoundObj->SetName("PutNotesFailedSound");
+		m_cannotPutNotesSound = cannotPutNotsSoundObj->AddComponent<SoundClip>(cannotPutNotsSoundObj);
+		m_cannotPutNotesSound->LoadWavSound(L"res/sound/cannot_put_notes.wav");
+
+		// 子オブジェクトに追加
+		m_owner.lock()->AddChild(putNotesSoundObj);
+		m_owner.lock()->AddChild(deleteNotesSoundObj);
+		m_owner.lock()->AddChild(cannotPutNotsSoundObj);
 	}
 	NotesEditor::~NotesEditor()
 	{
@@ -159,11 +181,28 @@ namespace FlappyBird
 	}
 	void NotesEditor::PutNotes(float timing, float posY)
 	{
-		m_notesManager->CreateNotes(NoteData(timing, posY));
+		bool couldCreate = m_notesManager->CreateNotes(NoteData(timing, posY));
+
+		// 生成できたら生成時SEを再生
+		if (couldCreate)
+		{
+			m_putNotesSound->Play(0.5f);
+		}
+		// できなかったら失敗時SEを再生
+		else
+		{
+			m_cannotPutNotesSound->Play(0.5f);
+		}
 	}
 	void NotesEditor::DeleteNotes(float timing, float posY)
 	{
-		m_notesManager->DeleteNotes(NoteData(timing, posY));
+		bool couldDelete = m_notesManager->DeleteNotes(NoteData(timing, posY));
+
+		// 削除できたら削除時SEを再生
+		if (couldDelete)
+		{
+			m_deleteNotesSound->Play(0.5f);
+		}
 	}
 	void NotesEditor::Scroll(LONG mouseWheelMovement)
 	{

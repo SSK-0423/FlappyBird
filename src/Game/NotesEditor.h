@@ -45,6 +45,10 @@ namespace FlappyBird
 
 		Obstacle* m_obstacle = nullptr;
 
+		Framework::SoundClip* m_putNotesSound = nullptr;
+		Framework::SoundClip* m_deleteNotesSound = nullptr;
+		Framework::SoundClip* m_cannotPutNotesSound = nullptr;
+
 		float m_judgeLineX;
 	};
 }
