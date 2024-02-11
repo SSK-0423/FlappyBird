@@ -120,7 +120,7 @@ namespace FlappyBird
 
 		if (minDiff <= PERFECT_JUDGE_RANGE)
 		{
-			m_seClip->Play(0.5f);
+			//m_seClip->Play(0.5f);
 			nearestNote.isJudged = true;
 		}
 	}

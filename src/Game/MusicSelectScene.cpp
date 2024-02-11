@@ -30,6 +30,12 @@ namespace FlappyBird
 		musicSelect->SetName("MusicSelect");
 		musicSelect->AddComponent<MusicSelect>(musicSelect);
 
+		// BGM
+		std::shared_ptr<GameObject> bgm = GameObjectManager::CreateObject();
+		SoundClip* bgmSound = bgm->AddComponent<SoundClip>(bgm);
+		bgmSound->LoadWavSound(L"res/sound/music_select_bgm.wav", true);
+		bgmSound->Play();
+
 #ifdef _DEBUG
 		Editor::DebugLog("MusicSelectScene Init\n");
 #endif // _DEBUG

@@ -24,8 +24,11 @@ namespace FlappyBird
 
 		std::vector<MusicDataFrame*> m_musicDataFrames;
 
+		Framework::SoundClip* m_changeMusicSound;
+
 		void LoadMusicList();
 		void CreateMusicDataFrames();
+		void CreateMusicChangeButtons();
 		void ChangeSelectedMusic(bool isNext);
 		void UpdateMusicDataFramesActive();
 
