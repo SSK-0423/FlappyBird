@@ -7,6 +7,11 @@
 #include "imgui_impl_win32.h"
 #include "imgui_stdlib.h"
 
+#include "FlappyBird.h"
+
+#include "DX12Wrapper/Dx12GraphicsEngine.h"
+
+using namespace DX12Wrapper;
 using namespace Framework;
 using namespace Utility;
 
@@ -15,11 +20,34 @@ namespace FlappyBird
 	// 静的メンバ変数の初期化
 	std::string NotesEditUI::m_selectedMusicPath = "No Select";
 	const ImVec2 NotesEditUI::WINDOW_POS = ImVec2(0, 0);
-	const ImVec2 NotesEditUI::WINDOW_SIZE = ImVec2(300, 600);
+	const ImVec2 NotesEditUI::WINDOW_SIZE = ImVec2(300, 350);
 
 	NotesEditUI::NotesEditUI(std::shared_ptr<Object> owner)
 		: Framework::IComponent(owner)
-	{}
+	{
+		// 操作方法を示すUI
+		auto& viewport = Dx12GraphicsEngine::GetViewport();
+		std::shared_ptr<Framework::UIObject> operationText = UIObjectManager::CreateObject();
+		Text* text = operationText->AddComponent<Text>(operationText);
+		text->SetText(L"Mouse:Put/Delete  MouseWheel:Forward/Backward  Space:Play/Stop");
+		text->SetPosition({ viewport.Width / 16.f, viewport.Height - 25.f });
+		text->SetScale(0.25f);
+		text->SetColor(DirectX::Colors::Black);
+
+		// 見やすくするためのフレーム
+		std::shared_ptr<Framework::UIObject> frame = UIObjectManager::CreateObject();
+		Sprite* sprite = new Sprite(L"res/texture/notes_edit_frame.png", SPRITE_PIVOT::TOP_LEFT);
+		SpriteRenderer* spriteRenderer = frame->AddComponent<SpriteRenderer>(frame);
+		spriteRenderer->SetSprite(sprite);
+		spriteRenderer->SetDrawMode(SPRITE_DRAW_MODE::GUI);
+		spriteRenderer->SetLayer(static_cast<UINT>(SPRITE_LAYER::UI));
+		Transform2D* transform = frame->GetComponent<Transform2D>();
+		transform->position = { 0, viewport.Height - 30.f };
+		transform->scale = { viewport.Width, 30.f };
+
+		m_owner.lock()->AddChild(operationText);
+		m_owner.lock()->AddChild(frame);
+	}
 	void NotesEditUI::Update(float deltaTime)
 	{
 	}

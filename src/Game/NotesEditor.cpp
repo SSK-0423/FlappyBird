@@ -128,6 +128,19 @@ namespace FlappyBird
 				// マウスホイールで曲を進める
 				Scroll(InputSystem::GetMouseWheelMovement());
 			}
+
+			// スペースキーで曲の再生・停止を切り替える
+			if (InputSystem::GetKeyDown(DIK_SPACE))
+			{
+				if (m_musicPlayer->IsPlaying())
+				{
+					Stop();
+				}
+				else
+				{
+					Play();
+				}
+			}
 		}
 		else
 		{
