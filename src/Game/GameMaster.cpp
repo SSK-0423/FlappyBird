@@ -9,6 +9,7 @@
 #include "HiddenNotesManager.h"
 #include "MusicPlayer.h"
 
+#include "MusicSelect.h"
 using namespace Framework;
 
 namespace FlappyBird
@@ -25,12 +26,7 @@ namespace FlappyBird
 	void GameMaster::Start()
 	{
 		// 譜面読み込み
-		FumenData fumenData;
-
-		// TODO: 曲選択シーンで選択された曲の譜面を読み込む
-		FumenJsonReadWriter::Read("res/fumen/Froggy's_Song.json", fumenData);
-		//FumenJsonReadWriter::Read("res/fumen/SaturnEbiMan.json", fumenData);
-		//FumenJsonReadWriter::Read("res/fumen/LoopTest.json", fumenData);
+		FumenData fumenData = MusicSelect::selectedFumenData;
 
 		// ノーツの生成
 		std::shared_ptr<Framework::GameObject> notesManagerObj = GameObjectManager::FindObject("NotesManager");

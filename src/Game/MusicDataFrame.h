@@ -14,8 +14,5 @@ namespace FlappyBird
 		void Draw() override;
 
 		void FitTextPosition();
-	
-	private:
-
 	};
 }

@@ -17,7 +17,7 @@ namespace FlappyBird
 		void Draw() override;
 		void DrawInspector() override;
 
-		Framework::Subject<size_t> OnChangeSelectedMusic;
+		Framework::Subject<FumenData&> OnChangeSelectedMusic;
 	private:
 		std::vector<FumenData> m_fumenDatas;
 		std::vector<std::string> m_fumenPaths;

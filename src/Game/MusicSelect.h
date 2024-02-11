@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Framework/GameFramework.h"
+#include "FumenData.h"
 
 namespace FlappyBird
 {
@@ -13,8 +14,8 @@ namespace FlappyBird
 		void Start() override;
 		void Update(float deltaTime) override;
 		void Draw() override;
+		void DrawInspector() override;
 
-		static std::string selectedMusicPath;
-	private:
+		static FumenData selectedFumenData;
 	};
 }

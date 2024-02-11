@@ -26,6 +26,7 @@ namespace FlappyBird
 
 		// テキスト
 		std::shared_ptr<UIObject> textObj = std::shared_ptr<UIObject>(new UIObject());
+		textObj->SetName("Text");
 		Text* text = textObj->AddComponent<Text>(textObj);
 		text->SetColor(DirectX::Colors::Black);
 		text->SetScale(0.75f);

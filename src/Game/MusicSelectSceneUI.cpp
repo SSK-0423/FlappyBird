@@ -23,7 +23,7 @@ namespace FlappyBird
 
 		// テキストの生成
 		std::shared_ptr<UIObject> musicSelectText = UIObjectManager::CreateObject();
-		musicSelectText->SetName("Music Select");
+		musicSelectText->SetName("Music Select Text");
 		Text* text = musicSelectText->AddComponent<Text>(musicSelectText);
 		text->SetText(L"Music Select");
 		text->SetColor(DirectX::Colors::Green);
@@ -38,10 +38,7 @@ namespace FlappyBird
 		rightArrowButton->SetLayer(SPRITE_LAYER::UI);
 		rightArrowButton->SetScale({ 150.f, 150.f });
 		rightArrowButton->SetPosition({ viewport.Width - 100.f, viewport.Height / 2.f });
-		rightArrowButton->SetOnClick([this]() {
-			ChangeSelectedMusic(true);
-			OnChangeSelectedMusic.Notify(m_selectedMusicIndex);
-			});
+		rightArrowButton->SetOnClick([this]() {ChangeSelectedMusic(true); });
 
 		std::shared_ptr<UIObject> leftArrow = UIObjectManager::CreateObject();
 		leftArrow->SetName("LeftArrow");
@@ -50,11 +47,19 @@ namespace FlappyBird
 		leftArrowButton->SetLayer(SPRITE_LAYER::UI);
 		leftArrowButton->SetScale({ 150.f, 150.f });
 		leftArrowButton->SetPosition({ 100.f, viewport.Height / 2.f });
-		leftArrowButton->SetOnClick([this]() {
-			ChangeSelectedMusic(false);
-			OnChangeSelectedMusic.Notify(m_selectedMusicIndex);
-			});
+		leftArrowButton->SetOnClick([this]() {ChangeSelectedMusic(false); });
 
+		std::shared_ptr<UIObject> startButtonObj = UIObjectManager::CreateObject();
+		startButtonObj->SetName("StartButton");
+		Button* startButton = startButtonObj->AddComponent<Button>(startButtonObj);
+		startButton->SetTexture(L"res/texture/start_button.png");
+		startButton->SetLayer(SPRITE_LAYER::UI);
+		startButton->SetScale({ 300.f, 300.f / 4.f });
+		startButton->SetPosition({ viewport.Width / 2.f, viewport.Height - 150.f });
+		startButton->SetOnClick([this]() {
+			OnChangeSelectedMusic.Notify(m_fumenDatas[m_selectedMusicIndex]);
+			SceneManager::SetNextScene("Game");
+			});
 	}
 	void MusicSelectSceneUI::Update(float deltaTime)
 	{
@@ -108,6 +113,8 @@ namespace FlappyBird
 
 			Text* text = musicData->GetChild(0)->GetComponent<Text>();
 			text->SetText(musicName);
+
+			musicData->SetName(fumenData.musicName);
 
 			dataFrame->FitTextPosition();
 

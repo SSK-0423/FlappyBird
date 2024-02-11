@@ -51,7 +51,7 @@ namespace FlappyBird
 		singlePlayButton->SetPosition({ windowSize.cx / 2.f, windowSize.cy / 2.f });
 		singlePlayButton->SetScale({ 300.f, 300.f / 4.f });
 		singlePlayButton->SetLayer(static_cast<UINT>(TITLE_SCENE_LAYER::UI));
-		singlePlayButton->SetOnClick([]() {SceneManager::SetNextScene("Game"); });
+		singlePlayButton->SetOnClick([]() {SceneManager::SetNextScene("MusicSelect"); });
 		m_gameModeButtons.push_back(singlePlay);
 
 		// ノーツエディットボタン
