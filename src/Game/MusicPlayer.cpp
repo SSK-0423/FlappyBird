@@ -63,8 +63,11 @@ namespace FlappyBird
 	}
 	void MusicPlayer::Stop()
 	{
-		m_music->Stop(true);
-		m_isPlaying = false;
+		if (m_isPlaying)
+		{
+			m_music->Stop(true);
+			m_isPlaying = false;
+		}
 	}
 	float MusicPlayer::GetMusicLength()
 	{

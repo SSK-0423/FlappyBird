@@ -29,7 +29,7 @@ namespace FlappyBird
 		textObj->SetName("Text");
 		Text* text = textObj->AddComponent<Text>(textObj);
 		text->SetColor(DirectX::Colors::Black);
-		text->SetScale(0.75f);
+		text->SetScale(0.65f);
 		text->SetText(L"Test BGM");
 
 		m_owner.lock()->AddChild(textObj);

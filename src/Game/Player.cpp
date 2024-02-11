@@ -82,6 +82,8 @@ namespace FlappyBird
 
 		// ƒWƒƒƒ“ƒv—ÍÝ’è
 		m_jumpVelocity = -550.f * 120.f / bpm;
+
+		m_rigidbody->gravityScale = 5.f * 120.f / bpm;
 	}
 	void Player::Update(float deltaTime)
 	{

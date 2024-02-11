@@ -24,6 +24,9 @@ namespace FlappyBird
 		std::vector<NoteData>& GetNotes();
 		void SetNotes(const std::vector<NoteData>& notes);
 
+		void ResetCanPlaySE();
+		void DeleteAllNotes();
+
 		Framework::Subject<Framework::NotificationEvent> OnReachedJudgeLine;
 
 	private:

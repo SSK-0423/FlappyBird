@@ -40,11 +40,20 @@ namespace FlappyBird
 		musicPlayer->SetBeat(fumenData.beat);
 		musicPlayer->OnMusicEnd.Subscribe([this](NotificationEvent e) { ChangeState(GAME_STATE::GAMECLEAR); });
 
+		// 2¬ß•ªƒWƒƒƒ“ƒvƒAƒjƒ[ƒVƒ‡ƒ“‚ÌŠÔŠu‚ðŒvŽZ
+		float bpm = musicPlayer->GetBPM();
+		float beat = musicPlayer->GetBeat();
+
+		// 4•ª‰¹•„‚ÌŠÔŠu‚ðŒvŽZ
+		float barTimeLength = 60.f / bpm * beat;
+		m_gameStartTime = barTimeLength * 1.f;
+
 		// ‰B‚µƒm[ƒc‚Ì¶¬
 		float musicLength = musicPlayer->GetMusicLength();
 		unsigned int barNum = musicLength * fumenData.bpm / (60.f * fumenData.beat);
 		std::shared_ptr<Framework::GameObject> hiddenNotesManagerObj = GameObjectManager::FindObject("HiddenNotesManager");
 		hiddenNotesManagerObj->GetComponent<HiddenNotesManager>()->CreateHiddenNotes(barNum, fumenData.bpm, fumenData.beat);
+
 	}
 	void GameMaster::Update(float deltaTime)
 	{

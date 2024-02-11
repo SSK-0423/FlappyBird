@@ -150,6 +150,21 @@ namespace FlappyBird
 #endif // _DEBUG
 
 	}
+	void NotesManager::ResetCanPlaySE()
+	{
+		for (auto note : m_noteObstacles)
+		{
+			note->SetCanPlaySE(true);
+		}
+	}
+	void NotesManager::DeleteAllNotes()
+	{
+		m_notes.clear();
+		m_notes.shrink_to_fit();
+		m_owner.lock()->RemoveAllChildren();
+		m_noteObstacles.clear();
+		m_noteObstacles.shrink_to_fit();
+	}
 	void NotesManager::UpdateCurrentPlayTime()
 	{
 		if (m_musicPlayer != nullptr)
@@ -200,7 +215,7 @@ namespace FlappyBird
 			float diff = note->GetTiming() - currentPlayTime;
 
 			// 判定タイミングを超えたらSEを再生
-			if (std::abs(diff) <= 16.f)
+			if (std::abs(diff) <= 16.67f)
 			{
 				// 以下の条件に合致する場合、SEを再生
 				// アクティブである
@@ -211,12 +226,12 @@ namespace FlappyBird
 					m_owner.lock()->GetComponent<SoundClip>()->Play(0.5f);
 					note->SetCanPlaySE(false);	// 複数回再生できないようにする
 					OnReachedJudgeLine.Notify(Framework::NotificationEvent());
-				}
+			}
 #ifdef _DEBUG
 				//Editor::DebugLog("Note Timing: %f", note->GetTiming());
 				//Editor::DebugLog("Diff: %f", diff);
 #endif // _DEBUG
-			}
 		}
 	}
 }
+	}

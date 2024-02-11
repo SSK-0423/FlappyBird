@@ -72,7 +72,12 @@ namespace FlappyBird
 		notesEditUI->OnPlay.Subscribe([this](NotificationEvent e) { Play(); });
 		notesEditUI->OnStop.Subscribe([this](NotificationEvent e) { Stop(); });
 		notesEditUI->OnRestart.Subscribe([this](NotificationEvent e) { Restart(); });
-		notesEditUI->OnEditStart.Subscribe([this](const FumenData& data) { StartEdit(data); });
+		notesEditUI->OnEditStart.Subscribe([this](const FumenData& data)
+			{
+				// 以前編集中だった場合はノーツを全削除
+				m_notesManager->DeleteAllNotes();
+				StartEdit(data);
+			});
 
 		// 各種コンポーネントの取得
 		m_barManager = UIObjectManager::FindObject("BarManager")->GetComponent<BarManager>();
@@ -177,10 +182,12 @@ namespace FlappyBird
 		// 負数や曲の長さを超える数値で再生するとエラーが発生するため、範囲を制限
 		float startTimeSec = std::clamp(timing / 1000.f, 0.f, m_musicPlayer->GetMusicLength());
 
+		m_notesManager->ResetCanPlaySE();
 		m_musicPlayer->Play(startTimeSec);
 	}
 	void NotesEditor::Stop()
 	{
+		m_notesManager->ResetCanPlaySE();
 		m_musicPlayer->Stop();
 	}
 	void NotesEditor::Restart()
@@ -191,8 +198,9 @@ namespace FlappyBird
 	{
 		m_isStartedEdit = true;
 
+
 		// 音楽ファイルを読み込み
-		m_musicPlayer->Load(data.musicFilePath, true);
+		m_musicPlayer->Load(data.musicFilePath, false);
 
 		float musicLength = m_musicPlayer->GetMusicLength();
 
