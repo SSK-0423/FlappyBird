@@ -9,6 +9,9 @@ namespace DX12Wrapper
 
 namespace Framework
 {
+	/// <summary>
+	/// アフィン変換行列を管理するコンポーネント
+	/// </summary>
 	class Transform2D : public IComponent
 	{
 	public:
@@ -28,11 +31,15 @@ namespace Framework
 		DirectX::XMMATRIX GetTransformMatrix();
 
 	private:
+		/// <summary>
+		/// モデル行列を管理する構造体
+		/// この構造体はシェーダー側と同じ構造体を持つ
+		/// </summary>
 		struct Transform2DData
 		{
 			DirectX::XMMATRIX model;
 		};
-		Transform2DData m_bufferData;
-		std::shared_ptr<DX12Wrapper::ConstantBuffer> m_transformBuffer;
+		Transform2DData m_bufferData;	// シェーダーに渡すデータ
+		std::shared_ptr<DX12Wrapper::ConstantBuffer> m_transformBuffer;	// モデル行列を格納するバッファ
 	};
 }

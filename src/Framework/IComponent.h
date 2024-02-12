@@ -4,6 +4,9 @@ namespace Framework
 {
 	class Object;
 
+	/// <summary>
+	/// コンポーネントのインターフェース
+	/// </summary>
 	class IComponent
 	{
 	public:

@@ -8,7 +8,8 @@ using namespace DX12Wrapper;
 
 namespace Framework
 {
-	Text::Text(std::shared_ptr<Object> owner) : IComponent(owner)
+	Text::Text(std::shared_ptr<Object> owner)
+		: IComponent(owner), m_text(L""), m_color(DirectX::Colors::Black)
 	{
 	}
 	Text::~Text()

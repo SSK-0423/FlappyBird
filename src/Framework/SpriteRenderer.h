@@ -13,12 +13,18 @@ namespace DX12Wrapper
 
 namespace Framework
 {
+	/// <summary>
+	/// スプライトの描画モード
+	/// </summary>
 	enum class SPRITE_DRAW_MODE
 	{
 		GAMEOBJECT,
 		GUI,
 	};
 
+	/// <summary>
+	/// スプライトを描画するコンポーネント
+	/// </summary>
 	class SpriteRenderer : public IComponent
 	{
 	public:
@@ -31,14 +37,45 @@ namespace Framework
 		void DrawInspector() override;
 
 		// TODO: スプライトアニメーションを実装する
+
+		/// <summary>
+		/// 描画するスプライトを設定する
+		/// この関数はindex:0のスプライトを設定する
+		/// </summary>
+		/// <param name="sprite">スプライト</param>
 		void SetSprite(class Sprite* sprite);
+
+		/// <summary>
+		/// 描画するスプライトを設定する
+		/// この関数はindex:0のスプライトを設定する
+		/// </summary>
+		/// <param name="sprite">スプライト</param>
 		void SetSprite(std::shared_ptr<class Sprite> sprite);
 
+		/// <summary>
+		/// 描画するスプライトを追加する
+		/// 末尾に追加される
+		/// </summary>
+		/// <param name="sprite">スプライト</param>
 		void AddSprite(class Sprite* sprite);
+
+		/// <summary>
+		/// 描画するスプライトを追加する
+		/// 末尾に追加される
+		/// </summary>
+		/// <param name="sprite">スプライト</param>
 		void AddSprite(std::shared_ptr<class Sprite> sprite);
 
+		/// <summary>
+		/// 描画するスプライトを指定されたインデックスのスプライトに変更する
+		/// </summary>
+		/// <param name="index">描画するスプライトのインデックス</param>
 		void ChangeRenderSprite(size_t index);
 
+		/// <summary>
+		/// スプライトの描画モードを設定する
+		/// </summary>
+		/// <param name="drawMode"></param>
 		void SetDrawMode(SPRITE_DRAW_MODE drawMode);
 
 		/// <summary>
@@ -52,6 +89,9 @@ namespace Framework
 		Utility::RESULT CreateRootSignature(ID3D12Device& device);
 
 	private:
+		/// <summary>
+		/// シェーダーに渡す定数バッファのインデックス
+		/// </summary>
 		enum class CONSTANT_BUFFER_INDEX
 		{
 			TRANSFORM = 0,
@@ -64,11 +104,10 @@ namespace Framework
 		std::shared_ptr<DX12Wrapper::RootSignature> m_rootSignature = nullptr;
 		std::shared_ptr<DX12Wrapper::GraphicsPipelineState> m_pipelineState = nullptr;
 		std::shared_ptr<DX12Wrapper::ConstantBuffer> m_drawModeBuffer = nullptr;
-		std::vector<std::shared_ptr<class Sprite>> m_sprites;
 
-		size_t m_currentSpriteIndex = 0;
-		UINT m_layer = 0;
-
-		SPRITE_DRAW_MODE m_drawMode = SPRITE_DRAW_MODE::GAMEOBJECT;
+		std::vector<std::shared_ptr<class Sprite>> m_sprites;	    // 描画するスプライト
+		size_t m_currentSpriteIndex = 0;	                        // 現在描画中のスプライトのインデックス
+		UINT m_layer = 0;	                                        // 描画順を制御するレイヤー
+		SPRITE_DRAW_MODE m_drawMode = SPRITE_DRAW_MODE::GAMEOBJECT;	// スプライトの描画モード
 	};
 }
