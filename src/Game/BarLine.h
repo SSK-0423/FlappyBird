@@ -4,6 +4,9 @@
 
 namespace FlappyBird
 {
+	/// <summary>
+	/// 小節線の種類
+	/// </summary>
 	enum class BARLINETYPE
 	{
 		WHOLE,
@@ -11,6 +14,9 @@ namespace FlappyBird
 		EIGHTH,
 	};
 
+	/// <summary>
+	/// 小節線のコンポーネント
+	/// </summary>
 	class BarLine : public Framework::IComponent
 	{
 	public:
@@ -33,12 +39,12 @@ namespace FlappyBird
 		static void SetJudgeLineX(float judgeLineX);
 	private:
 		Framework::Transform2D* m_transform = nullptr;
-		float m_timing = 0.0f;
+		float m_timing = 0.0f;	        // この小節線のタイミング
 		bool m_canPlaySE = true;
 
 		void UpdatePosition();
 
-		static float m_judgeLineX;
-		static float m_currentPlayTime;
+		static float m_judgeLineX;	    // 判定ラインのX座標
+		static float m_currentPlayTime;	// 現在の再生時間
 	};
 }

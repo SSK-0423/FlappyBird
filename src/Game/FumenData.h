@@ -3,6 +3,9 @@
 
 namespace FlappyBird
 {
+	/// <summary>
+	/// •ˆ–Ê‚Ìî•ñ‚ğŠi”[‚·‚éƒNƒ‰ƒX
+	/// </summary>
 	class FumenData
 	{
 	public:

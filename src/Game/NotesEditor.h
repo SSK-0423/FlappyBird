@@ -44,6 +44,7 @@ namespace FlappyBird
 		/// <param name="viewportWidth">ビューポートの横幅</param>
 		/// <returns>targetPosX座標に最も近い小節線のタイミング</returns>
 		float CalcNotesTiming(LONG targetPosX, float viewportWidth);
+
 		bool IsInsideViewport(POINT mousePos, CD3DX12_VIEWPORT viewport);
 
 		BarManager* m_barManager = nullptr;
@@ -57,7 +58,7 @@ namespace FlappyBird
 		Framework::SoundClip* m_deleteNotesSound = nullptr;
 		Framework::SoundClip* m_cannotPutNotesSound = nullptr;
 
-		float m_judgeLineX;
-		bool m_isStartedEdit = false;
+		float m_judgeLineX;				// 判定ラインのX座標
+		bool m_isStartedEdit = false;	// 譜面制作が開始されているかどうか
 	};
 }

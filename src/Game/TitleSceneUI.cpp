@@ -2,6 +2,7 @@
 #include "TitleSceneUI.h"
 #include "TitleScene.h"
 
+#include "FlappyBird.h"
 #include "PleaseClickText.h"
 #include "DX12Wrapper/Dx12GraphicsEngine.h"
 
@@ -50,7 +51,7 @@ namespace FlappyBird
 		singlePlayButton->SetTexture(L"res/texture/game_start_button.png");
 		singlePlayButton->SetPosition({ windowSize.cx / 2.f, windowSize.cy / 2.f });
 		singlePlayButton->SetScale({ 300.f, 300.f / 4.f });
-		singlePlayButton->SetLayer(static_cast<UINT>(TITLE_SCENE_LAYER::UI));
+		singlePlayButton->SetLayer(static_cast<UINT>(SPRITE_LAYER::UI));
 		singlePlayButton->SetOnClick([]() {SceneManager::SetNextScene("MusicSelect"); });
 		m_gameModeButtons.push_back(singlePlay);
 
@@ -61,7 +62,7 @@ namespace FlappyBird
 		notesEditButton->SetTexture(L"res/texture/notes_edit_button.png");
 		notesEditButton->SetPosition({ windowSize.cx / 2.f, windowSize.cy / 2.f + 100.f });
 		notesEditButton->SetScale({ 300.f, 300.f / 4.f });
-		notesEditButton->SetLayer(static_cast<UINT>(TITLE_SCENE_LAYER::UI));
+		notesEditButton->SetLayer(static_cast<UINT>(SPRITE_LAYER::UI));
 		notesEditButton->SetOnClick([]() {SceneManager::SetNextScene("NotesEdit"); });
 		m_gameModeButtons.push_back(notesEdit);
 

@@ -3,12 +3,9 @@
 
 namespace FlappyBird
 {
-	enum class NOTESEDIT_SCENE_LAYER
-	{
-		UI,
-		BACKGROUND,
-	};
-
+	/// <summary>
+	/// ノーツエディットシーン
+	/// </summary>
 	class NotesEditScene : public Framework::Scene
 	{
 	public:

@@ -68,10 +68,9 @@ namespace Framework
 		float GetCurrentPlayTime();
 
 		/// <summary>
-		/// サウンドを指定ミリ秒進める
-		/// 巻き戻したい場合は負数を指定する
+		/// サウンドの再生位置を指定秒動かす
 		/// </summary>
-		/// <param name="timeMs">進める時間(ミリ秒)</param>
+		/// <param name="timeMs">何秒分動かすか</param>
 		void Move(float timeMs);
 
 		/// <summary>
