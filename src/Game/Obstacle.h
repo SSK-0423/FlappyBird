@@ -4,6 +4,9 @@
 
 namespace FlappyBird
 {
+	/// <summary>
+	/// 障害物(ノーツ)コンポーネント
+	/// </summary>
 	class Obstacle : public Framework::IComponent
 	{
 	public:
@@ -13,8 +16,6 @@ namespace FlappyBird
 		void Update(float deltaTime) override;
 		void Draw() override;
 		void DrawInspector() override;
-
-		void SetMoveSpeed(float moveSpeedX, float moveSpeedY);
 
 		void SetTiming(float timing);
 		float GetTiming();
@@ -31,9 +32,6 @@ namespace FlappyBird
 		static void SetCurrentPlayTime(float currentPlayTime);
 
 	private:
-		float m_moveSpeedX = 0.0f;
-		float m_moveSpeedY = 0.0f;
-
 		float m_timing = 0.0f;
 		float m_posY = 0.0f;
 

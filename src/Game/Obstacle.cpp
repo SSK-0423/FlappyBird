@@ -95,11 +95,6 @@ namespace FlappyBird
 			ImGui::Text("Timing: %f", m_timing);
 		}
 	}
-	void Obstacle::SetMoveSpeed(float moveSpeedX, float moveSpeedY)
-	{
-		m_moveSpeedX = moveSpeedX;
-		m_moveSpeedY = moveSpeedY;
-	}
 	void Obstacle::SetTiming(float timing)
 	{
 		m_timing = timing;

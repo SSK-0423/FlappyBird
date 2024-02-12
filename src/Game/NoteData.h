@@ -2,6 +2,9 @@
 
 namespace FlappyBird
 {
+	/// <summary>
+	/// ノーツのデータ
+	/// </summary>
 	struct NoteData
 	{
 		float timing;

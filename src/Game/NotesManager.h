@@ -7,6 +7,9 @@ namespace FlappyBird
 	class Obstacle;
 	class MusicPlayer;
 
+	/// <summary>
+	/// ノーツを管理するクラス
+	/// </summary>
 	class NotesManager : public Framework::IComponent
 	{
 	public:
@@ -22,26 +25,49 @@ namespace FlappyBird
 		bool DeleteNotes(NoteData data);
 
 		std::vector<NoteData>& GetNotes();
+
+		/// <summary>
+		/// 譜面ファイルから読み込んだノーツをセットする
+		/// </summary>
+		/// <param name="notes"></param>
 		void SetNotes(const std::vector<NoteData>& notes);
 
+		/// <summary>
+		/// 全ノーツをSE再生可能にする
+		/// </summary>
 		void ResetCanPlaySE();
+
+		/// <summary>
+		/// 全ノーツを削除する
+		/// </summary>
 		void DeleteAllNotes();
 
-		Framework::Subject<Framework::NotificationEvent> OnReachedJudgeLine;
+		Framework::Subject<Framework::NotificationEvent> OnReachedJudgeLine;	// ノーツが判定ラインに到達したときのイベント
 
 	private:
-		std::vector<NoteData> m_notes;
-		std::vector<Obstacle*> m_noteObstacles;
+		std::vector<NoteData> m_notes;	        // データのみのノーツリスト
+		std::vector<Obstacle*> m_noteObstacles;	// ノーツの描画オブジェクトリスト
 
 		MusicPlayer* m_musicPlayer = nullptr;
 
-		float m_currentPlayTime = 0.0f;
-		float m_judgeLineX = 0.0f;
+		float m_currentPlayTime = 0.0f;	        // 現在の再生時間
+		float m_judgeLineX = 0.0f;	            // 判定ラインのX座標
 
-		const float TIMING_OFFSET = 100.0f;
+		const float TIMING_OFFSET = 100.0f;	    // ノーツのアクティブ判定のタイミングオフセット
 
+		/// <summary>
+		/// MusicPlayerの再生時間を取得し、Obstacleの再生時間に反映させる
+		/// </summary>
 		void UpdateCurrentPlayTime();
+
+		/// <summary>
+		/// ノーツのアクティブ状態を更新する
+		/// </summary>
 		void UpdateNoteActive();
+
+		/// <summary>
+		/// ノーツのSEを再生する
+		/// </summary>
 		void PlayNoteSound();
 	};
 }
