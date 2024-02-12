@@ -5,6 +5,10 @@
 
 namespace Framework
 {
+	/// <summary>
+	/// ゲーム中に存在する全オブジェクトの基底クラス
+	/// このオブジェクトにコンポーネントを追加して、ゲームを構成するオブジェクトを作成する
+	/// </summary>
 	class Object
 	{
 	public:
@@ -15,6 +19,11 @@ namespace Framework
 			m_children.clear();
 		}
 
+		/// <summary>
+		/// 対象コンポーネントを取得する
+		/// </summary>
+		/// <typeparam name="T">IComponentインターフェースを実装したクラス</typeparam>
+		/// <returns>既にアタッチされている：コンポーネント アタッチされていない：nullptr</returns>
 		template<class T>
 		T* GetComponent()
 		{
@@ -27,6 +36,13 @@ namespace Framework
 			return nullptr;
 		}
 
+		/// <summary>
+		/// 対象コンポーネントを追加する
+		/// 同じコンポーネントを複数アタッチすることは不可能
+		/// </summary>
+		/// <typeparam name="T">IComponentインターフェースを実装したクラス</typeparam>
+		/// <param name="owner">既にアタッチされている：nullptr アタッチされていない：コンポーネント</param>
+		/// <returns></returns>
 		template<class T>
 		T* AddComponent(const std::shared_ptr<Object>& owner)
 		{
@@ -49,8 +65,24 @@ namespace Framework
 		void SetActive(bool isActive);
 		bool GetActive();
 
+		/// <summary>
+		/// オブジェクトの削除フラグを立てる
+		/// この関数を読んだ時点では削除されない
+		/// この関数を読んだフレームの終わりで削除される
+		/// </summary>
 		void Destroy();
+
+		/// <summary>
+		/// 削除フラグが立っているかどうかを返す
+		/// </summary>
+		/// <returns></returns>
 		bool ShouldDestroy();
+
+		/// <summary>
+		/// 子オブジェクトの削除フラグが立っているかどうかを返す
+		/// 葉まで再帰的に呼び出す
+		/// </summary>
+		/// <returns></returns>
 		bool ShouldDestroyChild();
 
 		void SetName(std::string name);
@@ -59,14 +91,49 @@ namespace Framework
 		void SetTag(std::string tag);
 		const std::string GetTag();
 
+		/// <summary>
+		/// 子オブジェクトとして追加する
+		/// この関数を呼ぶ時、ObjectManager::CreateObject()で作成したオブジェクトは渡さないこと
+		/// </summary>
+		/// <param name="child"></param>
 		void AddChild(Object* child);
+
+		/// <summary>
+		/// 子オブジェクトとして追加する
+		/// この関数を呼ぶ時、ObjectManager::CreateObject()で作成したオブジェクトは渡さないこと
+		/// </summary>
+		/// <param name="child"></param>
 		void AddChild(const std::shared_ptr<Object>& child);
+
+		/// <summary>
+		/// 子オブジェクトの削除フラグを立てる
+		/// </summary>
+		/// <param name="child"></param>
 		void RemoveChild(Object* child);
+
+		/// <summary>
+		/// 子オブジェクトの削除フラグを立てる
+		/// </summary>
+		/// <param name="child"></param>
 		void RemoveChild(const std::shared_ptr<Object>& child);
 
+		/// <summary>
+		/// index番目の子オブジェクトを取得する
+		/// </summary>
+		/// <param name="index">インデックス</param>
+		/// <returns></returns>
 		std::shared_ptr<Object>& GetChild(size_t index);
 
+		/// <summary>
+		/// 全子オブジェクトを取得する
+		/// </summary>
+		/// <returns></returns>
 		const std::list<std::shared_ptr<Object>>& GetChildren();
+
+		/// <summary>
+		/// 全子オブジェクトを削除する
+		/// 削除フラグを立てる
+		/// </summary>
 		void RemoveAllChildren();
 
 		const std::string GetUUID();
@@ -78,11 +145,14 @@ namespace Framework
 		std::string m_name = "Object";
 		std::string m_tag = "None";
 		std::string m_uuid;
-		bool m_isActive = true;
-		bool m_isStarted = false;
-		bool m_isDestroy = false;
-		bool m_isDestroyChild = false;
+		bool m_isActive = true;		// オブジェクトがアクティブかどうか
+		bool m_isStarted = false;	// Start関数が呼ばれたかどうか
+		bool m_isDestroy = false;	// オブジェクトが削除されるかどうか
+		bool m_isDestroyChild = false;	// 子オブジェクトが削除されるかどうか
 
+		/// <summary>
+		/// 再帰的にたどって親オブジェクトの「子オブジェクト削除フラグ」を立てる
+		/// </summary>
 		void DestroyChild();
 	};
 

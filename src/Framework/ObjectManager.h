@@ -4,6 +4,10 @@ namespace Framework
 {
 	class Object;
 
+	/// <summary>
+	/// オブジェクトの管理クラス
+	/// </summary>
+	/// <typeparam name="T">Object型を継承している必要がある</typeparam>
 	template<class T>
 	class ObjectManager
 	{
@@ -13,12 +17,33 @@ namespace Framework
 		static void FixedUpdate(float interval);
 		static void LateUpdate(float deltaTime);
 
+		/// <summary>
+		/// 新規ルートオブジェクトを生成する
+		/// </summary>
 		static std::shared_ptr<T> CreateObject();
 
+		/// <summary>
+		/// 全ルートオブジェクトを取得する
+		/// </summary>
+		/// <returns></returns>
 		static std::list<std::shared_ptr<T>>& GetAllObject();
 
-		//static std::shared_ptr<T> FindObject(std::string name);
+		/// <summary>
+		/// 名前でオブジェクトを検索する
+		/// 検索対象はルートのオブジェクトのみ
+		/// 対象が見つからない場合はnullptrを返す
+		/// </summary>
+		/// <param name="name">検索対象の名前</param>
+		/// <returns>発見した：オブジェクト 未発見：nullptr</returns>
 		static std::shared_ptr<T> FindObject(std::string name);
+
+		/// <summary>
+		/// UUIDでオブジェクトを検索する
+		/// 検索対象はルートのオブジェクトのみ
+		/// 対象が見つからない場合はnullptrを返す
+		/// </summary>
+		/// <param name="uuid">検索対象のUUID</param>
+		/// <returns>発見した：オブジェクト 未発見：nullptr</returns>
 		static std::shared_ptr<T> FindObjectWithUUID(std::string uuid);
 
 		static void Reset();
@@ -66,6 +91,7 @@ namespace Framework
 		// 削除フラグが立っている子オブジェクトを削除
 		for (auto& object : m_objects)
 		{
+			// 削除対象の子オブジェクトを再帰的に辿って削除
 			if (object->ShouldDestroyChild())
 			{
 				object->LateUpdate(deltaTime);
