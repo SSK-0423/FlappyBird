@@ -35,8 +35,6 @@ namespace DX12Wrapper
 	DepthStencilBuffer Dx12GraphicsEngine::m_depthStencilBuffer;
 	DescriptorHeapDSV Dx12GraphicsEngine::m_dsvHeap;
 
-	DescriptorHeapCBV_SRV_UAV Dx12GraphicsEngine::m_imguiHeap;
-
 	DirectX::GraphicsMemory* Dx12GraphicsEngine::m_graphicsMemory = nullptr;
 
 	CD3DX12_VIEWPORT Dx12GraphicsEngine::m_viewport;
@@ -74,9 +72,6 @@ namespace DX12Wrapper
 
 		// フレームバッファ―(最終レンダリング先)生成
 		if (CreateFrameRenderTarget() == Utility::RESULT::FAILED) { return Utility::RESULT::FAILED; }
-
-		// Imgui用のヒープ生成
-		if (CreateImguiDescriptorHeap() == Utility::RESULT::FAILED) { return Utility::RESULT::FAILED; }
 
 		// レンダリングコンテキストの初期化
 		m_renderContext.Init(*m_cmdList.Get());
@@ -288,9 +283,6 @@ namespace DX12Wrapper
 
 	void Dx12GraphicsEngine::EndDraw()
 	{
-		// Imguiの描画
-		m_renderContext.SetDescriptorHeap(m_imguiHeap);
-
 		// 描画対象のバッファーを示すインデックス取得
 		auto bbIdx = m_swapchain->GetCurrentBackBufferIndex();
 
@@ -379,12 +371,6 @@ namespace DX12Wrapper
 
 		return Utility::RESULT::SUCCESS;
 	}
-
-	Utility::RESULT Dx12GraphicsEngine::CreateImguiDescriptorHeap()
-	{
-		return m_imguiHeap.Create(*m_device.Get());
-	}
-
 	DX12Wrapper::RenderingContext& Dx12GraphicsEngine::GetRenderingContext()
 	{
 		return m_renderContext;
@@ -437,14 +423,6 @@ namespace DX12Wrapper
 			m_frameBuffers[idx].Release();
 		}
 
-		// ビューポート更新
-		//float widthRatio = static_cast<float>(width) / m_windowWidth;
-		//float heightRatio = static_cast<float>(height) / m_windowHeight;
-		//m_viewport = CD3DX12_VIEWPORT(
-		//	0.f, 0.f,
-		//	static_cast<float>(m_viewport.Width * widthRatio),
-		//	static_cast<float>(m_viewport.Height * heightRatio));
-
 		// ウィンドウサイズ更新
 		m_windowWidth = width;
 		m_windowHeight = height;
@@ -465,8 +443,6 @@ namespace DX12Wrapper
 			m_frameBuffers[idx].Create(*m_device.Get(), *m_swapchain.Get(), idx);
 			m_frameHeap.RegistDescriptor(*m_device.Get(), m_frameBuffers[idx], DXGI_FORMAT_R8G8B8A8_UNORM_SRGB, false, idx);
 		}
-
-		//m_scissorRect = CD3DX12_RECT(0, 0, width, height);
 	}
 	Dx12GraphicsEngine::~Dx12GraphicsEngine()
 	{

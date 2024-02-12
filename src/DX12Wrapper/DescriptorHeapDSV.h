@@ -13,7 +13,7 @@ namespace DX12Wrapper
 	class DepthStencilBuffer;
 
 	/// <summary>
-	/// デプスステンシル用ディスクリプタヒープのラッパークラス
+	/// デプスステンシル用ディスクリプタヒープクラス
 	/// </summary>
 	class DescriptorHeapDSV
 	{

@@ -171,8 +171,6 @@ namespace DX12Wrapper
 		static DX12Wrapper::DepthStencilBuffer m_depthStencilBuffer;		    // デプスステンシルバッファー
 		static DX12Wrapper::DescriptorHeapDSV m_dsvHeap;					    // デプスステンシル用ヒープ
 
-		static DX12Wrapper::DescriptorHeapCBV_SRV_UAV m_imguiHeap;
-
 		// フォントレンダリング関連
 		static DirectX::GraphicsMemory* m_graphicsMemory;
 
