@@ -9,6 +9,9 @@ namespace DX12Wrapper
 
 namespace FlappyBird
 {
+	/// <summary>
+	/// ゲームオブジェクトを描画するパス
+	/// </summary>
 	class RenderObjectPass
 	{
 	public:
@@ -16,9 +19,17 @@ namespace FlappyBird
 		~RenderObjectPass();
 
 		Utility::RESULT Init();
-		void Resize(UINT width, UINT height);
 
+		/// <summary>
+		/// ゲームオブジェクトを描画する
+		/// </summary>
+		/// <param name="gameObjects">ゲームオブジェクト</param>
 		void Render(const std::list<std::shared_ptr<Framework::GameObject>>& gameObjects);
+		
+		/// <summary>
+		/// ゲームオブジェクトの描画結果を取得する
+		/// </summary>
+		/// <returns></returns>
 		DX12Wrapper::Texture& GetRenderTexture();
 
 	private:

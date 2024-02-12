@@ -5,6 +5,9 @@
 
 namespace FlappyBird
 {
+	/// <summary>
+	/// FlappyBird‚ÌƒŒƒ“ƒ_ƒ‰[
+	/// </summary>
 	class Renderer : public Framework::IRenderer
 	{
 	public:

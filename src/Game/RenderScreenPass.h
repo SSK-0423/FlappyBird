@@ -13,6 +13,9 @@ namespace DX12Wrapper
 
 namespace FlappyBird
 {
+	/// <summary>
+	/// フレームバッファ―への描画を行うパス
+	/// </summary>
 	class RenderScreenPass
 	{
 	public:
@@ -23,6 +26,10 @@ namespace FlappyBird
 
 		void Render();
 
+		/// <summary>
+		/// これまでの描画結果をセットする
+		/// </summary>
+		/// <param name="texture">これまでの描画結果</param>
 		void SetRenderTexture(DX12Wrapper::Texture& texture);
 
 	private:
