@@ -3,12 +3,9 @@
 
 namespace FlappyBird
 {
-	enum class TITLE_SCENE_LAYER
-	{
-		UI,
-		BACKGROUND,
-	};
-
+	/// <summary>
+	/// タイトルシーンクラス
+	/// </summary>
 	class TitleScene : public Framework::Scene
 	{
 	public:

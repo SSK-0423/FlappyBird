@@ -77,9 +77,9 @@ namespace FlappyBird
 	{
 		return m_music->GetCurrentPlayTime() * 1000.f;
 	}
-	void MusicPlayer::Seek(float timeSec)
+	void MusicPlayer::Move(float timeSec)
 	{
-		m_music->Seek(timeSec);
+		m_music->Move(timeSec);
 	}
 	bool MusicPlayer::IsPlaying()
 	{

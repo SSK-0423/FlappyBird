@@ -3,6 +3,9 @@
 
 namespace FlappyBird
 {
+	/// <summary>
+	/// このゲームにおけるスプライトのレイヤー
+	/// </summary>
 	enum SPRITE_LAYER
 	{
 		UI = 0,
@@ -12,6 +15,9 @@ namespace FlappyBird
 		BACKGROUND = 4,
 	};
 
+	/// <summary>
+	/// ゲームの実装クラス
+	/// </summary>
 	class FlappyBird : public Framework::GameImpl
 	{
 	public:

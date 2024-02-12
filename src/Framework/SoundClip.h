@@ -72,7 +72,7 @@ namespace Framework
 		/// 巻き戻したい場合は負数を指定する
 		/// </summary>
 		/// <param name="timeMs">進める時間(ミリ秒)</param>
-		void Seek(float timeMs);
+		void Move(float timeMs);
 
 		/// <summary>
 		/// 読み込んだサウンドの再生が終了しているかどうか
@@ -102,7 +102,7 @@ namespace Framework
 		const wchar_t* m_soundname;
 		IXAudio2SourceVoice* m_sourceVoice;
 
-		INT64 m_samplesPlayed;	    // Seekも考慮した再生済みサンプル数　再生位置の指定にはこの数値を用いる
+		INT64 m_samplesPlayed;	    // Moveも考慮した再生済みサンプル数　再生位置の指定にはこの数値を用いる
 		UINT64 m_totalSamples;	    // サウンドの総サンプル数
 		INT64 m_startSamplesPlayed;	// Playが呼ばれた時のXAUDIO2_VOICE_STATEから取得したサンプル数
 		bool m_isPaused;	        // 一時停止中かどうか

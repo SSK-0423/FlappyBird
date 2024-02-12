@@ -224,7 +224,7 @@ namespace Framework
 
 		return (float)playedSampleNum / sampleRate;
 	}
-	void SoundClip::Seek(float timeSec)
+	void SoundClip::Move(float timeSec)
 	{
 		if (m_sourceVoice == nullptr)
 		{

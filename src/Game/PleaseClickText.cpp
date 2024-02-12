@@ -10,7 +10,7 @@ namespace FlappyBird
 {
 	PleaseClickText::PleaseClickText(std::shared_ptr<Object> owner)
 		: IComponent(owner), m_isClicked(false), m_elapsedBlinkTime(0.f), m_elapsedWaitTime(0.f),
-		m_waitSoundTime(2.5f), m_blinkAnimationInterval(0.5f), m_backgroundSound(nullptr), m_currentColorIndex(0)
+		m_waitSoundTime(2.5f), m_blinkAnimationInterval(0.5f), m_currentColorIndex(0)
 	{
 		m_colors.resize(2);
 		m_colors[0] = DirectX::Colors::Black;

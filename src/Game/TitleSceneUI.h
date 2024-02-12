@@ -4,6 +4,9 @@
 
 namespace FlappyBird
 {
+	/// <summary>
+	/// タイトルシーンのUIを管理するコンポーネント
+	/// </summary>
 	class TitleSceneUI : public Framework::IComponent
 	{
 	public:
@@ -14,7 +17,12 @@ namespace FlappyBird
 		void Draw() override;
 
 	private:
-		std::vector<std::shared_ptr<Framework::UIObject>> m_gameModeButtons;
+		std::vector<std::shared_ptr<Framework::UIObject>> m_gameModeButtons;	// ゲームモード選択ボタン
+
+		/// <summary>
+		/// ゲームモード選択ボタンを表示する
+		/// </summary>
+		/// <param name="e"></param>
 		void ShowGameModeButtons(Framework::NotificationEvent e);
 	};
 }
