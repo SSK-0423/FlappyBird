@@ -95,11 +95,14 @@ namespace FlappyBird
 			return;
 		}
 
+#ifdef _DEBUG
+#else
 		// 編集ウィンドウ上にマウスがあるかどうかを判定
 		if (ImGui::GetIO().WantCaptureMouse)
 		{
 			return;
 		}
+#endif // _DEBUG
 
 		// 障害物の位置を更新
 		Obstacle::SetCurrentPlayTime(m_musicPlayer->GetCurrentPlayTimeMs());

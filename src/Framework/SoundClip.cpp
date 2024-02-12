@@ -13,7 +13,7 @@ namespace Framework
 {
 	SoundClip::SoundClip(std::shared_ptr<Object> owner) :
 		IComponent(owner), m_soundname(nullptr), m_sourceVoice(nullptr), m_isPaused(false),
-		m_restartSamplesPlayed(0), m_isEnd(false), m_samplesPlayed(0), m_totalSamples(0)
+		m_isEnd(false), m_samplesPlayed(0), m_totalSamples(0)
 	{
 	}
 	SoundClip::~SoundClip()
@@ -30,7 +30,6 @@ namespace Framework
 		m_isPaused = false;
 		m_isEnd = false;
 		m_samplesPlayed = 0;
-		m_restartSamplesPlayed = 0;
 		m_startSamplesPlayed = 0;
 		m_totalSamples = 0;
 
@@ -65,7 +64,6 @@ namespace Framework
 				ImGui::Text("SamplesPlayed: %d", state.SamplesPlayed);
 				ImGui::Text("My SamplesPlayed: %d", m_samplesPlayed);
 				ImGui::Text("StartSamplesPlayed: %d", m_startSamplesPlayed);
-				ImGui::Text("RestartSamplesPlayed: %d", m_restartSamplesPlayed);
 				ImGui::Text("BuffersQueued: %d", state.BuffersQueued);
 				ImGui::Text("CurrentPlayTime: %f", GetCurrentPlayTime());
 				ImGui::Text("IsPaused: %s", m_isPaused ? "true" : "false");
@@ -104,7 +102,6 @@ namespace Framework
 		if (startTimeSec == 0.f)
 		{
 			m_samplesPlayed = 0;
-			m_restartSamplesPlayed = state.SamplesPlayed;
 		}
 		m_startSamplesPlayed = state.SamplesPlayed;
 

@@ -8,6 +8,9 @@
 
 namespace Framework
 {
+	/// <summary>
+	/// サウンドの再生・停止などを行うクラス
+	/// </summary>
 	class SoundClip : public IComponent, IXAudio2VoiceCallback
 	{
 	public:
@@ -15,7 +18,12 @@ namespace Framework
 		~SoundClip();
 
 	public:
-		// サウンドデータの設定
+		/// <summary>
+		/// WAV形式のサウンドを読み込む
+		/// </summary>
+		/// <param name="filename">wavファイルへのパス</param>
+		/// <param name="isLoop">ループ再生するかどうか</param>
+		/// <returns>SUCCESS:成功 FAILED：失敗</returns>
 		Utility::RESULT LoadWavSound(const wchar_t* filename, bool isLoop = false);
 
 		void Update(float deltaTime) override;
@@ -23,20 +31,53 @@ namespace Framework
 		void DrawInspector() override;
 
 		/// <summary>
-		/// サウンド再生
+		/// 読み込んだサウンドを再生する
 		/// </summary>
-		/// <param name="wait">音の再生が終了するまで待つか</param>
+		/// <param name="volume">音量</param>
+		/// <param name="startTimeSec">再生開始する位置(負数・サウンドの長さを超える数値はエラーとなる)</param>
+		/// <param name="wait">再生が終わるまで待つかどうか</param>
 		void Play(float volume = 0.1f, float startTimeSec = 0.f, bool wait = false);
 
+		/// <summary>
+		/// 再生を止める
+		/// </summary>
+		/// <param name="isPause">一時停止かどうか</param>
 		void Stop(bool isPause = false);
 
+		/// <summary>
+		/// 現在のループの再生が終わったら再生を終了する
+		/// </summary>
 		void ExitLoop();
 
+		/// <summary>
+		/// 音量セット
+		/// </summary>
+		/// <param name="volume">音量</param>
 		void SetVolume(float volume);
 
+		/// <summary>
+		/// サウンドの長さを秒単位で取得する
+		/// </summary>
+		/// <returns>サウンドが読み込まれていない：0.0f それ以外：サウンドの長さ(秒)</returns>
 		float GetLength();
+
+		/// <summary>
+		/// 現在の再生位置をミリ秒単位で取得する
+		/// </summary>
+		/// <returns>サウンドが読み込まれていない：-1.0f それ以外：現在の再生位置(ミリ秒)</returns>
 		float GetCurrentPlayTime();
+
+		/// <summary>
+		/// サウンドを指定ミリ秒進める
+		/// 巻き戻したい場合は負数を指定する
+		/// </summary>
+		/// <param name="timeMs">進める時間(ミリ秒)</param>
 		void Seek(float timeMs);
+
+		/// <summary>
+		/// 読み込んだサウンドの再生が終了しているかどうか
+		/// </summary>
+		/// <returns>true:終了 false：まだ</returns>
 		bool IsEnd();
 
 		// IXAudio2VoiceCallback
@@ -60,12 +101,11 @@ namespace Framework
 	private:
 		const wchar_t* m_soundname;
 		IXAudio2SourceVoice* m_sourceVoice;
-		INT64 m_samplesPlayed;
-		UINT64 m_totalSamples;
-		INT64 m_startSamplesPlayed;
-		INT64 m_endSamplesPlayed;
-		UINT64 m_restartSamplesPlayed;
-		bool m_isPaused;
-		bool m_isEnd;
+
+		INT64 m_samplesPlayed;	    // Seekも考慮した再生済みサンプル数　再生位置の指定にはこの数値を用いる
+		UINT64 m_totalSamples;	    // サウンドの総サンプル数
+		INT64 m_startSamplesPlayed;	// Playが呼ばれた時のXAUDIO2_VOICE_STATEから取得したサンプル数
+		bool m_isPaused;	        // 一時停止中かどうか
+		bool m_isEnd;	            // 再生が終了しているかどうか
 	};
 }
