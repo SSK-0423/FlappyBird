@@ -40,6 +40,7 @@ namespace FlappyBird
 		float m_judgeLineX;	                // 判定ラインのX座標
 
 		const float TIMING_OFFSET = 100.0f;	// 小節線をアクティブにするタイミングのオフセット
+		const float SOUND_NUM_IN_BAR = 8.0f;		// 1小節に含まれる音の数
 
 		/// <summary>
 		/// MusicPlayerから受け取った現在の再生時間をBarLineに反映する

@@ -54,6 +54,7 @@ namespace FlappyBird
 		float m_judgeLineX = 0.0f;	            // 判定ラインのX座標
 
 		const float TIMING_OFFSET = 100.0f;	    // ノーツのアクティブ判定のタイミングオフセット
+		const float PLAY_SE_TIMING_RANGE = 16.67f;	// ノーツのSE再生のタイミング範囲
 
 		/// <summary>
 		/// MusicPlayerの再生時間を取得し、Obstacleの再生時間に反映させる

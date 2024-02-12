@@ -215,7 +215,7 @@ namespace FlappyBird
 			float diff = note->GetTiming() - currentPlayTime;
 
 			// 判定タイミングを超えたらSEを再生
-			if (std::abs(diff) <= 16.67f)
+			if (std::abs(diff) <= PLAY_SE_TIMING_RANGE)
 			{
 				// 以下の条件に合致する場合、SEを再生
 				// アクティブである

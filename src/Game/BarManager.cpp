@@ -13,7 +13,7 @@ using namespace DX12Wrapper;
 
 namespace FlappyBird
 {
-	BarManager::BarManager(std::shared_ptr<Object> owner) : IComponent(owner)
+	BarManager::BarManager(std::shared_ptr<Object> owner) : IComponent(owner), m_judgeLineX(0.f)
 	{
 		SoundClip* soundClip = m_owner.lock()->AddComponent<SoundClip>(m_owner.lock());
 		soundClip->LoadWavSound(L"res/sound/clap.wav");
@@ -62,7 +62,7 @@ namespace FlappyBird
 
 		for (unsigned int i = 0; i < barNum; i++)
 		{
-			for (unsigned int j = 0; j < 8; j++)
+			for (unsigned int j = 0; j < SOUND_NUM_IN_BAR; j++)
 			{
 				std::shared_ptr<UIObject> barLineObj = std::shared_ptr<UIObject>(new UIObject());
 				barLineObj->SetName("BarLine: " + std::to_string(i) + "/" + std::to_string(j));
@@ -74,7 +74,7 @@ namespace FlappyBird
 				// 1小節の長さ = 1分(60秒) / bpm * 拍子
 				float barTimeLength = 60.0f * 1000.f / bpm * beat;
 				// 小節内のタイミングを計算
-				float timing = barTimeLength * i + (barTimeLength / 8.f) * j;
+				float timing = barTimeLength * i + (barTimeLength / SOUND_NUM_IN_BAR) * j;
 
 				// 判定ラインのタイミングを設定
 				barLine->SetTiming(timing);
