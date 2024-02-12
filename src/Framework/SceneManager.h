@@ -3,6 +3,9 @@
 
 namespace Framework
 {
+	/// <summary>
+	/// シーンの変更・更新・描画などシーンを管理するクラス
+	/// </summary>
 	class SceneManager final
 	{
 	public:

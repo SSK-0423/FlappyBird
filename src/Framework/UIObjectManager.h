@@ -4,6 +4,9 @@
 
 namespace Framework
 {
+	/// <summary>
+	/// UIオブジェクトの管理クラス
+	/// </summary>
 	class UIObjectManager final : public ObjectManager<UIObject>
 	{
 	private:

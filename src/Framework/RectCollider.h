@@ -6,6 +6,9 @@
 
 namespace Framework
 {
+	/// <summary>
+	/// 矩形データ
+	/// </summary>
 	struct Rect
 	{
 		// ピクセル単位での座標
@@ -23,6 +26,10 @@ namespace Framework
 			: x(x), y(y), width(width), height(height), isLeftUpOrigin(isLeftUpOrigin)
 		{}
 
+		/// <summary>
+		/// 矩形の中心座標を取得する
+		/// </summary>
+		/// <returns></returns>
 		DirectX::XMFLOAT2 GetCenter() const
 		{
 			// 左上が原点の場合
@@ -34,6 +41,9 @@ namespace Framework
 		}
 	};
 
+	/// <summary>
+	/// 矩形コライダー
+	/// </summary>
 	class RectCollider : public Collider
 	{
 	public:
@@ -43,6 +53,7 @@ namespace Framework
 		void Update(float deltaTime) override;
 		void Draw() override;
 		void DrawInspector() override;
+
 		void* GetColliderShape() const override;
 
 		void SetRectSize(float width, float height);

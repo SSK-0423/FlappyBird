@@ -14,19 +14,28 @@ namespace Framework
 
 	typedef BYTE KEYCODE;
 
+	/// <summary>
+	/// ボタンの押下状態
+	/// </summary>
 	enum class BUTTON_STATE {
-		DOWN,
-		UP,
-		HOLD,
+		DOWN,	// 押された瞬間
+		UP,		// 離された瞬間
+		HOLD,	// 押され続けている
 		NONE = -1,
 	};
 
+	/// <summary>
+	/// マウスのボタンの種類
+	/// </summary>
 	enum class MOUSECODE {
 		LEFT,
 		RIGHT,
 		WHEEL,
 	};
 
+	/// <summary>
+	/// デバイスからの入力を管理するクラス
+	/// </summary>
 	class InputSystem final
 	{
 	public:
@@ -34,11 +43,42 @@ namespace Framework
 
 		static void Update();
 
+		/// <summary>
+		/// 押された瞬間かどうかを取得する
+		/// </summary>
+		/// <param name="keyCode"></param>
+		/// <returns></returns>
 		static bool GetKeyDown(KEYCODE keyCode);
+
+		/// <summary>
+		/// 押されているかどうかを取得する
+		/// </summary>
+		/// <param name="keyCode"></param>
+		/// <returns></returns>
 		static bool GetKey(KEYCODE keyCode);
+
+		/// <summary>
+		/// 押された瞬間かどうかを取得する
+		/// </summary>
+		/// <param name="mouseCode"></param>
+		/// <returns></returns>
 		static bool GetMouseButtonDown(MOUSECODE mouseCode);
+
+		/// <summary>
+		/// マウスポインタの位置を取得する
+		/// </summary>
+		/// <returns></returns>
 		static POINT GetMousePosition();
+
+		/// <summary>
+		/// マウスホイールの移動量を取得する
+		/// </summary>
+		/// <returns></returns>
 		static LONG GetMouseWheelMovement();
+
+		/// <summary>
+		/// マウスカーソルを表示する
+		/// </summary>
 		static void ViewMouseCursor();
 
 	private:

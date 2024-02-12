@@ -4,6 +4,9 @@
 
 namespace Framework
 {
+	/// <summary>
+	/// シーンの基底クラス
+	/// </summary>
 	class Scene
 	{
 	public:
@@ -16,8 +19,13 @@ namespace Framework
 		virtual void LateUpdate(float deltaTime);
 		virtual void Final();
 
+		/// <summary>
+		/// シーンを映しているカメラを取得する
+		/// </summary>
+		/// <returns>カメラ</returns>
 		static const Camera& GetCamera();
 	protected:
+		// 現状、カメラは1台しか使わないのでstaticで持つ
 		static std::shared_ptr<GameObject> m_cameraObject;
 
 		float m_elapsedTime;
