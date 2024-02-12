@@ -2,6 +2,9 @@
 
 namespace Framework
 {
+	/// <summary>
+	/// ゲーム固有の処理を実装するためのインターフェース
+	/// </summary>
 	class GameImpl
 	{
 	public:

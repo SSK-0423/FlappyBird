@@ -19,7 +19,7 @@ namespace Framework
 #endif // _DEBUG
 
 	/// <summary>
-	/// ゲーム全体を管理するクラス
+	/// ゲーム全体の進行を管理するクラス
 	/// </summary>
 	class Game
 	{
@@ -29,11 +29,19 @@ namespace Framework
 		~Game() = default;
 
 	public:
-
+		/// <summary>
+		/// ゲーム全体の初期化処理
+		/// </summary>
 		void Init();
 
+		/// <summary>
+		/// ゲームループ
+		/// </summary>
 		void Run();
 
+		/// <summary>
+		/// ゲーム全体の終了処理
+		/// </summary>
 		void Final();
 
 	private:

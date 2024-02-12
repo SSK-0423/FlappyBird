@@ -80,10 +80,6 @@ namespace Framework
 		m_descriptorHeap->RegistShaderResource(device, *m_texture, desc, 0);
 
 	}
-	D3D12_GPU_DESCRIPTOR_HANDLE Sprite::GetTextureHandle() const
-	{
-		return m_descriptorHeap->GetSRVHandle(0);
-	}
 	Texture& Sprite::GetTexture() const
 	{
 		return *m_texture.get();

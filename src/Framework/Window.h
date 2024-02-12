@@ -2,6 +2,9 @@
 
 namespace Framework
 {
+	/// <summary>
+	/// ウィンドウを管理するクラス
+	/// </summary>
 	class Window
 	{
 	public:
