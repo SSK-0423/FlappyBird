@@ -5,6 +5,9 @@
 
 namespace FlappyBird
 {
+	/// <summary>
+	/// 選択された譜面データを保持するクラス
+	/// </summary>
 	class MusicSelect : public Framework::IComponent
 	{
 	public:

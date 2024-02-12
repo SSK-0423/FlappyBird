@@ -4,6 +4,9 @@
 
 namespace FlappyBird
 {
+	/// <summary>
+	/// 曲データ表示のUIコンポーネント
+	/// </summary>
 	class MusicDataFrame : public Framework::IComponent
 	{
 	public:
@@ -13,6 +16,9 @@ namespace FlappyBird
 		void Update(float deltaTime) override;
 		void Draw() override;
 
+		/// <summary>
+		/// テキストの位置をフレームに合わせる
+		/// </summary>
 		void FitTextPosition();
 	};
 }

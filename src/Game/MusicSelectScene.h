@@ -4,6 +4,9 @@
 
 namespace FlappyBird
 {
+	/// <summary>
+	/// ‹È‘I‘ğƒV[ƒ“
+	/// </summary>
 	class MusicSelectScene : public Framework::Scene
 	{
 	public:
