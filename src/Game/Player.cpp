@@ -5,6 +5,7 @@
 #include "GameMaster.h"
 #include "MusicPlayer.h"
 
+#include "FlappyBird.h"
 #include "DX12Wrapper/Dx12GraphicsEngine.h"
 
 using namespace Framework;
@@ -28,7 +29,7 @@ namespace FlappyBird
 		// スプライト追加
 		m_spriteRenderer = m_owner.lock()->AddComponent<SpriteRenderer>(m_owner.lock());
 		m_spriteRenderer->SetDrawMode(SPRITE_DRAW_MODE::GAMEOBJECT);
-		m_spriteRenderer->SetLayer(static_cast<UINT>(GAME_SCENE_LAYER::GAMEOBJECT));
+		m_spriteRenderer->SetLayer(static_cast<UINT>(SPRITE_LAYER::GAMEOBJECT));
 		m_spriteRenderer->AddSprite(m_stateSprites[STATE::JUMP]);
 		m_spriteRenderer->AddSprite(m_stateSprites[STATE::FALL]);
 		m_spriteRenderer->AddSprite(m_stateSprites[STATE::DEAD]);

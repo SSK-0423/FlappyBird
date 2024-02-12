@@ -4,6 +4,9 @@
 
 namespace FlappyBird
 {
+	/// <summary>
+	/// ゲームクリア時のUIを管理するコンポーネント
+	/// </summary>
 	class GameClearUI : public Framework::IComponent
 	{
 	public:

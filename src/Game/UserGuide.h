@@ -4,6 +4,9 @@
 
 namespace FlappyBird
 {
+	/// <summary>
+	/// 操作方法を表示するコンポーネント
+	/// </summary>
 	class UserGuide : public Framework::IComponent
 	{
 	public:

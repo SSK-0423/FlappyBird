@@ -6,6 +6,9 @@ namespace FlappyBird
 {
 	class GameMaster;
 
+	/// <summary>
+	/// スコアを管理するコンポーネント
+	/// </summary>
 	class Score : public Framework::IComponent
 	{
 	public:

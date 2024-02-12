@@ -6,6 +6,9 @@ namespace FlappyBird
 {
 	class GameMaster;
 
+	/// <summary>
+	/// プレイヤーの挙動を管理するコンポーネント
+	/// </summary>
 	class Player : public Framework::IComponent
 	{
 	public:
@@ -19,10 +22,17 @@ namespace FlappyBird
 
 		void OnCollision(Framework::Collider* other);
 
+		/// <summary>
+		/// プレイヤーが障害物に当たったかどうか
+		/// </summary>
+		/// <returns>true:衝突　false：未衝突</returns>
 		bool IsDead();
 	private:
 		GameMaster* m_gameMaster;
 
+		/// <summary>
+		/// プレイヤーの状態
+		/// </summary>
 		enum class STATE
 		{
 			FALL,
@@ -54,8 +64,11 @@ namespace FlappyBird
 		void GameReadyAnimation(float deltaTime);
 		void GameOverAnimation(float deltaTime);
 
-		// 死亡したかどうか
-		bool m_isAlive;
+		bool m_isAlive;	// 生きている(まだ障害物に当たっていない)かどうか
+
+		/// <summary>
+		/// プレイヤーが障害物に当たって死亡したときに呼ばれる
+		/// </summary>
 		void OnDead();
 	};
 }

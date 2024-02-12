@@ -4,6 +4,9 @@
 
 namespace FlappyBird
 {
+	/// <summary>
+	/// ゲーム準備時のUIを管理するコンポーネント
+	/// </summary>
 	class GameReadyUI : public Framework::IComponent
 	{
 	public:

@@ -4,6 +4,9 @@
 
 namespace FlappyBird
 {
+	/// <summary>
+	/// 背景を描画するコンポーネント
+	/// </summary>
 	class Background : public Framework::IComponent
 	{
 	public:

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "UserGuide.h"
 #include "GameScene.h"
+#include "FlappyBird.h"
 #include "DX12Wrapper/Dx12GraphicsEngine.h"
 
 using namespace Framework;
@@ -19,7 +20,7 @@ namespace FlappyBird
 
 		SpriteRenderer* spriteRenderer = m_owner.lock()->AddComponent<SpriteRenderer>(m_owner.lock());
 		spriteRenderer->SetDrawMode(SPRITE_DRAW_MODE::GUI);
-		spriteRenderer->SetLayer(static_cast<UINT>(GAME_SCENE_LAYER::UI));
+		spriteRenderer->SetLayer(static_cast<UINT>(SPRITE_LAYER::UI));
 		
 		for (auto& sprite : m_mouseSprites)
 		{

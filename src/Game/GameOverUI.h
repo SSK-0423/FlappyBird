@@ -4,6 +4,9 @@
 
 namespace FlappyBird
 {
+	/// <summary>
+	/// ゲームオーバー時のUIを管理するコンポーネント
+	/// </summary>
 	class GameOverUI : public Framework::IComponent
 	{
 	public:

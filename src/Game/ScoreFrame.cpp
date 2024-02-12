@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "ScoreFrame.h"
 #include "GameScene.h"
+#include "FlappyBird.h"
 #include "DX12Wrapper/Dx12GraphicsEngine.h"
 
 using namespace Framework;
@@ -18,7 +19,7 @@ namespace FlappyBird
 		SpriteRenderer* spriteRenderer = m_owner.lock()->AddComponent<SpriteRenderer>(m_owner.lock());
 		spriteRenderer->SetSprite(sprite);
 		spriteRenderer->SetDrawMode(SPRITE_DRAW_MODE::GUI);
-		spriteRenderer->SetLayer(static_cast<UINT>(GAME_SCENE_LAYER::UI));
+		spriteRenderer->SetLayer(static_cast<UINT>(SPRITE_LAYER::UI));
 
 		Transform2D* transform = m_owner.lock()->GetComponent<Transform2D>();
 		transform->position = { viewportSize.Width / 2.0f - 75.f, 0.f };

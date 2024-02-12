@@ -4,6 +4,9 @@
 
 namespace FlappyBird
 {
+	/// <summary>
+	/// スコアを描画するフレーム
+	/// </summary>
 	class ScoreFrame : public Framework::IComponent
 	{
 	public:
