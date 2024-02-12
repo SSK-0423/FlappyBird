@@ -12,6 +12,9 @@ namespace FlappyBird
 
 	class Obstacle;
 
+	/// <summary>
+	/// 譜面制作エディタ全体の流れを管理するクラス
+	/// </summary>
 	class NotesEditor : public Framework::IComponent
 	{
 	public:
@@ -34,6 +37,12 @@ namespace FlappyBird
 		void DeleteNotes(float timing, float posY);
 		void Scroll(LONG mouseWheelMovement);
 
+		/// <summary>
+		/// ノーツのタイミングを計算する
+		/// </summary>
+		/// <param name="targetPosX">計算対象のX座標</param>
+		/// <param name="viewportWidth">ビューポートの横幅</param>
+		/// <returns>targetPosX座標に最も近い小節線のタイミング</returns>
 		float CalcNotesTiming(LONG targetPosX, float viewportWidth);
 		bool IsInsideViewport(POINT mousePos, CD3DX12_VIEWPORT viewport);
 

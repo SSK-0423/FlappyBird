@@ -17,6 +17,10 @@ namespace DX12Wrapper
 
 	struct ShaderResourceViewDesc;
 
+	/// <summary>
+	/// コンスタントバッファー、シェーダーリソース、アンオーダーアクセスリソースの
+	/// ディスクリプタヒープのラッパークラス
+	/// </summary>
 	class DescriptorHeapCBV_SRV_UAV
 	{
 	public:
@@ -69,6 +73,11 @@ namespace DX12Wrapper
 			return std::move(gpuHandle);
 		}
 
+		/// <summary>
+		/// 指定インデックスのSRVハンドルを取得
+		/// </summary>
+		/// <param name="index">インデックス</param>
+		/// <returns>指定インデックスのSRVハンドル</returns>
 		D3D12_GPU_DESCRIPTOR_HANDLE GetSRVHandle(int index) {
 			auto gpuHandle = m_descriptorHeap->GetGPUDescriptorHandleForHeapStart();
 			gpuHandle.ptr += m_handleIncrimentSize * m_MAX_CBV_DESCRIPTOR_NUM;
@@ -80,6 +89,10 @@ namespace DX12Wrapper
 			return std::move(gpuHandle);
 		}
 
+		/// <summary>
+		/// GPUハンドル取得
+		/// </summary>
+		/// <returns>GPUハンドル</returns>
 		CD3DX12_GPU_DESCRIPTOR_HANDLE GetGPUHandle() {
 			auto gpuHandle = m_descriptorHeap->GetGPUDescriptorHandleForHeapStart();
 			gpuHandle.ptr += m_handleIncrimentSize * m_MAX_CBV_DESCRIPTOR_NUM;

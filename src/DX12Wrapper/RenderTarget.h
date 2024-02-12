@@ -13,6 +13,9 @@ namespace DX12Wrapper
 {
 	class RenderingContext;
 
+	/// <summary>
+	/// レンダーターゲットを生成するためのデータ
+	/// </summary>
 	struct RenderTargetData
 	{
 		RenderTargetBufferData renderTargetBufferData;	// レンダーターゲットバッファー用データ

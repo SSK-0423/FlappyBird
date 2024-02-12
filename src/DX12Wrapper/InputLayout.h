@@ -4,6 +4,9 @@
 #pragma comment(lib,"d3d12.lib")
 
 namespace DX12Wrapper {
+	/// <summary>
+	/// インプットレイアウトを定義する構造体
+	/// </summary>
 	struct InputLayout {
 		std::vector<D3D12_INPUT_ELEMENT_DESC> inputElementDescs;
 
@@ -22,6 +25,16 @@ namespace DX12Wrapper {
 			return inputElementDescs.size();
 		}
 
+		/// <summary>
+		/// InputLayoutに新しいレイアウトを追加する
+		/// </summary>
+		/// <param name="semanticName"></param>
+		/// <param name="semanticIndex"></param>
+		/// <param name="format"></param>
+		/// <param name="inputSlot"></param>
+		/// <param name="alignedByteOffset"></param>
+		/// <param name="inputSlotClass"></param>
+		/// <param name="instanceDataStepRate"></param>
 		void Append(
 			const char* semanticName, UINT semanticIndex, DXGI_FORMAT format, UINT inputSlot,
 			UINT alignedByteOffset, D3D12_INPUT_CLASSIFICATION inputSlotClass, UINT instanceDataStepRate) {

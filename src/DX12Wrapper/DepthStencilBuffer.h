@@ -11,13 +11,16 @@
 
 namespace DX12Wrapper
 {
+	/// <summary>
+	/// デプスステンシルバッファーを生成するためのデータ
+	/// </summary>
 	struct DepthStencilBufferData
 	{
 		DXGI_FORMAT depthFormat;
 		UINT width;
 		UINT height;
-		float clearDepth;
-		UINT8 clearStencil;
+		float clearDepth;		// 深度の初期値
+		UINT8 clearStencil;		// ステンシルの初期値
 
 		/// <summary>
 		/// コンストラクタ

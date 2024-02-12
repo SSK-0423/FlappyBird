@@ -19,6 +19,9 @@ namespace DX12Wrapper
 		DESCRIPTORTYPE_NUM
 	};
 
+	/// <summary>
+	/// サンプラーの設定
+	/// </summary>
 	struct SamplerData
 	{
 		D3D12_FILTER samplerFilter;			// サンプラーフィルター
@@ -40,6 +43,9 @@ namespace DX12Wrapper
 			D3D12_TEXTURE_ADDRESS_MODE addressW = D3D12_TEXTURE_ADDRESS_MODE_WRAP);
 	};
 
+	/// <summary>
+	/// ディスクリプタレンジの設定
+	/// </summary>
 	struct DescriptorRangeData
 	{
 		UINT srvDescriptorNum;	                // SRV数

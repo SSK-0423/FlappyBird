@@ -17,6 +17,9 @@ namespace DX12Wrapper
 	class RenderTargetBuffer;
 	class DepthStencilBuffer;
 
+	/// <summary>
+	/// シェーダーリソースをテクスチャとして扱うためのクラス
+	/// </summary>
 	class Texture {
 	public:
 		Texture() = default;
@@ -83,8 +86,21 @@ namespace DX12Wrapper
 		/// <returns></returns>
 		HRESULT CopyTexture(ID3D12Device& device);
 
+		/// <summary>
+		/// アップロードバッファーの内容をキューブテクスチャバッファーへコピー
+		/// </summary>
+		/// <returns></returns>
 		HRESULT CopyCubeTexture();
 
+		/// <summary>
+		/// RGBA等のデ―タを画像ではなく直接セットする
+		/// </summary>
+		/// <param name="data"></param>
+		/// <param name="stride"></param>
+		/// <param name="dataNum"></param>
+		/// <param name="width"></param>
+		/// <param name="height"></param>
+		/// <param name="format"></param>
 		void SetTextureData(
 			uint8_t* data, const size_t& stride, const size_t& dataNum, const size_t& width, const size_t& height, const DXGI_FORMAT& format);
 

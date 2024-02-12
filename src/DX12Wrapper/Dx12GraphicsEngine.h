@@ -22,6 +22,10 @@
 
 namespace DX12Wrapper
 {
+	/// <summary>
+	/// コマンドキューの実行やフレームバッファ―への描画など、
+	/// DirectX12での描画の根幹部分を担うクラス
+	/// </summary>
 	class Dx12GraphicsEngine
 	{
 
@@ -90,8 +94,14 @@ namespace DX12Wrapper
 		static const CD3DX12_VIEWPORT& GetViewport();
 		static const CD3DX12_RECT& GetScissorRect();
 
+		/// <summary>
+		/// フェンスを用いてCPUとGPUの同期をとる
+		/// </summary>
 		static void WaitGPU();
 
+		/// <summary>
+		/// フレームバッファ―をリサイズする
+		/// </summary>
 		static void Resize(const UINT& width, const UINT& height);
 
 	private:
@@ -174,7 +184,5 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <returns></returns>
 		static Utility::RESULT CreateFrameRenderTarget();
-
-		static Utility::RESULT CreateImguiDescriptorHeap();
 	};
 }

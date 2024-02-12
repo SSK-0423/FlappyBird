@@ -10,7 +10,7 @@
 namespace DX12Wrapper
 {
 	/// <summary>
-	/// シェーダー生成に必要な情報
+	/// シェーダー生成に必要なデータ
 	/// </summary>
 	struct ShaderData
 	{

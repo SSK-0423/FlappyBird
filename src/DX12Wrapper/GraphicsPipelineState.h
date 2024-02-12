@@ -10,7 +10,7 @@
 namespace DX12Wrapper
 {
 	/// <summary>
-	/// グラフィックスパイプラインステートクラス
+	/// グラフィックスパイプラインステートのクラス
 	/// </summary>
 	class GraphicsPipelineState {
 	public:

@@ -10,6 +10,9 @@
 
 namespace DX12Wrapper
 {
+	/// <summary>
+	/// DirectXTK12を用いてフォントを描画するクラス
+	/// </summary>
 	class FontRenderer
 	{
 	public:

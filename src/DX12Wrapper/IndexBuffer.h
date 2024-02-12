@@ -10,6 +10,9 @@
 
 namespace DX12Wrapper
 {
+	/// <summary>
+	/// インデックスバッファーのラッパークラス
+	/// </summary>
 	class IndexBuffer {
 	public:
 		IndexBuffer() = default;

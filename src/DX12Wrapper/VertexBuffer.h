@@ -42,7 +42,7 @@ namespace DX12Wrapper
 
 	public:
 		/// <summary>
-		/// 
+		/// 頂点バッファーを生成する
 		/// </summary>
 		/// <param name="device">デバイス</param>
 		/// <param name="sizeInBytes">バッファーの全サイズ</param>

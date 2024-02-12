@@ -10,6 +10,9 @@
 
 namespace DX12Wrapper
 {
+	/// <summary>
+	/// レンダーターゲットバッファーを生成するためのデータ
+	/// </summary>
 	struct RenderTargetBufferData
 	{
 		DXGI_FORMAT colorFormat;
@@ -68,6 +71,10 @@ namespace DX12Wrapper
 			return *m_rtvBuffer.Get();
 		}
 
+		/// <summary>
+		/// バッファーを開放する
+		/// リサイズ時などに使用する
+		/// </summary>
 		void Release() {
 			m_rtvBuffer.Reset();
 		}
