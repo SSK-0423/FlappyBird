@@ -20,6 +20,9 @@ namespace Framework
 {
 	Sprite::Sprite(const std::wstring& path, SPRITE_PIVOT pivot)
 	{
+		// 四角形の頂点データを作成
+
+		// ピボットを中心として頂点データを追加
 		if (pivot == SPRITE_PIVOT::CENTER)
 		{
 			m_vertex.push_back({ DirectX::XMFLOAT3(-0.5f, -0.5f, 0),DirectX::XMFLOAT2(0, 1) }); // 左下
@@ -27,6 +30,7 @@ namespace Framework
 			m_vertex.push_back({ DirectX::XMFLOAT3(0.5f, -0.5f, 0),DirectX::XMFLOAT2(1, 1) }); // 右下
 			m_vertex.push_back({ DirectX::XMFLOAT3(0.5f,  0.5f, 0),DirectX::XMFLOAT2(1, 0) }); // 右上
 		}
+		// ピボットを左上として頂点データを生成
 		else if (pivot == SPRITE_PIVOT::TOP_LEFT)
 		{
 			m_vertex.push_back({ DirectX::XMFLOAT3(0.0f, -1.0f, 0),DirectX::XMFLOAT2(0, 1) }); // 左下

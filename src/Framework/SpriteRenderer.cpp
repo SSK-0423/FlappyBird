@@ -180,12 +180,21 @@ namespace Framework
 
 		auto& renderSprite = m_sprites[m_currentSpriteIndex];
 
+		// スプライトの描画コール発行
 		renderingContext.SetGraphicsRootSignature(*m_rootSignature);
 		renderingContext.SetPipelineState(*m_pipelineState);
+
+		// ここは各スプライト固有のデータをセットする
 		renderingContext.SetDescriptorHeap(renderSprite->GetDescriptorHeap());
+
+		// ピボット毎に異なる
 		renderingContext.SetVertexBuffer(0, renderSprite->GetVertexBuffer());
+
+		// インデックスデータ、トポロジーは全て一緒
 		renderingContext.SetIndexBuffer(renderSprite->GetIndexBuffer());
 		renderingContext.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+		// ここでスプライト数分描画する
 		renderingContext.DrawIndexedInstanced(renderSprite->GetIndexBuffer().GetIndexNum(), 1);
 	}
 

@@ -111,3 +111,5 @@ namespace Framework
 		SPRITE_DRAW_MODE m_drawMode = SPRITE_DRAW_MODE::GAMEOBJECT;	// スプライトの描画モード
 	};
 }
+
+// 

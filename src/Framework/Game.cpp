@@ -46,7 +46,6 @@ namespace Framework
 		result = DX12Wrapper::Dx12GraphicsEngine::Init(hwnd,
 			WINDOW_WIDTH, WINDOW_HEIGHT,
 			GAME_WIDTH, GAME_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT);
-
 #else
 		result = DX12Wrapper::Dx12GraphicsEngine::Init(hwnd,
 			WINDOW_WIDTH, WINDOW_HEIGHT,
