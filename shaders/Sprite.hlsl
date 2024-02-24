@@ -2,15 +2,6 @@ Texture2D tex : register(t0);
 
 sampler smp : register(s0);
 
-struct InstanceData
-{
-    float4x4 model;
-};
-
-cbuffer Instance : register(b4)
-{
-    InstanceData data[300];
-};
 
 cbuffer Transform : register(b0)
 {
@@ -35,11 +26,21 @@ cbuffer Material : register(b3)
     float4 color;
 };
 
+//struct InstanceData
+//{
+//    float4x4 model;
+//};
+
+//cbuffer Instance : register(b4)
+//{
+//    InstanceData data[100];
+//};
+
 struct VertexInput
 {
     float3 position : POSITION;
     float2 uv : TEXCOORD;
-    uint instanceID : SV_InstanceID;
+    //uint instanceID : SV_InstanceID;
 };
 
 struct VertexOutput
@@ -66,5 +67,6 @@ float4 PSMain(VertexOutput input) : SV_Target0
 {
     float4 texColor = tex.Sample(smp, input.uv);
     texColor *= color;
+    
     return texColor;
 }

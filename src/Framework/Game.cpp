@@ -6,6 +6,7 @@
 #include "ShaderLibrary.h"
 #include "SoundManager.h"
 #include "SpriteVertex.h"
+#include "SpriteRenderer.h"
 #include "Editor.h"
 #include "Window.h"
 
@@ -88,6 +89,12 @@ namespace Framework
 		if (result == RESULT::FAILED)
 		{
 			MessageBoxA(hwnd, "SpriteVertexの初期化に失敗", "エラー", MB_OK);
+		}
+		// スプライト描画システムの初期化
+		result = SpriteRenderer::Init();
+		if (result == RESULT::FAILED)
+		{
+			MessageBoxA(hwnd, "SpriteRendererの初期化に失敗", "エラー", MB_OK);
 		}
 		// ゲームで用いるレンダラーの初期化
 		result = m_renderer.Init();

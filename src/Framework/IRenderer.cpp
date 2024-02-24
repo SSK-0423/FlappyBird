@@ -21,14 +21,9 @@ namespace Framework
 		{
 			Editor::BeginDraw();
 
-			// スプライト描画で共通する部分のDrawCallを呼ぶ
-			SpriteRenderer::BeginDraw();
-
 			// ゲーム内で動作するエディタでImGuiを使うためにBeginDraw()とEndDraw()の間に記述
 			RenderScene(GameObjectManager::GetAllObject());
 			RenderUI(UIObjectManager::GetAllObject());
-
-			SpriteRenderer::EndDraw();
 
 			// デバッグログなどのエディタ描画 
 #ifdef _DEBUG

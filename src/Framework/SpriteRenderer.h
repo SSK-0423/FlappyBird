@@ -4,6 +4,9 @@
 #include <d3d12.h>
 #include <DirectXMath.h>
 
+#include "Sprite.h"
+#include "Utility/EngineUtility.h"
+
 namespace DX12Wrapper
 {
 	class RootSignature;
@@ -36,6 +39,7 @@ namespace Framework
 		void Draw() override;
 		void DrawInspector() override;
 
+		static Utility::RESULT Init();
 		static void BeginDraw();
 		static void EndDraw();
 
@@ -46,28 +50,28 @@ namespace Framework
 		/// この関数はindex:0のスプライトを設定する
 		/// </summary>
 		/// <param name="sprite">スプライト</param>
-		void SetSprite(class Sprite* sprite);
+		void SetSprite(Sprite* sprite);
 
 		/// <summary>
 		/// 描画するスプライトを設定する
 		/// この関数はindex:0のスプライトを設定する
 		/// </summary>
 		/// <param name="sprite">スプライト</param>
-		void SetSprite(std::shared_ptr<class Sprite> sprite);
+		void SetSprite(std::shared_ptr<Sprite> sprite);
 
 		/// <summary>
 		/// 描画するスプライトを追加する
 		/// 末尾に追加される
 		/// </summary>
 		/// <param name="sprite">スプライト</param>
-		void AddSprite(class Sprite* sprite);
+		void AddSprite(Sprite* sprite);
 
 		/// <summary>
 		/// 描画するスプライトを追加する
 		/// 末尾に追加される
 		/// </summary>
 		/// <param name="sprite">スプライト</param>
-		void AddSprite(std::shared_ptr<class Sprite> sprite);
+		void AddSprite(std::shared_ptr<Sprite> sprite);
 
 		/// <summary>
 		/// 描画するスプライトを指定されたインデックスのスプライトに変更する
@@ -88,8 +92,9 @@ namespace Framework
 		/// <param name="layer">レイヤー</param>
 		void SetLayer(UINT layer);
 
-		Utility::RESULT CreateGraphicsPipelineState(ID3D12Device& device);
-		Utility::RESULT CreateRootSignature(ID3D12Device& device);
+		static Utility::RESULT CreateGraphicsPipelineState(ID3D12Device& device);
+		static Utility::RESULT CreateRootSignature(ID3D12Device& device);
+		static Utility::RESULT CreateInstanceConstantBuffer(ID3D12Device& device);
 
 	private:
 		/// <summary>
@@ -101,19 +106,37 @@ namespace Framework
 			CAMERA = 1,
 			DRAW_MODE = 2,
 			MATERIAL = 3,
+			INSTANCE = 4,
 			BUFFER_COUNT
 		};
 
+		static constexpr UINT MAX_INSTANCE_COUNT = 100;	// 一度に描画できるスプライトの最大数
+		struct InstanceData
+		{
+			DirectX::XMMATRIX transform;
+		};
+		struct InstanceBufferData
+		{
+			InstanceData data[MAX_INSTANCE_COUNT];
+		};
+		static std::unordered_map<SPRITE_PIVOT, InstanceBufferData> m_instanceBufferData;				// インスタンスデータ
+		static DX12Wrapper::ConstantBuffer m_instanceDataBuffer;	// インスタンスデータをシェーダーに渡すためのバッファ
+
 		// スプライト描画で共通する部分のデータ
-		std::shared_ptr<DX12Wrapper::RootSignature> m_rootSignature;
-		std::shared_ptr<DX12Wrapper::GraphicsPipelineState> m_pipelineState;
-		static unsigned int m_spriteCount;	// スプライトの数
+		static DX12Wrapper::RootSignature m_rootSignature;
+		static DX12Wrapper::GraphicsPipelineState m_pipelineState;
+		static std::unordered_map<SPRITE_PIVOT, unsigned int> m_spriteCount;	// スプライトの原点位置ごとの描画回数
 
 		// スプライト固有のデータ
+		std::vector<std::shared_ptr<Sprite>> m_sprites;	                            // 描画するスプライト
+
+		class Transform2D* m_transform = nullptr;									// 2D変換行列
+
+		SPRITE_DRAW_MODE m_drawMode = SPRITE_DRAW_MODE::GAMEOBJECT;	                // スプライトの描画モード
 		std::shared_ptr<DX12Wrapper::ConstantBuffer> m_drawModeBuffer = nullptr;	// スプライトの描画モードをシェーダーに渡すためのバッファ
-		std::vector<std::shared_ptr<class Sprite>> m_sprites;	                    // 描画するスプライト
+
+		size_t m_instanceID = 0;	                                                // インスタンスデータのID
 		size_t m_currentSpriteIndex = 0;	                                        // 現在描画中のスプライトのインデックス
 		UINT m_layer = 0;	                                                        // 描画順を制御するレイヤー
-		SPRITE_DRAW_MODE m_drawMode = SPRITE_DRAW_MODE::GAMEOBJECT;	                // スプライトの描画モード
 	};
 }

@@ -10,6 +10,7 @@ namespace DX12Wrapper
 	class DescriptorHeapCBV_SRV_UAV;
 	class VertexBuffer;
 	class IndexBuffer;
+	class ConstantBuffer;
 	class RootSignature;
 	class GraphicsPipelineState;
 
@@ -153,6 +154,13 @@ namespace DX12Wrapper
 		/// </summary>
 		/// <param name="rootSignature">ルートシグネチャ</param>
 		void SetGraphicsRootSignature(RootSignature& rootSignature);
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="index"></param>
+		/// <param name="constantBuffer"></param>
+		void SetGraphicsRootConstantBufferView(UINT index, const ConstantBuffer& constantBuffer);
 
 		/// <summary>
 		/// プリミティブトポロジー設定

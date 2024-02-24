@@ -4,6 +4,7 @@
 #include "DescriptorHeapCBV_SRV_UAV.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
+#include "ConstantBuffer.h"
 #include "GraphicsPipelineState.h"
 #include "RootSignature.h"
 
@@ -112,6 +113,11 @@ namespace DX12Wrapper
 	void RenderingContext::SetGraphicsRootSignature(RootSignature& rootSignature)
 	{
 		m_cmdList->SetGraphicsRootSignature(&rootSignature.GetRootSignature());
+	}
+
+	void RenderingContext::SetGraphicsRootConstantBufferView(UINT index, const ConstantBuffer& constantBuffer)
+	{
+		m_cmdList->SetGraphicsRootConstantBufferView(index, constantBuffer.GetGPUVirtualAddress());
 	}
 
 	void RenderingContext::SetPrimitiveTopology(const D3D12_PRIMITIVE_TOPOLOGY& primitiveTopology)

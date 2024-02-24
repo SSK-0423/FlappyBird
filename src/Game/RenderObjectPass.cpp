@@ -41,6 +41,8 @@ namespace FlappyBird
 	{
 		m_renderTarget->BeginRendering(Dx12GraphicsEngine::GetRenderingContext(), m_viewport, m_scissorRect);
 		{
+			// ゲームオブジェクトの描画
+			// SpriteRenderManager::DrawGameObjects();
 			for (auto& object : gameObjects)
 			{
 				if (object->GetActive())
@@ -48,6 +50,8 @@ namespace FlappyBird
 					object->Draw();
 				}
 			}
+			// ゲームオブジェクトの描画終了
+			// SpriteRenderManager::EndDrawGameObjects();
 		}
 		m_renderTarget->EndRendering(Dx12GraphicsEngine::GetRenderingContext());
 	}

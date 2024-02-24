@@ -50,7 +50,7 @@ namespace DX12Wrapper
 		/// バッファーのGPU上のバーチャルアドレス取得
 		/// </summary>
 		/// <returns>バッファーのGPU上のバーチャルアドレス</returns>
-		D3D12_GPU_VIRTUAL_ADDRESS GetGPUVirtualAddress() {
+		D3D12_GPU_VIRTUAL_ADDRESS GetGPUVirtualAddress() const {
 			return m_constantBuffer->GetGPUVirtualAddress();
 		}
 
