@@ -36,6 +36,7 @@
 #include "Framework/ShaderLibrary.h"
 
 #include "Framework/Sprite.h"
+#include "Framework/SpriteVertex.h"
 #include "Framework/TextureManager.h"
 
 #include "Framework/Subject.h"

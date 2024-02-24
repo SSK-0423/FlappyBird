@@ -360,6 +360,9 @@
     <ClCompile Include="src\Game\MusicDataFrame.cpp">
       <Filter>ソース ファイル\Game\MusicSelectScene</Filter>
     </ClCompile>
+    <ClCompile Include="src\Framework\SpriteVertex.cpp">
+      <Filter>ソース ファイル\Framework\System\Sprite</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\pch.h">
@@ -667,6 +670,9 @@
     </ClInclude>
     <ClInclude Include="src\Game\MusicDataFrame.h">
       <Filter>ソース ファイル\Game\MusicSelectScene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Framework\SpriteVertex.h">
+      <Filter>ソース ファイル\Framework\System\Sprite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,7 @@
 #include "SceneManager.h"
 #include "ShaderLibrary.h"
 #include "SoundManager.h"
+#include "SpriteVertex.h"
 #include "Editor.h"
 #include "Window.h"
 
@@ -32,16 +33,18 @@ namespace Framework
 {
 	void Game::Init()
 	{
-
+		// ウィンドウ生成
 		Window::Create(NAME, WINDOW_WIDTH, WINDOW_HEIGHT);
 
 		auto& hwnd = Window::GetHwnd();
 
+		// 入力システムの初期化
 		RESULT result = InputSystem::Init(hwnd);
 		if (result == RESULT::FAILED)
 		{
 			MessageBoxA(hwnd, "InputSystemの初期化に失敗", "エラー", MB_OK);
 		}
+		// DirectX12の初期化
 #ifdef _DEBUG
 		result = DX12Wrapper::Dx12GraphicsEngine::Init(hwnd,
 			WINDOW_WIDTH, WINDOW_HEIGHT,
@@ -51,43 +54,52 @@ namespace Framework
 			WINDOW_WIDTH, WINDOW_HEIGHT,
 			WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT);
 #endif // _DEBUG
-
 		if (result == RESULT::FAILED)
 		{
 			MessageBoxA(hwnd, "Dx12GraphicsEngineの初期化に失敗", "エラー", MB_OK);
 		}
+
+		// フォント描画システムの初期化
 		result = DX12Wrapper::FontRenderer::Init(FONT_PATH);
 		if (result == RESULT::FAILED)
 		{
 			MessageBoxA(hwnd, "Dx12GraphicsEngineの初期化に失敗", "エラー", MB_OK);
 		}
+		// サウンド再生システムの初期化
 		result = SoundManager::Init();
 		if (result == RESULT::FAILED)
 		{
 			MessageBoxA(hwnd, "SoundManagerの初期化に失敗", "エラー", MB_OK);
 		}
+		// シェーダーの読み込み
 		result = ShaderLibrary::Init();
 		if (result == RESULT::FAILED)
 		{
 			MessageBoxA(hwnd, "ShaderLibraryの初期化に失敗", "エラー", MB_OK);
 		}
+		// エディタの初期化
 		result = Editor::Init();
 		if (result == RESULT::FAILED)
 		{
 			MessageBoxA(hwnd, "Editorの初期化に失敗", "エラー", MB_OK);
 		}
+		// スプライトを描画するためのデータを生成
+		result = SpriteVertex::Init();
+		if (result == RESULT::FAILED)
+		{
+			MessageBoxA(hwnd, "SpriteVertexの初期化に失敗", "エラー", MB_OK);
+		}
+		// ゲームで用いるレンダラーの初期化
 		result = m_renderer.Init();
 		if (result == RESULT::FAILED)
 		{
 			MessageBoxA(hwnd, "Rendererの初期化に失敗", "エラー", MB_OK);
 		}
 
-#ifdef _DEBUG
 		// ウィンドウが最大化した状態でスタートするので、
 		// WINDOW_WIDTH, WINDOW_HEIGHTと異なる可能性がある
 		// そこで、ウィンドウサイズを取得して一度リサイズしておく
 		// また、Rendererがリサイズの影響を受けないように、Rendererの初期化後に行う
-#endif // _DEBUG
 		RECT rect;
 		GetClientRect(hwnd, &rect);
 		DX12Wrapper::Dx12GraphicsEngine::Resize(rect.right - rect.left, rect.bottom - rect.top);

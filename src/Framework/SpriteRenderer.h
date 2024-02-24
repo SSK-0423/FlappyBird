@@ -36,6 +36,9 @@ namespace Framework
 		void Draw() override;
 		void DrawInspector() override;
 
+		static void BeginDraw();
+		static void EndDraw();
+
 		// TODO: スプライトアニメーションを実装する
 
 		/// <summary>
@@ -101,15 +104,16 @@ namespace Framework
 			BUFFER_COUNT
 		};
 
-		std::shared_ptr<DX12Wrapper::RootSignature> m_rootSignature = nullptr;
-		std::shared_ptr<DX12Wrapper::GraphicsPipelineState> m_pipelineState = nullptr;
-		std::shared_ptr<DX12Wrapper::ConstantBuffer> m_drawModeBuffer = nullptr;
+		// スプライト描画で共通する部分のデータ
+		std::shared_ptr<DX12Wrapper::RootSignature> m_rootSignature;
+		std::shared_ptr<DX12Wrapper::GraphicsPipelineState> m_pipelineState;
+		static unsigned int m_spriteCount;	// スプライトの数
 
-		std::vector<std::shared_ptr<class Sprite>> m_sprites;	    // 描画するスプライト
-		size_t m_currentSpriteIndex = 0;	                        // 現在描画中のスプライトのインデックス
-		UINT m_layer = 0;	                                        // 描画順を制御するレイヤー
-		SPRITE_DRAW_MODE m_drawMode = SPRITE_DRAW_MODE::GAMEOBJECT;	// スプライトの描画モード
+		// スプライト固有のデータ
+		std::shared_ptr<DX12Wrapper::ConstantBuffer> m_drawModeBuffer = nullptr;	// スプライトの描画モードをシェーダーに渡すためのバッファ
+		std::vector<std::shared_ptr<class Sprite>> m_sprites;	                    // 描画するスプライト
+		size_t m_currentSpriteIndex = 0;	                                        // 現在描画中のスプライトのインデックス
+		UINT m_layer = 0;	                                                        // 描画順を制御するレイヤー
+		SPRITE_DRAW_MODE m_drawMode = SPRITE_DRAW_MODE::GAMEOBJECT;	                // スプライトの描画モード
 	};
 }
-
-// 

@@ -9,6 +9,7 @@
 #include "Scene.h"
 #include "Editor.h"
 #include "imgui.h"
+#include "SpriteVertex.h"
 
 #include "DX12Wrapper/Dx12GraphicsEngine.h"
 #include "DX12Wrapper/VertexBuffer.h"
@@ -188,14 +189,22 @@ namespace Framework
 		renderingContext.SetDescriptorHeap(renderSprite->GetDescriptorHeap());
 
 		// ピボット毎に異なる
-		renderingContext.SetVertexBuffer(0, renderSprite->GetVertexBuffer());
-
+		switch (renderSprite->GetPivot())
+		{
+		case SPRITE_PIVOT::CENTER:
+			renderingContext.SetVertexBuffer(0, SpriteVertex::CenterPivotVertexBuffer());
+			break;
+		case SPRITE_PIVOT::TOP_LEFT:
+			renderingContext.SetVertexBuffer(0, SpriteVertex::TopLeftPivotVertexBuffer());
+		default:
+			break;
+		}
 		// インデックスデータ、トポロジーは全て一緒
-		renderingContext.SetIndexBuffer(renderSprite->GetIndexBuffer());
+		renderingContext.SetIndexBuffer(SpriteVertex::IndexBuffer());
 		renderingContext.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 		// ここでスプライト数分描画する
-		renderingContext.DrawIndexedInstanced(renderSprite->GetIndexBuffer().GetIndexNum(), 1);
+		renderingContext.DrawIndexedInstanced(SpriteVertex::IndexBuffer().GetIndexNum(), 1);
 	}
 
 	void SpriteRenderer::DrawInspector()
@@ -213,6 +222,26 @@ namespace Framework
 				ImGui::Image(Editor::GetTextureID(m_sprites[i]->GetTexture()), ImVec2(100, 100));
 			}
 		}
+	}
+
+	void SpriteRenderer::BeginDraw()
+	{
+		RenderingContext& renderingContext = Dx12GraphicsEngine::GetRenderingContext();
+
+		//// ルートシグネチャとパイプラインステートをセット
+		//renderingContext.SetGraphicsRootSignature(*m_rootSignature);
+		//renderingContext.SetPipelineState(*m_pipelineState);
+	}
+
+	void SpriteRenderer::EndDraw()
+	{
+		RenderingContext& renderingContext = Dx12GraphicsEngine::GetRenderingContext();
+
+		//// インデックスデータ、トポロジーは全て一緒
+		//renderingContext.SetIndexBuffer(renderSprite->GetIndexBuffer());
+		//renderingContext.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		//// ここでスプライト数分描画する
+		//renderingContext.DrawIndexedInstanced(renderSprite->GetIndexBuffer().GetIndexNum(), 1);
 	}
 
 	Utility::RESULT SpriteRenderer::CreateGraphicsPipelineState(ID3D12Device& device)

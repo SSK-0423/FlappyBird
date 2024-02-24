@@ -2,6 +2,16 @@ Texture2D tex : register(t0);
 
 sampler smp : register(s0);
 
+struct InstanceData
+{
+    float4x4 model;
+};
+
+cbuffer Instance : register(b4)
+{
+    InstanceData data[300];
+};
+
 cbuffer Transform : register(b0)
 {
     matrix model;

@@ -49,24 +49,12 @@ namespace Framework
 
 		DX12Wrapper::Texture& GetTexture() const;
 		DX12Wrapper::DescriptorHeapCBV_SRV_UAV& GetDescriptorHeap() const;
-		DX12Wrapper::VertexBuffer& GetVertexBuffer() const;
-		DX12Wrapper::IndexBuffer& GetIndexBuffer() const;
+		SPRITE_PIVOT GetPivot() const;
 
 	private:
-		/// <summary>
-		/// 画像描画の為の頂点データ構造体
-		/// </summary>
-		struct SpriteVertex
-		{
-			DirectX::XMFLOAT3 vertex;
-			DirectX::XMFLOAT2 uv;
-		};
-		std::vector<SpriteVertex> m_vertex;
-
 		// 複数のオブジェクトで同じテクスチャを使う場合を考慮
 		std::shared_ptr<DX12Wrapper::Texture> m_texture = nullptr;
-		std::unique_ptr<DX12Wrapper::VertexBuffer> m_vertexBuffer = nullptr;
-		std::unique_ptr<DX12Wrapper::IndexBuffer> m_indexBuffer = nullptr;
 		std::unique_ptr<DX12Wrapper::DescriptorHeapCBV_SRV_UAV> m_descriptorHeap = nullptr;
+		SPRITE_PIVOT m_pivot;
 	};
 }
