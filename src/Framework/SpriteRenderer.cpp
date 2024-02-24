@@ -31,9 +31,6 @@ namespace Framework
 	// 静的メンバ変数の実体化
 	RootSignature SpriteRenderer::m_rootSignature;
 	GraphicsPipelineState SpriteRenderer::m_pipelineState;
-	ConstantBuffer SpriteRenderer::m_instanceDataBuffer;
-	std::unordered_map<SPRITE_PIVOT, SpriteRenderer::InstanceBufferData> SpriteRenderer::m_instanceBufferData;
-	std::unordered_map<SPRITE_PIVOT, unsigned int> SpriteRenderer::m_spriteCount;
 
 	SpriteRenderer::SpriteRenderer(std::shared_ptr<Object> owner)
 		: IComponent(owner)
@@ -48,17 +45,10 @@ namespace Framework
 	}
 	SpriteRenderer::~SpriteRenderer()
 	{
-		for (auto& sprite : m_sprites)
-		{
-			m_spriteCount[sprite->GetPivot()]--;
-		}
 	}
 
 	Utility::RESULT SpriteRenderer::Init()
 	{
-		m_spriteCount[SPRITE_PIVOT::CENTER] = 0;
-		m_spriteCount[SPRITE_PIVOT::TOP_LEFT] = 0;
-
 		ID3D12Device& device = Dx12GraphicsEngine::Device();
 		if (CreateRootSignature(device) == RESULT::FAILED)
 		{
@@ -68,39 +58,8 @@ namespace Framework
 		{
 			MessageBoxA(NULL, "GraphicsPipelineStateの生成に失敗", "エラー", MB_OK);
 		}
-		if (CreateInstanceConstantBuffer(device) == RESULT::FAILED)
-		{
-			MessageBoxA(NULL, "InstanceConstantBufferの生成に失敗", "エラー", MB_OK);
-		}
 
 		return RESULT::SUCCESS;
-	}
-
-	void SpriteRenderer::BeginDraw()
-	{
-		//RenderingContext& renderingContext = Dx12GraphicsEngine::GetRenderingContext();
-
-		//// ルートシグネチャとパイプラインステートをセット
-		//renderingContext.SetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-		//renderingContext.SetVertexBuffer(0, SpriteVertex::CenterPivotVertexBuffer());
-		//renderingContext.SetIndexBuffer(SpriteVertex::IndexBuffer());
-
-		//renderingContext.SetGraphicsRootSignature(m_rootSignature);
-		//renderingContext.SetPipelineState(m_pipelineState);
-		//renderingContext.SetGraphicsRootConstantBufferView(static_cast<UINT>(CONSTANT_BUFFER_INDEX::INSTANCE), m_instanceDataBuffer);
-	}
-
-	void SpriteRenderer::EndDraw()
-	{
-		//RenderingContext& renderingContext = Dx12GraphicsEngine::GetRenderingContext();
-
-		// インデックスデータ、トポロジーは全て一緒
-		// CENTERのスプライトを描画
-		//renderingContext.DrawIndexedInstanced(SpriteVertex::IndexBuffer().GetIndexNum(), m_spriteCount[SPRITE_PIVOT::CENTER]);
-
-		//// TOP_LEFTのスプライトを描画
-		//renderingContext.SetVertexBuffer(0, SpriteVertex::TopLeftPivotVertexBuffer());
-		//renderingContext.DrawIndexedInstanced(SpriteVertex::IndexBuffer().GetIndexNum(), m_spriteCount[SPRITE_PIVOT::TOP_LEFT]);
 	}
 
 	void SpriteRenderer::Start()
@@ -145,12 +104,6 @@ namespace Framework
 				Dx12GraphicsEngine::Device(),
 				material->GetConstantBuffer(),
 				static_cast<UINT>(CONSTANT_BUFFER_INDEX::MATERIAL));
-
-			//// インスタンスデータをセット
-			//sprite->GetDescriptorHeap().RegistConstantBuffer(
-			//	Dx12GraphicsEngine::Device(),
-			//	m_instanceDataBuffer,
-			//	static_cast<UINT>(CONSTANT_BUFFER_INDEX::INSTANCE));
 		}
 
 		// 0番目のスプライトをセット
@@ -161,12 +114,6 @@ namespace Framework
 	}
 	void SpriteRenderer::Update(float deltaTime)
 	{
-		////
-		//auto& renderSprite = m_sprites[m_currentSpriteIndex];
-		//auto pivot = renderSprite->GetPivot();
-
-		//// インスタンスデータの更新
-		//m_instanceBufferData[pivot].data[m_instanceID].transform = m_transform->GetTransformMatrix();
 	}
 	void SpriteRenderer::Draw()
 	{
@@ -175,9 +122,6 @@ namespace Framework
 		{
 			return;
 		}
-
-		// インスタンスデータの更新
-		//m_instanceDataBuffer.UpdateData(&m_instanceBufferData);
 
 		RenderingContext renderingContext = Dx12GraphicsEngine::GetRenderingContext();
 
@@ -218,15 +162,6 @@ namespace Framework
 			// 描画レイヤーの表示
 			ImGui::Text("Draw Layer: %u", m_layer);
 
-			// ピボット毎のスプライト数の表示
-			ImGui::Text("SPRITE_PIVOT::CENTER: %u", m_spriteCount[SPRITE_PIVOT::CENTER]);
-			ImGui::Text("SPRITE_PIVOT::TOP_LEFT: %u", m_spriteCount[SPRITE_PIVOT::TOP_LEFT]);
-
-			// 描画モードの表示
-			ImGui::Text("Position: %f,%f", m_transform->position.x, m_transform->position.y);
-			ImGui::Text("InstanceID: %d", m_instanceID);
-			ImGui::Text("InstanceData: %d", _countof(m_instanceBufferData[SPRITE_PIVOT::CENTER].data));
-
 			// セットされているスプライトの表示
 			ImGui::Text("Sprites");
 			for (size_t i = 0; i < m_sprites.size(); i++)
@@ -245,10 +180,7 @@ namespace Framework
 		}
 		else
 		{
-			// 登録済みのスプライトの数をインスタンスIDとして設定
-			m_instanceID = m_spriteCount[sprite->GetPivot()];
 			m_sprites.push_back(std::shared_ptr<Sprite>(sprite));
-			m_spriteCount[sprite->GetPivot()]++;
 		}
 
 #ifdef _DEBUG
@@ -264,10 +196,7 @@ namespace Framework
 		}
 		else
 		{
-			// 登録済みのスプライトの数をインスタンスIDとして設定
-			m_instanceID = m_spriteCount[sprite->GetPivot()];
 			m_sprites.push_back(sprite);
-			m_spriteCount[sprite->GetPivot()]++;
 		}
 
 #ifdef _DEBUG
@@ -278,7 +207,6 @@ namespace Framework
 	void SpriteRenderer::AddSprite(Sprite* sprite)
 	{
 		m_sprites.push_back(std::shared_ptr<Sprite>(sprite));
-		m_spriteCount[sprite->GetPivot()]++;
 
 #ifdef _DEBUG
 		// エディター上でスプライトを表示するために登録
@@ -288,7 +216,6 @@ namespace Framework
 	void SpriteRenderer::AddSprite(std::shared_ptr<class Sprite> sprite)
 	{
 		m_sprites.push_back(sprite);
-		m_spriteCount[sprite->GetPivot()]++;
 
 #ifdef _DEBUG
 		// エディター上でスプライトを表示するために登録
@@ -369,16 +296,5 @@ namespace Framework
 		rootSigData.m_descRangeData.srvDescriptorNum = 1;
 
 		return m_rootSignature.Create(device, rootSigData);
-	}
-	Utility::RESULT SpriteRenderer::CreateInstanceConstantBuffer(ID3D12Device& device)
-	{
-		// インスタンスデータのバッファを生成
-		if (m_instanceDataBuffer.Create(device, &m_instanceBufferData, sizeof(InstanceBufferData)) == RESULT::FAILED)
-		{
-			MessageBoxA(NULL, "VertexBufferの生成に失敗", "エラー", MB_OK);
-			return RESULT::FAILED;
-		}
-
-		return RESULT::SUCCESS;
 	}
 }

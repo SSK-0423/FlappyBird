@@ -8,126 +8,157 @@
   "notes": [
     {
       "posY": 384,
+      "spaceOffset": 0,
       "time": 14000
     },
     {
       "posY": 384,
+      "spaceOffset": 0,
       "time": 15000
     },
     {
       "posY": 451,
+      "spaceOffset": 0,
       "time": 4000
     },
     {
       "posY": 402,
+      "spaceOffset": 0,
       "time": 4500
     },
     {
       "posY": 354,
+      "spaceOffset": 0,
       "time": 5000
     },
     {
       "posY": 306,
+      "spaceOffset": 0,
       "time": 5500
     },
     {
       "posY": 350,
+      "spaceOffset": 0,
       "time": 6000
     },
     {
       "posY": 390,
+      "spaceOffset": 0,
       "time": 6500
     },
     {
       "posY": 430,
+      "spaceOffset": 0,
       "time": 7000
     },
     {
       "posY": 391,
+      "spaceOffset": 0,
       "time": 8000
     },
     {
       "posY": 339,
+      "spaceOffset": 0,
       "time": 8500
     },
     {
       "posY": 288,
+      "spaceOffset": 0,
       "time": 9000
     },
     {
       "posY": 233,
+      "spaceOffset": 0,
       "time": 9500
     },
     {
       "posY": 287,
+      "spaceOffset": 0,
       "time": 10000
     },
     {
       "posY": 330,
+      "spaceOffset": 0,
       "time": 10500
     },
     {
       "posY": 369,
+      "spaceOffset": 0,
       "time": 11000
     },
     {
       "posY": 382,
+      "spaceOffset": 0,
       "time": 12000
     },
     {
       "posY": 379,
+      "spaceOffset": 0,
       "time": 13000
     },
     {
       "posY": 471,
+      "spaceOffset": 0,
       "time": 16000
     },
     {
       "posY": 471,
+      "spaceOffset": 0,
       "time": 16250
     },
     {
       "posY": 418,
+      "spaceOffset": 0,
       "time": 16500
     },
     {
       "posY": 417,
+      "spaceOffset": 0,
       "time": 16750
     },
     {
       "posY": 368,
+      "spaceOffset": 0,
       "time": 17000
     },
     {
       "posY": 368,
+      "spaceOffset": 0,
       "time": 17250
     },
     {
       "posY": 332,
+      "spaceOffset": 0,
       "time": 17500
     },
     {
       "posY": 329,
+      "spaceOffset": 0,
       "time": 17750
     },
     {
       "posY": 283,
+      "spaceOffset": 0,
       "time": 18000
     },
     {
       "posY": 338,
+      "spaceOffset": 0,
       "time": 18500
     },
     {
       "posY": 408,
+      "spaceOffset": 0,
       "time": 19000
     },
     {
       "posY": 365,
+      "spaceOffset": 0,
       "time": 19250
     },
     {
       "posY": 328,
+      "spaceOffset": 0,
       "time": 19500
     }
   ]

@@ -22,7 +22,7 @@ namespace FlappyBird
 		void DrawInspector() override;
 
 		bool CreateNotes(NoteData data);
-		bool DeleteNotes(NoteData data);
+		bool DeleteNotes(float timing);
 
 		std::vector<NoteData>& GetNotes();
 

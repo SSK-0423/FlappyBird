@@ -33,8 +33,8 @@ namespace FlappyBird
 		void Restart();
 		void StartEdit(const FumenData& data);
 
-		void PutNotes(float timing, float posY);
-		void DeleteNotes(float timing, float posY);
+		void PutNotes(float timing, float posY, float spaceOffset);
+		void DeleteNotes(float timing);
 		void Scroll(LONG mouseWheelMovement);
 
 		/// <summary>
@@ -59,6 +59,7 @@ namespace FlappyBird
 		Framework::SoundClip* m_cannotPutNotesSound = nullptr;
 
 		float m_judgeLineX;				// 判定ラインのX座標
+		float m_spaceOffset = 0.0f;		// 土管の上下間のスペースを基準からずらす量
 		bool m_isStartedEdit = false;	// 譜面制作が開始されているかどうか
 	};
 }

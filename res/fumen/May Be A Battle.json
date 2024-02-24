@@ -8,826 +8,1032 @@
   "notes": [
     {
       "posY": 358,
+      "spaceOffset": 0,
       "time": 2742.857177734375
     },
     {
       "posY": 358,
+      "spaceOffset": 0,
       "time": 2914.28564453125
     },
     {
       "posY": 356,
+      "spaceOffset": 0,
       "time": 3257.142822265625
     },
     {
       "posY": 352,
+      "spaceOffset": 0,
       "time": 3428.571533203125
     },
     {
       "posY": 354,
+      "spaceOffset": 0,
       "time": 3771.4287109375
     },
     {
       "posY": 354,
+      "spaceOffset": 0,
       "time": 3942.857177734375
     },
     {
       "posY": 336,
+      "spaceOffset": 0,
       "time": 4285.71435546875
     },
     {
       "posY": 320,
+      "spaceOffset": 0,
       "time": 4457.142578125
     },
     {
       "posY": 279,
+      "spaceOffset": 0,
       "time": 4800
     },
     {
       "posY": 209,
+      "spaceOffset": 0,
       "time": 5314.28564453125
     },
     {
       "posY": 173,
+      "spaceOffset": 0,
       "time": 5485.71435546875
     },
     {
       "posY": 388,
+      "spaceOffset": 0,
       "time": 8228.5712890625
     },
     {
       "posY": 305,
+      "spaceOffset": 0,
       "time": 8914.28515625
     },
     {
       "posY": 374,
+      "spaceOffset": 0,
       "time": 10285.7138671875
     },
     {
       "posY": 373,
+      "spaceOffset": 0,
       "time": 9942.857421875
     },
     {
       "posY": 377,
+      "spaceOffset": 0,
       "time": 10628.5712890625
     },
     {
       "posY": 191,
+      "spaceOffset": 0,
       "time": 5657.14306640625
     },
     {
       "posY": 187,
+      "spaceOffset": 0,
       "time": 6000
     },
     {
       "posY": 181,
+      "spaceOffset": 0,
       "time": 6171.4287109375
     },
     {
       "posY": 180,
+      "spaceOffset": 0,
       "time": 6514.28564453125
     },
     {
       "posY": 182,
+      "spaceOffset": 0,
       "time": 6685.71435546875
     },
     {
       "posY": 243,
+      "spaceOffset": 0,
       "time": 7028.57177734375
     },
     {
       "posY": 269,
+      "spaceOffset": 0,
       "time": 7200
     },
     {
       "posY": 301,
+      "spaceOffset": 0,
       "time": 7371.4287109375
     },
     {
       "posY": 327,
+      "spaceOffset": 0,
       "time": 7542.857421875
     },
     {
       "posY": 347,
+      "spaceOffset": 0,
       "time": 7714.2861328125
     },
     {
       "posY": 372,
+      "spaceOffset": 0,
       "time": 7885.71435546875
     },
     {
       "posY": 373,
+      "spaceOffset": 0,
       "time": 10971.4287109375
     },
     {
       "posY": 476,
+      "spaceOffset": 0,
       "time": 11485.71484375
     },
     {
       "posY": 462,
+      "spaceOffset": 0,
       "time": 12685.71484375
     },
     {
       "posY": 440,
+      "spaceOffset": 0,
       "time": 12857.1435546875
     },
     {
       "posY": 409,
+      "spaceOffset": 0,
       "time": 13028.5712890625
     },
     {
       "posY": 290,
+      "spaceOffset": 0,
       "time": 13371.4287109375
     },
     {
       "posY": 393,
+      "spaceOffset": 0,
       "time": 13714.2861328125
     },
     {
       "posY": 476,
+      "spaceOffset": 0,
       "time": 11657.142578125
     },
     {
       "posY": 452,
+      "spaceOffset": 0,
       "time": 14228.572265625
     },
     {
       "posY": 450,
+      "spaceOffset": 0,
       "time": 14400
     },
     {
       "posY": 487,
+      "spaceOffset": 0,
       "time": 15600.0009765625
     },
     {
       "posY": 424,
+      "spaceOffset": 0,
       "time": 15771.4287109375
     },
     {
       "posY": 301,
+      "spaceOffset": 0,
       "time": 16114.2861328125
     },
     {
       "posY": 428,
+      "spaceOffset": 0,
       "time": 16457.142578125
     },
     {
       "posY": 424,
+      "spaceOffset": 0,
       "time": 16971.427734375
     },
     {
       "posY": 423,
+      "spaceOffset": 0,
       "time": 17142.857421875
     },
     {
       "posY": 150,
+      "spaceOffset": 0,
       "time": 19200
     },
     {
       "posY": 154,
+      "spaceOffset": 0,
       "time": 19714.28515625
     },
     {
       "posY": 120,
+      "spaceOffset": 0,
       "time": 19885.71484375
     },
     {
       "posY": 146,
+      "spaceOffset": 0,
       "time": 20571.4296875
     },
     {
       "posY": 230,
+      "spaceOffset": 0,
       "time": 20914.287109375
     },
     {
       "posY": 272,
+      "spaceOffset": 0,
       "time": 21085.71484375
     },
     {
       "posY": 317,
+      "spaceOffset": 0,
       "time": 21257.14453125
     },
     {
       "posY": 363,
+      "spaceOffset": 0,
       "time": 21600.001953125
     },
     {
       "posY": 449,
+      "spaceOffset": 0,
       "time": 21942.857421875
     },
     {
       "posY": 514,
+      "spaceOffset": 0,
       "time": 22457.142578125
     },
     {
       "posY": 623,
+      "spaceOffset": 0,
       "time": 22628.572265625
     },
     {
       "posY": 634,
+      "spaceOffset": 0,
       "time": 23657.142578125
     },
     {
       "posY": 537,
+      "spaceOffset": 0,
       "time": 23828.5703125
     },
     {
       "posY": 501,
+      "spaceOffset": 0,
       "time": 24000
     },
     {
       "posY": 461,
+      "spaceOffset": 0,
       "time": 24171.427734375
     },
     {
       "posY": 431,
+      "spaceOffset": 0,
       "time": 24342.857421875
     },
     {
       "posY": 399,
+      "spaceOffset": 0,
       "time": 24514.28515625
     },
     {
       "posY": 377,
+      "spaceOffset": 0,
       "time": 24685.71484375
     },
     {
       "posY": 669,
+      "spaceOffset": 0,
       "time": 25714.287109375
     },
     {
       "posY": 543,
+      "spaceOffset": 0,
       "time": 25885.71484375
     },
     {
       "posY": 508,
+      "spaceOffset": 0,
       "time": 26057.142578125
     },
     {
       "posY": 467,
+      "spaceOffset": 0,
       "time": 26228.5703125
     },
     {
       "posY": 418,
+      "spaceOffset": 0,
       "time": 26400
     },
     {
       "posY": 379,
+      "spaceOffset": 0,
       "time": 26571.427734375
     },
     {
       "posY": 329,
+      "spaceOffset": 0,
       "time": 26742.857421875
     },
     {
       "posY": 253,
+      "spaceOffset": 0,
       "time": 27085.71484375
     },
     {
       "posY": 180,
+      "spaceOffset": 0,
       "time": 27428.572265625
     },
     {
       "posY": 185,
+      "spaceOffset": 0,
       "time": 27942.857421875
     },
     {
       "posY": 163,
+      "spaceOffset": 0,
       "time": 28457.14453125
     },
     {
       "posY": 162,
+      "spaceOffset": 0,
       "time": 28800
     },
     {
       "posY": 261,
+      "spaceOffset": 0,
       "time": 29142.857421875
     },
     {
       "posY": 148,
+      "spaceOffset": 0,
       "time": 29485.71484375
     },
     {
       "posY": 264,
+      "spaceOffset": 0,
       "time": 29828.572265625
     },
     {
       "posY": 139,
+      "spaceOffset": 0,
       "time": 30171.4296875
     },
     {
       "posY": 289,
+      "spaceOffset": 0,
       "time": 30685.71484375
     },
     {
       "posY": 253,
+      "spaceOffset": 0,
       "time": 30857.14453125
     },
     {
       "posY": 343,
+      "spaceOffset": 0,
       "time": 31200.001953125
     },
     {
       "posY": 314,
+      "spaceOffset": 0,
       "time": 31371.4296875
     },
     {
       "posY": 280,
+      "spaceOffset": 0,
       "time": 31542.857421875
     },
     {
       "posY": 317,
+      "spaceOffset": 0,
       "time": 31714.28515625
     },
     {
       "posY": 349,
+      "spaceOffset": 0,
       "time": 31885.71484375
     },
     {
       "posY": 397,
+      "spaceOffset": 0,
       "time": 32228.572265625
     },
     {
       "posY": 473,
+      "spaceOffset": 0,
       "time": 32914.28515625
     },
     {
       "posY": 473,
+      "spaceOffset": 0,
       "time": 33428.5703125
     },
     {
       "posY": 473,
+      "spaceOffset": 0,
       "time": 33600
     },
     {
       "posY": 383,
+      "spaceOffset": 0,
       "time": 34114.28515625
     },
     {
       "posY": 276,
+      "spaceOffset": 0,
       "time": 34285.71484375
     },
     {
       "posY": 305,
+      "spaceOffset": 0,
       "time": 34457.14453125
     },
     {
       "posY": 334,
+      "spaceOffset": 0,
       "time": 34628.5703125
     },
     {
       "posY": 340,
+      "spaceOffset": 0,
       "time": 34971.4296875
     },
     {
       "posY": 356,
+      "spaceOffset": 0,
       "time": 35657.14453125
     },
     {
       "posY": 120,
+      "spaceOffset": 0,
       "time": 36171.4296875
     },
     {
       "posY": 234,
+      "spaceOffset": 0,
       "time": 36342.859375
     },
     {
       "posY": 256,
+      "spaceOffset": 0,
       "time": 36857.14453125
     },
     {
       "posY": 285,
+      "spaceOffset": 0,
       "time": 37028.5703125
     },
     {
       "posY": 311,
+      "spaceOffset": 0,
       "time": 37200
     },
     {
       "posY": 338,
+      "spaceOffset": 0,
       "time": 37371.42578125
     },
     {
       "posY": 354,
+      "spaceOffset": 0,
       "time": 37542.85546875
     },
     {
       "posY": 381,
+      "spaceOffset": 0,
       "time": 37714.28515625
     },
     {
       "posY": 401,
+      "spaceOffset": 0,
       "time": 38057.140625
     },
     {
       "posY": 279,
+      "spaceOffset": 0,
       "time": 38400
     },
     {
       "posY": 384,
+      "spaceOffset": 0,
       "time": 38742.85546875
     },
     {
       "posY": 289,
+      "spaceOffset": 0,
       "time": 39085.71484375
     },
     {
       "posY": 381,
+      "spaceOffset": 0,
       "time": 39428.5703125
     },
     {
       "posY": 298,
+      "spaceOffset": 0,
       "time": 39771.4296875
     },
     {
       "posY": 262,
+      "spaceOffset": 0,
       "time": 39942.859375
     },
     {
       "posY": 297,
+      "spaceOffset": 0,
       "time": 40114.28515625
     },
     {
       "posY": 352,
+      "spaceOffset": 0,
       "time": 40285.71484375
     },
     {
       "posY": 388,
+      "spaceOffset": 0,
       "time": 40457.14453125
     },
     {
       "posY": 360,
+      "spaceOffset": 0,
       "time": 40628.57421875
     },
     {
       "posY": 336,
+      "spaceOffset": 0,
       "time": 40800
     },
     {
       "posY": 303,
+      "spaceOffset": 0,
       "time": 40971.4296875
     },
     {
       "posY": 274,
+      "spaceOffset": 0,
       "time": 41142.859375
     },
     {
       "posY": 274,
+      "spaceOffset": 0,
       "time": 41485.71484375
     },
     {
       "posY": 275,
+      "spaceOffset": 0,
       "time": 41828.57421875
     },
     {
       "posY": 276,
+      "spaceOffset": 0,
       "time": 42171.4296875
     },
     {
       "posY": 275,
+      "spaceOffset": 0,
       "time": 42514.28515625
     },
     {
       "posY": 274,
+      "spaceOffset": 0,
       "time": 42857.140625
     },
     {
       "posY": 276,
+      "spaceOffset": 0,
       "time": 43200
     },
     {
       "posY": 279,
+      "spaceOffset": 0,
       "time": 43542.85546875
     },
     {
       "posY": 417,
+      "spaceOffset": 0,
       "time": 44228.5703125
     },
     {
       "posY": 419,
+      "spaceOffset": 0,
       "time": 44571.4296875
     },
     {
       "posY": 421,
+      "spaceOffset": 0,
       "time": 44914.28515625
     },
     {
       "posY": 425,
+      "spaceOffset": 0,
       "time": 45257.14453125
     },
     {
       "posY": 417,
+      "spaceOffset": 0,
       "time": 45600
     },
     {
       "posY": 418,
+      "spaceOffset": 0,
       "time": 45942.859375
     },
     {
       "posY": 419,
+      "spaceOffset": 0,
       "time": 46285.71484375
     },
     {
       "posY": 335,
+      "spaceOffset": 0,
       "time": 46971.42578125
     },
     {
       "posY": 334,
+      "spaceOffset": 0,
       "time": 47142.85546875
     },
     {
       "posY": 334,
+      "spaceOffset": 0,
       "time": 47314.28515625
     },
     {
       "posY": 392,
+      "spaceOffset": 0,
       "time": 47657.140625
     },
     {
       "posY": 390,
+      "spaceOffset": 0,
       "time": 47828.5703125
     },
     {
       "posY": 389,
+      "spaceOffset": 0,
       "time": 48000
     },
     {
       "posY": 257,
+      "spaceOffset": 0,
       "time": 48342.85546875
     },
     {
       "posY": 256,
+      "spaceOffset": 0,
       "time": 48514.28515625
     },
     {
       "posY": 255,
+      "spaceOffset": 0,
       "time": 48685.71484375
     },
     {
       "posY": 367,
+      "spaceOffset": 0,
       "time": 49028.5703125
     },
     {
       "posY": 371,
+      "spaceOffset": 0,
       "time": 49200
     },
     {
       "posY": 372,
+      "spaceOffset": 0,
       "time": 49371.4296875
     },
     {
       "posY": 365,
+      "spaceOffset": 0,
       "time": 49714.28515625
     },
     {
       "posY": 365,
+      "spaceOffset": 0,
       "time": 50057.14453125
     },
     {
       "posY": 365,
+      "spaceOffset": 0,
       "time": 50400
     },
     {
       "posY": 370,
+      "spaceOffset": 0,
       "time": 50742.859375
     },
     {
       "posY": 369,
+      "spaceOffset": 0,
       "time": 51085.71484375
     },
     {
       "posY": 368,
+      "spaceOffset": 0,
       "time": 51428.57421875
     },
     {
       "posY": 365,
+      "spaceOffset": 0,
       "time": 51771.4296875
     },
     {
       "posY": 360,
+      "spaceOffset": 0,
       "time": 52114.28515625
     },
     {
       "posY": 160,
+      "spaceOffset": 0,
       "time": 53485.71484375
     },
     {
       "posY": 27,
+      "spaceOffset": 0,
       "time": 54857.14453125
     },
     {
       "posY": 188,
+      "spaceOffset": 0,
       "time": 55200
     },
     {
       "posY": 162,
+      "spaceOffset": 0,
       "time": 55542.859375
     },
     {
       "posY": 148,
+      "spaceOffset": 0,
       "time": 55885.71484375
     },
     {
       "posY": 269,
+      "spaceOffset": 0,
       "time": 56228.5703125
     },
     {
       "posY": 338,
+      "spaceOffset": 0,
       "time": 57600
     },
     {
       "posY": 335,
+      "spaceOffset": 0,
       "time": 58971.4296875
     },
     {
       "posY": 335,
+      "spaceOffset": 0,
       "time": 60342.859375
     },
     {
       "posY": 335,
+      "spaceOffset": 0,
       "time": 61714.28515625
     },
     {
       "posY": 445,
+      "spaceOffset": 0,
       "time": 63085.71484375
     },
     {
       "posY": 413,
+      "spaceOffset": 0,
       "time": 63257.14453125
     },
     {
       "posY": 377,
+      "spaceOffset": 0,
       "time": 63428.5703125
     },
     {
       "posY": 343,
+      "spaceOffset": 0,
       "time": 63600
     },
     {
       "posY": 398,
+      "spaceOffset": 0,
       "time": 63942.859375
     },
     {
       "posY": 360,
+      "spaceOffset": 0,
       "time": 64114.28515625
     },
     {
       "posY": 327,
+      "spaceOffset": 0,
       "time": 64285.71484375
     },
     {
       "posY": 417,
+      "spaceOffset": 0,
       "time": 63771.4296875
     },
     {
       "posY": 426,
+      "spaceOffset": 0,
       "time": 64457.14453125
     },
     {
       "posY": 401,
+      "spaceOffset": 0,
       "time": 64628.57421875
     },
     {
       "posY": 374,
+      "spaceOffset": 0,
       "time": 64800
     },
     {
       "posY": 341,
+      "spaceOffset": 0,
       "time": 64971.4296875
     },
     {
       "posY": 371,
+      "spaceOffset": 0,
       "time": 65142.859375
     },
     {
       "posY": 339,
+      "spaceOffset": 0,
       "time": 65314.2890625
     },
     {
       "posY": 312,
+      "spaceOffset": 0,
       "time": 65485.71484375
     },
     {
       "posY": 286,
+      "spaceOffset": 0,
       "time": 65657.140625
     },
     {
       "posY": 315,
+      "spaceOffset": 0,
       "time": 65828.5703125
     },
     {
       "posY": 284,
+      "spaceOffset": 0,
       "time": 66000
     },
     {
       "posY": 250,
+      "spaceOffset": 0,
       "time": 66171.4296875
     },
     {
       "posY": 224,
+      "spaceOffset": 0,
       "time": 66342.859375
     },
     {
       "posY": 285,
+      "spaceOffset": 0,
       "time": 66514.28125
     },
     {
       "posY": 262,
+      "spaceOffset": 0,
       "time": 66685.7109375
     },
     {
       "posY": 232,
+      "spaceOffset": 0,
       "time": 66857.140625
     },
     {
       "posY": 157,
+      "spaceOffset": 0,
       "time": 67028.5703125
     },
     {
       "posY": 188,
+      "spaceOffset": 0,
       "time": 67200
     },
     {
       "posY": 172,
+      "spaceOffset": 0,
       "time": 67885.7109375
     },
     {
       "posY": 199,
+      "spaceOffset": 0,
       "time": 68571.4296875
     },
     {
       "posY": 619,
+      "spaceOffset": 0,
       "time": 69942.859375
     },
     {
       "posY": 544,
+      "spaceOffset": 0,
       "time": 70285.71875
     },
     {
       "posY": 509,
+      "spaceOffset": 0,
       "time": 70628.5703125
     },
     {
       "posY": 477,
+      "spaceOffset": 0,
       "time": 70971.4296875
     },
     {
       "posY": 382,
+      "spaceOffset": 0,
       "time": 71314.2890625
     },
     {
       "posY": 144,
+      "spaceOffset": 0,
       "time": 72685.71875
     },
     {
       "posY": 225,
+      "spaceOffset": 0,
       "time": 72857.1484375
     },
     {
       "posY": 255,
+      "spaceOffset": 0,
       "time": 73028.578125
     },
     {
       "posY": 283,
+      "spaceOffset": 0,
       "time": 73200.0078125
     },
     {
       "posY": 253,
+      "spaceOffset": 0,
       "time": 73371.4296875
     },
     {
       "posY": 229,
+      "spaceOffset": 0,
       "time": 73542.859375
     },
     {
       "posY": 201,
+      "spaceOffset": 0,
       "time": 73714.2890625
     },
     {
       "posY": 159,
+      "spaceOffset": 0,
       "time": 73885.71875
     },
     {
       "posY": 356,
+      "spaceOffset": 0,
       "time": 10114.2861328125
     },
     {
       "posY": 334,
+      "spaceOffset": 0,
       "time": 8742.857421875
     },
     {
       "posY": 516,
+      "spaceOffset": 0,
       "time": 15428.572265625
     },
     {
       "posY": 345,
+      "spaceOffset": 0,
       "time": 43885.71484375
     },
     {
       "posY": 373,
+      "spaceOffset": 0,
       "time": 46628.5703125
     },
     {
       "posY": 278,
+      "spaceOffset": 0,
       "time": 54171.4296875
     }
   ]

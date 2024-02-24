@@ -25,6 +25,7 @@ namespace FlappyBird
 			picojson::object noteObject;
 			noteObject.insert(std::make_pair("time", picojson::value(data.timing)));
 			noteObject.insert(std::make_pair("posY", picojson::value(data.posY)));
+			noteObject.insert(std::make_pair("spaceOffset", picojson::value(data.spaceOffset)));
 			notesArray.push_back(picojson::value(noteObject));
 		}
 		rootObject.insert(std::make_pair("notes", picojson::value(notesArray)));
@@ -66,6 +67,7 @@ namespace FlappyBird
 			NoteData noteData;
 			noteData.timing = note.get("time").get<double>();
 			noteData.posY = static_cast<float>(note.get("posY").get<double>());
+			noteData.spaceOffset = static_cast<float>(note.get("spaceOffset").get<double>());
 			data.noteDatas.push_back(noteData);
 		}
 	}

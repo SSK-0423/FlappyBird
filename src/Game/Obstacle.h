@@ -25,7 +25,9 @@ namespace FlappyBird
 
 		bool CanPlaySE();
 		void SetCanPlaySE(bool canPlaySE);
-		
+
+		void SetSpaceOffset(float spaceOffset);
+
 		void Reset();
 
 		static void SetJudgeLineX(float judgeLineX);
@@ -34,6 +36,7 @@ namespace FlappyBird
 	private:
 		float m_timing = 0.0f;
 		float m_posY = 0.0f;
+		float m_spaceOffset = 0.0f;
 
 		bool m_canPlaySE = true;
 

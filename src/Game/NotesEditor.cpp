@@ -65,6 +65,7 @@ namespace FlappyBird
 
 		notesEditUI->OnLoad.Subscribe([this](const std::string& loadPath, FumenData& data)
 			{
+				// 譜面を読み込んで編集開始
 				LoadFumen(loadPath, data);
 				StartEdit(data);
 			});
@@ -118,16 +119,17 @@ namespace FlappyBird
 			// 設置用のオブジェクト描画
 			m_obstacle->SetTiming(timing);
 			m_obstacle->SetPosY(static_cast<float>(mousePos.y));
+			m_obstacle->SetSpaceOffset(m_spaceOffset);
 			m_obstacle->GetOwner()->SetActive(true);
 
 			// マウスクリック時の処理
 			if (InputSystem::GetMouseButtonDown(MOUSECODE::LEFT))
 			{
-				PutNotes(timing, static_cast<float>(mousePos.y));
+				PutNotes(timing, static_cast<float>(mousePos.y), m_spaceOffset);
 			}
 			if (InputSystem::GetMouseButtonDown(MOUSECODE::RIGHT))
 			{
-				DeleteNotes(timing, static_cast<float>(mousePos.y));
+				DeleteNotes(timing);
 			}
 
 			// 曲が再生中でなければマウスホイールでの処理を行う
@@ -135,6 +137,16 @@ namespace FlappyBird
 			{
 				// マウスホイールで曲を進める
 				Scroll(InputSystem::GetMouseWheelMovement());
+			}
+
+			// 数字キーで上下の土管の間のスペースを調整
+			if (InputSystem::GetKeyDown(DIK_1))
+			{
+				m_spaceOffset -= 5.f;
+			}
+			if (InputSystem::GetKeyDown(DIK_2))
+			{
+				m_spaceOffset += 5.f;
 			}
 
 			// スペースキーで曲の再生・停止を切り替える
@@ -201,7 +213,6 @@ namespace FlappyBird
 	{
 		m_isStartedEdit = true;
 
-
 		// 音楽ファイルを読み込み
 		m_musicPlayer->Load(data.musicFilePath, false);
 
@@ -213,9 +224,9 @@ namespace FlappyBird
 		// 小節線を生成する
 		m_barManager->CreateBar(barNum, data.bpm, data.beat);
 	}
-	void NotesEditor::PutNotes(float timing, float posY)
+	void NotesEditor::PutNotes(float timing, float posY, float spaceOffset)
 	{
-		bool couldCreate = m_notesManager->CreateNotes(NoteData(timing, posY));
+		bool couldCreate = m_notesManager->CreateNotes(NoteData(timing, posY, spaceOffset));
 
 		// 生成できたら生成時SEを再生
 		if (couldCreate)
@@ -228,9 +239,9 @@ namespace FlappyBird
 			m_cannotPutNotesSound->Play(0.5f);
 		}
 	}
-	void NotesEditor::DeleteNotes(float timing, float posY)
+	void NotesEditor::DeleteNotes(float timing)
 	{
-		bool couldDelete = m_notesManager->DeleteNotes(NoteData(timing, posY));
+		bool couldDelete = m_notesManager->DeleteNotes(timing);
 
 		// 削除できたら削除時SEを再生
 		if (couldDelete)

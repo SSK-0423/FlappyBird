@@ -9,8 +9,9 @@ namespace FlappyBird
 	{
 		float timing;
 		float posY;
+		float spaceOffset;
 
-		NoteData() : timing(0.f), posY(0.f) {}
-		NoteData(float timing, float posY) : timing(timing), posY(posY) {}
+		NoteData() : timing(0.f), posY(0.f), spaceOffset(0.f) {}
+		NoteData(float timing, float posY, float spaceOffset) : timing(timing), posY(posY), spaceOffset(spaceOffset) {}
 	};
 }

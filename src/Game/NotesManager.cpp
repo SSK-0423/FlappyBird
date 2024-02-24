@@ -91,13 +91,14 @@ namespace FlappyBird
 		Obstacle* obstacle = noteObstacle->AddComponent<Obstacle>(noteObstacle);
 		obstacle->SetTiming(data.timing);
 		obstacle->SetPosY(data.posY);
+		obstacle->SetSpaceOffset(data.spaceOffset);
 		m_noteObstacles.push_back(obstacle);
 
 		m_owner.lock()->AddChild(noteObstacle);
 
 		return true;
 	}
-	bool NotesManager::DeleteNotes(NoteData data)
+	bool NotesManager::DeleteNotes(float timing)
 	{
 		bool couldDeleteData = false;
 		bool couldDeleteNote = false;
@@ -105,7 +106,7 @@ namespace FlappyBird
 		// ノーツデータを削除
 		for (auto it = m_notes.begin(); it != m_notes.end(); ++it)
 		{
-			if (it->timing == data.timing)
+			if (it->timing == timing)
 			{
 				m_notes.erase(it);
 				couldDeleteData = true;
@@ -116,7 +117,7 @@ namespace FlappyBird
 		// ノーツを削除
 		for (auto it = m_noteObstacles.begin(); it != m_noteObstacles.end(); ++it)
 		{
-			if ((*it)->GetTiming() == data.timing)
+			if ((*it)->GetTiming() == timing)
 			{
 				m_owner.lock()->RemoveChild((*it)->GetOwner());
 				m_noteObstacles.erase(it);
@@ -226,12 +227,12 @@ namespace FlappyBird
 					m_owner.lock()->GetComponent<SoundClip>()->Play(0.5f);
 					note->SetCanPlaySE(false);	// 複数回再生できないようにする
 					OnReachedJudgeLine.Notify(Framework::NotificationEvent());
-			}
+				}
 #ifdef _DEBUG
 				//Editor::DebugLog("Note Timing: %f", note->GetTiming());
 				//Editor::DebugLog("Diff: %f", diff);
 #endif // _DEBUG
+			}
 		}
 	}
 }
-	}

@@ -106,7 +106,7 @@ namespace FlappyBird
 	void Obstacle::SetPosY(float posY)
 	{
 		auto viewportSize = Dx12GraphicsEngine::GetViewport();
-		m_posY = std::clamp(posY, SPACE * 0.75f, viewportSize.Height - SPACE * 0.75f);
+		m_posY = std::clamp(posY, (SPACE + m_spaceOffset) * 0.75f, viewportSize.Height - (SPACE + m_spaceOffset) * 0.75f);
 	}
 	void Obstacle::SetMaterialColor(const DirectX::XMFLOAT4& color)
 	{
@@ -124,6 +124,13 @@ namespace FlappyBird
 	void Obstacle::SetCanPlaySE(bool canPlaySE)
 	{
 		m_canPlaySE = canPlaySE;
+	}
+	void Obstacle::SetSpaceOffset(float spaceOffset)
+	{
+		// äÓèÄÇÃSPACEÇÊÇËè¨Ç≥Ç≠Ç»ÇÁÇ»Ç¢ÇÊÇ§Ç…Ç∑ÇÈ
+		m_spaceOffset = spaceOffset;
+
+		m_spaceOffset = std::clamp(m_spaceOffset, 0.f, static_cast<float>(SPACE));
 	}
 	void Obstacle::SetCurrentPlayTime(float currentPlayTime)
 	{
@@ -144,7 +151,7 @@ namespace FlappyBird
 		// è·äQï®ÇÃà⁄ìÆ
 		float obstacleNewPosX = m_judgeLineX + x / 2.f;
 		float halfObstacleScaleY = m_overObstacleTransform->scale.y / 2.f;
-		float halfSpace = SPACE / 2.f;
+		float halfSpace = (SPACE + m_spaceOffset) / 2.f;
 
 		m_underObstacleTransform->position.x = obstacleNewPosX;
 		m_underObstacleTransform->position.y = m_posY + halfObstacleScaleY + halfSpace;

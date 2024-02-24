@@ -94,7 +94,6 @@ namespace Framework
 
 		static Utility::RESULT CreateGraphicsPipelineState(ID3D12Device& device);
 		static Utility::RESULT CreateRootSignature(ID3D12Device& device);
-		static Utility::RESULT CreateInstanceConstantBuffer(ID3D12Device& device);
 
 	private:
 		/// <summary>
@@ -106,26 +105,12 @@ namespace Framework
 			CAMERA = 1,
 			DRAW_MODE = 2,
 			MATERIAL = 3,
-			INSTANCE = 4,
 			BUFFER_COUNT
 		};
-
-		static constexpr UINT MAX_INSTANCE_COUNT = 100;	// 一度に描画できるスプライトの最大数
-		struct InstanceData
-		{
-			DirectX::XMMATRIX transform;
-		};
-		struct InstanceBufferData
-		{
-			InstanceData data[MAX_INSTANCE_COUNT];
-		};
-		static std::unordered_map<SPRITE_PIVOT, InstanceBufferData> m_instanceBufferData;				// インスタンスデータ
-		static DX12Wrapper::ConstantBuffer m_instanceDataBuffer;	// インスタンスデータをシェーダーに渡すためのバッファ
 
 		// スプライト描画で共通する部分のデータ
 		static DX12Wrapper::RootSignature m_rootSignature;
 		static DX12Wrapper::GraphicsPipelineState m_pipelineState;
-		static std::unordered_map<SPRITE_PIVOT, unsigned int> m_spriteCount;	// スプライトの原点位置ごとの描画回数
 
 		// スプライト固有のデータ
 		std::vector<std::shared_ptr<Sprite>> m_sprites;	                            // 描画するスプライト
