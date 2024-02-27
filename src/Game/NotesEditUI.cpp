@@ -20,7 +20,9 @@ namespace FlappyBird
 	// 静的メンバ変数の初期化
 	std::string NotesEditUI::m_selectedMusicPath = "No Select";
 	const ImVec2 NotesEditUI::WINDOW_POS = ImVec2(0, 0);
-	const ImVec2 NotesEditUI::WINDOW_SIZE = ImVec2(300, 350);
+	const ImVec2 NotesEditUI::WINDOW_SIZE = ImVec2(300, 405);
+	FumenData NotesEditUI::m_fumenData;
+	int NotesEditUI::m_selectedNoteType = static_cast<int>(NoteType::OBSTACLE);
 
 	NotesEditUI::NotesEditUI(std::shared_ptr<Object> owner)
 		: Framework::IComponent(owner)
@@ -62,6 +64,9 @@ namespace FlappyBird
 
 		ImGui::SeparatorText("Music Play/Stop");
 		DrawPlayStopRestartButton();
+
+		ImGui::SeparatorText("Note Type");
+		DrawNoteTypeSelector();
 
 		ImGui::SeparatorText("Edit Start");
 		DrawEditStartButton();
@@ -185,6 +190,19 @@ namespace FlappyBird
 		{
 			// 編集開始
 			OnEditStart.Notify(m_fumenData);
+		}
+	}
+	void NotesEditUI::DrawNoteTypeSelector()
+	{
+		ImGui::Text("Note Type");
+		if (ImGui::RadioButton("Obstacle", &m_selectedNoteType, static_cast<int>(NoteType::OBSTACLE)))
+		{
+			OnNoteTypeChanged.Notify(NoteType::OBSTACLE);
+		}
+		ImGui::SameLine();
+		if (ImGui::RadioButton("Hidden", &m_selectedNoteType, static_cast<int>(NoteType::HIDDEN)))
+		{
+			OnNoteTypeChanged.Notify(NoteType::HIDDEN);
 		}
 	}
 }

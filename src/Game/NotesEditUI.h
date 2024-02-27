@@ -24,12 +24,13 @@ namespace FlappyBird
 		Framework::Subject<Framework::NotificationEvent> OnPlay;	// Playボタン押下時
 		Framework::Subject<Framework::NotificationEvent> OnStop;	// Stopボタン押下時
 		Framework::Subject<Framework::NotificationEvent> OnRestart;	// Restartボタン押下時
+		Framework::Subject<NoteType> OnNoteTypeChanged;			// ノーツタイプ選択時
 
 	private:
 		static const ImVec2 WINDOW_POS;
 		static const ImVec2 WINDOW_SIZE;
 
-		FumenData m_fumenData;
+		static FumenData m_fumenData;
 
 		/// <summary>
 		/// 譜面データを描画する
@@ -53,6 +54,12 @@ namespace FlappyBird
 		/// </summary>
 		void DrawEditStartButton();
 
+		/// <summary>
+		/// 設置するノーツの種類を選択するボタンを描画する
+		/// </summary>
+		void DrawNoteTypeSelector();
+
+		static int m_selectedNoteType;				// 選択中のノーツの種類
 		static std::string m_selectedMusicPath;		// 選択中の曲のファイルパス
 	};
 }

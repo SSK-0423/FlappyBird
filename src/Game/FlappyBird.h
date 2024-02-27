@@ -8,11 +8,12 @@ namespace FlappyBird
 	/// </summary>
 	enum SPRITE_LAYER
 	{
-		UI = 0,
-		GAMEOBJECT = 1,
-		OBSTACLE = 2,
-		BARLINE = 3,
-		BACKGROUND = 4,
+		UI,
+		GAMEOBJECT,
+		JUMP_POINT,
+		OBSTACLE,
+		BARLINE,
+		BACKGROUND,
 	};
 
 	/// <summary>

@@ -5,161 +5,222 @@
     "musicFilePath": "res\/sound\/Froggy's_Song.wav",
     "musicName": "Froggy's Song"
   },
+  "hiddenNotes": [
+    {
+      "time": 7500,
+      "type": 1
+    },
+    {
+      "time": 11500,
+      "type": 1
+    },
+    {
+      "time": 12500,
+      "type": 1
+    },
+    {
+      "time": 14500,
+      "type": 1
+    },
+    {
+      "time": 13500,
+      "type": 1
+    },
+    {
+      "time": 15500,
+      "type": 1
+    },
+    {
+      "time": 20000,
+      "type": 1
+    }
+  ],
   "notes": [
     {
       "posY": 384,
       "spaceOffset": 0,
-      "time": 14000
+      "time": 14000,
+      "type": 0
     },
     {
       "posY": 384,
       "spaceOffset": 0,
-      "time": 15000
+      "time": 15000,
+      "type": 0
     },
     {
       "posY": 451,
       "spaceOffset": 0,
-      "time": 4000
+      "time": 4000,
+      "type": 0
     },
     {
       "posY": 402,
       "spaceOffset": 0,
-      "time": 4500
+      "time": 4500,
+      "type": 0
     },
     {
       "posY": 354,
       "spaceOffset": 0,
-      "time": 5000
+      "time": 5000,
+      "type": 0
     },
     {
       "posY": 306,
       "spaceOffset": 0,
-      "time": 5500
+      "time": 5500,
+      "type": 0
     },
     {
       "posY": 350,
       "spaceOffset": 0,
-      "time": 6000
+      "time": 6000,
+      "type": 0
     },
     {
       "posY": 390,
       "spaceOffset": 0,
-      "time": 6500
+      "time": 6500,
+      "type": 0
     },
     {
       "posY": 430,
       "spaceOffset": 0,
-      "time": 7000
+      "time": 7000,
+      "type": 0
     },
     {
       "posY": 391,
       "spaceOffset": 0,
-      "time": 8000
+      "time": 8000,
+      "type": 0
     },
     {
       "posY": 339,
       "spaceOffset": 0,
-      "time": 8500
+      "time": 8500,
+      "type": 0
     },
     {
       "posY": 288,
       "spaceOffset": 0,
-      "time": 9000
+      "time": 9000,
+      "type": 0
     },
     {
       "posY": 233,
       "spaceOffset": 0,
-      "time": 9500
+      "time": 9500,
+      "type": 0
     },
     {
       "posY": 287,
       "spaceOffset": 0,
-      "time": 10000
+      "time": 10000,
+      "type": 0
     },
     {
       "posY": 330,
       "spaceOffset": 0,
-      "time": 10500
+      "time": 10500,
+      "type": 0
     },
     {
       "posY": 369,
       "spaceOffset": 0,
-      "time": 11000
+      "time": 11000,
+      "type": 0
     },
     {
       "posY": 382,
       "spaceOffset": 0,
-      "time": 12000
+      "time": 12000,
+      "type": 0
     },
     {
       "posY": 379,
       "spaceOffset": 0,
-      "time": 13000
+      "time": 13000,
+      "type": 0
     },
     {
       "posY": 471,
       "spaceOffset": 0,
-      "time": 16000
+      "time": 16000,
+      "type": 0
     },
     {
       "posY": 471,
       "spaceOffset": 0,
-      "time": 16250
+      "time": 16250,
+      "type": 0
     },
     {
       "posY": 418,
       "spaceOffset": 0,
-      "time": 16500
+      "time": 16500,
+      "type": 0
     },
     {
       "posY": 417,
       "spaceOffset": 0,
-      "time": 16750
+      "time": 16750,
+      "type": 0
     },
     {
       "posY": 368,
       "spaceOffset": 0,
-      "time": 17000
+      "time": 17000,
+      "type": 0
     },
     {
       "posY": 368,
       "spaceOffset": 0,
-      "time": 17250
+      "time": 17250,
+      "type": 0
     },
     {
       "posY": 332,
       "spaceOffset": 0,
-      "time": 17500
+      "time": 17500,
+      "type": 0
     },
     {
       "posY": 329,
       "spaceOffset": 0,
-      "time": 17750
+      "time": 17750,
+      "type": 0
     },
     {
       "posY": 283,
       "spaceOffset": 0,
-      "time": 18000
+      "time": 18000,
+      "type": 0
     },
     {
       "posY": 338,
       "spaceOffset": 0,
-      "time": 18500
+      "time": 18500,
+      "type": 0
     },
     {
       "posY": 408,
       "spaceOffset": 0,
-      "time": 19000
+      "time": 19000,
+      "type": 0
     },
     {
       "posY": 365,
       "spaceOffset": 0,
-      "time": 19250
+      "time": 19250,
+      "type": 0
     },
     {
       "posY": 328,
       "spaceOffset": 0,
-      "time": 19500
+      "time": 19500,
+      "type": 0
     }
   ]
 }

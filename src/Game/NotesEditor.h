@@ -8,9 +8,11 @@ namespace FlappyBird
 	class BarManager;
 	class LaneManager;
 	class NotesManager;
+	class HiddenNotesManager;
 	class MusicPlayer;
 
 	class Obstacle;
+	class JumpPoint;
 
 	/// <summary>
 	/// 譜面制作エディタ全体の流れを管理するクラス
@@ -33,8 +35,8 @@ namespace FlappyBird
 		void Restart();
 		void StartEdit(const FumenData& data);
 
-		void PutNotes(float timing, float posY, float spaceOffset);
-		void DeleteNotes(float timing);
+		void PutNotes(NoteType type, float timing, float posY, float spaceOffset);
+		void DeleteNotes(NoteType type, float timing);
 		void Scroll(LONG mouseWheelMovement);
 
 		/// <summary>
@@ -50,16 +52,19 @@ namespace FlappyBird
 		BarManager* m_barManager = nullptr;
 		LaneManager* m_laneManager = nullptr;
 		NotesManager* m_notesManager = nullptr;
+		HiddenNotesManager* m_hiddenNotesManager = nullptr;
 		MusicPlayer* m_musicPlayer = nullptr;
 
 		Obstacle* m_obstacle = nullptr;
+		JumpPoint* m_jumpPoint = nullptr;
 
 		Framework::SoundClip* m_putNotesSound = nullptr;
 		Framework::SoundClip* m_deleteNotesSound = nullptr;
 		Framework::SoundClip* m_cannotPutNotesSound = nullptr;
 
-		float m_judgeLineX;				// 判定ラインのX座標
-		float m_spaceOffset = 0.0f;		// 土管の上下間のスペースを基準からずらす量
-		bool m_isStartedEdit = false;	// 譜面制作が開始されているかどうか
+		NoteType m_putNoteType = NoteType::OBSTACLE;		// 設置するノーツの種類
+		float m_judgeLineX;				                    // 判定ラインのX座標
+		float m_spaceOffset = 0.0f;		                    // 土管の上下間のスペースを基準からずらす量
+		bool m_isStartedEdit = false;	                    // 譜面制作が開始されているかどうか
 	};
 }

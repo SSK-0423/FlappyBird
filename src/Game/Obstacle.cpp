@@ -92,7 +92,13 @@ namespace FlappyBird
 	{
 		if (ImGui::CollapsingHeader("Obstacle"))
 		{
+			auto& viewportSize = Dx12GraphicsEngine::GetViewport();
+
 			ImGui::Text("Timing: %f", m_timing);
+			ImGui::Text("PosY: %f", m_posY);
+			ImGui::Text("SpaceOffset: %f", m_spaceOffset);
+			ImGui::Text("top: %f", (SPACE + m_spaceOffset) * 0.75f);
+			ImGui::Text("bottom: %f", viewportSize.Height - (SPACE + m_spaceOffset) * 0.75f);
 		}
 	}
 	void Obstacle::SetTiming(float timing)
@@ -105,7 +111,7 @@ namespace FlappyBird
 	}
 	void Obstacle::SetPosY(float posY)
 	{
-		auto viewportSize = Dx12GraphicsEngine::GetViewport();
+		auto& viewportSize = Dx12GraphicsEngine::GetViewport();
 		m_posY = std::clamp(posY, (SPACE + m_spaceOffset) * 0.75f, viewportSize.Height - (SPACE + m_spaceOffset) * 0.75f);
 	}
 	void Obstacle::SetMaterialColor(const DirectX::XMFLOAT4& color)

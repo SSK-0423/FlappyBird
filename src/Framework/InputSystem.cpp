@@ -179,7 +179,8 @@ namespace Framework
 	}
 	bool InputSystem::GetKey(KEYCODE keyCode)
 	{
-		return m_keysState[keyCode] == BUTTON_STATE::HOLD;
+		return m_keysState[keyCode] == BUTTON_STATE::DOWN || m_keysState[keyCode] == BUTTON_STATE::HOLD;
+		//return m_keysState[keyCode] == BUTTON_STATE::HOLD;
 	}
 	bool InputSystem::GetMouseButtonDown(MOUSECODE mouseCode)
 	{

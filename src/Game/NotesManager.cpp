@@ -90,8 +90,8 @@ namespace FlappyBird
 		noteObstacle->SetActive(false);
 		Obstacle* obstacle = noteObstacle->AddComponent<Obstacle>(noteObstacle);
 		obstacle->SetTiming(data.timing);
-		obstacle->SetPosY(data.posY);
 		obstacle->SetSpaceOffset(data.spaceOffset);
+		obstacle->SetPosY(data.posY);
 		m_noteObstacles.push_back(obstacle);
 
 		m_owner.lock()->AddChild(noteObstacle);

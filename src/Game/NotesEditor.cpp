@@ -5,9 +5,11 @@
 #include "FumenJsonReadWriter.h"
 #include "BarManager.h"
 #include "NotesManager.h"
+#include "HiddenNotesManager.h"
 #include "MusicPlayer.h"
 
 #include "Obstacle.h"
+#include "JumpPoint.h"
 #include "TimingCalculator.h"
 
 #include "DX12Wrapper/Dx12GraphicsEngine.h"
@@ -19,13 +21,22 @@ namespace FlappyBird
 {
 	NotesEditor::NotesEditor(std::shared_ptr<Object> owner) : IComponent(owner)
 	{
-		// 障害物の取得
+		// 半透明で描画される障害物を生成
 		std::shared_ptr<GameObject> obstaceleObj = std::shared_ptr<GameObject>(new GameObject());
 		obstaceleObj->SetName("Obstacle");
 		obstaceleObj->SetActive(false);
 		m_obstacle = obstaceleObj->AddComponent<Obstacle>(obstaceleObj);
 		m_obstacle->SetMaterialColor({ 1.f, 1.f, 1.f, 0.8f });
 		m_owner.lock()->AddChild(obstaceleObj);
+
+		// 半透明で描画されるジャンプポイントを生成
+		std::shared_ptr<GameObject> jumpPointObj = std::shared_ptr<GameObject>(new GameObject());
+		jumpPointObj->SetName("JumpPoint");
+		jumpPointObj->SetActive(false);
+		m_jumpPoint = jumpPointObj->AddComponent<JumpPoint>(jumpPointObj);
+		Material* material = jumpPointObj->AddComponent<Material>(jumpPointObj);
+		material->SetColor({ 1.f, 1.f, 1.f, 0.8f });
+		m_owner.lock()->AddChild(jumpPointObj);
 
 		// ノーツ設置系のSEオブジェクト追加
 		// ノーツ設置時SE
@@ -79,10 +90,16 @@ namespace FlappyBird
 				m_notesManager->DeleteAllNotes();
 				StartEdit(data);
 			});
+		notesEditUI->OnNoteTypeChanged.Subscribe([this](NoteType noteType)
+			{
+				// 設置するノーツの種類を変更
+				m_putNoteType = noteType;
+			});
 
 		// 各種コンポーネントの取得
 		m_barManager = UIObjectManager::FindObject("BarManager")->GetComponent<BarManager>();
 		m_notesManager = GameObjectManager::FindObject("NotesManager")->GetComponent<NotesManager>();
+		m_hiddenNotesManager = GameObjectManager::FindObject("HiddenNotesManager")->GetComponent<HiddenNotesManager>();
 		m_musicPlayer = GameObjectManager::FindObject("MusicPlayer")->GetComponent<MusicPlayer>();
 
 		// 判定ラインの位置を取得
@@ -118,18 +135,34 @@ namespace FlappyBird
 
 			// 設置用のオブジェクト描画
 			m_obstacle->SetTiming(timing);
-			m_obstacle->SetPosY(static_cast<float>(mousePos.y));
 			m_obstacle->SetSpaceOffset(m_spaceOffset);
-			m_obstacle->GetOwner()->SetActive(true);
+			m_obstacle->SetPosY(static_cast<float>(mousePos.y));
+
+			m_jumpPoint->SetTiming(timing);
+
+			// ノーツの種類によって障害物とジャンプポイントを切り替える
+			switch (m_putNoteType)
+			{
+			case FlappyBird::NoteType::OBSTACLE:
+				m_obstacle->GetOwner()->SetActive(true);
+				m_jumpPoint->GetOwner()->SetActive(false);
+				break;
+			case FlappyBird::NoteType::HIDDEN:
+				m_obstacle->GetOwner()->SetActive(false);
+				m_jumpPoint->GetOwner()->SetActive(true);
+				break;
+			default:
+				break;
+			}
 
 			// マウスクリック時の処理
 			if (InputSystem::GetMouseButtonDown(MOUSECODE::LEFT))
 			{
-				PutNotes(timing, static_cast<float>(mousePos.y), m_spaceOffset);
+				PutNotes(m_putNoteType, timing, static_cast<float>(mousePos.y), m_spaceOffset);
 			}
 			if (InputSystem::GetMouseButtonDown(MOUSECODE::RIGHT))
 			{
-				DeleteNotes(timing);
+				DeleteNotes(m_putNoteType, timing);
 			}
 
 			// 曲が再生中でなければマウスホイールでの処理を行う
@@ -140,11 +173,11 @@ namespace FlappyBird
 			}
 
 			// 数字キーで上下の土管の間のスペースを調整
-			if (InputSystem::GetKeyDown(DIK_1))
+			if (InputSystem::GetKey(DIK_1))
 			{
 				m_spaceOffset -= 5.f;
 			}
-			if (InputSystem::GetKeyDown(DIK_2))
+			if (InputSystem::GetKey(DIK_2))
 			{
 				m_spaceOffset += 5.f;
 			}
@@ -165,6 +198,7 @@ namespace FlappyBird
 		else
 		{
 			m_obstacle->GetOwner()->SetActive(false);
+			m_jumpPoint->GetOwner()->SetActive(false);
 		}
 	}
 	void NotesEditor::Draw()
@@ -174,6 +208,7 @@ namespace FlappyBird
 	{
 		// ノーツデータを書き込み
 		data.noteDatas = m_notesManager->GetNotes();
+		data.hiddenNoteDatas = m_hiddenNotesManager->GetHiddenNotes();
 
 		// Json形式で保存
 		FumenJsonReadWriter::Write(savePath, data);
@@ -185,6 +220,7 @@ namespace FlappyBird
 
 		// ノーツデータを書き込み
 		m_notesManager->SetNotes(data.noteDatas);
+		m_hiddenNotesManager->SetHiddenNotes(data.hiddenNoteDatas);
 	}
 	void NotesEditor::Play()
 	{
@@ -224,9 +260,21 @@ namespace FlappyBird
 		// 小節線を生成する
 		m_barManager->CreateBar(barNum, data.bpm, data.beat);
 	}
-	void NotesEditor::PutNotes(float timing, float posY, float spaceOffset)
+	void NotesEditor::PutNotes(NoteType type, float timing, float posY, float spaceOffset)
 	{
-		bool couldCreate = m_notesManager->CreateNotes(NoteData(timing, posY, spaceOffset));
+		bool couldCreate = false;
+
+		switch (type)
+		{
+		case FlappyBird::NoteType::OBSTACLE:
+			couldCreate = m_notesManager->CreateNotes(NoteData(timing, posY, spaceOffset));
+			break;
+		case FlappyBird::NoteType::HIDDEN:
+			couldCreate = m_hiddenNotesManager->CreateHiddenNotes(HiddenNoteData(timing));
+			break;
+		default:
+			break;
+		}
 
 		// 生成できたら生成時SEを再生
 		if (couldCreate)
@@ -239,9 +287,21 @@ namespace FlappyBird
 			m_cannotPutNotesSound->Play(0.5f);
 		}
 	}
-	void NotesEditor::DeleteNotes(float timing)
+	void NotesEditor::DeleteNotes(NoteType type, float timing)
 	{
-		bool couldDelete = m_notesManager->DeleteNotes(timing);
+		bool couldDelete = false;
+
+		switch (type)
+		{
+		case FlappyBird::NoteType::OBSTACLE:
+			couldDelete = m_notesManager->DeleteNotes(timing);
+			break;
+		case FlappyBird::NoteType::HIDDEN:
+			couldDelete = m_hiddenNotesManager->DeleteHiddenNotes(timing);
+			break;
+		default:
+			break;
+		}
 
 		// 削除できたら削除時SEを再生
 		if (couldDelete)

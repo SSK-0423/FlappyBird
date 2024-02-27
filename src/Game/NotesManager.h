@@ -50,7 +50,6 @@ namespace FlappyBird
 
 		MusicPlayer* m_musicPlayer = nullptr;
 
-		float m_currentPlayTime = 0.0f;	        // 現在の再生時間
 		float m_judgeLineX = 0.0f;	            // 判定ラインのX座標
 
 		const float TIMING_OFFSET = 100.0f;	    // ノーツのアクティブ判定のタイミングオフセット

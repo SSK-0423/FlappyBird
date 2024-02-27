@@ -18,17 +18,29 @@ namespace FlappyBird
 		musicInfo.insert(std::make_pair("beat", picojson::value(static_cast<double>(data.beat))));
 		rootObject.insert(std::make_pair("MusicInfo", picojson::value(musicInfo)));
 
-		// ノーツの情報
+		// 障害物(土管)の配置を示すノーツの情報
 		picojson::array notesArray;
 		for (auto& data : data.noteDatas)
 		{
 			picojson::object noteObject;
-			noteObject.insert(std::make_pair("time", picojson::value(data.timing)));
-			noteObject.insert(std::make_pair("posY", picojson::value(data.posY)));
-			noteObject.insert(std::make_pair("spaceOffset", picojson::value(data.spaceOffset)));
+			noteObject.insert(std::make_pair("type", picojson::value(static_cast<double>(data.type))));	// ノーツの種類
+			noteObject.insert(std::make_pair("time", picojson::value(data.timing)));	                // タイミング
+			noteObject.insert(std::make_pair("posY", picojson::value(data.posY)));	                    // Y座標
+			noteObject.insert(std::make_pair("spaceOffset", picojson::value(data.spaceOffset)));	    // 土管の上下間のスペースを基準からずらす量
 			notesArray.push_back(picojson::value(noteObject));
 		}
 		rootObject.insert(std::make_pair("notes", picojson::value(notesArray)));
+
+		// 隠しノーツの情報
+		picojson::array hiddenNotesArray;
+		for (auto& data : data.hiddenNoteDatas)
+		{
+			picojson::object noteObject;
+			noteObject.insert(std::make_pair("type", picojson::value(static_cast<double>(data.type))));	// ノーツの種類
+			noteObject.insert(std::make_pair("time", picojson::value(data.timing)));	                // タイミング
+			hiddenNotesArray.push_back(picojson::value(noteObject));
+		}
+		rootObject.insert(std::make_pair("hiddenNotes", picojson::value(hiddenNotesArray)));
 
 		// Jsonファイルに書き込む
 		std::ofstream ofs(filePath);
@@ -57,10 +69,11 @@ namespace FlappyBird
 		data.beat = static_cast<int>(fumen.get("MusicInfo").get("beat").get<double>());
 
 		// ノーツの情報
-		// 既存のノーツデータをクリア
+		// 既存の障害物(土管)のデータをクリア
 		data.noteDatas.clear();
 		data.noteDatas.shrink_to_fit();
-		// ノーツデータを読み込み
+
+		// 障害物(土管)の配置を示すノーツの情報を読み込む
 		picojson::array notesArray = fumen.get("notes").get<picojson::array>();
 		for (auto& note : notesArray)
 		{
@@ -69,6 +82,19 @@ namespace FlappyBird
 			noteData.posY = static_cast<float>(note.get("posY").get<double>());
 			noteData.spaceOffset = static_cast<float>(note.get("spaceOffset").get<double>());
 			data.noteDatas.push_back(noteData);
+		}
+
+		// 既存の隠しノーツのデータをクリア
+		data.hiddenNoteDatas.clear();
+		data.hiddenNoteDatas.shrink_to_fit();
+
+		// 隠しノーツの情報を読み込む
+		picojson::array hiddenNotesArray = fumen.get("hiddenNotes").get<picojson::array>();
+		for (auto& note : hiddenNotesArray)
+		{
+			HiddenNoteData hiddenNoteData;
+			hiddenNoteData.timing = note.get("time").get<double>();
+			data.hiddenNoteDatas.push_back(hiddenNoteData);
 		}
 	}
 }

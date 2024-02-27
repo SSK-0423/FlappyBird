@@ -5,701 +5,846 @@
     "musicFilePath": "res\/sound\/tsuki_no_senaka.wav",
     "musicName": "tsuki no senaka"
   },
+  "hiddenNotes": [
+    {
+      "time": 2742.857177734375,
+      "type": 1
+    }
+  ],
   "notes": [
     {
       "posY": 330,
       "spaceOffset": 0,
-      "time": 2742.857177734375
+      "time": 2742.857177734375,
+      "type": 0
     },
     {
       "posY": 324,
       "spaceOffset": 0,
-      "time": 3428.571533203125
+      "time": 3428.571533203125,
+      "type": 0
     },
     {
       "posY": 330,
       "spaceOffset": 0,
-      "time": 3085.71435546875
+      "time": 3085.71435546875,
+      "type": 0
     },
     {
       "posY": 320,
       "spaceOffset": 0,
-      "time": 3771.4287109375
+      "time": 3771.4287109375,
+      "type": 0
     },
     {
       "posY": 319,
       "spaceOffset": 0,
-      "time": 3942.857177734375
+      "time": 3942.857177734375,
+      "type": 0
     },
     {
       "posY": 315,
       "spaceOffset": 0,
-      "time": 4285.71435546875
+      "time": 4285.71435546875,
+      "type": 0
     },
     {
       "posY": 314,
       "spaceOffset": 0,
-      "time": 4457.142578125
+      "time": 4457.142578125,
+      "type": 0
     },
     {
       "posY": 267,
       "spaceOffset": 0,
-      "time": 4800
+      "time": 4800,
+      "type": 0
     },
     {
       "posY": 189,
       "spaceOffset": 0,
-      "time": 5142.85693359375
+      "time": 5142.85693359375,
+      "type": 0
     },
     {
       "posY": 173,
       "spaceOffset": 0,
-      "time": 5485.71435546875
+      "time": 5485.71435546875,
+      "type": 0
     },
     {
       "posY": 140,
       "spaceOffset": 0,
-      "time": 5828.5712890625
+      "time": 5828.5712890625,
+      "type": 0
     },
     {
       "posY": 130,
       "spaceOffset": 0,
-      "time": 6171.4287109375
+      "time": 6171.4287109375,
+      "type": 0
     },
     {
       "posY": 123,
       "spaceOffset": 0,
-      "time": 6514.28564453125
+      "time": 6514.28564453125,
+      "type": 0
     },
     {
       "posY": 123,
       "spaceOffset": 0,
-      "time": 6685.71435546875
+      "time": 6685.71435546875,
+      "type": 0
     },
     {
       "posY": 180,
       "spaceOffset": 0,
-      "time": 7028.57177734375
+      "time": 7028.57177734375,
+      "type": 0
     },
     {
       "posY": 214,
       "spaceOffset": 0,
-      "time": 7371.4287109375
+      "time": 7371.4287109375,
+      "type": 0
     },
     {
       "posY": 239,
       "spaceOffset": 0,
-      "time": 7542.857421875
+      "time": 7542.857421875,
+      "type": 0
     },
     {
       "posY": 218,
       "spaceOffset": 0,
-      "time": 7885.71435546875
+      "time": 7885.71435546875,
+      "type": 0
     },
     {
       "posY": 296,
       "spaceOffset": 0,
-      "time": 8228.5712890625
+      "time": 8228.5712890625,
+      "type": 0
     },
     {
       "posY": 298,
       "spaceOffset": 0,
-      "time": 8914.28515625
+      "time": 8914.28515625,
+      "type": 0
     },
     {
       "posY": 263,
       "spaceOffset": 0,
-      "time": 8571.4287109375
+      "time": 8571.4287109375,
+      "type": 0
     },
     {
       "posY": 355,
       "spaceOffset": 0,
-      "time": 9257.142578125
+      "time": 9257.142578125,
+      "type": 0
     },
     {
       "posY": 304,
       "spaceOffset": 0,
-      "time": 9428.5712890625
+      "time": 9428.5712890625,
+      "type": 0
     },
     {
       "posY": 172,
       "spaceOffset": 0,
-      "time": 9771.4287109375
+      "time": 9771.4287109375,
+      "type": 0
     },
     {
       "posY": 228,
       "spaceOffset": 0,
-      "time": 9942.857421875
+      "time": 9942.857421875,
+      "type": 0
     },
     {
       "posY": 123,
       "spaceOffset": 0,
-      "time": 10285.7138671875
+      "time": 10285.7138671875,
+      "type": 0
     },
     {
       "posY": 275,
       "spaceOffset": 0,
-      "time": 10628.5712890625
+      "time": 10628.5712890625,
+      "type": 0
     },
     {
       "posY": 311,
       "spaceOffset": 0,
-      "time": 10971.4287109375
+      "time": 10971.4287109375,
+      "type": 0
     },
     {
       "posY": 338,
       "spaceOffset": 0,
-      "time": 11314.2861328125
+      "time": 11314.2861328125,
+      "type": 0
     },
     {
       "posY": 303,
       "spaceOffset": 0,
-      "time": 11657.142578125
+      "time": 11657.142578125,
+      "type": 0
     },
     {
       "posY": 328,
       "spaceOffset": 0,
-      "time": 12000
+      "time": 12000,
+      "type": 0
     },
     {
       "posY": 327,
       "spaceOffset": 0,
-      "time": 12171.4287109375
+      "time": 12171.4287109375,
+      "type": 0
     },
     {
       "posY": 241,
       "spaceOffset": 0,
-      "time": 12514.2861328125
+      "time": 12514.2861328125,
+      "type": 0
     },
     {
       "posY": 37,
       "spaceOffset": 0,
-      "time": 12857.1435546875
+      "time": 12857.1435546875,
+      "type": 0
     },
     {
       "posY": 217,
       "spaceOffset": 0,
-      "time": 13028.5712890625
+      "time": 13028.5712890625,
+      "type": 0
     },
     {
       "posY": 271,
       "spaceOffset": 0,
-      "time": 13371.4287109375
+      "time": 13371.4287109375,
+      "type": 0
     },
     {
       "posY": 324,
       "spaceOffset": 0,
-      "time": 13714.2861328125
+      "time": 13714.2861328125,
+      "type": 0
     },
     {
       "posY": 297,
       "spaceOffset": 0,
-      "time": 14400
+      "time": 14400,
+      "type": 0
     },
     {
       "posY": 252,
       "spaceOffset": 0,
-      "time": 15085.71484375
+      "time": 15085.71484375,
+      "type": 0
     },
     {
       "posY": 78,
       "spaceOffset": 0,
-      "time": 15771.4287109375
+      "time": 15771.4287109375,
+      "type": 0
     },
     {
       "posY": 125,
       "spaceOffset": 0,
-      "time": 16114.2861328125
+      "time": 16114.2861328125,
+      "type": 0
     },
     {
       "posY": 219,
       "spaceOffset": 0,
-      "time": 16285.71484375
+      "time": 16285.71484375,
+      "type": 0
     },
     {
       "posY": 241,
       "spaceOffset": 0,
-      "time": 16457.142578125
+      "time": 16457.142578125,
+      "type": 0
     },
     {
       "posY": 383,
       "spaceOffset": 0,
-      "time": 17142.857421875
+      "time": 17142.857421875,
+      "type": 0
     },
     {
       "posY": 461,
       "spaceOffset": 0,
-      "time": 17828.572265625
+      "time": 17828.572265625,
+      "type": 0
     },
     {
       "posY": 717,
       "spaceOffset": 0,
-      "time": 18514.287109375
+      "time": 18514.287109375,
+      "type": 0
     },
     {
       "posY": 665,
       "spaceOffset": 0,
-      "time": 19200
+      "time": 19200,
+      "type": 0
     },
     {
       "posY": 520,
       "spaceOffset": 0,
-      "time": 19542.857421875
+      "time": 19542.857421875,
+      "type": 0
     },
     {
       "posY": 500,
       "spaceOffset": 0,
-      "time": 20057.142578125
+      "time": 20057.142578125,
+      "type": 0
     },
     {
       "posY": 501,
       "spaceOffset": 0,
-      "time": 20400
+      "time": 20400,
+      "type": 0
     },
     {
       "posY": 432,
       "spaceOffset": 0,
-      "time": 20914.287109375
+      "time": 20914.287109375,
+      "type": 0
     },
     {
       "posY": 429,
       "spaceOffset": 0,
-      "time": 21428.572265625
+      "time": 21428.572265625,
+      "type": 0
     },
     {
       "posY": 426,
       "spaceOffset": 0,
-      "time": 21771.4296875
+      "time": 21771.4296875,
+      "type": 0
     },
     {
       "posY": 424,
       "spaceOffset": 0,
-      "time": 22285.71484375
+      "time": 22285.71484375,
+      "type": 0
     },
     {
       "posY": 417,
       "spaceOffset": 0,
-      "time": 22800
+      "time": 22800,
+      "type": 0
     },
     {
       "posY": 419,
       "spaceOffset": 0,
-      "time": 23142.857421875
+      "time": 23142.857421875,
+      "type": 0
     },
     {
       "posY": 418,
       "spaceOffset": 0,
-      "time": 23314.28515625
+      "time": 23314.28515625,
+      "type": 0
     },
     {
       "posY": 355,
       "spaceOffset": 0,
-      "time": 23657.142578125
+      "time": 23657.142578125,
+      "type": 0
     },
     {
       "posY": 290,
       "spaceOffset": 0,
-      "time": 24000
+      "time": 24000,
+      "type": 0
     },
     {
       "posY": 322,
       "spaceOffset": 0,
-      "time": 23828.5703125
+      "time": 23828.5703125,
+      "type": 0
     },
     {
       "posY": 257,
       "spaceOffset": 0,
-      "time": 24171.427734375
+      "time": 24171.427734375,
+      "type": 0
     },
     {
       "posY": 220,
       "spaceOffset": 0,
-      "time": 24342.857421875
+      "time": 24342.857421875,
+      "type": 0
     },
     {
       "posY": 222,
       "spaceOffset": 0,
-      "time": 24685.71484375
+      "time": 24685.71484375,
+      "type": 0
     },
     {
       "posY": 112,
       "spaceOffset": 0,
-      "time": 25200
+      "time": 25200,
+      "type": 0
     },
     {
       "posY": 232,
       "spaceOffset": 0,
-      "time": 25714.287109375
+      "time": 25714.287109375,
+      "type": 0
     },
     {
       "posY": 267,
       "spaceOffset": 0,
-      "time": 26057.142578125
+      "time": 26057.142578125,
+      "type": 0
     },
     {
       "posY": 310,
       "spaceOffset": 0,
-      "time": 26571.427734375
+      "time": 26571.427734375,
+      "type": 0
     },
     {
       "posY": 355,
       "spaceOffset": 0,
-      "time": 27085.71484375
+      "time": 27085.71484375,
+      "type": 0
     },
     {
       "posY": 288,
       "spaceOffset": 0,
-      "time": 27428.572265625
+      "time": 27428.572265625,
+      "type": 0
     },
     {
       "posY": 224,
       "spaceOffset": 0,
-      "time": 27942.857421875
+      "time": 27942.857421875,
+      "type": 0
     },
     {
       "posY": 266,
       "spaceOffset": 0,
-      "time": 28457.14453125
+      "time": 28457.14453125,
+      "type": 0
     },
     {
       "posY": 381,
       "spaceOffset": 0,
-      "time": 28800
+      "time": 28800,
+      "type": 0
     },
     {
       "posY": 443,
       "spaceOffset": 0,
-      "time": 29314.28515625
+      "time": 29314.28515625,
+      "type": 0
     },
     {
       "posY": 497,
       "spaceOffset": 0,
-      "time": 29828.572265625
+      "time": 29828.572265625,
+      "type": 0
     },
     {
       "posY": 495,
       "spaceOffset": 0,
-      "time": 30171.4296875
+      "time": 30171.4296875,
+      "type": 0
     },
     {
       "posY": 495,
       "spaceOffset": 0,
-      "time": 30514.287109375
+      "time": 30514.287109375,
+      "type": 0
     },
     {
       "posY": 495,
       "spaceOffset": 0,
-      "time": 30685.71484375
+      "time": 30685.71484375,
+      "type": 0
     },
     {
       "posY": 499,
       "spaceOffset": 0,
-      "time": 31200.001953125
+      "time": 31200.001953125,
+      "type": 0
     },
     {
       "posY": 467,
       "spaceOffset": 0,
-      "time": 31542.857421875
+      "time": 31542.857421875,
+      "type": 0
     },
     {
       "posY": 418,
       "spaceOffset": 0,
-      "time": 31885.71484375
+      "time": 31885.71484375,
+      "type": 0
     },
     {
       "posY": 289,
       "spaceOffset": 0,
-      "time": 32571.4296875
+      "time": 32571.4296875,
+      "type": 0
     },
     {
       "posY": 377,
       "spaceOffset": 0,
-      "time": 32057.142578125
+      "time": 32057.142578125,
+      "type": 0
     },
     {
       "posY": 284,
       "spaceOffset": 0,
-      "time": 32914.28515625
+      "time": 32914.28515625,
+      "type": 0
     },
     {
       "posY": 167,
       "spaceOffset": 0,
-      "time": 33428.5703125
+      "time": 33428.5703125,
+      "type": 0
     },
     {
       "posY": 263,
       "spaceOffset": 0,
-      "time": 33942.85546875
+      "time": 33942.85546875,
+      "type": 0
     },
     {
       "posY": 187,
       "spaceOffset": 0,
-      "time": 33600
+      "time": 33600,
+      "type": 0
     },
     {
       "posY": 269,
       "spaceOffset": 0,
-      "time": 34285.71484375
+      "time": 34285.71484375,
+      "type": 0
     },
     {
       "posY": 323,
       "spaceOffset": 0,
-      "time": 34800
+      "time": 34800,
+      "type": 0
     },
     {
       "posY": 177,
       "spaceOffset": 0,
-      "time": 35314.28515625
+      "time": 35314.28515625,
+      "type": 0
     },
     {
       "posY": 168,
       "spaceOffset": 0,
-      "time": 35142.859375
+      "time": 35142.859375,
+      "type": 0
     },
     {
       "posY": 148,
       "spaceOffset": 0,
-      "time": 35657.14453125
+      "time": 35657.14453125,
+      "type": 0
     },
     {
       "posY": 136,
       "spaceOffset": 0,
-      "time": 36000
+      "time": 36000,
+      "type": 0
     },
     {
       "posY": 137,
       "spaceOffset": 0,
-      "time": 36171.4296875
+      "time": 36171.4296875,
+      "type": 0
     },
     {
       "posY": 136,
       "spaceOffset": 0,
-      "time": 36342.859375
+      "time": 36342.859375,
+      "type": 0
     },
     {
       "posY": 327,
       "spaceOffset": 0,
-      "time": 46628.5703125
+      "time": 46628.5703125,
+      "type": 0
     },
     {
       "posY": 328,
       "spaceOffset": 0,
-      "time": 46800
+      "time": 46800,
+      "type": 0
     },
     {
       "posY": 329,
       "spaceOffset": 0,
-      "time": 46971.42578125
+      "time": 46971.42578125,
+      "type": 0
     },
     {
       "posY": 328,
       "spaceOffset": 0,
-      "time": 47142.85546875
+      "time": 47142.85546875,
+      "type": 0
     },
     {
       "posY": 327,
       "spaceOffset": 0,
-      "time": 47314.28515625
+      "time": 47314.28515625,
+      "type": 0
     },
     {
       "posY": 320,
       "spaceOffset": 0,
-      "time": 47828.5703125
+      "time": 47828.5703125,
+      "type": 0
     },
     {
       "posY": 283,
       "spaceOffset": 0,
-      "time": 48000
+      "time": 48000,
+      "type": 0
     },
     {
       "posY": 322,
       "spaceOffset": 0,
-      "time": 48171.4296875
+      "time": 48171.4296875,
+      "type": 0
     },
     {
       "posY": 281,
       "spaceOffset": 0,
-      "time": 48342.85546875
+      "time": 48342.85546875,
+      "type": 0
     },
     {
       "posY": 334,
       "spaceOffset": 0,
-      "time": 48685.71484375
+      "time": 48685.71484375,
+      "type": 0
     },
     {
       "posY": 294,
       "spaceOffset": 0,
-      "time": 49028.5703125
+      "time": 49028.5703125,
+      "type": 0
     },
     {
       "posY": 255,
       "spaceOffset": 0,
-      "time": 36857.14453125
+      "time": 36857.14453125,
+      "type": 0
     },
     {
       "posY": 290,
       "spaceOffset": 0,
-      "time": 37028.5703125
+      "time": 37028.5703125,
+      "type": 0
     },
     {
       "posY": 319,
       "spaceOffset": 0,
-      "time": 37200
+      "time": 37200,
+      "type": 0
     },
     {
       "posY": 350,
       "spaceOffset": 0,
-      "time": 37371.42578125
+      "time": 37371.42578125,
+      "type": 0
     },
     {
       "posY": 370,
       "spaceOffset": 0,
-      "time": 37542.85546875
+      "time": 37542.85546875,
+      "type": 0
     },
     {
       "posY": 397,
       "spaceOffset": 0,
-      "time": 37714.28515625
+      "time": 37714.28515625,
+      "type": 0
     },
     {
       "posY": 406,
       "spaceOffset": 0,
-      "time": 38228.5703125
+      "time": 38228.5703125,
+      "type": 0
     },
     {
       "posY": 407,
       "spaceOffset": 0,
-      "time": 38400
+      "time": 38400,
+      "type": 0
     },
     {
       "posY": 406,
       "spaceOffset": 0,
-      "time": 38742.85546875
+      "time": 38742.85546875,
+      "type": 0
     },
     {
       "posY": 391,
       "spaceOffset": 0,
-      "time": 39085.71484375
+      "time": 39085.71484375,
+      "type": 0
     },
     {
       "posY": 373,
       "spaceOffset": 0,
-      "time": 39428.5703125
+      "time": 39428.5703125,
+      "type": 0
     },
     {
       "posY": 357,
       "spaceOffset": 0,
-      "time": 39771.4296875
+      "time": 39771.4296875,
+      "type": 0
     },
     {
       "posY": 332,
       "spaceOffset": 0,
-      "time": 40114.28515625
+      "time": 40114.28515625,
+      "type": 0
     },
     {
       "posY": 313,
       "spaceOffset": 0,
-      "time": 40457.14453125
+      "time": 40457.14453125,
+      "type": 0
     },
     {
       "posY": 290,
       "spaceOffset": 0,
-      "time": 40800
+      "time": 40800,
+      "type": 0
     },
     {
       "posY": 268,
       "spaceOffset": 0,
-      "time": 41142.859375
+      "time": 41142.859375,
+      "type": 0
     },
     {
       "posY": 263,
       "spaceOffset": 0,
-      "time": 41485.71484375
+      "time": 41485.71484375,
+      "type": 0
     },
     {
       "posY": 264,
       "spaceOffset": 0,
-      "time": 41657.14453125
+      "time": 41657.14453125,
+      "type": 0
     },
     {
       "posY": 261,
       "spaceOffset": 0,
-      "time": 41828.57421875
+      "time": 41828.57421875,
+      "type": 0
     },
     {
       "posY": 264,
       "spaceOffset": 0,
-      "time": 42342.859375
+      "time": 42342.859375,
+      "type": 0
     },
     {
       "posY": 283,
       "spaceOffset": 0,
-      "time": 42514.28515625
+      "time": 42514.28515625,
+      "type": 0
     },
     {
       "posY": 298,
       "spaceOffset": 0,
-      "time": 42685.71484375
+      "time": 42685.71484375,
+      "type": 0
     },
     {
       "posY": 314,
       "spaceOffset": 0,
-      "time": 42857.140625
+      "time": 42857.140625,
+      "type": 0
     },
     {
       "posY": 331,
       "spaceOffset": 0,
-      "time": 43028.5703125
+      "time": 43028.5703125,
+      "type": 0
     },
     {
       "posY": 361,
       "spaceOffset": 0,
-      "time": 43200
+      "time": 43200,
+      "type": 0
     },
     {
       "posY": 342,
       "spaceOffset": 0,
-      "time": 43885.71484375
+      "time": 43885.71484375,
+      "type": 0
     },
     {
       "posY": 338,
       "spaceOffset": 0,
-      "time": 44228.5703125
+      "time": 44228.5703125,
+      "type": 0
     },
     {
       "posY": 340,
       "spaceOffset": 0,
-      "time": 44571.4296875
+      "time": 44571.4296875,
+      "type": 0
     },
     {
       "posY": 335,
       "spaceOffset": 0,
-      "time": 44914.28515625
+      "time": 44914.28515625,
+      "type": 0
     },
     {
       "posY": 335,
       "spaceOffset": 0,
-      "time": 45257.14453125
+      "time": 45257.14453125,
+      "type": 0
     },
     {
       "posY": 333,
       "spaceOffset": 0,
-      "time": 45942.859375
+      "time": 45942.859375,
+      "type": 0
     },
     {
       "posY": 334,
       "spaceOffset": 0,
-      "time": 45771.4296875
+      "time": 45771.4296875,
+      "type": 0
     },
     {
       "posY": 323,
       "spaceOffset": 0,
-      "time": 14057.1435546875
+      "time": 14057.1435546875,
+      "type": 0
     },
     {
       "posY": 293,
       "spaceOffset": 0,
-      "time": 14742.857421875
+      "time": 14742.857421875,
+      "type": 0
     }
   ]
 }

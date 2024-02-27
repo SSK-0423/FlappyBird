@@ -1,9 +1,11 @@
 #pragma once
 
 #include "Framework/GameFramework.h"
+#include "NoteData.h"
 
 namespace FlappyBird
 {
+	class JumpPoint;
 	class MusicPlayer;
 
 	/// <summary>
@@ -27,29 +29,34 @@ namespace FlappyBird
 		/// <param name="bpm">BPM</param>
 		/// <param name="beat">拍子</param>
 		void CreateHiddenNotes(unsigned int barNum, float bpm, float beat);
-	
-	private:
-		/// <summary>
-		/// 隠しノーツのデータ
-		/// </summary>
-		struct HiddenNote
-		{
-			float timing;
-			bool isJudged;
 
-			HiddenNote() :timing(0.f), isJudged(false) {};
-			HiddenNote(float timing, bool isJudged)
-				: timing(timing), isJudged(isJudged)
-			{}
-		};
-		std::vector<HiddenNote> m_hiddenNotes;
+		bool CreateHiddenNotes(HiddenNoteData data);
+		bool DeleteHiddenNotes(HiddenNoteData data);
+
+		void SetHiddenNotes(const std::vector<HiddenNoteData>& hiddenNotes);
+
+		std::vector<HiddenNoteData>& GetHiddenNotes();
+
+	private:
+		std::vector<HiddenNoteData> m_hiddenNotes;
+		std::vector<JumpPoint*> m_jumpPoints;
 
 		Framework::SoundClip* m_seClip = nullptr;
 		MusicPlayer* m_musicPlayer = nullptr;
 
+		float m_judgeLineX = 0.0f;	            // 判定ラインのX座標
+
 		size_t m_currentHiddenNoteIndex = 0;	// 判定ラインに最も近い隠しノーツのインデックス
 
-		const float PERFECT_JUDGE_RANGE;	// パーフェクト判定の範囲
+		const float PERFECT_JUDGE_RANGE;		// パーフェクト判定の範囲
+		const float TIMING_OFFSET = 100.0f;	    // ノーツのアクティブ判定のタイミングオフセット
+
+		/// <summary>
+		/// MusicPlayerの再生時間を取得し、JumpPointの再生時間に反映させる
+		/// </summary>		
+		void UpdateCurrentPlayTime();
+
+		void UpdateHiddenNotesActive();
 
 		/// <summary>
 		/// 隠しノーツのアクティブ状態を更新する

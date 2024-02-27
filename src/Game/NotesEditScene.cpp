@@ -5,6 +5,7 @@
 
 #include "BarManager.h"
 #include "NotesManager.h"
+#include "HiddenNotesManager.h"
 #include "MusicPlayer.h"
 #include "Player.h"
 #include "Background.h"
@@ -67,12 +68,17 @@ namespace FlappyBird
 		// ノーツの管理オブジェクト
 		std::shared_ptr<GameObject> notesManagerObj = GameObjectManager::CreateObject();
 		notesManagerObj->SetName("NotesManager");
-		NotesManager* notesManager = notesManagerObj->AddComponent<NotesManager>(notesManagerObj);
+		notesManagerObj->AddComponent<NotesManager>(notesManagerObj);
+
+		// 隠しノーツの管理オブジェクト
+		std::shared_ptr<GameObject> hiddenNotesManagerObj = GameObjectManager::CreateObject();
+		hiddenNotesManagerObj->SetName("HiddenNotesManager");
+		hiddenNotesManagerObj->AddComponent<HiddenNotesManager>(hiddenNotesManagerObj);
 
 		// 曲再生管理オブジェクト
 		std::shared_ptr<GameObject> musicPlayerObj = GameObjectManager::CreateObject();
 		musicPlayerObj->SetName("MusicPlayer");
-		MusicPlayer* musicPlayer = musicPlayerObj->AddComponent<MusicPlayer>(musicPlayerObj);
+		musicPlayerObj->AddComponent<MusicPlayer>(musicPlayerObj);
 
 		// ノーツエディターの管理オブジェクト
 		std::shared_ptr<GameObject> notesEditorObj = GameObjectManager::CreateObject();

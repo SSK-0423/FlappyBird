@@ -15,5 +15,6 @@ namespace FlappyBird
 		int beat = 4;
 
 		std::vector<NoteData> noteDatas;
+		std::vector<HiddenNoteData> hiddenNoteDatas;
 	};
 }
