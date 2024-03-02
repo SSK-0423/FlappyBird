@@ -31,6 +31,9 @@ namespace FlappyBird
 		// ƒm[ƒc‚Ì¶¬
 		std::shared_ptr<Framework::GameObject> notesManagerObj = GameObjectManager::FindObject("NotesManager");
 		notesManagerObj->GetComponent<NotesManager>()->SetNotes(fumenData.noteDatas);
+		// ‰B‚µƒm[ƒc‚Ì¶¬
+		std::shared_ptr<Framework::GameObject> hiddenNotesManagerObj = GameObjectManager::FindObject("HiddenNotesManager");
+		hiddenNotesManagerObj->GetComponent<HiddenNotesManager>()->SetHiddenNotes(fumenData.hiddenNoteDatas);
 
 		// ‹È“Ç‚İ‚İ
 		std::shared_ptr<Framework::GameObject> musicPlayerObj = GameObjectManager::FindObject("MusicPlayer");
@@ -48,12 +51,11 @@ namespace FlappyBird
 		float barTimeLength = 60.f / bpm * beat;
 		m_gameStartTime = barTimeLength * 1.f;
 
-		// ‰B‚µƒm[ƒc‚Ì¶¬
-		float musicLength = musicPlayer->GetMusicLength();
-		unsigned int barNum = musicLength * fumenData.bpm / (60.f * fumenData.beat);
-		std::shared_ptr<Framework::GameObject> hiddenNotesManagerObj = GameObjectManager::FindObject("HiddenNotesManager");
-		hiddenNotesManagerObj->GetComponent<HiddenNotesManager>()->CreateHiddenNotes(barNum, fumenData.bpm, fumenData.beat);
-
+		//// ‰B‚µƒm[ƒc‚Ì¶¬
+		//float musicLength = musicPlayer->GetMusicLength();
+		//unsigned int barNum = musicLength * fumenData.bpm / (60.f * fumenData.beat);
+		//std::shared_ptr<Framework::GameObject> hiddenNotesManagerObj = GameObjectManager::FindObject("HiddenNotesManager");
+		//hiddenNotesManagerObj->GetComponent<HiddenNotesManager>()->CreateHiddenNotes(barNum, fumenData.bpm, fumenData.beat);
 	}
 	void GameMaster::Update(float deltaTime)
 	{
@@ -137,6 +139,9 @@ namespace FlappyBird
 
 		// ƒm[ƒc‚Ì•`‰æ‚ğ’â~
 		GameObjectManager::FindObject("NotesManager")->GetComponent<NotesManager>()->SetActive(false);
+
+		// ‰B‚µƒm[ƒc‚Ì•`‰æ‚ğ’â~
+		GameObjectManager::FindObject("HiddenNotesManager")->GetComponent<HiddenNotesManager>()->SetActive(false);
 	}
 	void GameMaster::OnGameOver()
 	{
@@ -148,5 +153,8 @@ namespace FlappyBird
 
 		// ƒm[ƒc‚ÌˆÚ“®‚ğ’â~
 		GameObjectManager::FindObject("NotesManager")->GetComponent<NotesManager>()->SetActive(false);
+
+		// ‰B‚µƒm[ƒc‚ÌˆÚ“®‚ğ’â~
+		GameObjectManager::FindObject("HiddenNotesManager")->GetComponent<HiddenNotesManager>()->SetActive(false);
 	}
 }

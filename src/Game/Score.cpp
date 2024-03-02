@@ -3,6 +3,7 @@
 #include "GameMaster.h"
 #include "GameScene.h"
 #include "NotesManager.h"
+#include "HiddenNotesManager.h"
 #include "DX12Wrapper/Dx12GraphicsEngine.h"
 
 using namespace Framework;
@@ -30,6 +31,10 @@ namespace FlappyBird
 		// ノーツが判定ラインに到達したときにスコアを加算
 		auto notesManager = GameObjectManager::FindObject("NotesManager")->GetComponent<NotesManager>();
 		notesManager->OnReachedJudgeLine.Subscribe([this](NotificationEvent e) { AddScore(100); });
+
+		// 隠しノーツ判定時にスコアを加算
+		auto hiddenNotesManager = GameObjectManager::FindObject("HiddenNotesManager")->GetComponent<HiddenNotesManager>();
+		hiddenNotesManager->OnJudgeTiming.Subscribe([this](JUDGE_RESULT judgeResult) { AddHiddenNoteScore(judgeResult); });
 	}
 
 	void Score::Update(float deltaTime)
@@ -52,5 +57,22 @@ namespace FlappyBird
 	unsigned int Score::GetScore()
 	{
 		return m_score;
+	}
+	void Score::AddHiddenNoteScore(JUDGE_RESULT judgeResult)
+	{
+		switch (judgeResult)
+		{
+		case FlappyBird::JUDGE_RESULT::PERFECT:
+			AddScore(100);
+			break;
+		case FlappyBird::JUDGE_RESULT::GREAT:
+			AddScore(50);
+			break;
+		case FlappyBird::JUDGE_RESULT::GOOD:
+			AddScore(30);
+			break;
+		default:
+			break;
+		}
 	}
 }

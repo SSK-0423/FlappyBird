@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Framework/GameFramework.h"
+#include "JudgeResult.h"
 
 namespace FlappyBird
 {
@@ -28,5 +29,7 @@ namespace FlappyBird
 		unsigned int m_score;
 		float m_scoreAddInterval;
 		float m_elapsedTime;
+
+		void AddHiddenNoteScore(JUDGE_RESULT judgeResult);
 	};
 }

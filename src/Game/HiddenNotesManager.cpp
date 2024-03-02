@@ -13,11 +13,11 @@ using namespace Framework;
 namespace FlappyBird
 {
 	HiddenNotesManager::HiddenNotesManager(std::shared_ptr<Framework::Object> owner)
-		: Framework::IComponent(owner), PERFECT_JUDGE_RANGE(66.66f)
+		: Framework::IComponent(owner)
 	{
 		// SE追加
 		m_seClip = m_owner.lock()->AddComponent<SoundClip>(m_owner.lock());
-		m_seClip->LoadWavSound(L"res/sound/clap.wav");
+		m_seClip->LoadWavSound(L"res/sound/jump.wav");
 	}
 
 	void HiddenNotesManager::Start()
@@ -51,11 +51,13 @@ namespace FlappyBird
 				JudgeTiming();
 			}
 		}
-		else if (SceneManager::GetCurrentSceneName() == "NotesEdit")
-		{
-			// エディターなら隠しノーツのアクティブ状態を更新
-			UpdateHiddenNotesActive();
-		}
+
+		//else if (SceneManager::GetCurrentSceneName() == "NotesEdit")
+		//{
+		//}
+
+		// エディターなら隠しノーツのアクティブ状態を更新
+		UpdateHiddenNotesActive();
 
 		// 現在の再生位置を更新
 		UpdateCurrentPlayTime();
@@ -189,7 +191,7 @@ namespace FlappyBird
 
 			// ノーツが判定ラインを通過したかを以下の条件で判定
 			// 差分が判定範囲より大きい場合、ノーツは判定ラインを通過している
-			if (diff > PERFECT_JUDGE_RANGE)
+			if (diff > JudgeRange::GOOD_JUDGE_RANGE)
 			{
 				hiddenNote.isJudged = true;
 				m_currentHiddenNoteIndex = i;
@@ -213,7 +215,7 @@ namespace FlappyBird
 				minDiff = timingDiff;
 				nearestNote = m_hiddenNotes[i];
 			}
-	}
+		}
 
 #ifdef _DEBUG
 		//Editor::DebugLog("Jump Timing: %f", jumpTiming);
@@ -221,12 +223,28 @@ namespace FlappyBird
 		//Editor::DebugLog("MinDiff: %f", minDiff);
 #endif // _DEBUG
 
-		if (minDiff <= PERFECT_JUDGE_RANGE)
+		if (minDiff <= JudgeRange::PERFECT_JUDGE_RANGE)
 		{
-			//m_seClip->Play(0.5f);
+			Editor::DebugLog("Perfect!");
+			m_seClip->Play(0.5f);
 			nearestNote.isJudged = true;
+			OnJudgeTiming.Notify(JUDGE_RESULT::PERFECT);
 		}
-}
+		else if (minDiff <= JudgeRange::GREAT_JUDGE_RANGE)
+		{
+			Editor::DebugLog("Great!");
+			m_seClip->Play(0.5f);
+			nearestNote.isJudged = true;
+			OnJudgeTiming.Notify(JUDGE_RESULT::GREAT);
+		}
+		else if (minDiff <= JudgeRange::GOOD_JUDGE_RANGE)
+		{
+			Editor::DebugLog("Good!");
+			m_seClip->Play(0.5f);
+			nearestNote.isJudged = true;
+			OnJudgeTiming.Notify(JUDGE_RESULT::GOOD);
+		}
+	}
 	void HiddenNotesManager::UpdateCurrentPlayTime()
 	{
 		if (m_musicPlayer != nullptr)

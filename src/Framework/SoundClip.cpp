@@ -214,7 +214,10 @@ namespace Framework
 		}
 		else
 		{
-			playedSampleNum = m_samplesPlayed + (state.SamplesPlayed - m_startSamplesPlayed);// -m_restartSamplesPlayed; //state.SamplesPlayed - m_restartSamplesPlayed;
+			// m_startSamplesPlayed‚ÍÄ¶ŠJŽnŽž‚Ìstate.SamplesPlayed‚ðŽ¦‚·
+			// Œ»Ý‚Ìstate.SamplesPlayed
+			INT64 diff = state.SamplesPlayed - m_startSamplesPlayed;
+			playedSampleNum = m_samplesPlayed + diff;// -m_restartSamplesPlayed; //state.SamplesPlayed - m_restartSamplesPlayed;
 		}
 		DWORD sampleRate = soundData->waveData.wfx->nSamplesPerSec;
 

@@ -94,6 +94,9 @@
     <Filter Include="ソース ファイル\Framework\System\Observer">
       <UniqueIdentifier>{955cb2e5-6075-43e1-a091-37cff863ab83}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\Effects">
+      <UniqueIdentifier>{37482d3d-b326-4221-a1dd-f1997eea532e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Game\main.cpp">
@@ -364,6 +367,9 @@
       <Filter>ソース ファイル\Game\Notes</Filter>
     </ClCompile>
     <ClCompile Include="src\Game\JumpPoint.cpp">
+      <Filter>ソース ファイル\Game\Notes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\JudgeRange.cpp">
       <Filter>ソース ファイル\Game\Notes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -681,6 +687,9 @@
       <Filter>ソース ファイル\Game\Notes</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\JumpPoint.h">
+      <Filter>ソース ファイル\Game\Notes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\JudgeResult.h">
       <Filter>ソース ファイル\Game\Notes</Filter>
     </ClInclude>
   </ItemGroup>

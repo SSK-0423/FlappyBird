@@ -2,6 +2,7 @@
 
 #include "Framework/GameFramework.h"
 #include "NoteData.h"
+#include "JudgeResult.h"
 
 namespace FlappyBird
 {
@@ -37,6 +38,8 @@ namespace FlappyBird
 
 		std::vector<HiddenNoteData>& GetHiddenNotes();
 
+		Framework::Subject<Framework::NotificationEvent> OnReachedJudgeLine;	// ノーツが判定ラインに到達したときのイベント
+		Framework::Subject<JUDGE_RESULT> OnJudgeTiming;							// ノーツのタイミング判定イベント
 	private:
 		std::vector<HiddenNoteData> m_hiddenNotes;
 		std::vector<JumpPoint*> m_jumpPoints;
@@ -48,15 +51,12 @@ namespace FlappyBird
 
 		size_t m_currentHiddenNoteIndex = 0;	// 判定ラインに最も近い隠しノーツのインデックス
 
-		const float PERFECT_JUDGE_RANGE;		// パーフェクト判定の範囲
 		const float TIMING_OFFSET = 100.0f;	    // ノーツのアクティブ判定のタイミングオフセット
 
 		/// <summary>
 		/// MusicPlayerの再生時間を取得し、JumpPointの再生時間に反映させる
 		/// </summary>		
 		void UpdateCurrentPlayTime();
-
-		void UpdateHiddenNotesActive();
 
 		/// <summary>
 		/// 隠しノーツのアクティブ状態を更新する
@@ -67,5 +67,9 @@ namespace FlappyBird
 		/// 隠しノーツとのタイミングを判定する
 		/// </summary>
 		void JudgeTiming();
+
+		void UpdateHiddenNotesActive();
+
+		void PlayNoteSound();
 	};
 }
