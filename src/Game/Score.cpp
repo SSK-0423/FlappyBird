@@ -34,7 +34,7 @@ namespace FlappyBird
 
 		// ‰B‚µƒm[ƒc”»’èŽž‚ÉƒXƒRƒA‚ð‰ÁŽZ
 		auto hiddenNotesManager = GameObjectManager::FindObject("HiddenNotesManager")->GetComponent<HiddenNotesManager>();
-		hiddenNotesManager->OnJudgeTiming.Subscribe([this](JUDGE_RESULT judgeResult) { AddHiddenNoteScore(judgeResult); });
+		hiddenNotesManager->OnJudge.Subscribe([this](JUDGE_RESULT judgeResult) { AddHiddenNoteScore(judgeResult); });
 	}
 
 	void Score::Update(float deltaTime)

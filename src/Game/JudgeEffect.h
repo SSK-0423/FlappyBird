@@ -13,6 +13,9 @@ namespace FlappyBird
 		void Update(float deltaTime) override;
 		void Draw() override;
 
+		void SetJudgeText(const std::wstring& text);
+		void SetJudgeTextColor(const DirectX::XMVECTORF32& color);
+
 	private:
 		static float m_riseSpeed;
 		static float m_lifeTime;

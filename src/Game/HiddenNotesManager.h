@@ -23,14 +23,6 @@ namespace FlappyBird
 		void Draw() override;
 		void DrawInspector() override;
 
-		/// <summary>
-		/// 隠しノーツを生成する
-		/// </summary>
-		/// <param name="barNum">小節数</param>
-		/// <param name="bpm">BPM</param>
-		/// <param name="beat">拍子</param>
-		void CreateHiddenNotes(unsigned int barNum, float bpm, float beat);
-
 		bool CreateHiddenNotes(HiddenNoteData data);
 		bool DeleteHiddenNotes(HiddenNoteData data);
 
@@ -39,7 +31,7 @@ namespace FlappyBird
 		std::vector<HiddenNoteData>& GetHiddenNotes();
 
 		Framework::Subject<Framework::NotificationEvent> OnReachedJudgeLine;	// ノーツが判定ラインに到達したときのイベント
-		Framework::Subject<JUDGE_RESULT> OnJudgeTiming;							// ノーツのタイミング判定イベント
+		Framework::Subject<JUDGE_RESULT> OnJudge;								// ノーツの判定時のイベント
 	private:
 		std::vector<HiddenNoteData> m_hiddenNotes;
 		std::vector<JumpPoint*> m_jumpPoints;
@@ -59,7 +51,7 @@ namespace FlappyBird
 		void UpdateCurrentPlayTime();
 
 		/// <summary>
-		/// 隠しノーツのアクティブ状態を更新する
+		/// 隠しノーツの判定状況を更新する
 		/// </summary>
 		void UpdateHiddenNotesState();
 
@@ -68,8 +60,15 @@ namespace FlappyBird
 		/// </summary>
 		void JudgeTiming();
 
-		void UpdateHiddenNotesActive();
+		/// <summary>
+		/// 隠しノーツ判定時の処理
+		/// </summary>
+		/// <param name="result"></param>
+		void JudgeEvent(JUDGE_RESULT result);
 
-		void PlayNoteSound();
+		/// <summary>
+		/// 隠しノーツのアクティブ状態を更新する
+		/// </summary>
+		void UpdateHiddenNotesActive();
 	};
 }

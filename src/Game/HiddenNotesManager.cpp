@@ -18,6 +18,9 @@ namespace FlappyBird
 		// SE追加
 		m_seClip = m_owner.lock()->AddComponent<SoundClip>(m_owner.lock());
 		m_seClip->LoadWavSound(L"res/sound/jump.wav");
+
+		// 判定結果イベント登録
+		OnJudge.Subscribe(std::bind(&HiddenNotesManager::JudgeEvent, this, std::placeholders::_1));
 	}
 
 	void HiddenNotesManager::Start()
@@ -79,29 +82,6 @@ namespace FlappyBird
 				ImGui::Text("IsJudged: %s", hiddenNote.isJudged ? "true" : "false");
 			}
 		}
-	}
-	void HiddenNotesManager::CreateHiddenNotes(unsigned int barNum, float bpm, float beat)
-	{
-		//// 既存の隠しノーツを削除
-		//m_hiddenNotes.clear();
-		//m_hiddenNotes.shrink_to_fit();
-
-		//m_hiddenNotes.resize(barNum * 16);
-
-		//// 隠しノーツを生成
-		//for (unsigned int i = 0; i < barNum; i++)
-		//{
-		//	for (unsigned int j = 0; j < 16; j++)
-		//	{
-		//		// 判定タイミングを計算
-		//		// 1小節の長さ = 1分(60秒) / bpm * 拍子
-		//		float barTimeLength = 60.0f * 1000.f / bpm * beat;
-		//		// 小節内のタイミングを計算
-		//		float timing = barTimeLength * i + (barTimeLength / 16.f) * j;
-
-		//		m_hiddenNotes[i * 16 + j] = HiddenNote(timing, false);
-		//	}
-		//}
 	}
 	bool HiddenNotesManager::CreateHiddenNotes(HiddenNoteData data)
 	{
@@ -208,12 +188,17 @@ namespace FlappyBird
 
 		for (size_t i = m_currentHiddenNoteIndex; i < m_hiddenNotes.size(); i++)
 		{
-			float timingDiff = std::abs(m_hiddenNotes[i].timing - jumpTiming);
+			auto& hiddenNote = m_hiddenNotes[i];
+
+			// 既に判定済みのノーツは判定しない
+			if (hiddenNote.isJudged) continue;
+
+			float timingDiff = std::abs(hiddenNote.timing - jumpTiming);
 
 			if (timingDiff < minDiff)
 			{
 				minDiff = timingDiff;
-				nearestNote = m_hiddenNotes[i];
+				nearestNote = hiddenNote;
 			}
 		}
 
@@ -223,26 +208,21 @@ namespace FlappyBird
 		//Editor::DebugLog("MinDiff: %f", minDiff);
 #endif // _DEBUG
 
+		// 判定範囲内であれば判定結果を表示
 		if (minDiff <= JudgeRange::PERFECT_JUDGE_RANGE)
 		{
-			Editor::DebugLog("Perfect!");
-			m_seClip->Play(0.5f);
 			nearestNote.isJudged = true;
-			OnJudgeTiming.Notify(JUDGE_RESULT::PERFECT);
+			OnJudge.Notify(JUDGE_RESULT::PERFECT);
 		}
 		else if (minDiff <= JudgeRange::GREAT_JUDGE_RANGE)
 		{
-			Editor::DebugLog("Great!");
-			m_seClip->Play(0.5f);
 			nearestNote.isJudged = true;
-			OnJudgeTiming.Notify(JUDGE_RESULT::GREAT);
+			OnJudge.Notify(JUDGE_RESULT::GREAT);
 		}
 		else if (minDiff <= JudgeRange::GOOD_JUDGE_RANGE)
 		{
-			Editor::DebugLog("Good!");
-			m_seClip->Play(0.5f);
 			nearestNote.isJudged = true;
-			OnJudgeTiming.Notify(JUDGE_RESULT::GOOD);
+			OnJudge.Notify(JUDGE_RESULT::GOOD);
 		}
 	}
 	void HiddenNotesManager::UpdateCurrentPlayTime()
@@ -252,6 +232,27 @@ namespace FlappyBird
 			// 現在の再生位置をセット
 			JumpPoint::SetCurrentPlayTime(m_musicPlayer->GetCurrentPlayTimeMs());
 		}
+	}
+	void HiddenNotesManager::JudgeEvent(JUDGE_RESULT result)
+	{
+		// 判定結果に応じた処理を行う
+		switch (result)
+		{
+		case JUDGE_RESULT::PERFECT:
+			Editor::DebugLog("Perfect!");
+			break;
+		case JUDGE_RESULT::GREAT:
+			Editor::DebugLog("Great!");
+			break;
+		case JUDGE_RESULT::GOOD:
+			Editor::DebugLog("Good!");
+			break;
+		default:
+			break;
+		}
+
+		// SE再生
+		m_seClip->Play(0.5f);
 	}
 	void HiddenNotesManager::UpdateHiddenNotesActive()
 	{

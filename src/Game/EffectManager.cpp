@@ -17,7 +17,7 @@ namespace FlappyBird
 	{
 		// 隠しノーツ判定時にエフェクトを表示
 		auto hiddenNotesManager = GameObjectManager::FindObject("HiddenNotesManager")->GetComponent<HiddenNotesManager>();
-		hiddenNotesManager->OnJudgeTiming.Subscribe([this](JUDGE_RESULT judgeResult) {SpawnJudgeEffect(judgeResult); });
+		hiddenNotesManager->OnJudge.Subscribe([this](JUDGE_RESULT judgeResult) {SpawnJudgeEffect(judgeResult); });
 
 		m_judgeEffectPool = GameObjectManager::FindObject("JudgeEffectPool")->GetComponent<JudgeEffectPool>();
 	}
@@ -34,6 +34,25 @@ namespace FlappyBird
 	{
 		// エフェクトプールからエフェクトを取得
 		auto judgeEffect = m_judgeEffectPool->GetJudgeEffect();
+
+		switch (judgeResult)
+		{
+		case JUDGE_RESULT::PERFECT:
+			judgeEffect->SetJudgeText(JudgeText::PERFECT_TEXT);
+			judgeEffect->SetJudgeTextColor(JudgeColor::PERFECT_COLOR);
+			break;
+		case JUDGE_RESULT::GREAT:
+			judgeEffect->SetJudgeText(JudgeText::GREAT_TEXT);
+			judgeEffect->SetJudgeTextColor(JudgeColor::GREAT_COLOR);
+			break;
+		case JUDGE_RESULT::GOOD:
+			judgeEffect->SetJudgeText(JudgeText::GOOD_TEXT);
+			judgeEffect->SetJudgeTextColor(JudgeColor::GOOD_COLOR);
+			break;
+		default:
+			break;
+		}
+
 		Editor::DebugLog("SpawnJudgeEffect");
 	}
 }

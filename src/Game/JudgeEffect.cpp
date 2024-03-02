@@ -23,9 +23,7 @@ namespace FlappyBird
 		//spriteRenderer->SetDrawMode(SPRITE_DRAW_MODE::GUI);
 
 		m_judgeText = m_owner.lock()->AddComponent<Text>(m_owner.lock());
-		m_judgeText->SetText(L"PERFECT");
-		m_judgeText->SetScale(0.2f);
-		m_judgeText->SetColor(DirectX::Colors::Red);
+		m_judgeText->SetScale(0.3f);
 	}
 	JudgeEffect::~JudgeEffect()
 	{
@@ -42,6 +40,14 @@ namespace FlappyBird
 	}
 	void JudgeEffect::Draw()
 	{
+	}
+	void JudgeEffect::SetJudgeText(const std::wstring& text)
+	{
+		m_judgeText->SetText(text);
+	}
+	void JudgeEffect::SetJudgeTextColor(const DirectX::XMVECTORF32& color)
+	{
+		m_judgeText->SetColor(color);
 	}
 	void JudgeEffect::CheckLifeTime()
 	{
