@@ -10,6 +10,8 @@
 
 #include "NotesManager.h"
 #include "HiddenNotesManager.h"
+#include "EffectManager.h"
+#include "JudgeEffectPool.h"
 #include "MusicPlayer.h"
 
 #include "Score.h"
@@ -67,6 +69,16 @@ namespace FlappyBird
 		std::shared_ptr<Framework::GameObject> hiddenNotesManagerObj = GameObjectManager::CreateObject();
 		hiddenNotesManagerObj->SetName("HiddenNotesManager");
 		hiddenNotesManagerObj->AddComponent<HiddenNotesManager>(hiddenNotesManagerObj);
+
+		// エフェクト管理オブジェクト
+		std::shared_ptr<Framework::GameObject> effectManagerObj = GameObjectManager::CreateObject();
+		effectManagerObj->SetName("EffectManager");
+		effectManagerObj->AddComponent<EffectManager>(effectManagerObj);
+
+		// エフェクトプール
+		std::shared_ptr<Framework::GameObject> judgeEffectPoolObj = GameObjectManager::CreateObject();
+		judgeEffectPoolObj->SetName("JudgeEffectPool");
+		judgeEffectPoolObj->AddComponent<JudgeEffectPool>(judgeEffectPoolObj);
 
 		// UI
 		std::shared_ptr<Framework::UIObject> scoreFrame = UIObjectManager::CreateObject();

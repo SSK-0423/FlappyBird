@@ -372,6 +372,15 @@
     <ClCompile Include="src\Game\JudgeRange.cpp">
       <Filter>ソース ファイル\Game\Notes</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\EffectManager.cpp">
+      <Filter>ソース ファイル\Game\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\JudgeEffectPool.cpp">
+      <Filter>ソース ファイル\Game\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\JudgeEffect.cpp">
+      <Filter>ソース ファイル\Game\Effects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\pch.h">
@@ -691,6 +700,15 @@
     </ClInclude>
     <ClInclude Include="src\Game\JudgeResult.h">
       <Filter>ソース ファイル\Game\Notes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\EffectManager.h">
+      <Filter>ソース ファイル\Game\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\JudgeEffectPool.h">
+      <Filter>ソース ファイル\Game\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\JudgeEffect.h">
+      <Filter>ソース ファイル\Game\Effects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

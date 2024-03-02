@@ -202,6 +202,7 @@
     <ClCompile Include="src\Game\Background.cpp" />
     <ClCompile Include="src\Game\BarLine.cpp" />
     <ClCompile Include="src\Game\BarManager.cpp" />
+    <ClCompile Include="src\Game\EffectManager.cpp" />
     <ClCompile Include="src\Game\FlappyBird.cpp" />
     <ClCompile Include="src\Game\FumenJsonReadWriter.cpp" />
     <ClCompile Include="src\Game\GameClearUI.cpp" />
@@ -210,6 +211,8 @@
     <ClCompile Include="src\Game\GameReadyUI.cpp" />
     <ClCompile Include="src\Game\GameScene.cpp" />
     <ClCompile Include="src\Game\HiddenNotesManager.cpp" />
+    <ClCompile Include="src\Game\JudgeEffect.cpp" />
+    <ClCompile Include="src\Game\JudgeEffectPool.cpp" />
     <ClCompile Include="src\Game\JudgeRange.cpp" />
     <ClCompile Include="src\Game\JumpPoint.cpp" />
     <ClCompile Include="src\Game\main.cpp" />
@@ -312,6 +315,7 @@
     <ClInclude Include="src\Game\Background.h" />
     <ClInclude Include="src\Game\BarLine.h" />
     <ClInclude Include="src\Game\BarManager.h" />
+    <ClInclude Include="src\Game\EffectManager.h" />
     <ClInclude Include="src\Game\FlappyBird.h" />
     <ClInclude Include="src\Game\FumenData.h" />
     <ClInclude Include="src\Game\FumenJsonReadWriter.h" />
@@ -321,6 +325,8 @@
     <ClInclude Include="src\Game\GameReadyUI.h" />
     <ClInclude Include="src\Game\GameScene.h" />
     <ClInclude Include="src\Game\HiddenNotesManager.h" />
+    <ClInclude Include="src\Game\JudgeEffect.h" />
+    <ClInclude Include="src\Game\JudgeEffectPool.h" />
     <ClInclude Include="src\Game\JudgeResult.h" />
     <ClInclude Include="src\Game\JumpPoint.h" />
     <ClInclude Include="src\Game\MusicDataFrame.h" />
