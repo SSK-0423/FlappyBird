@@ -184,7 +184,7 @@ namespace FlappyBird
 
 		// JumpTiming‚ÉÅ‚à‹ß‚¢‰B‚µƒm[ƒc‚ğ’T‚·
 		float minDiff = FLT_MAX;
-		HiddenNoteData& nearestNote = m_hiddenNotes[0];
+		size_t nearestNoteIndex = 0;
 
 		for (size_t i = m_currentHiddenNoteIndex; i < m_hiddenNotes.size(); i++)
 		{
@@ -198,7 +198,7 @@ namespace FlappyBird
 			if (timingDiff < minDiff)
 			{
 				minDiff = timingDiff;
-				nearestNote = hiddenNote;
+				nearestNoteIndex = i;
 			}
 		}
 
@@ -211,17 +211,17 @@ namespace FlappyBird
 		// ”»’è”ÍˆÍ“à‚Å‚ ‚ê‚Î”»’èŒ‹‰Ê‚ğ•\¦
 		if (minDiff <= JudgeRange::PERFECT_JUDGE_RANGE)
 		{
-			nearestNote.isJudged = true;
+			m_hiddenNotes[nearestNoteIndex].isJudged = true;
 			OnJudge.Notify(JUDGE_RESULT::PERFECT);
 		}
 		else if (minDiff <= JudgeRange::GREAT_JUDGE_RANGE)
 		{
-			nearestNote.isJudged = true;
+			m_hiddenNotes[nearestNoteIndex].isJudged = true;
 			OnJudge.Notify(JUDGE_RESULT::GREAT);
 		}
 		else if (minDiff <= JudgeRange::GOOD_JUDGE_RANGE)
 		{
-			nearestNote.isJudged = true;
+			m_hiddenNotes[nearestNoteIndex].isJudged = true;
 			OnJudge.Notify(JUDGE_RESULT::GOOD);
 		}
 	}

@@ -6,7 +6,7 @@ using namespace Framework;
 
 namespace FlappyBird
 {
-	void FumenJsonReadWriter::Write(const std::string& filePath, const FumenData& data)
+	void FumenJsonReadWriter::Write(const std::string& filePath, FumenData& data)
 	{
 		picojson::object rootObject;
 
@@ -19,6 +19,9 @@ namespace FlappyBird
 		rootObject.insert(std::make_pair("MusicInfo", picojson::value(musicInfo)));
 
 		// 障害物(土管)の配置を示すノーツの情報
+		// 判定タイミングが早い順にソート
+		std::sort(data.noteDatas.begin(), data.noteDatas.end(), 
+			[](const NoteData& l, const NoteData& r) {return l.timing < r.timing; });
 		picojson::array notesArray;
 		for (auto& data : data.noteDatas)
 		{
@@ -32,6 +35,9 @@ namespace FlappyBird
 		rootObject.insert(std::make_pair("notes", picojson::value(notesArray)));
 
 		// 隠しノーツの情報
+		// 判定タイミングが早い順にソート
+		std::sort(data.hiddenNoteDatas.begin(), data.hiddenNoteDatas.end(), 
+			[](const HiddenNoteData& l, const HiddenNoteData& r) {return l.timing < r.timing; });
 		picojson::array hiddenNotesArray;
 		for (auto& data : data.hiddenNoteDatas)
 		{

@@ -19,11 +19,11 @@
       "type": 1
     },
     {
-      "time": 14500,
+      "time": 13500,
       "type": 1
     },
     {
-      "time": 13500,
+      "time": 14500,
       "type": 1
     },
     {
@@ -36,18 +36,6 @@
     }
   ],
   "notes": [
-    {
-      "posY": 384,
-      "spaceOffset": 0,
-      "time": 14000,
-      "type": 0
-    },
-    {
-      "posY": 384,
-      "spaceOffset": 0,
-      "time": 15000,
-      "type": 0
-    },
     {
       "posY": 451,
       "spaceOffset": 0,
@@ -142,6 +130,18 @@
       "posY": 379,
       "spaceOffset": 0,
       "time": 13000,
+      "type": 0
+    },
+    {
+      "posY": 384,
+      "spaceOffset": 0,
+      "time": 14000,
+      "type": 0
+    },
+    {
+      "posY": 384,
+      "spaceOffset": 0,
+      "time": 15000,
       "type": 0
     },
     {

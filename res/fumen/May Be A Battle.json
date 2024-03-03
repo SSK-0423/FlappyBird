@@ -79,36 +79,6 @@
       "type": 0
     },
     {
-      "posY": 388,
-      "spaceOffset": 0,
-      "time": 8228.5712890625,
-      "type": 0
-    },
-    {
-      "posY": 305,
-      "spaceOffset": 0,
-      "time": 8914.28515625,
-      "type": 0
-    },
-    {
-      "posY": 374,
-      "spaceOffset": 0,
-      "time": 10285.7138671875,
-      "type": 0
-    },
-    {
-      "posY": 373,
-      "spaceOffset": 0,
-      "time": 9942.857421875,
-      "type": 0
-    },
-    {
-      "posY": 377,
-      "spaceOffset": 0,
-      "time": 10628.5712890625,
-      "type": 0
-    },
-    {
       "posY": 191,
       "spaceOffset": 0,
       "time": 5657.14306640625,
@@ -175,6 +145,48 @@
       "type": 0
     },
     {
+      "posY": 388,
+      "spaceOffset": 0,
+      "time": 8228.5712890625,
+      "type": 0
+    },
+    {
+      "posY": 334,
+      "spaceOffset": 0,
+      "time": 8742.857421875,
+      "type": 0
+    },
+    {
+      "posY": 305,
+      "spaceOffset": 0,
+      "time": 8914.28515625,
+      "type": 0
+    },
+    {
+      "posY": 373,
+      "spaceOffset": 0,
+      "time": 9942.857421875,
+      "type": 0
+    },
+    {
+      "posY": 356,
+      "spaceOffset": 0,
+      "time": 10114.2861328125,
+      "type": 0
+    },
+    {
+      "posY": 374,
+      "spaceOffset": 0,
+      "time": 10285.7138671875,
+      "type": 0
+    },
+    {
+      "posY": 377,
+      "spaceOffset": 0,
+      "time": 10628.5712890625,
+      "type": 0
+    },
+    {
       "posY": 373,
       "spaceOffset": 0,
       "time": 10971.4287109375,
@@ -184,6 +196,12 @@
       "posY": 476,
       "spaceOffset": 0,
       "time": 11485.71484375,
+      "type": 0
+    },
+    {
+      "posY": 476,
+      "spaceOffset": 0,
+      "time": 11657.142578125,
       "type": 0
     },
     {
@@ -217,12 +235,6 @@
       "type": 0
     },
     {
-      "posY": 476,
-      "spaceOffset": 0,
-      "time": 11657.142578125,
-      "type": 0
-    },
-    {
       "posY": 452,
       "spaceOffset": 0,
       "time": 14228.572265625,
@@ -232,6 +244,12 @@
       "posY": 450,
       "spaceOffset": 0,
       "time": 14400,
+      "type": 0
+    },
+    {
+      "posY": 516,
+      "spaceOffset": 0,
+      "time": 15428.572265625,
       "type": 0
     },
     {
@@ -751,6 +769,12 @@
       "type": 0
     },
     {
+      "posY": 345,
+      "spaceOffset": 0,
+      "time": 43885.71484375,
+      "type": 0
+    },
+    {
       "posY": 417,
       "spaceOffset": 0,
       "time": 44228.5703125,
@@ -790,6 +814,12 @@
       "posY": 419,
       "spaceOffset": 0,
       "time": 46285.71484375,
+      "type": 0
+    },
+    {
+      "posY": 373,
+      "spaceOffset": 0,
+      "time": 46628.5703125,
       "type": 0
     },
     {
@@ -919,6 +949,12 @@
       "type": 0
     },
     {
+      "posY": 278,
+      "spaceOffset": 0,
+      "time": 54171.4296875,
+      "type": 0
+    },
+    {
       "posY": 27,
       "spaceOffset": 0,
       "time": 54857.14453125,
@@ -997,6 +1033,12 @@
       "type": 0
     },
     {
+      "posY": 417,
+      "spaceOffset": 0,
+      "time": 63771.4296875,
+      "type": 0
+    },
+    {
       "posY": 398,
       "spaceOffset": 0,
       "time": 63942.859375,
@@ -1012,12 +1054,6 @@
       "posY": 327,
       "spaceOffset": 0,
       "time": 64285.71484375,
-      "type": 0
-    },
-    {
-      "posY": 417,
-      "spaceOffset": 0,
-      "time": 63771.4296875,
       "type": 0
     },
     {
@@ -1210,42 +1246,6 @@
       "posY": 159,
       "spaceOffset": 0,
       "time": 73885.71875,
-      "type": 0
-    },
-    {
-      "posY": 356,
-      "spaceOffset": 0,
-      "time": 10114.2861328125,
-      "type": 0
-    },
-    {
-      "posY": 334,
-      "spaceOffset": 0,
-      "time": 8742.857421875,
-      "type": 0
-    },
-    {
-      "posY": 516,
-      "spaceOffset": 0,
-      "time": 15428.572265625,
-      "type": 0
-    },
-    {
-      "posY": 345,
-      "spaceOffset": 0,
-      "time": 43885.71484375,
-      "type": 0
-    },
-    {
-      "posY": 373,
-      "spaceOffset": 0,
-      "time": 46628.5703125,
-      "type": 0
-    },
-    {
-      "posY": 278,
-      "spaceOffset": 0,
-      "time": 54171.4296875,
       "type": 0
     }
   ]

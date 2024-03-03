@@ -19,7 +19,7 @@ namespace FlappyBird
 		/// </summary>
 		/// <param name="filePath">保存先</param>
 		/// <param name="data">書き込む譜面データ</param>
-		static void Write(const std::string& filePath, const FumenData& data);
+		static void Write(const std::string& filePath, FumenData& data);
 
 		/// <summary>
 		/// 譜面データをJsonファイルから読み込む
