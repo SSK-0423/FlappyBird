@@ -29,7 +29,7 @@ namespace FlappyBird
 		auto& viewportSize = Dx12GraphicsEngine::GetViewport();
 
 		m_transform = m_owner.lock()->GetComponent<Framework::Transform2D>();
-		m_transform->position = { 0.f, viewportSize.Height / 2.f };
+		m_transform->position = { viewportSize.Width + 48.f, viewportSize.Height / 2.f };
 		m_transform->scale = { 48.f, 48.f };
 	}
 	JumpPoint::~JumpPoint()

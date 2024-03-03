@@ -40,10 +40,10 @@ namespace FlappyBird
 		m_transform->position = { 200.f, viewportSize.Height / 2.f };
 		m_transform->scale = { 75.f, 75.f };
 
-		// コライダー追加
-		RectCollider* collider = m_owner.lock()->AddComponent<RectCollider>(m_owner.lock());
-		collider->SetRectSize(m_transform->scale.x * 0.2f, m_transform->scale.y * 0.6f);
-		collider->SetOnCollisionCallBack(std::bind(&Player::OnCollision, this, std::placeholders::_1));
+		//// コライダー追加
+		//RectCollider* collider = m_owner.lock()->AddComponent<RectCollider>(m_owner.lock());
+		//collider->SetRectSize(m_transform->scale.x * 0.2f, m_transform->scale.y * 0.6f);
+		//collider->SetOnCollisionCallBack(std::bind(&Player::OnCollision, this, std::placeholders::_1));
 
 		// リジッドボディ追加
 		m_rigidbody = m_owner.lock()->AddComponent<Rigidbody2D>(m_owner.lock());
